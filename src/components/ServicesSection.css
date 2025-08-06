@@ -1,0 +1,146 @@
+.services-section {
+  padding: 80px 40px;
+  background: #f8f9fa;
+}
+
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 60px;
+}
+
+.services-cards {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 300px;
+  max-width: 380px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+}
+
+.service-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.service-icon-wrapper {
+  background-color: #ffd700;
+  border-radius: 8px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.service-icon {
+  color: #0066cc;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.service-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.service-image {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.service-description {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .services-cards {
+    gap: 20px;
+  }
+  
+  .service-card {
+    min-width: 280px;
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-section {
+    padding: 60px 20px;
+  }
+  
+  .services-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .services-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .service-card {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .service-icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .service-icon {
+    font-size: 24px;
+  }
+  
+  .service-card-title {
+    font-size: 1.2rem;
+  }
+} 
