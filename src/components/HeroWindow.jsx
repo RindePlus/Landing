@@ -1,5 +1,5 @@
 import React from 'react';
-import fixedImage from '../assets/fixed.avif';
+import fixedImage from '../assets/fixed1.jpg';
 import './HeroWindow.css';
 
 const HeroWindow = () => {

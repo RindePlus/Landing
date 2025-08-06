@@ -14,7 +14,11 @@ function App() {
     <div className="App">
       <Header />
       <main className="main-content">
-        <div className="hero-section" style={{ backgroundImage: `url(${inicioImage})` }}>
+        <div id="inicio" className="hero-section">
+          <div 
+            className="hero-background" 
+            style={{ backgroundImage: `url(${inicioImage})` }}
+          ></div>
           <div className="hero-overlay">
             <div className="hero-content">
               <div className="hero-text">
@@ -29,12 +33,18 @@ function App() {
             </div>
           </div>
         </div>
-        <FeatureCards />
-        <ServicesSection />
+        <div id="caracteristicas">
+          <FeatureCards />
+        </div>
+        <div id="servicios">
+          <ServicesSection />
+        </div>
         <HeroWindow />
         <TrustedCompanies />
+        <div id="contacto">
+          <Footer />
+        </div>
       </main>
-      <Footer />
     </div>
   )
 }
