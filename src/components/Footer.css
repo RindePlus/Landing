@@ -1,4 +1,5 @@
 .footer {
+  width: 100vw;
   background-color: #0066cc;
   color: white;
   padding: 60px 0 20px;
@@ -7,27 +8,49 @@
 }
 
 .footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .footer-content {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 40px;
-  gap: 40px;
+  gap: 0;
+  width: 100%;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-right {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .footer-section {
-  flex: 1;
+  /* No flex aquí */
+}
+
+.footer-section:first-child {
+  flex: none;
 }
 
 .footer-section:last-child {
+  margin-left: auto;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .footer-title {
@@ -65,7 +88,7 @@
   gap: 15px;
   align-items: flex-end;
   text-align: right;
-  margin-top: 40px;
+  margin-top: 0;
 }
 
 .footer-link {
@@ -100,32 +123,40 @@
   .footer {
     padding: 40px 0 20px;
   }
-  
   .footer-content {
-    flex-direction: column;
-    gap: 30px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
     text-align: left;
   }
-  
+  .footer-left {
+    align-items: flex-start;
+    min-width: 0;
+  }
+  .footer-right {
+    align-items: flex-end;
+    min-width: 0;
+  }
+  .footer-section {
+    margin-bottom: 0;
+  }
   .footer-title {
     font-size: 1.3rem;
     margin-bottom: 20px;
     text-align: left;
   }
-  
   .contact-item {
     justify-content: flex-start;
     font-size: 0.95rem;
   }
-  
   .footer-links {
-    align-items: flex-start;
-    text-align: left;
+    align-items: flex-end;
+    text-align: right;
   }
-  
   .footer-link {
     font-size: 0.95rem;
-    text-align: left;
+    text-align: right;
   }
 }
 

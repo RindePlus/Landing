@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './ContactForm.css';
 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xovlpeno'; // Cambia este endpoint por el tuyo de Formspree
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     nombre: '',
@@ -8,8 +10,11 @@ const ContactForm = () => {
     email: '',
     telefono: '',
     provincia: '',
+    campo: '',
     consulta: ''
   });
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,17 +24,59 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data:', formData);
-    // Aquí puedes agregar la lógica para enviar el formulario
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          Nombre: formData.nombre,
+          Apellido: formData.apellido,
+          Email: formData.email,
+          Teléfono: formData.telefono,
+          Provincia: formData.provincia,
+          Campo: formData.campo,
+          Consulta: formData.consulta,
+        })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setStatus('success');
+        setFormData({
+          nombre: '',
+          apellido: '',
+          email: '',
+          telefono: '',
+          provincia: '',
+          campo: '',
+          consulta: ''
+        });
+      } else {
+        setStatus('error');
+        setErrorMsg(data?.errors?.[0]?.message || 'Ocurrió un error al enviar el formulario.');
+      }
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg('Ocurrió un error al enviar el formulario.');
+    }
   };
 
   return (
     <div className="contact-form-container">
       <form className="contact-form" onSubmit={handleSubmit}>
         <h3 className="form-title">Escribí tu mensaje y te respondemos a la brevedad</h3>
-        
+        {status === 'success' && (
+          <div className="form-success">¡Mensaje enviado con éxito! Pronto nos pondremos en contacto.</div>
+        )}
+        {status === 'error' && (
+          <div className="form-error">{errorMsg}</div>
+        )}
         <div className="form-row">
           <div className="form-field">
             <input
@@ -52,7 +99,6 @@ const ContactForm = () => {
             />
           </div>
         </div>
-
         <div className="form-row">
           <div className="form-field">
             <input
@@ -75,7 +121,6 @@ const ContactForm = () => {
             />
           </div>
         </div>
-
         <div className="form-row">
           <div className="form-field">
             <select
@@ -120,7 +165,6 @@ const ContactForm = () => {
             />
           </div>
         </div>
-
         <div className="form-field full-width">
           <textarea
             name="consulta"
@@ -131,9 +175,8 @@ const ContactForm = () => {
             required
           ></textarea>
         </div>
-
-        <button type="submit" className="submit-button">
-          ENVIAR
+        <button type="submit" className="submit-button" disabled={status === 'sending'}>
+          {status === 'sending' ? 'Enviando...' : 'ENVIAR'}
         </button>
       </form>
     </div>

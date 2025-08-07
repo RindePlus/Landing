@@ -1,16 +1,21 @@
 .header {
+  width: 100vw;
   background-color: #0066cc;
-  padding: 20px 40px;
+  padding: 20px 0;
   color: white;
   font-family: 'Arial', sans-serif;
 }
 
 .header-content {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
-  max-width: 1200px;
-  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
 /* Logo Section */
@@ -18,6 +23,8 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  flex-shrink: 0;
+  margin: 0;
 }
 
 .logo-icon {
@@ -51,10 +58,15 @@
 
 /* Right Section */
 .right-section {
+  display: none;
+}
+
+.right-group {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 15px;
+  gap: 24px;
+  margin-left: auto;
 }
 
 /* Contact Box */
@@ -227,77 +239,34 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .header {
-    padding: 15px 20px;
+    padding: 15px 0;
   }
-  
   .header-content {
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0 12px;
   }
-  
-  .right-section {
+  .right-group {
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
+    align-items: flex-end;
+    gap: 0;
+    margin-left: 0;
   }
-  
   .contact-box {
-    min-width: auto;
-    width: 100%;
-    max-width: 400px;
-    padding: 12px 20px;
-    flex-direction: column;
-    gap: 15px;
+    display: none !important;
   }
-  
-  .contact-info {
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-    justify-content: center;
-  }
-  
-  .social-icons {
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .social-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 18px;
-  }
-  
-  .social-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-  
   .dropdown-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: auto;
+    display: block;
+    z-index: 20;
   }
-  
-  .dropdown-toggle {
-    width: 100%;
-    max-width: 200px;
-    justify-content: center;
-  }
-  
-  .dropdown-menu {
-    right: 50%;
-    transform: translateX(50%) translateY(-10px);
-    min-width: 180px;
-  }
-  
-  .dropdown-menu.show {
-    transform: translateX(50%) translateY(0);
-  }
-  
-  .logo-image {
-    height: 50px;
+  .logo-section {
+    margin: 0;
   }
 }
 

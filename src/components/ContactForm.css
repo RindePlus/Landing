@@ -102,6 +102,28 @@
   transform: translateY(0);
 }
 
+.form-success {
+  background: #e6ffed;
+  color: #1a7f37;
+  border: 1px solid #1a7f37;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.form-error {
+  background: #ffeaea;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  text-align: center;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .contact-form {

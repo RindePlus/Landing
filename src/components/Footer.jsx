@@ -8,12 +8,12 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-content">
-          <div className="footer-section">
+          <div className="footer-left">
             <h3 className="footer-title">Contacto</h3>
             <div className="contact-info">
               <div className="contact-item">
                 <MdEmail className="contact-icon" />
-                <span>info@rindeplus.com</span>
+                <span>inforindeplus@gmail.com</span>
               </div>
               <div className="contact-item">
                 <FaWhatsapp className="contact-icon" />
@@ -25,19 +25,17 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          
-          <div className="footer-section">
+          <div className="footer-right">
             <div className="footer-links">
-              <a href="/terminos-y-condiciones" className="footer-link">
+              <a href="/Landing/terminos-y-condiciones" className="footer-link">
                 Términos y Condiciones
               </a>
-              <a href="/politica-de-privacidad" className="footer-link">
+              <a href="/Landing/politica-de-privacidad" className="footer-link">
                 Política de Privacidad
               </a>
             </div>
           </div>
         </div>
-        
         <div className="footer-bottom">
           <p className="footer-copyright">
             © 2024 Rinde Plus. Todos los derechos reservados.

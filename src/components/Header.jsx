@@ -1,17 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import rindeplusLogo from '../assets/rindeplus_logo.svg';
 import { FaFacebook } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Cerrar menú al hacer click fuera o scroll
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    
+    const handleClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    
+    const handleScroll = () => setIsMenuOpen(false);
+    
+    document.addEventListener('mousedown', handleClick);
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMenuOpen]);
 
   const scrollToSection = (href) => {
     // Si es un enlace externo (no empieza con #), abrir en nueva pestaña
@@ -33,9 +56,10 @@ const Header = () => {
   };
 
   const menuItems = [
-    { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/' },
-    { name: 'CONCI RIEGO', href: 'https://conciriegopredictivo.ddns.net/login/?next=/' },
     { name: 'Aapresid', href: 'http://82.180.136.56' },
+    { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/' },
+    { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/' },
+    { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/' },
   ];
 
   return (
@@ -48,9 +72,8 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Contact and Navigation Section */}
-        <div className="right-section">
-          {/* Contact Info Box */}
+        {/* Right Section: Contact Box + Plataformas */}
+        <div className="right-group">
           <div className="contact-box">
             <div className="contact-info">
               <span className="email">inforindeplus@gmail.com</span>
@@ -70,14 +93,11 @@ const Header = () => {
               </a>
             </div>
           </div>
-
-          {/* Dropdown Menu */}
-          <div className="dropdown-container">
+          <div className="dropdown-container" ref={dropdownRef}>
             <button className="dropdown-toggle" onClick={toggleMenu}>
               <span className="dropdown-text">Plataformas</span>
               <FaChevronDown className={`dropdown-arrow ${isMenuOpen ? 'rotated' : ''}`} />
             </button>
-            
             <div className={`dropdown-menu ${isMenuOpen ? 'show' : ''}`}>
               {menuItems.map((item, index) => (
                 <button 
@@ -85,7 +105,7 @@ const Header = () => {
                   className="dropdown-item"
                   onClick={() => scrollToSection(item.href)}
                 >
-                  {item.name}
+                  • {item.name}
                 </button>
               ))}
             </div>
