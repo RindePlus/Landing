@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
       <main className="main-content">
         <div id="inicio" className="hero-section">
           <div 
@@ -65,7 +65,7 @@ function App() {
         <HeroWindow />
         <TrustedCompanies />
         <div id="contacto">
-          <Footer />
+          <Footer onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
         </div>
       </main>
       {/* Botón flotante de WhatsApp */}

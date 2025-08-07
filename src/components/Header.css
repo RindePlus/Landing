@@ -94,6 +94,14 @@
 
 .email, .phone {
   white-space: nowrap;
+  transition: all 0.3s ease;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.email:hover, .phone:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .social-icons {

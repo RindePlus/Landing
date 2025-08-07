@@ -6,6 +6,9 @@ import logo3 from '../assets/related companies/logo-3.png';
 import logo4 from '../assets/related companies/logo-4.png';
 import logo5 from '../assets/related companies/logo-5.png';
 import logo6 from '../assets/related companies/logo-6.png';
+import conciLogo from '../assets/Conci.jpg';
+import aapresidLogo from '../assets/aapresid.jpg';
+import adjLogo from '../assets/adj.jpeg';
 import './TrustedCompanies.css';
 
 const TrustedCompanies = () => {
@@ -19,6 +22,9 @@ const TrustedCompanies = () => {
     { id: 4, logo: logo4, name: 'Empresa 5' },
     { id: 5, logo: logo5, name: 'Empresa 6' },
     { id: 6, logo: logo6, name: 'Empresa 7' },
+    { id: 7, logo: conciLogo, name: 'Conci' },
+    { id: 8, logo: aapresidLogo, name: 'Aapresid' },
+    { id: 9, logo: adjLogo, name: 'Adj' },
   ];
 
   // Duplicate companies for seamless loop

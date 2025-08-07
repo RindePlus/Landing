@@ -7,7 +7,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import './Header.css';
 
-const Header = () => {
+const Header = ({ onOpenWhatsApp }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -35,6 +35,16 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isMenuOpen]);
+
+  const scrollToContact = () => {
+    const contactSection = document.querySelector('#inicio');
+    if (contactSection) {
+      contactSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   const scrollToSection = (href) => {
     // Si es un enlace externo (no empieza con #), abrir en nueva pestaña
@@ -76,10 +86,10 @@ const Header = () => {
         <div className="right-group">
           <div className="contact-box">
             <div className="contact-info">
-              <span className="email">inforindeplus@gmail.com</span>
+              <span className="email" onClick={scrollToContact} style={{ cursor: 'pointer' }}>inforindeplus@gmail.com</span>
             </div>
             <div className="contact-info">  
-              <span className="phone">+54 9 3564 59-3446</span>
+              <span className="phone" onClick={onOpenWhatsApp} style={{ cursor: 'pointer' }}>+54 9 3564 59-3446</span>
             </div>
             <div className="social-icons">
               <a href="https://www.facebook.com/profile.php?id=61556286195562" target="_blank" rel="noopener noreferrer" className="social-icon">

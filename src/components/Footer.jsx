@@ -3,7 +3,23 @@ import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
 import { FaWhatsapp } from 'react-icons/fa';
 import './Footer.css';
 
-const Footer = () => {
+const Footer = ({ onOpenWhatsApp }) => {
+  const scrollToContact = () => {
+    const contactSection = document.querySelector('#inicio');
+    if (contactSection) {
+      contactSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+  const openGoogleMaps = () => {
+    const address = "Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina";
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+    window.open(googleMapsUrl, '_blank');
+  };
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -11,15 +27,15 @@ const Footer = () => {
           <div className="footer-left">
             <h3 className="footer-title">Contacto</h3>
             <div className="contact-info">
-              <div className="contact-item">
+              <div className="contact-item" onClick={scrollToContact} style={{ cursor: 'pointer' }}>
                 <MdEmail className="contact-icon" />
-                <span>inforindeplus@gmail.com</span>
+                <span>info@rindeplus.com</span>
               </div>
-              <div className="contact-item">
+              <div className="contact-item" onClick={onOpenWhatsApp} style={{ cursor: 'pointer' }}>
                 <FaWhatsapp className="contact-icon" />
                 <span>+54 9 3564 59-3446</span>
               </div>
-              <div className="contact-item">
+              <div className="contact-item" onClick={openGoogleMaps} style={{ cursor: 'pointer' }}>
                 <MdLocationOn className="contact-icon" />
                 <span>Concejal Lorusso 762 1 piso, Alta Gracia</span>
               </div>
