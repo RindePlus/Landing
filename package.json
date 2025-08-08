@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://santi.github.io/Landing",
+  "homepage": "https://rindeplus.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
