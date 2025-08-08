@@ -7,7 +7,7 @@ import logo4 from '../assets/related companies/logo-4.png';
 import logo5 from '../assets/related companies/logo-5.png';
 import logo6 from '../assets/related companies/logo-6.png';
 import conciLogo from '../assets/Conci.jpg';
-import aapresidLogo from '../assets/aapresid.jpg';
+import aapresidLogo from '../assets/aapresid.png';
 import adjLogo from '../assets/adj.jpeg';
 import './TrustedCompanies.css';
 
