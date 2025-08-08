@@ -43,12 +43,12 @@ const Footer = ({ onOpenWhatsApp }) => {
           </div>
           <div className="footer-right">
             <div className="footer-links">
-              <a href="/Landing/terminos-y-condiciones" className="footer-link">
+              {/*  <a href="/terminos-y-condiciones" className="footer-link">
                 Términos y Condiciones
-              </a>
-              <a href="/Landing/politica-de-privacidad" className="footer-link">
+              </a> */}  
+              {/* <a href="/politica-de-privacidad" className="footer-link">
                 Política de Privacidad
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
