@@ -25,10 +25,12 @@ const Header = ({ onOpenWhatsApp }) => {
       }
     };
     
-    const handleScroll = () => setIsMenuOpen(false);
+    const handleScroll = () => {
+      setIsMenuOpen(false);
+    };
     
     document.addEventListener('mousedown', handleClick);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => {
       document.removeEventListener('mousedown', handleClick);

@@ -60,8 +60,13 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .trusted-companies-section {
+    padding: 60px 0;
+  }
+  
   .trusted-companies-title {
     font-size: 2rem;
+    margin-bottom: 40px;
   }
   
   .company-logo {
@@ -76,8 +81,13 @@
 }
 
 @media (max-width: 480px) {
+  .trusted-companies-section {
+    padding: 40px 0;
+  }
+  
   .trusted-companies-title {
     font-size: 1.5rem;
+    margin-bottom: 30px;
   }
   
   .company-logo {
@@ -88,5 +98,17 @@
   
   .carousel-track {
     gap: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .company-logo {
+    width: 80px;
+    height: 60px;
+    padding: 6px;
+  }
+  
+  .carousel-track {
+    gap: 15px;
   }
 } 

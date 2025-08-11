@@ -135,47 +135,6 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .footer {
-    padding: 40px 0 20px;
-  }
-  .footer-content {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-    text-align: left;
-  }
-  .footer-left {
-    align-items: flex-start;
-    min-width: 0;
-  }
-  .footer-right {
-    align-items: flex-end;
-    min-width: 0;
-  }
-  .footer-section {
-    margin-bottom: 0;
-  }
-  .footer-title {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    text-align: left;
-  }
-  .contact-item {
-    justify-content: flex-start;
-    font-size: 0.95rem;
-  }
-  .footer-links {
-    align-items: flex-end;
-    text-align: right;
-  }
-  .footer-link {
-    font-size: 0.95rem;
-    text-align: right;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer {
     padding: 30px 0 15px;
   }
   
@@ -183,20 +142,79 @@
     padding: 0 15px;
   }
   
+  .footer-content {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    text-align: left;
+  }
+  
+  .footer-left {
+    align-items: flex-start;
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .footer-right {
+    align-items: flex-start;
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .footer-section {
+    margin-bottom: 0;
+  }
+  
   .footer-title {
     font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-align: left;
   }
   
   .contact-item {
+    justify-content: flex-start;
     font-size: 0.9rem;
-    gap: 10px;
   }
   
-  .contact-icon {
-    font-size: 1.1rem;
+  .footer-links {
+    align-items: flex-start;
+    text-align: left;
   }
   
   .footer-link {
     font-size: 0.9rem;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 25px 0 12px;
+  }
+  
+  .footer-container {
+    padding: 0 10px;
+  }
+  
+  .footer-content {
+    gap: 15px;
+  }
+  
+  .footer-title {
+    font-size: 1.1rem;
+  }
+  
+  .contact-item {
+    font-size: 0.85rem;
+    gap: 8px;
+  }
+  
+  .contact-icon {
+    font-size: 1rem;
+  }
+  
+  .footer-link {
+    font-size: 0.85rem;
   }
 } 

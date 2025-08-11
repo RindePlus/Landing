@@ -50,14 +50,14 @@ function App() {
                   Inteligencia Artificial aplicada a tu producción
                 </p>
               </div>
-              <div className="hero-form">
-                <ContactForm />
-              </div>
             </div>
           </div>
         </div>
         <div id="caracteristicas">
           <FeatureCards />
+        </div>
+        <div id="contacto-form" className="contact-form-section">
+          <ContactForm />
         </div>
         <div id="servicios">
           <ServicesSection />
