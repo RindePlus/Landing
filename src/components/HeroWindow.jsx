@@ -4,7 +4,7 @@ import './HeroWindow.css';
 
 const HeroWindow = () => {
   const scrollToContact = () => {
-    const contactSection = document.querySelector('#inicio');
+    const contactSection = document.querySelector('#contacto-form');
     if (contactSection) {
       contactSection.scrollIntoView({ 
         behavior: 'smooth',

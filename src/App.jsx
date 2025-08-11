@@ -56,7 +56,7 @@ function App() {
         <div id="caracteristicas">
           <FeatureCards />
         </div>
-        <div id="contacto-form" className="contact-form-section">
+        <div className="contact-form-section">
           <ContactForm />
         </div>
         <div id="servicios">

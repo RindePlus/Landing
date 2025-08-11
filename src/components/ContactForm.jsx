@@ -68,7 +68,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="contact-form-container">
+    <div className="contact-form-container" id="contacto-form">
       <form className="contact-form" onSubmit={handleSubmit}>
         <h3 className="form-title">Escribí tu mensaje y te respondemos a la brevedad</h3>
         {status === 'success' && (
