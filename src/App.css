@@ -29,10 +29,10 @@
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  will-change: opacity;
-  transform: translateZ(0); /* Forzar aceleración por hardware */
+  opacity: 1; /* Mostrar inmediatamente */
+  transition: none; /* Sin transición para carga inmediata */
+  will-change: auto;
+  transform: translateZ(0);
 }
 
 .hero-background.loaded {

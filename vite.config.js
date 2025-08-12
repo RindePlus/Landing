@@ -23,5 +23,10 @@ export default defineConfig({
   assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.svg'],
   optimizeDeps: {
     include: ['react', 'react-dom']
+  },
+  server: {
+    headers: {
+      'Cache-Control': 'public, max-age=31536000, immutable'
+    }
   }
 })

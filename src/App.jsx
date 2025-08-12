@@ -15,26 +15,23 @@ function App() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const popupRef = useRef(null);
 
-  // Preload de la imagen principal
+  // Carga agresiva de la imagen principal
   useEffect(() => {
+    // Técnica simple pero efectiva
     const img = new Image();
-    img.onload = () => {
-      setImageLoaded(true);
-    };
-    img.onerror = () => {
-      // Si falla la carga, mostrar la imagen de todas formas
-      setImageLoaded(true);
-    };
+    img.onload = () => setImageLoaded(true);
+    img.onerror = () => setImageLoaded(true);
     img.src = inicioImage;
     
-    // También intentar precargar con fetch
-    fetch(inicioImage, { method: 'HEAD' })
-      .then(() => {
-        setImageLoaded(true);
-      })
-      .catch(() => {
-        // Si falla fetch, la imagen se cargará normalmente
-      });
+    // Forzar la carga inmediata
+    if (img.complete) {
+      setImageLoaded(true);
+    }
+    
+    // También intentar con fetch inmediato
+    fetch(inicioImage)
+      .then(() => setImageLoaded(true))
+      .catch(() => {});
   }, []);
 
   // Cerrar popup al hacer click fuera o scroll
@@ -58,6 +55,13 @@ function App() {
 
   return (
     <div className="App">
+      {/* Imagen oculta para precarga */}
+      <img 
+        src={inicioImage} 
+        alt="" 
+        style={{ display: 'none' }} 
+        onLoad={() => setImageLoaded(true)}
+      />
       <Header onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
       <main className="main-content">
         <div id="inicio" className="hero-section">
