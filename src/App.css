@@ -16,6 +16,7 @@
   z-index: 0;
   margin-top: 0;
   padding-top: 20px;
+  background-color: #f8f9fa; /* Color de fondo mientras carga */
 }
 
 .hero-background {
@@ -28,6 +29,14 @@
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  will-change: opacity;
+  transform: translateZ(0); /* Forzar aceleración por hardware */
+}
+
+.hero-background.loaded {
+  opacity: 1;
 }
 
 .hero-background::after {
