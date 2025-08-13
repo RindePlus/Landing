@@ -29,7 +29,7 @@ const Footer = ({ onOpenWhatsApp }) => {
             <div className="contact-info">
               <div className="contact-item" onClick={scrollToContact} style={{ cursor: 'pointer' }}>
                 <MdEmail className="contact-icon" />
-                <span>info@rindeplus.com</span>
+                <span>inforindeplus@gmail.com</span>
               </div>
               <div className="contact-item" onClick={onOpenWhatsApp} style={{ cursor: 'pointer' }}>
                 <FaWhatsapp className="contact-icon" />
