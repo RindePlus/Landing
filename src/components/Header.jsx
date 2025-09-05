@@ -71,6 +71,7 @@ const Header = ({ onOpenWhatsApp }) => {
     { name: 'Aapresid', href: 'https://rindeplusdesarrollos.com' },
     { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/' },
     { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/' },
+    { name: 'Halcón Monitoreo', href: 'https://halconmonitoreos.ddns.net/login/?next=/' },
     { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/' },
   ];
 
