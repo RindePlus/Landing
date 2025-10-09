@@ -68,11 +68,11 @@ const Header = ({ onOpenWhatsApp }) => {
   };
 
   const menuItems = [
-    { name: 'Aapresid', href: 'https://aapresid.rindeplus.com/login?org=aapresid' },
+    { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login?org=aapresid' },
     { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/' },
     { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/' },
     { name: 'Halcón Monitoreo', href: 'https://halconmonitoreos.ddns.net/login/?next=/' },
-    { name: 'Pronósticos', href: 'https://aapresid.rindeplus.com/login?org=rindeplus' },
+    { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login?org=rindeplus' },
     { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/' },
   ];
 
