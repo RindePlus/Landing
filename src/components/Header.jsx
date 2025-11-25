@@ -72,9 +72,9 @@ const Header = ({ onOpenWhatsApp }) => {
     { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/' },
     { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/' },
     { name: 'Halcón Monitoreo', href: 'https://halconmonitoreos.ddns.net/login/?next=/' },
+    { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/' },
     { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login?org=rindeplus' },
     { name: 'Vig Ia', href: 'https://vigiabioestress.ddns.net/login/' },
-    { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/' },
   ];
 
   return (
