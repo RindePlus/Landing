@@ -74,7 +74,7 @@ const Header = ({ onOpenWhatsApp }) => {
     { name: 'Halcón Monitoreo', href: 'https://halconmonitoreos.ddns.net/login/?next=/' },
     { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/' },
     { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login?org=rindeplus' },
-    { name: 'Vig Ia biostress', href: 'https://vigiabioestress.ddns.net/login/' },
+    { name: 'Vig Ia Biostress', href: 'https://vigiabioestress.ddns.net/login/' },
   ];
 
   return (
