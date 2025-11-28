@@ -75,9 +75,21 @@ function App() {
             <div className="hero-content">
               <div className="hero-text">
                 <h1 className="hero-title">Aumenta el rendimiento de tu campo</h1>
-                <p className="hero-subtitle">
+                <h2
+                  className="hero-gradient-title"
+                  style={{
+                    fontSize: '2.2rem',
+                    fontWeight: 800,
+                    background: 'rgb(98, 216, 248)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    textFillColor: 'transparent',
+                    margin: 0
+                  }}
+                >
                   Inteligencia Artificial aplicada a tu producción
-                </p>
+                </h2>
               </div>
               <div className="hero-form">
                 <ContactForm />

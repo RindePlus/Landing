@@ -1,15 +1,22 @@
 import React from 'react';
 import PlatformButton from './PlatformButton';
 import './PlatformsSection.css';
+import logoAapresid from '../assets/botones/L-Aapresid.png';
+import logoConci from '../assets/botones/L-Conci.png';
+import logoHuella from '../assets/botones/L-Huella.png';
+import logoHalcon from '../assets/botones/l-Halcon.png';
+import logoKimzza from '../assets/botones/L-Kimzza.png';
+import logoPronosticos from '../assets/botones/L-Pronosticos.png';
+import logoVigia from '../assets/botones/L-Vigia.png';
 
 const platforms = [
-  { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login?org=aapresid' },
-  { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/' },
-  { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/' },
-  { name: 'Halcón Monitoreo', href: 'https://halconmonitoreos.ddns.net/login/?next=/' },
-  { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/' },
-  { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login?org=rindeplus' },
-  { name: 'VigIA Biostress', href: 'https://vigiabioestress.ddns.net/login/' },
+  { name: 'VigIA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia },
+  { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login?org=rindeplus', logo: logoPronosticos },
+  { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/', logo: logoHuella },
+  { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login?org=aapresid', logo: logoAapresid },
+  { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/', logo: logoConci },
+  { name: 'Halcón Monitoreo', href: 'https://halconmonitoreos.ddns.net/login/?next=/', logo: logoHalcon },
+  { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/', logo: logoKimzza },
 ];
 
 const PlatformsSection = () => {
@@ -29,6 +36,7 @@ const PlatformsSection = () => {
                   key={index}
                   name={platform.name}
                   href={platform.href}
+                  logo={platform.logo}
                   onClick={handlePlatformClick}
                 />
               ))}
