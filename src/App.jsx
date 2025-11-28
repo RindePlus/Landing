@@ -3,10 +3,12 @@ import Header from './components/Header';
 import ContactForm from './components/ContactForm';
 import FeatureCards from './components/FeatureCards';
 import ServicesSection from './components/ServicesSection';
+import PlatformsSection from './components/PlatformsSection';
 import HeroWindow from './components/HeroWindow';
 import TrustedCompanies from './components/TrustedCompanies';
 import Footer from './components/Footer';
 import inicioImage from './assets/inicio.jpg';
+import div3Image from './assets/div3.jpg';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import './App.css';
 
@@ -64,11 +66,11 @@ function App() {
       />
       <Header onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
       <main className="main-content">
-        <div id="inicio" className="hero-section">
-          <div 
-            className={`hero-background ${imageLoaded ? 'loaded' : ''}`}
-            style={{ backgroundImage: `url(${inicioImage})` }}
-          ></div>
+        <div 
+          id="inicio" 
+          className={`hero-section ${imageLoaded ? 'loaded' : ''}`}
+          style={{ backgroundImage: `url(${inicioImage})` }}
+        >
           <div className="hero-overlay">
             <div className="hero-content">
               <div className="hero-text">
@@ -83,8 +85,9 @@ function App() {
             </div>
           </div>
         </div>
+        <PlatformsSection />
         <div id="caracteristicas">
-          <FeatureCards />
+          <FeatureCards backgroundImage={div3Image} />
         </div>
         <div id="servicios">
           <ServicesSection />

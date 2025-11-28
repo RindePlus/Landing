@@ -1,0 +1,132 @@
+.platforms-section {
+  padding: 80px 40px;
+  background: #ffffff;
+  width: 100%;
+}
+
+.platforms-container {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.platforms-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.platforms-scroll-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.platforms-scroll-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 20px 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.6) rgba(255, 255, 255, 0.3);
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+.platforms-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.platforms-scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.platforms-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+}
+
+.platforms-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.platforms-scroll {
+  display: inline-flex;
+  gap: 24px;
+  padding: 10px 0;
+  justify-content: center;
+  min-width: min-content;
+}
+
+/* Centrar cuando el contenido es más pequeño que el viewport */
+@media (min-width: 1600px) {
+  .platforms-scroll {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .platforms-section {
+    padding: 60px 30px;
+  }
+  
+  .platforms-title {
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+  }
+  
+  .platforms-scroll {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .platforms-section {
+    padding: 50px 20px;
+  }
+  
+  .platforms-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+  
+  .platforms-scroll {
+    gap: 16px;
+    padding: 10px 20px;
+  }
+  
+  .platforms-scroll-container {
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .platforms-section {
+    padding: 40px 15px;
+  }
+  
+  .platforms-title {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+  
+  .platforms-scroll {
+    gap: 12px;
+    padding: 10px 15px;
+  }
+  
+  .platforms-scroll-container {
+    padding: 15px 0;
+  }
+}

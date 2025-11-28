@@ -1,17 +1,51 @@
 .feature-cards-section {
   position: relative;
-  z-index: 5;
-  margin-top: 0;
-  padding: 80px 40px 80px;
+  width: 100%;
+  min-height: 60vh;
+  padding: 80px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.feature-cards-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+.feature-cards-overlay {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 1;
 }
 
 .feature-cards-container {
   display: flex;
   justify-content: center;
   gap: 30px;
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .feature-card {
@@ -103,6 +137,11 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .feature-cards-section {
+    min-height: 50vh;
+    padding: 60px 30px;
+  }
+  
   .feature-cards-container {
     gap: 20px;
   }
@@ -115,8 +154,13 @@
 
 @media (max-width: 768px) {
   .feature-cards-section {
-    padding: 60px 15px 40px;
-    margin-top: 0;
+    min-height: auto;
+    padding: 50px 20px;
+    background-attachment: scroll;
+  }
+  
+  .feature-cards-overlay {
+    padding: 0;
   }
   
   .feature-cards-container {
@@ -152,8 +196,9 @@
 
 @media (max-width: 480px) {
   .feature-cards-section {
-    padding: 40px 10px 30px;
-    margin-top: 0;
+    min-height: auto;
+    padding: 40px 15px;
+    background-attachment: scroll;
   }
   
   .feature-cards-container {

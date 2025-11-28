@@ -27,19 +27,24 @@ const features = [
   },
 ];
 
-const FeatureCards = () => {
+const FeatureCards = ({ backgroundImage }) => {
   return (
-    <section className="feature-cards-section">
-      <div className="feature-cards-container">
-        {features.map((feature, index) => (
-          <div className="feature-card" key={index}>
-            <div className="feature-icon-wrapper">
-              <div className="feature-icon">{feature.icon}</div>
+    <section 
+      className="feature-cards-section"
+      style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none' }}
+    >
+      <div className="feature-cards-overlay">
+        <div className="feature-cards-container">
+          {features.map((feature, index) => (
+            <div className="feature-card" key={index}>
+              <div className="feature-icon-wrapper">
+                <div className="feature-icon">{feature.icon}</div>
+              </div>
+              <h3 className="feature-title">{feature.title}</h3>
+              <p className="feature-description">{feature.description}</p>
             </div>
-            <h3 className="feature-title">{feature.title}</h3>
-            <p className="feature-description">{feature.description}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

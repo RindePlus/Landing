@@ -14,7 +14,10 @@ const HeroWindow = () => {
   };
 
   return (
-    <section className="hero-window-section">
+    <section 
+      className="hero-window-section"
+      style={{ backgroundImage: `url(${fixedImage})` }}
+    >
       <div className="hero-window-container">
         <div className="hero-window-content">
           <h1 className="hero-window-title">
@@ -25,9 +28,6 @@ const HeroWindow = () => {
             CONSULTA AHORA
           </button>
         </div>
-      </div>
-      <div className="hero-window-background">
-        <img src={fixedImage} alt="Campo agrícola" />
       </div>
     </section>
   );
