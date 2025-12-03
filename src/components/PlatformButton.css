@@ -73,6 +73,17 @@
   object-fit: cover;
 }
 
+.platform-button-logo-fallback {
+  background: linear-gradient(135deg, #2f80ed 0%, #38b000 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.platform-button-initials {
+  letter-spacing: 1px;
+}
+
 .platform-button-text {
   position: relative;
   z-index: 2;
@@ -128,4 +139,3 @@
     padding: 0 15px;
   }
 }
-

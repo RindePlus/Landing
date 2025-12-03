@@ -1,4 +1,3 @@
-import React from 'react';
 import fixedImage from '../assets/fixed1.jpg';
 import './HeroWindow.css';
 

@@ -206,6 +206,17 @@
   }
 }
 
+.vigia-main {
+  padding-top: 120px;
+  background: #f3f7f0;
+}
+
+@media (max-width: 768px) {
+  .vigia-main {
+    padding-top: 100px;
+  }
+}
+
 .whatsapp-float {
   position: fixed;
   right: 24px;

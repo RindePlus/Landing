@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Header from './components/Header';
 import ContactForm from './components/ContactForm';
 import FeatureCards from './components/FeatureCards';
@@ -7,6 +7,7 @@ import PlatformsSection from './components/PlatformsSection';
 import HeroWindow from './components/HeroWindow';
 import TrustedCompanies from './components/TrustedCompanies';
 import Footer from './components/Footer';
+import VigiaPage from './components/VigiaPage';
 import inicioImage from './assets/inicio.jpg';
 import div3Image from './assets/div3.jpg';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
@@ -15,6 +16,11 @@ import './App.css';
 function App() {
   const [showWhatsappPopup, setShowWhatsappPopup] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [route, setRoute] = useState(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) return hash;
+    return window.location.pathname.endsWith('/vigia') ? '/vigia' : '/';
+  });
   const popupRef = useRef(null);
 
   // Carga agresiva de la imagen principal
@@ -36,6 +42,16 @@ function App() {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      setRoute(hash || '/');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   // Cerrar popup al hacer click fuera o scroll
   useEffect(() => {
     if (!showWhatsappPopup) return;
@@ -54,6 +70,87 @@ function App() {
   }, [showWhatsappPopup]);
 
   const whatsappUrl = "https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus";
+  const vigiaLoginUrl = "https://vigiabioestress.ddns.net/login/";
+  const isVigiaPage = route === '/vigia' || route === 'vigia';
+
+  const navigateHome = () => {
+    if (window.location.pathname.endsWith('/vigia')) {
+      window.history.replaceState({}, '', '/');
+    }
+    window.location.hash = '';
+    setRoute('/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowWhatsappPopup(false);
+  };
+
+  const navigateToVigia = () => {
+    window.location.hash = '/vigia';
+    setRoute('/vigia');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowWhatsappPopup(false);
+  };
+
+  const openVigiaLogin = () => {
+    window.open(vigiaLoginUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const whatsappElements = (
+    <>
+      <button
+        className="whatsapp-float"
+        onClick={() => setShowWhatsappPopup((v) => !v)}
+        aria-label="WhatsApp"
+      >
+        <FaWhatsapp size={60} />
+      </button>
+      {showWhatsappPopup && (
+        <div className="whatsapp-popup-bg">
+          <div className="whatsapp-popup" ref={popupRef}>
+            <div className="whatsapp-popup-header">
+              <FaWhatsapp className="whatsapp-popup-logo" />
+              <span className="whatsapp-popup-title">WhatsApp</span>
+              <button className="whatsapp-popup-close" onClick={() => setShowWhatsappPopup(false)} aria-label="Cerrar">
+                <FaTimes />
+              </button>
+            </div>
+            <div className="whatsapp-popup-body">
+              <div className="whatsapp-popup-message">
+                <span>Hola <span role="img" aria-label="saludo">👋</span></span><br />
+                ¿En qué podemos ayudarte?
+              </div>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="whatsapp-popup-send"
+              >
+                Enviar
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+
+  if (isVigiaPage) {
+    return (
+      <div className="App">
+        <Header 
+          onOpenWhatsApp={() => setShowWhatsappPopup(true)} 
+          onLogoClick={navigateHome} 
+        />
+        <main className="vigia-main">
+          <VigiaPage 
+            onOpenWhatsApp={() => setShowWhatsappPopup(true)}
+            onGoToPlatform={openVigiaLogin}
+          />
+          <Footer onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
+        </main>
+        {whatsappElements}
+      </div>
+    );
+  }
 
   return (
     <div className="App">
@@ -64,7 +161,10 @@ function App() {
         style={{ display: 'none' }} 
         onLoad={() => setImageLoaded(true)}
       />
-      <Header onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
+      <Header 
+        onOpenWhatsApp={() => setShowWhatsappPopup(true)} 
+        onLogoClick={navigateHome}
+      />
       <main className="main-content">
         <div 
           id="inicio" 
@@ -97,7 +197,7 @@ function App() {
             </div>
           </div>
         </div>
-        <PlatformsSection />
+        <PlatformsSection onGoToVigia={navigateToVigia} />
         <div id="caracteristicas">
           <FeatureCards backgroundImage={div3Image} />
         </div>
@@ -110,42 +210,7 @@ function App() {
           <Footer onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
         </div>
       </main>
-      {/* Botón flotante de WhatsApp */}
-      <button
-        className="whatsapp-float"
-        onClick={() => setShowWhatsappPopup((v) => !v)}
-        aria-label="WhatsApp"
-      >
-        <FaWhatsapp size={60} />
-      </button>
-      {/* Popup personalizado WhatsApp */}
-      {showWhatsappPopup && (
-        <div className="whatsapp-popup-bg">
-          <div className="whatsapp-popup" ref={popupRef}>
-            <div className="whatsapp-popup-header">
-              <FaWhatsapp className="whatsapp-popup-logo" />
-              <span className="whatsapp-popup-title">WhatsApp</span>
-              <button className="whatsapp-popup-close" onClick={() => setShowWhatsappPopup(false)} aria-label="Cerrar">
-                <FaTimes />
-              </button>
-            </div>
-            <div className="whatsapp-popup-body">
-              <div className="whatsapp-popup-message">
-                <span>Hola <span role="img" aria-label="saludo">👋</span></span><br />
-                ¿En qué podemos ayudarte?
-              </div>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="whatsapp-popup-send"
-              >
-                Enviar
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      {whatsappElements}
     </div>
   );
 }
