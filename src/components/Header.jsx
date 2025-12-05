@@ -5,7 +5,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import './Header.css';
 
-const Header = ({ onOpenWhatsApp }) => {
+const Header = ({ onOpenWhatsApp, onLogoClick }) => {
   const scrollToContact = () => {
     const contactSection = document.querySelector('#contacto-form');
     if (contactSection) {
@@ -22,7 +22,13 @@ const Header = ({ onOpenWhatsApp }) => {
         {/* Logo Section */}
         <div className="logo-section">
           <div className="logo-icon">
-            <img src={rindeplusLogo} alt="RindePlus Logo" className="logo-image" />
+            <img 
+              src={rindeplusLogo} 
+              alt="RindePlus Logo" 
+              className="logo-image"
+              onClick={onLogoClick}
+              style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
+            />
           </div>
         </div>
 

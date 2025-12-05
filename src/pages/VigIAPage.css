@@ -1,0 +1,1116 @@
+.vigia-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+  padding-top: 100px;
+}
+
+/* Hero Section */
+.vigia-hero {
+  width: 100%;
+  min-height: 600px;
+  background-image: url('../assets/inicio.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vigia-hero-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.vigia-hero-content {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.vigia-logo-section {
+  margin-bottom: 20px;
+}
+
+.vigia-logo-box {
+  background: #0066cc;
+  border-radius: 12px;
+  padding: 25px 35px;
+  display: inline-block;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.vigia-logo-box::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  width: 60px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+.vigia-logo-box::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 20px;
+  width: 60px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    white 0px,
+    white 3px,
+    transparent 3px,
+    transparent 6px
+  );
+}
+
+.vigia-logo-text {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.vigia-logo-vig {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+}
+
+.vigia-logo-arrow {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  transform: rotate(180deg);
+  display: inline-block;
+  font-family: 'Arial', sans-serif;
+}
+
+.vigia-logo-bioestres {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  margin-top: 4px;
+}
+
+.vigia-hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+  max-width: 800px;
+}
+
+.vigia-hero-subtitle {
+  font-size: 2rem;
+  font-weight: 500;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.vigia-hero-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.vigia-btn {
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.vigia-btn-primary {
+  background: #0066cc;
+  color: white;
+}
+
+.vigia-btn-primary:hover {
+  background: #0052a3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
+}
+
+.vigia-btn-secondary {
+  background: #4CAF50;
+  color: white;
+}
+
+.vigia-btn-secondary:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+/* Main Content Section */
+.vigia-main-content {
+  padding: 80px 40px;
+  background: white;
+}
+
+.vigia-content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vigia-section-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #006633;
+  margin-bottom: 30px;
+  line-height: 1.2;
+}
+
+.vigia-section-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+  max-width: 900px;
+}
+
+.vigia-highlight {
+  color: #0066cc;
+  font-weight: 600;
+}
+
+/* Quote Section */
+.vigia-quote-section {
+  padding: 80px 40px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 60px;
+}
+
+.vigia-quote-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.vigia-quote-icon {
+  font-size: 4rem;
+  color: #0066cc;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.vigia-quote-text {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #4CAF50;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.vigia-quote-graphic {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vigia-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid;
+  background: transparent;
+}
+
+.vigia-circle-1 {
+  width: 200px;
+  height: 200px;
+  border-color: #0066cc;
+  top: 0;
+  left: 0;
+}
+
+.vigia-circle-2 {
+  width: 200px;
+  height: 200px;
+  border-color: #4CAF50;
+  top: 50px;
+  left: 50px;
+}
+
+.vigia-circle-3 {
+  width: 200px;
+  height: 200px;
+  border-color: #0066cc;
+  top: 100px;
+  left: 100px;
+}
+
+.vigia-leaf-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  z-index: 10;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.vigia-circle::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0066cc;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.vigia-circle-2::before {
+  background: #4CAF50;
+}
+
+/* How it Works Section */
+.vigia-how-it-works {
+  padding: 80px 40px;
+  background: white;
+}
+
+.vigia-how-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.vigia-how-header {
+  margin-bottom: 50px;
+}
+
+.vigia-how-title-blue {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0066cc;
+  margin-bottom: 10px;
+}
+
+.vigia-how-title-green {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4CAF50;
+}
+
+.vigia-how-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.vigia-how-text-block {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.vigia-how-text-block strong {
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+.vigia-phone-mockup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vigia-phone-screen {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.vigia-phone-header {
+  background: #0066cc;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.vigia-gauges {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.vigia-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.vigia-gauge-label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.vigia-gauge-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 8px solid;
+}
+
+.vigia-gauge-green {
+  border-color: #4CAF50;
+  background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%);
+}
+
+.vigia-gauge-needle {
+  width: 4px;
+  height: 50px;
+  background: white;
+  position: absolute;
+  top: 10px;
+  transform-origin: bottom center;
+  transform: rotate(45deg);
+}
+
+.vigia-gauge-days {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.vigia-how-second {
+  margin-top: 40px;
+}
+
+.vigia-how-subtitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+
+.vigia-how-second p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+/* Features Section */
+.vigia-features {
+  padding: 80px 40px;
+  background: #f8f9fa;
+}
+
+.vigia-features-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.vigia-feature {
+  text-align: center;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.vigia-feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.vigia-feature-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Benefits Section */
+.vigia-benefits {
+  padding: 80px 40px;
+  background: white;
+}
+
+.vigia-benefits-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vigia-benefits-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #006633;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.vigia-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.vigia-benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.vigia-check-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0066cc;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.vigia-benefit-item p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.vigia-slogan-box {
+  background: #e8e8e8;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.vigia-slogan-green {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+.vigia-slogan-blue {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0066cc;
+}
+
+/* Image Section */
+.vigia-image-section {
+  padding: 0;
+  background: white;
+}
+
+.vigia-image-wrapper {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.vigia-field-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Target Audience Section */
+.vigia-target {
+  padding: 80px 40px;
+  background: #006633;
+  color: white;
+}
+
+.vigia-target-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vigia-target-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.vigia-target-subtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-bottom: 40px;
+}
+
+.vigia-target-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.vigia-target-text p {
+  margin-bottom: 20px;
+}
+
+.vigia-cta-box {
+  background: linear-gradient(90deg, #006633 0%, #4CAF50 100%);
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  margin-top: 40px;
+}
+
+/* Easy to Use Section */
+.vigia-easy {
+  padding: 80px 40px;
+  background: white;
+}
+
+.vigia-easy-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vigia-easy-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #006633;
+  margin-bottom: 10px;
+}
+
+.vigia-easy-subtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-bottom: 40px;
+}
+
+.vigia-easy-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.vigia-easy-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.vigia-easy-text p {
+  margin-bottom: 20px;
+}
+
+.vigia-easy-box {
+  background: #f0f8f0;
+  border: 2px solid #4CAF50;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+}
+
+.vigia-easy-box-text {
+  font-size: 1.2rem;
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.vigia-easy-box-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4CAF50;
+  margin: 20px 0;
+}
+
+/* Accessible Section */
+.vigia-accessible {
+  padding: 80px 40px;
+  background: white;
+}
+
+.vigia-accessible-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.vigia-accessible-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #006633;
+  margin-bottom: 10px;
+}
+
+.vigia-accessible-subtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-bottom: 30px;
+}
+
+.vigia-accessible-content p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.vigia-payment-methods {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.vigia-payment-btn {
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vigia-payment-agropago {
+  background: #006633;
+  color: white;
+}
+
+.vigia-payment-nera {
+  background: white;
+  color: #4CAF50;
+  border: 2px solid #4CAF50;
+}
+
+.vigia-nera-icon {
+  width: 12px;
+  height: 12px;
+  background: #4CAF50;
+  display: inline-block;
+}
+
+.vigia-payment-nave {
+  background: white;
+  color: #6a1b9a;
+  border: 2px solid #6a1b9a;
+}
+
+.vigia-accessible-image {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.vigia-wheat-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Final CTA Section */
+.vigia-final-cta {
+  padding: 80px 40px;
+  background: white;
+}
+
+.vigia-final-cta-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.vigia-final-cta-box {
+  background: #0066cc;
+  border-radius: 16px;
+  padding: 60px 80px;
+  text-align: center;
+  position: relative;
+}
+
+.vigia-final-cta-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.vigia-final-cta-button {
+  background: #4CAF50;
+  color: white;
+  padding: 20px 40px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+}
+
+.vigia-final-cta-button:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.vigia-whatsapp-icon {
+  font-size: 1.5rem;
+}
+
+/* Alliance Section */
+.vigia-alliance {
+  padding: 80px 40px;
+  background: white;
+}
+
+.vigia-alliance-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vigia-alliance-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #006633;
+  margin-bottom: 10px;
+}
+
+.vigia-alliance-subtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-bottom: 30px;
+}
+
+.vigia-alliance-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.vigia-alliance-partners {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.vigia-partner {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+}
+
+.vigia-partner-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 3rem;
+}
+
+.vigia-partner-agroconsultor {
+  background: #e8f5e9;
+  color: #4CAF50;
+}
+
+.vigia-partner-rindeplus {
+  background: #fff3e0;
+  color: #ff9800;
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.vigia-partner-bired {
+  background: #e8f5e9;
+  color: #4CAF50;
+}
+
+.vigia-partner-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #006633;
+  margin-bottom: 10px;
+}
+
+.vigia-partner-tagline {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.vigia-partner-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Commercial Proposal Section */
+.vigia-commercial {
+  padding: 80px 40px;
+  background: #f8f9fa;
+}
+
+.vigia-commercial-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vigia-commercial-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #006633;
+  margin-bottom: 10px;
+}
+
+.vigia-commercial-subtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-bottom: 40px;
+}
+
+.vigia-commercial-table {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.vigia-commercial-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.vigia-commercial-table thead {
+  background: #4CAF50;
+  color: white;
+}
+
+.vigia-commercial-table th {
+  padding: 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.vigia-commercial-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+}
+
+.vigia-commercial-table tbody tr:hover {
+  background: #f5f5f5;
+}
+
+.vigia-glossary {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.vigia-glossary p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.vigia-glossary strong {
+  color: #006633;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .vigia-hero-title {
+    font-size: 2.8rem;
+  }
+
+  .vigia-quote-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .vigia-how-main {
+    grid-template-columns: 1fr;
+  }
+
+  .vigia-easy-main {
+    grid-template-columns: 1fr;
+  }
+
+  .vigia-accessible-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .vigia-page {
+    padding-top: 80px;
+  }
+
+  .vigia-hero {
+    min-height: 500px;
+  }
+
+  .vigia-hero-title {
+    font-size: 2.2rem;
+  }
+
+  .vigia-hero-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .vigia-hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .vigia-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .vigia-section-title,
+  .vigia-benefits-title,
+  .vigia-easy-title,
+  .vigia-accessible-title,
+  .vigia-alliance-title,
+  .vigia-commercial-title {
+    font-size: 2rem;
+  }
+
+  .vigia-quote-text {
+    font-size: 1.8rem;
+  }
+
+  .vigia-how-title-blue {
+    font-size: 2.2rem;
+  }
+
+  .vigia-how-title-green {
+    font-size: 1.8rem;
+  }
+
+  .vigia-features-grid,
+  .vigia-benefits-grid,
+  .vigia-alliance-partners {
+    grid-template-columns: 1fr;
+  }
+
+  .vigia-payment-methods {
+    flex-direction: column;
+  }
+
+  .vigia-payment-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .vigia-final-cta-box {
+    padding: 40px 30px;
+  }
+
+  .vigia-final-cta-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .vigia-main-content,
+  .vigia-quote-section,
+  .vigia-how-it-works,
+  .vigia-features,
+  .vigia-benefits,
+  .vigia-target,
+  .vigia-easy,
+  .vigia-accessible,
+  .vigia-final-cta,
+  .vigia-alliance,
+  .vigia-commercial {
+    padding: 40px 20px;
+  }
+
+  .vigia-hero-title {
+    font-size: 1.8rem;
+  }
+
+  .vigia-logo-box {
+    padding: 15px 20px;
+  }
+
+  .vigia-logo-vig,
+  .vigia-logo-arrow {
+    font-size: 24px;
+  }
+
+  .vigia-logo-bioestres {
+    font-size: 18px;
+  }
+}
+

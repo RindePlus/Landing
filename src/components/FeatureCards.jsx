@@ -1,4 +1,3 @@
-import React from 'react';
 import { AiOutlineFileSearch, AiOutlineFieldTime } from 'react-icons/ai';
 import { IoIosTrendingUp } from 'react-icons/io';
 import { GiReceiveMoney } from 'react-icons/gi';

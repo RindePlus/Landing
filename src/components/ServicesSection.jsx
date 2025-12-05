@@ -1,4 +1,3 @@
-import React from 'react';
 import { IoIosTrendingUp } from 'react-icons/io';
 import { WiRaindrops } from 'react-icons/wi';
 import { PiPlantLight } from 'react-icons/pi';

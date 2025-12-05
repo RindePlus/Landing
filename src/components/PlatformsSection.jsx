@@ -10,7 +10,7 @@ import logoPronosticos from '../assets/botones/L-Pronosticos.png';
 import logoVigia from '../assets/botones/L-Vigia.png';
 
 const platforms = [
-  { name: 'VigIA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia },
+  { name: 'Vig IA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia, internal: true },
   { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login?org=rindeplus', logo: logoPronosticos },
   { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/', logo: logoHuella },
   { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login?org=aapresid', logo: logoAapresid },
@@ -19,9 +19,13 @@ const platforms = [
   { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/', logo: logoKimzza },
 ];
 
-const PlatformsSection = () => {
-  const handlePlatformClick = (href) => {
-    window.open(href, '_blank', 'noopener,noreferrer');
+const PlatformsSection = ({ onGoToVigia }) => {
+  const handlePlatformClick = (platform) => {
+    if (platform.internal && onGoToVigia) {
+      onGoToVigia();
+      return;
+    }
+    window.open(platform.href, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -34,9 +38,7 @@ const PlatformsSection = () => {
               {platforms.map((platform, index) => (
                 <PlatformButton
                   key={index}
-                  name={platform.name}
-                  href={platform.href}
-                  logo={platform.logo}
+                  platform={platform}
                   onClick={handlePlatformClick}
                 />
               ))}
@@ -49,4 +51,3 @@ const PlatformsSection = () => {
 };
 
 export default PlatformsSection;
-

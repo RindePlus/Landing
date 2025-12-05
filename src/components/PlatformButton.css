@@ -1,3 +1,10 @@
+.platform-button-wrapper {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
 .platform-button {
   background: linear-gradient(135deg, #0066cc 0%, #00a86b 100%);
   color: white;
@@ -23,7 +30,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  gap: 12px;
+  gap: 8px;
 }
 
 .platform-button::before {
@@ -36,6 +43,7 @@
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.5s;
   z-index: 1;
+  pointer-events: none;
 }
 
 .platform-button:hover {
@@ -54,7 +62,7 @@
 
 .platform-button-logo-container {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -67,15 +75,75 @@
   flex-shrink: 0;
 }
 
+.platform-badge-novedades {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 180px;
+  background: #e74c3c;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+  z-index: 3;
+  pointer-events: none;
+  text-align: center;
+}
+
+.platform-badge-cuotas {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 180px;
+  background: #00a86b;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 168, 107, 0.4);
+  z-index: 3;
+  pointer-events: none;
+  text-align: center;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 .platform-button-logo {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+.platform-button-logo-fallback {
+  background: linear-gradient(135deg, #2f80ed 0%, #38b000 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.platform-button-initials {
+  letter-spacing: 1px;
+}
+
 .platform-button-text {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
   padding: 0 20px;
 }
@@ -128,4 +196,3 @@
     padding: 0 15px;
   }
 }
-
