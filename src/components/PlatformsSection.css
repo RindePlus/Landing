@@ -25,15 +25,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .platforms-scroll-container {
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
-  overflow-y: hidden;
-  padding: 20px 0;
+  overflow-y: visible;
+  padding: 60px 0 20px 0;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.6) rgba(255, 255, 255, 0.3);
@@ -65,6 +65,7 @@
   padding: 10px 0;
   justify-content: center;
   min-width: min-content;
+  align-items: flex-start;
 }
 
 /* Centrar cuando el contenido es más pequeño que el viewport */

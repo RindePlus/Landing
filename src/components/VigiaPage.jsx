@@ -6,13 +6,13 @@ import heroBackground from '../assets/VigIA/Slices01.png';
 import fieldTop from '../assets/VigIA/Slices02.png';
 import farmerBg from '../assets/VigIA/Slices04.png';
 import wheatBg from '../assets/VigIA/Slices05.png';
-import mockDesktop from '../assets/VigIA/Tapa compu.png';
 import mockPhone from '../assets/VigIA/Slices03 Celular.png';
 import logoAgropago from '../assets/VigIA/LOGO Agopago.png';
 import logoNera from '../assets/VigIA/nerajpg.webp';
 import logoNave from '../assets/VigIA/Logo Nave.png';
 import logoBiored from '../assets/VigIA/Logo Biored.png';
 import logoRindePlus from '../assets/VigIA/Logo Rinde Plus sin fondo (1).png';
+import logoAgroconsultor from '../assets/agroconsultor_logo.png';
 
 const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
   const handleDemoClick = () => {
@@ -46,32 +46,22 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
       </section>
 
       <section className="vigia-section vigia-overview">
-        <div className="vigia-overview-grid">
-          <div className="vigia-text-block">
-            <h2 className="vigia-title">La inteligencia que anticipa el estrés antes de que se vea.</h2>
-            <p className="vigia-lead">
-              VigIA BioEstrés es una <strong>herramienta de inteligencia predictiva</strong> que permite monitorear, diagnosticar y anticipar escenarios de estrés en los cultivos extensivos antes de que se manifiesten.
-            </p>
-            <p className="vigia-lead">
-              Combina <strong>Inteligencia Artificial</strong> e <strong>Inteligencia Agronómica</strong> para generar alertas tempranas y facilitar decisiones preventivas que optimizan el manejo con bioinsumos.
-            </p>
-            <div className="vigia-mini-cta">
-              <button className="vigia-btn ghost" onClick={handleDemoClick}>Quiero una demo</button>
-              <button className="vigia-btn outline" onClick={onGoToPlatform}>Ver login</button>
-            </div>
-          </div>
-          <div className="vigia-mock">
-            <img src={mockDesktop} alt="Vista plataforma VigIA" loading="lazy" />
-          </div>
+        <div className="vigia-text-block">
+          <h2 className="vigia-title">La inteligencia que anticipa el estrés antes de que se vea.</h2>
+          <p className="vigia-lead">
+            VigIA BioEstrés es una <strong>herramienta de inteligencia predictiva</strong> que permite monitorear, diagnosticar y anticipar escenarios de estrés en los cultivos extensivos antes de que se manifiesten.
+          </p>
+          <p className="vigia-lead">
+            Combina <strong>Inteligencia Artificial</strong> e <strong>Inteligencia Agronómica</strong> para generar alertas tempranas y facilitar decisiones preventivas que optimizan el manejo con bioinsumos.
+          </p>
         </div>
-      </section>
-
-      <section className="vigia-quote-section" style={{ backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.95) 100%), url(${fieldTop})` }}>
         <div className="vigia-quote-card">
-          <div className="vigia-quote-mark">“</div>
+          <div className="vigia-quote-mark">&ldquo;</div>
           <div>
             <p className="vigia-quote">
-              Cuando la agronomía y la inteligencia artificial se unen, <span>la prevención se vuelve posible</span>
+              Cuando la agronomía<br />
+              y la inteligencia artificial<br />
+              se unen, <span>la prevención<br />se vuelve posible</span>
             </p>
             <p className="vigia-quote-note">Agronomía potenciada con tecnología.</p>
           </div>
@@ -79,33 +69,90 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
             <div className="vigia-circle circle-a" />
             <div className="vigia-circle circle-b" />
             <div className="vigia-circle circle-c" />
-            <div className="vigia-leaf-dot" />
+            <div className="vigia-leaf-icon">🍃</div>
           </div>
         </div>
       </section>
 
-      <section className="vigia-section" id="vigia-demo">
-        <div className="vigia-split">
-          <div>
-            <h3 className="vigia-subtitle">Lo que ganás con usarlo</h3>
-            <div className="vigia-benefits">
-              {[
-                'Anticipación: detecta el riesgo varios días antes de que sea visible',
-                'Decisiones precisas: ayuda a ajustar el manejo según la demanda real',
-                'Mayor estabilidad: predice pérdidas por golpes de calor o sequía',
-                'Protección del rendimiento: predice pérdidas en el rendimiento por estrés abiótico',
-                'Alertas: señales automáticas que indican cuándo actuar',
-                'Mayor control: alarmas inteligentes con IA para priorizar lotes y momentos'
-              ].map((text) => (
-                <div className="vigia-benefit" key={text}>
-                  <FaCheckCircle />
-                  <span>{text}</span>
-                </div>
-              ))}
+      <section className="vigia-section vigia-how">
+        <div className="vigia-how-top-section" style={{ backgroundImage: `url(${fieldTop})` }}>
+          <div className="vigia-how-header-section">
+            <h2 className="vigia-how-title-blue">Así funciona</h2>
+            <h3 className="vigia-how-title-green">Una sola plataforma,<br />todas las variables.</h3>
+          </div>
+        </div>
+        <div className="vigia-how-content-wrapper">
+          <div className="vigia-how-main-content">
+            <div className="vigia-how-text-section">
+              <p className="vigia-how-description">
+                A partir de la geoposición del lote y del contenido inicial de agua en el suelo, <span className="vigia-brand-text"><strong>Vig</strong> <span className="vigia-brand-ia">IA</span> <span className="vigia-brand-bioestres">BioEstrés</span></span> integra pronósticos climáticos y los combina con los requerimientos hídricos específicos del cultivo según su estadio fenológico.
+              </p>
+              <div className="vigia-how-divider"></div>
+              <p className="vigia-how-highlight">
+                El cultivo no te muestra el estrés, <span className="vigia-how-highlight-green"><strong>te lo muestra Vig <span className="vigia-highlight-ia">iA</span>.</strong></span>
+              </p>
+              <div className="vigia-how-divider"></div>
+              <p className="vigia-how-description">
+                <strong>Proyecta la demanda atmosférica (ETP)</strong> y anticipa períodos críticos de estrés hídrico o térmico, emitiendo alertas preventivas que permiten actuar antes de que los síntomas sean visibles.
+              </p>
+            </div>
+            <div className="vigia-phone">
+              <img src={mockPhone} alt="App móvil VigIA" loading="lazy" />
             </div>
           </div>
-          <div className="vigia-banner-card">
-            <p>Agronomía potenciada <span>por inteligencia artificial.</span></p>
+          <div className="vigia-feature-grid">
+            <div className="vigia-feature-card">
+              <FaThermometerHalf />
+              <h4>Monitoreo de temperatura y humedad</h4>
+              <p>Relevamiento continuo del microclima del lote con IA.</p>
+            </div>
+            <div className="vigia-feature-card">
+              <FaCloudSunRain />
+              <h4>Proyección climática con IA</h4>
+              <p>Combina pronósticos y datos históricos para anticipar escenarios.</p>
+            </div>
+            <div className="vigia-feature-card">
+              <FaSeedling />
+              <h4>Cálculo de DPV y balance hídrico</h4>
+              <p>Modelos que traducen datos atmosféricos en decisiones agronómicas.</p>
+            </div>
+            <div className="vigia-feature-card">
+              <FaBell />
+              <h4>Alertas automáticas y personalizadas</h4>
+              <p>Notificaciones oportunas que indican cuándo actuar en cada lote.</p>
+            </div>
+          </div>
+          <div className="vigia-benefits-section">
+            <h3 className="vigia-benefits-title">Lo que ganás con usarlo</h3>
+            <div className="vigia-benefits-grid">
+              <div className="vigia-benefit-item">
+                <FaCheckCircle />
+                <p><strong>Anticipación:</strong> detecta el riesgo varios días antes de que sea visible</p>
+              </div>
+              <div className="vigia-benefit-item">
+                <FaCheckCircle />
+                <p><strong>Decisiones precisas:</strong> ayuda a ajustar el manejo según la demanda real</p>
+              </div>
+              <div className="vigia-benefit-item">
+                <FaCheckCircle />
+                <p><strong>Mayor estabilidad:</strong> predice pérdidas por golpes de calor o sequía</p>
+              </div>
+              <div className="vigia-benefit-item">
+                <FaCheckCircle />
+                <p><strong>Protección del rendimiento:</strong> predice pérdidas en el rendimiento por estrés abiótico</p>
+              </div>
+              <div className="vigia-benefit-item">
+                <FaCheckCircle />
+                <p><strong>Alertas:</strong> señales automáticas que indican cuándo actuar</p>
+              </div>
+              <div className="vigia-benefit-item">
+                <FaCheckCircle />
+                <p><strong>Mayor control:</strong> alarmas inteligentes con IA para priorizar lotes y momentos</p>
+              </div>
+            </div>
+            <div className="vigia-banner-card-benefits">
+              <p>Agronomía potenciada <span>por inteligencia artificial.</span></p>
+            </div>
           </div>
         </div>
       </section>
@@ -123,109 +170,6 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
             </p>
           </div>
           <div className="vigia-strip">Menos estrés, más rendimiento</div>
-        </div>
-      </section>
-
-      <section className="vigia-section">
-        <div className="vigia-text-block">
-          <h3 className="vigia-subtitle">Una innovación en alianza</h3>
-          <p className="vigia-lead">
-            Tres equipos, un mismo objetivo: ayudar a anticipar el estrés abiótico en cultivos extensivos.
-            VigIA BioEstrés es el resultado de una alianza entre Agroconsultor, BioRed y Rinde Plus.
-          </p>
-          <p className="vigia-lead">
-            Una misma misión: unir agronomía, inteligencia artificial y bioinsumos potenciando datos para anticipar comportamientos del cultivo.
-          </p>
-        </div>
-        <div className="vigia-alliance-grid">
-          <div className="vigia-alliance-card">
-            <div className="vigia-alliance-logo">
-              <span className="vigia-chip">Agroconsultor</span>
-            </div>
-            <p>Profesionales en investigación y asesoramiento en mitigación de estrés de los cultivos.</p>
-          </div>
-          <div className="vigia-alliance-card">
-            <div className="vigia-alliance-logo">
-              <img src={logoRindePlus} alt="Rinde Plus" loading="lazy" />
-            </div>
-            <p>Expertos en la fusión de agronomía e inteligencia artificial aplicada al manejo.</p>
-          </div>
-          <div className="vigia-alliance-card">
-            <div className="vigia-alliance-logo">
-              <img src={logoBiored} alt="BioRed" loading="lazy" />
-            </div>
-            <p>Referentes en sustentabilidad de agro sistemas y bioinsumos.</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="vigia-section">
-        <h3 className="vigia-subtitle">Propuesta comercial</h3>
-        <p className="vigia-lead">Estamos para acompañarte</p>
-        <div className="vigia-table-wrapper">
-          <table className="vigia-table">
-            <thead>
-              <tr>
-                <th>Productores</th>
-                <th>Nombre</th>
-                <th>Detalle</th>
-                <th>Precio</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Campos + lotes</td><td>Pack lotes I</td><td>1 Campo - 5 lotes</td><td>USD 750</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes II</td><td>2 Campos - 10 lotes</td><td>USD 740</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes III</td><td>3 Campos - 15 lotes</td><td>USD 728</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes IV</td><td>4 Campos - 20 lotes</td><td>USD 716</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes V</td><td>5 Campos - 25 lotes</td><td>USD 705</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes VI</td><td>6 Campos - 30 lotes</td><td>USD 694</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes VII</td><td>7 Campos - 35 lotes</td><td>USD 683</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes VIII</td><td>8 Campos - 40 lotes</td><td>USD 671</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes IX</td><td>9 Campos - 45 lotes</td><td>USD 660</td></tr>
-              <tr><td>Campos + lotes</td><td>Pack lotes X</td><td>10 Campos - 50 lotes</td><td>USD 649</td></tr>
-              <tr><td>Lotes</td><td>Lote adicional</td><td>Agrega lote adicional en el mismo campo</td><td>USD 60</td></tr>
-            </tbody>
-          </table>
-          <p className="vigia-glossary">
-            <strong>Glosario:</strong> Pack lotes corresponde a lotes de un mismo campo. Lote adicional: corresponde al agregado de lotes individuales al Pack de lotes.
-          </p>
-        </div>
-      </section>
-
-      <section className="vigia-section vigia-how">
-        <div className="vigia-how-grid">
-          <div className="vigia-text-block">
-            <h3 className="vigia-subtitle">Así funciona</h3>
-            <p className="vigia-lead">
-              Una sola plataforma, todas las variables. Desde la geoposición del lote, VigIA BioEstrés integra pronósticos climáticos, condiciones del suelo y requerimientos hídricos según el estadio fenológico.
-            </p>
-            <p className="vigia-highlight">El cultivo no te muestra el estrés, <strong>te lo muestra VigIA</strong>.</p>
-            <div className="vigia-feature-grid">
-              <div className="vigia-feature-card">
-                <FaThermometerHalf />
-                <h4>Monitoreo de temperatura y humedad</h4>
-                <p>Relevamiento continuo del microclima del lote con IA.</p>
-              </div>
-              <div className="vigia-feature-card">
-                <FaCloudSunRain />
-                <h4>Proyección climática con IA</h4>
-                <p>Combina pronósticos y datos históricos para anticipar escenarios.</p>
-              </div>
-              <div className="vigia-feature-card">
-                <FaSeedling />
-                <h4>Cálculo de DPV y balance hídrico</h4>
-                <p>Modelos que traducen datos atmosféricos en decisiones agronómicas.</p>
-              </div>
-              <div className="vigia-feature-card">
-                <FaBell />
-                <h4>Alertas automáticas y personalizadas</h4>
-                <p>Notificaciones oportunas que indican cuándo actuar en cada lote.</p>
-              </div>
-            </div>
-          </div>
-          <div className="vigia-phone">
-            <img src={mockPhone} alt="App móvil VigIA" loading="lazy" />
-          </div>
         </div>
       </section>
 
@@ -251,6 +195,39 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
               <img src={logoNera} alt="Nera" loading="lazy" />
               <img src={logoNave} alt="Nave" loading="lazy" />
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="vigia-section">
+        <div className="vigia-text-block">
+          <h3 className="vigia-subtitle">Una innovación en alianza</h3>
+          <p className="vigia-alliance-subtitle">Tres equipos, un mismo objetivo: ayudar a anticipar el estrés abiótico en cultivos extensivos.</p>
+          <p className="vigia-lead">
+            <strong>Vig IA BioEstrés</strong> es el resultado de una alianza entre <strong>Agroconsultor</strong>, <strong>BioRed</strong> y <strong>Rinde Plus</strong>.
+          </p>
+          <p className="vigia-lead">
+            Una misma misión: unir agronomía, inteligencia artificial y bioinsumos potenciando datos para anticipar comportamientos del cultivo.
+          </p>
+        </div>
+        <div className="vigia-alliance-grid">
+          <div className="vigia-alliance-card">
+            <div className="vigia-alliance-logo">
+              <img src={logoAgroconsultor} alt="Agroconsultor" loading="lazy" />
+            </div>
+            <p>PROFESIONALES EN INVESTIGACIÓN Y ASESORAMIENTO EN MITIGACIÓN DE ESTRÉS DE LOS CULTIVOS.</p>
+          </div>
+          <div className="vigia-alliance-card">
+            <div className="vigia-alliance-logo">
+              <img src={logoRindePlus} alt="Rinde Plus" loading="lazy" />
+            </div>
+            <p>EXPERTOS EN LA FUSIÓN DE AGRONOMÍA E INTELIGENCIA ARTIFICIAL APLICADA AL MANEJO.</p>
+          </div>
+          <div className="vigia-alliance-card">
+            <div className="vigia-alliance-logo">
+              <img src={logoBiored} alt="BioRed" loading="lazy" />
+            </div>
+            <p>REFERENTES EN SUSTENTABILIDAD DE AGRO SISTEMAS Y BIOINSUMOS.</p>
           </div>
         </div>
       </section>

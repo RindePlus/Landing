@@ -10,7 +10,7 @@ import logoPronosticos from '../assets/botones/L-Pronosticos.png';
 import logoVigia from '../assets/botones/L-Vigia.png';
 
 const platforms = [
-  { name: 'VigIA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia, internal: true },
+  { name: 'Vig IA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia, internal: true },
   { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login?org=rindeplus', logo: logoPronosticos },
   { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/', logo: logoHuella },
   { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login?org=aapresid', logo: logoAapresid },
