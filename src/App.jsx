@@ -17,9 +17,20 @@ function App() {
   const [showWhatsappPopup, setShowWhatsappPopup] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [route, setRoute] = useState(() => {
-    const hash = window.location.hash.replace('#', '');
-    if (hash) return hash;
-    return window.location.pathname.endsWith('/vigia') ? '/vigia' : '/';
+    // Check for redirect from 404.html
+    const redirect = sessionStorage.getItem('redirect');
+    if (redirect) {
+      sessionStorage.removeItem('redirect');
+      const url = new URL(redirect, window.location.origin);
+      if (url.pathname === '/vigia' || url.pathname === '/vigia/') {
+        window.history.replaceState({}, '', '/vigia');
+        return '/vigia';
+      }
+    }
+    
+    const pathname = window.location.pathname;
+    if (pathname === '/vigia' || pathname === '/vigia/') return '/vigia';
+    return '/';
   });
   const popupRef = useRef(null);
 
@@ -43,13 +54,17 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      setRoute(hash || '/');
+    const handlePopState = () => {
+      const pathname = window.location.pathname;
+      if (pathname === '/vigia' || pathname === '/vigia/') {
+        setRoute('/vigia');
+      } else {
+        setRoute('/');
+      }
       window.scrollTo({ top: 0, behavior: 'auto' });
     };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   // Cerrar popup al hacer click fuera o scroll
@@ -74,17 +89,14 @@ function App() {
   const isVigiaPage = route === '/vigia' || route === 'vigia';
 
   const navigateHome = () => {
-    if (window.location.pathname.endsWith('/vigia')) {
-      window.history.replaceState({}, '', '/');
-    }
-    window.location.hash = '';
+    window.history.pushState({}, '', '/');
     setRoute('/');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowWhatsappPopup(false);
   };
 
   const navigateToVigia = () => {
-    window.location.hash = '/vigia';
+    window.history.pushState({}, '', '/vigia');
     setRoute('/vigia');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowWhatsappPopup(false);
