@@ -11,9 +11,9 @@ import logoVigia from '../assets/botones/L-Vigia.png';
 
 const platforms = [
   { name: 'Vig IA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia, internal: true },
-  { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login?org=rindeplus', logo: logoPronosticos },
+  { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login/rindeplus', logo: logoPronosticos },
   { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/', logo: logoHuella },
-  { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login?org=aapresid', logo: logoAapresid },
+  { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login/aapresid', logo: logoAapresid },
   { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/', logo: logoConci },
   { name: 'Halcón Monitoreo', href: 'https://halconmonitoreos.ddns.net/login/?next=/', logo: logoHalcon },
   { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/', logo: logoKimzza },
