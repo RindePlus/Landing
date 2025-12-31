@@ -6,6 +6,7 @@
   "homepage": "https://rindeplus.com",
   "scripts": {
     "dev": "vite",
+    "prebuild": "rm -rf docs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

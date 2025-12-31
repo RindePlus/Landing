@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
-// Plugin to create 404.html for GitHub Pages SPA routing
+// Plugin to create 404.html for GitHub Pages SPA routing and update favicon cache
 const create404Html = () => {
   return {
     name: 'create-404-html',
@@ -12,8 +12,17 @@ const create404Html = () => {
       const indexPath = join(outDir, 'index.html')
       const html404Path = join(outDir, '404.html')
       
+      // Generate version timestamp to bust favicon cache
+      const version = Date.now()
+      
       try {
         let html = readFileSync(indexPath, 'utf-8')
+        
+        // Update favicon with version parameter to bust cache
+        html = html.replace(
+          /href="\.\/favicon\.ico"/g,
+          `href="./favicon.ico?v=${version}"`
+        )
         
         // Inject redirect script before closing head tag
         const redirectScript = `
@@ -29,6 +38,11 @@ const create404Html = () => {
     </script>`
         
         html = html.replace('</head>', redirectScript + '\n  </head>')
+        
+        // Write updated index.html
+        writeFileSync(indexPath, html, 'utf-8')
+        
+        // Write 404.html with same favicon version
         writeFileSync(html404Path, html, 'utf-8')
       } catch (error) {
         console.warn('Could not create 404.html:', error.message)
