@@ -26,13 +26,21 @@ const features = [
   },
 ];
 
-const FeatureCards = ({ backgroundImage }) => {
+const FeatureCards = ({ backgroundImage, backgroundColor }) => {
+  const isPlainBackground = Boolean(backgroundColor) && !backgroundImage;
+
   return (
     <section 
-      className="feature-cards-section"
-      style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none' }}
+      className={`feature-cards-section${isPlainBackground ? ' feature-cards-section--plain' : ''}`}
+      style={{
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+        backgroundColor: backgroundColor || 'transparent'
+      }}
     >
       <div className="feature-cards-overlay">
+        <h2 className="feature-cards-title">
+          Analisis de datos aplicado a tu producción
+        </h2>
         <div className="feature-cards-container">
           {features.map((feature, index) => (
             <div className="feature-card" key={index}>

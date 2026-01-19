@@ -10,8 +10,8 @@ import logoPronosticos from '../assets/botones/L-Pronosticos.png';
 import logoVigia from '../assets/botones/L-Vigia.png';
 
 const platforms = [
-  { name: 'Vig IA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia, internal: true },
-  { name: 'Pronósticos', href: 'https://pronosticos.rindeplus.com/login/rindeplus', logo: logoPronosticos },
+  { name: 'Vig IA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia, internal: true, internalType: 'vigia' },
+  { name: 'Análisis y brechas', href: 'https://pronosticos.rindeplus.com/login/rindeplus', logo: logoPronosticos, internal: true, internalType: 'pronosticos' },
   { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/', logo: logoHuella },
   { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login/aapresid', logo: logoAapresid },
   { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/', logo: logoConci },
@@ -19,17 +19,29 @@ const platforms = [
   { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/', logo: logoKimzza },
 ];
 
-const PlatformsSection = ({ onGoToVigia }) => {
+const PlatformsSection = ({ onGoToVigia, onGoToPronosticos, backgroundImage }) => {
   const handlePlatformClick = (platform) => {
-    if (platform.internal && onGoToVigia) {
-      onGoToVigia();
-      return;
+    if (platform.internal) {
+      if (platform.internalType === 'vigia' && onGoToVigia) {
+        onGoToVigia();
+        return;
+      }
+      if (platform.internalType === 'pronosticos' && onGoToPronosticos) {
+        onGoToPronosticos();
+        return;
+      }
     }
     window.open(platform.href, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <section className="platforms-section" id="plataformas">
+    <section
+      className={`platforms-section${backgroundImage ? ' platforms-section--with-bg' : ''}`}
+      id="plataformas"
+      style={{
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none'
+      }}
+    >
       <div className="platforms-container">
         <h2 className="platforms-title">Nuestras Plataformas</h2>
         <div className="platforms-scroll-wrapper">

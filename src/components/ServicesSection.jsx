@@ -27,9 +27,14 @@ const services = [
   },
 ];
 
-const ServicesSection = () => {
+const ServicesSection = ({ backgroundImage }) => {
   return (
-    <section className="services-section">
+    <section
+      className={`services-section${backgroundImage ? ' services-section--with-bg' : ''}`}
+      style={{
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none'
+      }}
+    >
       <div className="services-container">
         <h2 className="services-title">Nuestros Servicios</h2>
         <div className="services-cards">

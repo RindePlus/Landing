@@ -8,8 +8,9 @@ import HeroWindow from './components/HeroWindow';
 import TrustedCompanies from './components/TrustedCompanies';
 import Footer from './components/Footer';
 import VigiaPage from './components/VigiaPage';
+import PronosticosPage from './components/PronosticosPage';
 import inicioImage from './assets/inicio.jpg';
-import div3Image from './assets/div3.jpg';
+import trigoImage from './assets/Trigo.jpg';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import './App.css';
 
@@ -26,10 +27,15 @@ function App() {
         window.history.replaceState({}, '', '/vigia');
         return '/vigia';
       }
+      if (url.pathname === '/pronosticos' || url.pathname === '/pronosticos/') {
+        window.history.replaceState({}, '', '/pronosticos');
+        return '/pronosticos';
+      }
     }
     
     const pathname = window.location.pathname;
     if (pathname === '/vigia' || pathname === '/vigia/') return '/vigia';
+    if (pathname === '/pronosticos' || pathname === '/pronosticos/') return '/pronosticos';
     return '/';
   });
   const popupRef = useRef(null);
@@ -58,6 +64,8 @@ function App() {
       const pathname = window.location.pathname;
       if (pathname === '/vigia' || pathname === '/vigia/') {
         setRoute('/vigia');
+      } else if (pathname === '/pronosticos' || pathname === '/pronosticos/') {
+        setRoute('/pronosticos');
       } else {
         setRoute('/');
       }
@@ -87,6 +95,7 @@ function App() {
   const whatsappUrl = "https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus";
   const vigiaLoginUrl = "https://vigiabioestress.ddns.net/login/";
   const isVigiaPage = route === '/vigia' || route === 'vigia';
+  const isPronosticosPage = route === '/pronosticos' || route === 'pronosticos';
 
   const navigateHome = () => {
     window.history.pushState({}, '', '/');
@@ -98,6 +107,13 @@ function App() {
   const navigateToVigia = () => {
     window.history.pushState({}, '', '/vigia');
     setRoute('/vigia');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowWhatsappPopup(false);
+  };
+
+  const navigateToPronosticos = () => {
+    window.history.pushState({}, '', '/pronosticos');
+    setRoute('/pronosticos');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowWhatsappPopup(false);
   };
@@ -151,6 +167,7 @@ function App() {
         <Header 
           onOpenWhatsApp={() => setShowWhatsappPopup(true)} 
           onLogoClick={navigateHome} 
+          showMenu={false}
         />
         <main className="vigia-main">
           <VigiaPage 
@@ -164,66 +181,71 @@ function App() {
     );
   }
 
+  if (isPronosticosPage) {
+    return (
+      <div className="App">
+        <PronosticosPage 
+          onOpenWhatsApp={() => setShowWhatsappPopup(true)}
+          onGoToHome={navigateHome}
+        />
+        {whatsappElements}
+      </div>
+    );
+  }
+
   return (
     <div className="App">
-      {/* Imagen oculta para precarga */}
-      <img 
-        src={inicioImage} 
-        alt="" 
-        style={{ display: 'none' }} 
-        onLoad={() => setImageLoaded(true)}
-      />
-      <Header 
-        onOpenWhatsApp={() => setShowWhatsappPopup(true)} 
-        onLogoClick={navigateHome}
-      />
-      <main className="main-content">
-        <div 
-          id="inicio" 
-          className={`hero-section ${imageLoaded ? 'loaded' : ''}`}
-          style={{ backgroundImage: `url(${inicioImage})` }}
-        >
-          <div className="hero-overlay">
-            <div className="hero-content">
-              <div className="hero-text">
-                <h1 className="hero-title">Aumenta el rendimiento de tu campo</h1>
-                <h2
-                  className="hero-gradient-title"
-                  style={{
-                    fontSize: '2.2rem',
-                    fontWeight: 800,
-                    background: 'rgb(98, 216, 248)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    textFillColor: 'transparent',
-                    margin: 0
-                  }}
-                >
-                  Inteligencia Artificial aplicada a tu producción
-                </h2>
-              </div>
-              <div className="hero-form">
-                <ContactForm />
+        {/* Imagen oculta para precarga */}
+        <img 
+          src={inicioImage} 
+          alt="" 
+          style={{ display: 'none' }} 
+          onLoad={() => setImageLoaded(true)}
+        />
+        <Header 
+          onOpenWhatsApp={() => setShowWhatsappPopup(true)} 
+          onLogoClick={navigateHome}
+        />
+        <main className="main-content">
+          <div id="inicio">
+            <HeroWindow />
+          </div>
+          <div id="caracteristicas">
+            <FeatureCards backgroundColor="#f8f9fa" />
+          </div>
+          <div id="servicios">
+            <ServicesSection backgroundImage={trigoImage} />
+          </div>
+          <div id="plataformas">
+            <PlatformsSection
+              onGoToVigia={navigateToVigia}
+              onGoToPronosticos={navigateToPronosticos}
+            />
+          </div>
+          <div 
+            className={`hero-section ${imageLoaded ? 'loaded' : ''}`}
+            style={{ backgroundImage: `url(${inicioImage})` }}
+          >
+            <div className="hero-overlay">
+              <div className="hero-content">
+                <div className="hero-text">
+                  <h1 className="hero-title">Aumenta el rendimiento de tu campo</h1>
+                </div>
+                <div className="hero-form">
+                  <ContactForm />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <PlatformsSection onGoToVigia={navigateToVigia} />
-        <div id="caracteristicas">
-          <FeatureCards backgroundImage={div3Image} />
-        </div>
-        <div id="servicios">
-          <ServicesSection />
-        </div>
-        <HeroWindow />
-        <TrustedCompanies />
-        <div id="contacto">
-          <Footer onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
-        </div>
-      </main>
-      {whatsappElements}
-    </div>
+          <div id="clientes">
+            <TrustedCompanies />
+          </div>
+          <div id="contacto">
+            <Footer onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
+          </div>
+        </main>
+        {whatsappElements}
+      </div>
   );
 }
 

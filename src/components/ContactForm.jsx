@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './ContactForm.css';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xovlpeno'; // Cambia este endpoint por el tuyo de Formspree

@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: flex-start;
   padding: 0;
+  scroll-margin-top: 340px;
 }
 
 .contact-form {
@@ -20,7 +21,7 @@
 }
 
 .form-title {
-  color: #2c3e50;
+  color: #ffffff;
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 30px;
@@ -127,6 +128,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .contact-form-container {
+    scroll-margin-top: 300px;
+  }
+
   .contact-form {
     padding: 25px 20px;
     margin: 0;
@@ -141,6 +146,9 @@
   .form-title {
     font-size: 1.1rem;
     margin-bottom: 25px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .submit-button {
@@ -150,6 +158,10 @@
 }
 
 @media (max-width: 480px) {
+  .contact-form-container {
+    scroll-margin-top: 260px;
+  }
+
   .contact-form {
     padding: 20px 15px;
     margin: 0;
@@ -159,6 +171,9 @@
   .form-title {
     font-size: 1rem;
     margin-bottom: 20px;
+    max-width: 260px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .form-row {

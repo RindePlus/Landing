@@ -1,7 +1,8 @@
 .footer {
   width: 100vw;
-  background-color: #0066cc;
-  color: white;
+  background-color: #ffffff;
+  color: #1f1f1f;
+  border-top: 1px solid rgba(0, 102, 204, 0.35);
   padding: 60px 0 20px;
   margin-top: 0;
   font-family: 'Arial', sans-serif;
@@ -57,7 +58,7 @@
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 20px;
-  color: white;
+  color: #1f1f1f;
 }
 
 .contact-info {
@@ -73,15 +74,15 @@
   font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.4;
-  color: rgba(255, 255, 255, 0.9);
+  color: #1f1f1f;
   transition: all 0.3s ease;
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 .contact-item:hover {
-  color: white;
-  background-color: rgba(255, 255, 255, 0.1);
+  color: #1f1f1f;
+  background-color: rgba(0, 0, 0, 0.05);
   transform: translateX(4px);
 }
 
@@ -106,7 +107,7 @@
 }
 
 .footer-link {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(31, 31, 31, 0.8);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 400;
@@ -117,17 +118,17 @@
 
 .footer-link:hover {
   opacity: 1;
-  color: white;
+  color: #1f1f1f;
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
   padding-top: 20px;
   text-align: center;
 }
 
 .footer-copyright {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(31, 31, 31, 0.8);
   font-size: 0.9rem;
   margin: 0;
 }

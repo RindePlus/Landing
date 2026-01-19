@@ -1,6 +1,13 @@
 .services-section {
   padding: 80px 40px;
   background: #f8f9fa;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.services-section--with-bg {
+  background-attachment: fixed;
 }
 
 .services-container {
@@ -14,6 +21,10 @@
   font-weight: 700;
   color: #2c3e50;
   margin-bottom: 60px;
+}
+
+.services-section--with-bg .services-title {
+  color: #ffffff;
 }
 
 .services-cards {
@@ -119,6 +130,10 @@
   .services-section {
     padding: 40px 15px;
   }
+
+  .services-section--with-bg {
+    background-attachment: scroll;
+  }
   
   .services-title {
     font-size: 1.8rem;
@@ -159,6 +174,10 @@
 @media (max-width: 480px) {
   .services-section {
     padding: 30px 10px;
+  }
+
+  .services-section--with-bg {
+    background-attachment: scroll;
   }
   
   .services-title {

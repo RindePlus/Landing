@@ -1,15 +1,18 @@
-import fixedImage from '../assets/fixed1.jpg';
+import fixedImage from '../assets/Maiz.jpg';
 import './HeroWindow.css';
 
 const HeroWindow = () => {
   const scrollToContact = () => {
     const contactSection = document.querySelector('#contacto-form');
-    if (contactSection) {
-      contactSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    if (!contactSection) return;
+    const header = document.querySelector('.header');
+    const headerOffset = header ? header.offsetHeight : 0;
+    const extraOffset = 290;
+    const elementTop = contactSection.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({
+      top: Math.max(0, elementTop - headerOffset - extraOffset),
+      behavior: 'smooth'
+    });
   };
 
   return (

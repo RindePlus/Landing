@@ -1,0 +1,938 @@
+.pronosticos-page {
+  --bg: #F7F7F7;
+  --bg2: #FFFFFF;
+  --card: #FFFFFF;
+  --muted: #616161;
+  --text: #212121;
+  --text-secondary: rgba(0,0,0,0.6);
+  --line: rgba(0,0,0,.08);
+  --shadow: 0 2px 8px rgba(0,0,0,.08);
+  --radius: 12px;
+  --radius2: 16px;
+  --pad: 22px;
+  --max: 1180px;
+
+  /* accents - colores profesionales */
+  --a: #42A5F5;
+  --b: #66BB6A;
+  --c: #8BC34A;
+  --d: #FFCA28;
+  --e: #EF5350;
+
+  --btn: #1F6CFF;
+  --btn-hover: #1A5CE6;
+  --btn2: #F5F5F5;
+  --focus: 0 0 0 3px rgba(31,108,255,.15);
+  
+  /* header */
+  --header-bg: #1F6CFF;
+  --header-text: #FFFFFF;
+}
+
+.pronosticos-page * {
+  box-sizing: border-box;
+}
+
+/* Ensure Header is not affected by pronosticos-page styles */
+.pronosticos-page > .header,
+.pronosticos-page > header.header {
+  /* Reset any potential overrides */
+}
+
+.pronosticos-page {
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+  color: var(--text);
+  background: var(--bg);
+  letter-spacing: .2px;
+}
+
+.pronosticos-page a {
+  color: inherit;
+}
+
+/* Exception for Header social icons - only on desktop */
+@media (min-width: 769px) {
+  .pronosticos-page .header a.social-icon {
+    color: #0066cc !important;
+  }
+}
+
+.pronosticos-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+/* Header */
+/* Ensure Header component styles are not overridden */
+.pronosticos-page .header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+}
+
+/* Let Header.css handle all responsive behavior - don't override */
+
+/* Hero Section - Similar to Vigía */
+.pronosticos-hero-section {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 180px 24px 120px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.pronosticos-hero-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08), transparent 40%);
+}
+
+.pronosticos-hero-inner {
+  position: relative;
+  max-width: 1100px;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 1;
+}
+
+.pronosticos-hero-title {
+  font-size: 3rem;
+  line-height: 1.1;
+  max-width: 780px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.pronosticos-hero-subtitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #c7ffd8;
+  margin: 0;
+}
+
+.pronosticos-hero-cta-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.pronosticos-hero-btn {
+  border-radius: 16px;
+  padding: 14px 20px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border: 2px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.pronosticos-hero-btn-primary {
+  background: linear-gradient(90deg, #2db84d, #0082ff);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(0, 130, 255, 0.35);
+  border: none;
+  padding: 16px 28px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border-radius: 18px;
+  min-width: 230px;
+}
+
+.pronosticos-hero-btn-outline {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+.pronosticos-hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 900px) {
+  .pronosticos-hero-section {
+    padding: 160px 24px 100px;
+  }
+
+  .pronosticos-hero-inner {
+    padding: 0 8px;
+  }
+
+  .pronosticos-hero-title {
+    font-size: 2.4rem;
+  }
+
+  .pronosticos-hero-subtitle {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .pronosticos-hero-section {
+    padding: 150px 18px 100px;
+  }
+
+  .pronosticos-hero-inner {
+    padding: 0 8px;
+  }
+
+  .pronosticos-hero-title {
+    font-size: 2rem;
+  }
+
+  .pronosticos-hero-cta-group {
+    flex-direction: column;
+  }
+
+  .pronosticos-hero-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.pronosticos-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+}
+
+.pronosticos-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: var(--header-text);
+}
+
+.pronosticos-logo-img {
+  height: 60px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  align-self: center;
+}
+
+
+.pronosticos-brand small {
+  display: block;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  margin-top: 2px;
+  letter-spacing: 0;
+  font-size: 12px;
+}
+
+.pronosticos-header nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+.pronosticos-header nav a {
+  text-decoration: none;
+  color: rgba(255,255,255,.9);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pronosticos-header nav a:hover {
+  background: rgba(255,255,255,.15);
+}
+
+.pronosticos-nav-cta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pronosticos-btn {
+  appearance: none;
+  border: 1px solid rgba(0,0,0,.12);
+  background: var(--btn2);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  white-space: nowrap;
+}
+
+.pronosticos-btn:hover {
+  background: #E0E0E0;
+  box-shadow: 0 2px 4px rgba(0,0,0,.12);
+}
+
+.pronosticos-btn:focus {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.pronosticos-btn-primary {
+  background: var(--btn);
+  color: #FFFFFF;
+  border-color: var(--btn);
+}
+
+.pronosticos-btn-primary:hover {
+  background: var(--btn-hover);
+  border-color: var(--btn-hover);
+}
+
+.pronosticos-nav-cta .pronosticos-btn {
+  background: rgba(255,255,255,.15);
+  color: var(--header-text);
+  border-color: rgba(255,255,255,.2);
+}
+
+.pronosticos-nav-cta .pronosticos-btn:hover {
+  background: rgba(255,255,255,.25);
+}
+
+.pronosticos-nav-cta .pronosticos-btn-primary {
+  background: rgba(255,255,255,.25);
+  border-color: rgba(255,255,255,.3);
+}
+
+.pronosticos-nav-cta .pronosticos-btn-primary:hover {
+  background: rgba(255,255,255,.35);
+}
+
+/* Sections */
+.pronosticos-page section {
+  padding: 64px 0;
+  scroll-margin-top: 100px;
+}
+
+/* First section after hero needs padding-top to account for fixed header */
+.pronosticos-page section:not(.pronosticos-hero-section):first-of-type {
+  padding-top: 80px;
+}
+
+.pronosticos-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.pronosticos-hero {
+  padding-top: 180px !important;
+  padding-bottom: 30px;
+}
+
+.pronosticos-page .pronosticos-hero {
+  padding-top: 180px !important;
+}
+
+.pronosticos-page section.pronosticos-hero {
+  padding-top: 180px !important;
+}
+
+.pronosticos-hero-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 1.15fr .85fr;
+  align-items: stretch;
+}
+
+.pronosticos-page h1 {
+  margin: 0 0 14px;
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -.6px;
+}
+
+.pronosticos-sub {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 56ch;
+}
+
+.pronosticos-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 22px;
+}
+
+.pronosticos-pill {
+  border: 1px solid rgba(0,0,0,.1);
+  background: #F5F5F5;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pronosticos-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--a);
+}
+
+.pronosticos-dot-b {
+  background: var(--b);
+}
+
+.pronosticos-dot-c {
+  background: var(--c);
+}
+
+.pronosticos-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.pronosticos-micro {
+  margin-top: 14px;
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.pronosticos-card {
+  background: var(--card);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow);
+  padding: var(--pad);
+  overflow: hidden;
+  position: relative;
+}
+
+.pronosticos-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.pronosticos-kpi {
+  background: #F9F9F9;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pronosticos-kpi b {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.pronosticos-kpi span {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.2px;
+  margin-top: 6px;
+}
+
+.pronosticos-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #E3F2FD;
+  color: var(--btn);
+  white-space: nowrap;
+}
+
+.pronosticos-section-title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.pronosticos-page h2 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -.3px;
+}
+
+.pronosticos-lead {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 78ch;
+  font-size: 15px;
+}
+
+.pronosticos-cols-3 {
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+.pronosticos-cols-2 {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.pronosticos-mini {
+  padding: 18px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: var(--shadow);
+}
+
+.pronosticos-mini h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  letter-spacing: -.1px;
+  color: var(--text);
+}
+
+.pronosticos-mini p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  font-size: 13.5px;
+}
+
+.pronosticos-list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.pronosticos-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.pronosticos-list li > span:not(.pronosticos-check) {
+  flex: 1;
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.pronosticos-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #E8F5E9;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.pronosticos-check svg {
+  color: var(--c);
+}
+
+.pronosticos-check svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Demo (fake interactive) */
+.pronosticos-demo {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.pronosticos-page label {
+  display: block;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 12px;
+  margin: 0 0 6px;
+}
+
+.pronosticos-page input,
+.pronosticos-page select {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.15);
+  background: #FFFFFF;
+  color: var(--text);
+  outline: none;
+  box-shadow: none;
+  font-weight: 500;
+  transition: border-color 0.2s;
+}
+
+.pronosticos-page input:focus,
+.pronosticos-page select:focus {
+  box-shadow: var(--focus);
+  border-color: var(--btn);
+}
+
+.pronosticos-form-row {
+  display: grid;
+  gap: 10px;
+}
+
+.pronosticos-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.pronosticos-muted-note {
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+.pronosticos-panel {
+  background: #F9F9F9;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.pronosticos-panel h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.pronosticos-bars {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.pronosticos-bar {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.pronosticos-bar-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--text);
+}
+
+.pronosticos-track {
+  margin-top: 8px;
+  height: 8px;
+  background: #E0E0E0;
+  border: none;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pronosticos-fill {
+  height: 100%;
+  width: 62%;
+  background: var(--a);
+}
+
+.pronosticos-fill-c {
+  width: 48%;
+  background: var(--c);
+}
+
+.pronosticos-fill-d {
+  width: 31%;
+  background: var(--d);
+}
+
+.pronosticos-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pronosticos-stat {
+  background: #F9F9F9;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.pronosticos-stat b {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.pronosticos-stat span {
+  display: block;
+  font-size: 22px;
+  font-weight: 850;
+  margin-top: 6px;
+}
+
+/* Report preview */
+.pronosticos-shots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pronosticos-shot {
+  background: #F9F9F9;
+  border: 1px dashed rgba(0,0,0,.15);
+  border-radius: 12px;
+  padding: 14px;
+  min-height: 160px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pronosticos-shot h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.pronosticos-ph {
+  position: absolute;
+  inset: auto 14px 14px 14px;
+  height: 86px;
+  border-radius: 8px;
+  background: #E0E0E0;
+  border: 1px solid rgba(0,0,0,.1);
+}
+
+/* FAQ */
+.pronosticos-page details {
+  background: var(--card);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.pronosticos-page details + details {
+  margin-top: 10px;
+}
+
+.pronosticos-page summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pronosticos-page details p {
+  margin: 10px 0 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 13.5px;
+}
+
+/* Footer CTA */
+.pronosticos-cta {
+  padding: 26px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pronosticos-cta h2 {
+  font-size: 26px;
+  color: var(--text);
+}
+
+.pronosticos-cta p {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  max-width: 70ch;
+}
+
+.pronosticos-footer {
+  padding: 26px 0 40px;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--line);
+  margin-top: 30px;
+}
+
+.pronosticos-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 12.5px;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .pronosticos-hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .pronosticos-demo {
+    grid-template-columns: 1fr;
+  }
+  .pronosticos-shots {
+    grid-template-columns: 1fr;
+  }
+  .pronosticos-cols-3 {
+    grid-template-columns: 1fr;
+  }
+  .pronosticos-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  .pronosticos-header nav ul {
+    display: none;
+  }
+  .pronosticos-page h1 {
+    font-size: 38px;
+  }
+}
+
+/* Final CTA Section - Same as Vigía */
+.pronosticos-final-cta {
+  padding: 70px 24px 90px;
+}
+
+.pronosticos-final-box {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #2f80ed, #38b000);
+  color: #fff;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.18);
+}
+
+.pronosticos-final-box h3 {
+  font-size: 2rem;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.pronosticos-final-box p {
+  color: #e8f9f0;
+  margin: 0;
+}
+
+.pronosticos-cta-group {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.pronosticos-final-box .pronosticos-btn {
+  border-radius: 16px;
+  padding: 14px 20px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  min-width: 200px;
+  text-align: center;
+  justify-content: center;
+}
+
+.pronosticos-final-box .pronosticos-btn-primary {
+  background: linear-gradient(90deg, #2db84d, #0082ff);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(0, 130, 255, 0.35);
+  border: none;
+}
+
+.pronosticos-final-box .pronosticos-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+}
+
+.pronosticos-btn-outline {
+  background: transparent !important;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+}
+
+.pronosticos-btn-outline:hover {
+  background: rgba(255,255,255,0.1) !important;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .pronosticos-final-box {
+    flex-direction: column;
+    text-align: center;
+    margin: 0 16px;
+  }
+  
+  .pronosticos-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .pronosticos-cta-group .pronosticos-btn {
+    width: 100%;
+  }
+}
