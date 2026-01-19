@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import rindeplusLogo from '../assets/Mesa de trabajo 2 copia.png';
+import rindeplusLogo from '../assets/Logo.png';
 import { FaFacebook } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";

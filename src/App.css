@@ -224,13 +224,13 @@
 }
 
 .vigia-main {
-  padding-top: 120px;
+  padding-top: 0;
   background: #f3f7f0;
 }
 
 @media (max-width: 768px) {
   .vigia-main {
-    padding-top: 100px;
+    padding-top: 0;
   }
 }
 
