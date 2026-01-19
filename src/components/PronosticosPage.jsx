@@ -231,7 +231,7 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
               <h3 style={{margin: '0 0 8px', color: 'var(--btn)'}}>¿Necesitás ayuda?</h3>
               <p style={{margin: 0, color: 'var(--text)', fontSize: '14px', lineHeight: '1.6'}}>
                 Nuestro equipo te acompaña en todo el proceso. Si tenés dudas sobre cómo cargar <b>tus datos</b> o interpretar <b>tu reporte</b>,
-                contactanos y te ayudamos a sacarle el máximo provecho a <b>Pronósticos</b>.
+                contactanos y te ayudamos a sacarle el máximo provecho a la plataforma.
               </p>
             </div>
           </div>
