@@ -359,7 +359,7 @@
   background-image: linear-gradient(#fff, #fff), linear-gradient(90deg, #2f80ed, #38b000);
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  min-height: 150px;
+  min-height: 200px;
 }
 
 .vigia-alliance-logo {
@@ -371,7 +371,7 @@
 }
 
 .vigia-alliance-logo img {
-  max-height: 42px;
+  max-height: 60px;
   width: auto;
 }
 
