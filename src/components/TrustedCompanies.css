@@ -1,21 +1,28 @@
 .trusted-companies-section {
-  padding: 80px 0;
-  background: #f8f9fa;
+  padding: 50px 0;
+  background: var(--bg-main);
+  overflow: hidden;
+  /* Ensure no scrollbar on body if logos overflow slightly */
 }
 
 .trusted-companies-container {
-  max-width: 100%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 0;
   text-align: center;
 }
 
 .trusted-companies-title {
+  font-family: var(--font-heading);
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: var(--secondary);
   margin-bottom: 50px;
   text-align: center;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 40px;
 }
 
 .carousel-wrapper {
@@ -63,20 +70,23 @@
   .trusted-companies-section {
     padding: 60px 0;
   }
-  
+
   .trusted-companies-title {
     font-size: 2rem;
     margin-bottom: 40px;
+    padding: 0 20px;
   }
-  
+
   .company-logo {
-    width: 140px;
-    height: 90px;
+    width: 160px;
+    /* Increased from 140 */
+    height: 100px;
+    /* Increased from 90 */
     padding: 12px;
   }
-  
+
   .carousel-track {
-    gap: 25px;
+    gap: 30px;
   }
 }
 
@@ -84,18 +94,21 @@
   .trusted-companies-section {
     padding: 40px 0;
   }
-  
+
   .trusted-companies-title {
     font-size: 1.5rem;
     margin-bottom: 30px;
+    padding: 0 15px;
   }
-  
+
   .company-logo {
-    width: 100px;
-    height: 70px;
-    padding: 8px;
+    width: 140px;
+    /* Significantly increased from 100 */
+    height: 90px;
+    /* Significantly increased from 70 */
+    padding: 10px;
   }
-  
+
   .carousel-track {
     gap: 20px;
   }
@@ -103,12 +116,14 @@
 
 @media (max-width: 360px) {
   .company-logo {
-    width: 80px;
-    height: 60px;
-    padding: 6px;
+    width: 120px;
+    /* Increased from 80 */
+    height: 80px;
+    /* Increased from 60 */
+    padding: 8px;
   }
-  
+
   .carousel-track {
     gap: 15px;
   }
-} 
+}

@@ -10,11 +10,13 @@ import conciLogo from '../assets/Conci.jpg';
 import aapresidLogo from '../assets/aapresid.png';
 import adjLogo from '../assets/adj.jpeg';
 import halconLogo from '../assets/Alcon.jpeg';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './TrustedCompanies.css';
 
 const TrustedCompanies = () => {
   const carouselRef = useRef(null);
-  
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+
   const companies = [
     { id: 0, logo: logo0, name: 'Empresa 1' },
     { id: 1, logo: logo1, name: 'Empresa 2' },
@@ -42,12 +44,12 @@ const TrustedCompanies = () => {
 
     const animate = () => {
       position -= speed;
-      
+
       // Reset position when first set of logos is out of view
       if (position <= -carousel.scrollWidth / 2) {
         position = 0;
       }
-      
+
       carousel.style.transform = `translateX(${position}px)`;
       animationId = requestAnimationFrame(animate);
     };
@@ -62,10 +64,10 @@ const TrustedCompanies = () => {
   }, []);
 
   return (
-    <section className="trusted-companies-section">
-      <div className="trusted-companies-container">
+    <section className="trusted-companies-section" ref={ref}>
+      <div className={`trusted-companies-container fade-in-up ${isVisible ? 'visible' : ''}`}>
         <h2 className="trusted-companies-title">Confían en nosotros</h2>
-        
+
         <div className="carousel-wrapper">
           <div className="carousel-track" ref={carouselRef}>
             {duplicatedCompanies.map((company, index) => (

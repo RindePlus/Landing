@@ -6,7 +6,7 @@ const Footer = ({ onOpenWhatsApp }) => {
   const scrollToContact = () => {
     const contactSection = document.querySelector('#contacto-form');
     if (contactSection) {
-      contactSection.scrollIntoView({ 
+      contactSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
@@ -44,7 +44,7 @@ const Footer = ({ onOpenWhatsApp }) => {
             <div className="footer-links">
               {/*  <a href="/terminos-y-condiciones" className="footer-link">
                 Términos y Condiciones
-              </a> */}  
+              </a> */}
               {/* <a href="/politica-de-privacidad" className="footer-link">
                 Política de Privacidad
               </a> */}
@@ -53,7 +53,7 @@ const Footer = ({ onOpenWhatsApp }) => {
         </div>
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © 2024 Rinde Plus. Todos los derechos reservados.
+            © 2026 RindePlus. Todos los derechos reservados.
           </p>
         </div>
       </div>

@@ -1,17 +1,31 @@
 .App {
   min-height: 100vh;
-  font-family: 'Arial', sans-serif;
 }
 
 .main-content {
   padding: 0;
+  margin-top: 89px;
+  /* Height of the Header (White area behind header) */
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-top: 65px;
+  }
 }
 
 .hero-section {
   position: relative;
   width: 100%;
-  min-height: 60vh;
+  min-height: 80vh;
   padding: 180px 0 80px 0;
+  /* Extra padding top to center content with header */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,8 +47,7 @@
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  mix-blend-mode: multiply;
+  background: transparent;
   z-index: 0;
 }
 
@@ -46,9 +59,10 @@
 .hero-overlay {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
+  max-width: 100%;
+  /* Full width */
+  margin: 0;
+  padding: 0;
   z-index: 1;
 }
 
@@ -58,6 +72,10 @@
   justify-content: space-between;
   gap: 60px;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  /* Internal spacing instead of container margin */
 }
 
 .hero-text {
@@ -71,22 +89,29 @@
 }
 
 .hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  /* Larger */
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  /* text-shadow: 0 4px 12px rgba(0,0,0,0.3); Removed heavy shadow */
+  letter-spacing: -0.02em;
+  color: #ffffff;
 }
 
 .hero-section--plain .hero-title {
   text-shadow: none;
+  color: var(--secondary);
 }
 
 .hero-subtitle {
-  font-size: 1.3rem;
+  font-family: var(--font-body);
+  font-size: 1.25rem;
   line-height: 1.6;
   margin: 0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+  opacity: 0.9;
 }
 
 .hero-section--plain .hero-subtitle {
@@ -107,30 +132,30 @@
     min-height: 50vh;
     padding: 100px 0 50px 0;
   }
-  
+
   .hero-overlay {
     padding: 0 30px;
   }
-  
+
   .hero-content {
     flex-direction: column;
     gap: 40px;
     text-align: center;
     align-items: center;
   }
-  
+
   .hero-text {
     max-width: 100%;
   }
-  
+
   .hero-title {
     font-size: 2.8rem;
   }
-  
+
   .hero-subtitle {
     font-size: 1.2rem;
   }
-  
+
   .hero-form {
     width: 100%;
     max-width: 100%;
@@ -142,23 +167,23 @@
     min-height: auto;
     padding: 120px 0 40px 0;
   }
-  
+
   .hero-overlay {
     padding: 0 20px;
   }
-  
+
   .hero-content {
     gap: 30px;
   }
-  
+
   .hero-title {
     font-size: 2.2rem;
   }
-  
+
   .hero-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .hero-form {
     width: 100%;
   }
@@ -169,21 +194,21 @@
     min-height: auto;
     padding: 140px 0 30px 0;
   }
-  
+
   .hero-overlay {
     padding: 0 15px;
   }
-  
+
   .hero-content {
     gap: 25px;
   }
-  
+
   .hero-title {
     font-size: 1.8rem;
     line-height: 1.3;
     margin-bottom: 15px;
   }
-  
+
   .hero-subtitle {
     font-size: 1rem;
     line-height: 1.4;
@@ -194,34 +219,26 @@
   .hero-section {
     padding: 150px 0 25px 0;
   }
-  
+
   .hero-overlay {
     padding: 0 12px;
   }
-  
+
   .hero-content {
     gap: 20px;
   }
-  
+
   .hero-title {
     font-size: 1.6rem;
   }
-  
+
   .hero-subtitle {
     font-size: 0.9rem;
   }
 }
 
 /* Desactivar background-attachment: fixed en mobile para mejor rendimiento */
-@media (max-width: 768px) {
-  .hero-section {
-    background-attachment: scroll;
-  }
-  
-  .hero-section-secondary {
-    background-attachment: scroll;
-  }
-}
+/* Removed background-attachment: scroll override to keep parallax-like effect */
 
 .vigia-main {
   padding-top: 0;
@@ -247,29 +264,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   transition: background 0.2s, transform 0.2s;
   font-size: 2rem;
   border: none;
   outline: none;
   padding: 0;
 }
+
 .whatsapp-float:hover {
   background: #1ebe5d;
   transform: scale(1.08);
   color: white;
 }
+
 @media (max-width: 600px) {
   .whatsapp-float {
-    right: 12px;
-    bottom: 80px;
-    width: 54px;
-    height: 54px;
+    right: 20px;
+    bottom: 30px;
+    /* Lower position */
+    width: 65px;
+    /* Larger than before (54px) */
+    height: 65px;
   }
+
   .whatsapp-float svg {
-    font-size: 32px !important;
+    font-size: 40px !important;
+    /* Increased from 32px for better visibility */
   }
 }
+
 .whatsapp-float svg {
   display: block;
   font-size: 54px;
@@ -290,16 +314,25 @@
   max-width: 90vw;
   background: #222;
   border-radius: 28px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   animation: whatsapp-popup-in 0.2s;
   color: #fff;
   z-index: 10001;
 }
+
 @keyframes whatsapp-popup-in {
-  from { opacity: 0; transform: translateY(40px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
+
 .whatsapp-popup-header {
   background: #25d366;
   color: #fff;
@@ -310,13 +343,16 @@
   font-weight: bold;
   position: relative;
 }
+
 .whatsapp-popup-logo {
   font-size: 1.6rem;
   margin-right: 10px;
 }
+
 .whatsapp-popup-title {
   flex: 1;
 }
+
 .whatsapp-popup-close {
   background: none;
   border: none;
@@ -328,15 +364,18 @@
   border-radius: 50%;
   transition: background 0.2s;
 }
+
 .whatsapp-popup-close:hover {
-  background: rgba(0,0,0,0.08);
+  background: rgba(0, 0, 0, 0.08);
 }
+
 .whatsapp-popup-body {
   padding: 20px 20px 16px 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 .whatsapp-popup-message {
   background: #444;
   color: #fff;
@@ -344,8 +383,9 @@
   padding: 14px 18px;
   margin-bottom: 18px;
   font-size: 1.05rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
 .whatsapp-popup-send {
   background: #25d366;
   color: #fff;
@@ -357,8 +397,9 @@
   cursor: pointer;
   text-decoration: none;
   transition: background 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
 .whatsapp-popup-send:hover {
   background: #1ebe5d;
 }

@@ -41,9 +41,9 @@ const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true }) => {
         {/* Logo Section */}
         <div className="logo-section">
           <div className="logo-icon">
-            <img 
-              src={rindeplusLogo} 
-              alt="RindePlus Logo" 
+            <img
+              src={rindeplusLogo}
+              alt="RindePlus Logo"
               className="logo-image"
               onClick={onLogoClick}
               style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
@@ -53,25 +53,7 @@ const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true }) => {
 
         {/* Right Section: Contact Box */}
         <div className="right-group">
-          <div className="contact-box">
-            <div className="contact-info">
-              <span className="email" onClick={scrollToContact} style={{ cursor: 'pointer' }}>inforindeplus@gmail.com</span>
-            </div>
-            <div className="contact-info">  
-              <span className="phone" onClick={onOpenWhatsApp} style={{ cursor: 'pointer' }}>+54 9 3564 59-3446</span>
-            </div>
-            <div className="social-icons">
-              <a href="https://www.facebook.com/profile.php?id=61556286195562" target="_blank" rel="noopener noreferrer" className="social-icon">
-                <FaFacebook />
-              </a>
-              <a href="https://www.instagram.com/rindeplus?igsh=MXUycWFiNXplcDN5bw==" target="_blank" rel="noopener noreferrer" className="social-icon">
-                <FaInstagram />
-              </a>
-              <a href="https://www.linkedin.com/company/rinde-plus/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="social-icon">
-                <FaLinkedin />
-              </a>
-            </div>
-          </div>
+          {/* Contact Box removed as per request */}
           {showMenu && (
             <div className="menu-group">
               <button

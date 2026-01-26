@@ -1,14 +1,24 @@
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './PronosticosPage.css';
 import Header from './Header';
 import Footer from './Footer';
 import cosechadoraBg from '../assets/cosechadora.jpg';
+
+const RevealSection = ({ children, className = '', id = '' }) => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+  return (
+    <section id={id} className={`${className} fade-in-up ${isVisible ? 'visible' : ''}`} ref={ref}>
+      {children}
+    </section>
+  );
+};
 
 const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
   const pronosticosLoginUrl = 'https://pronosticos.rindeplus.com/login/rindeplus';
 
   return (
     <div className="pronosticos-page">
-      <Header 
+      <Header
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
         showMenu={false}
@@ -16,8 +26,8 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
 
       <main id="top">
         {/* HERO */}
-        <section 
-          className="pronosticos-hero-section" 
+        <section
+          className="pronosticos-hero-section"
           style={{ backgroundImage: `linear-gradient(90deg, rgba(0,64,34,0.82) 0%, rgba(0,64,34,0.55) 50%, rgba(0,64,34,0.25) 100%), url(${cosechadoraBg})` }}
         >
           <div className="pronosticos-hero-inner">
@@ -31,45 +41,45 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
         </section>
 
         {/* QUE ES */}
-        <section id="que-es">
+        <RevealSection id="que-es">
           <div className="pronosticos-wrap">
             <div className="pronosticos-section-title">
               <div>
-                <h2>Qué es</h2>
+                <h2>¿Qué es?</h2>
               </div>
             </div>
 
             <div className="pronosticos-card">
-              <p style={{fontSize: '16px', lineHeight: '1.7', margin: 0, color: 'var(--text)'}}>
+              <p className="pronosticos-text">
                 La plataforma es una herramienta de análisis y decisión que integra información de clima, suelo, ambientes e históricos productivos para construir escenarios de rendimiento antes y durante la campaña. Centraliza los datos del lote y los traduce en indicadores claros que permiten entender el comportamiento productivo y anticipar resultados con mayor certeza.
               </p>
             </div>
           </div>
-        </section>
+        </RevealSection>
 
         {/* QUE SOLUCIONA */}
-        <section id="que-soluciona">
+        <RevealSection id="que-soluciona">
           <div className="pronosticos-wrap">
             <div className="pronosticos-section-title">
               <div>
-                <h2>Qué soluciona</h2>
+                <h2>¿Qué soluciona?</h2>
               </div>
             </div>
 
             <div className="pronosticos-card">
-              <p style={{fontSize: '16px', lineHeight: '1.7', margin: 0, color: 'var(--text)'}}>
+              <p className="pronosticos-text">
                 En la gestión agrícola, la información suele estar fragmentada, desordenada y sin conexión directa con la decisión. La herramienta resuelve este problema al unificar toda la información relevante en un solo lugar y cuantificar la brecha entre el rendimiento esperado y el rendimiento potencial alcanzable, mostrando cuánto puede mejorar el cultivo mediante intervenciones técnicas precisas y calculadas.
               </p>
             </div>
           </div>
-        </section>
+        </RevealSection>
 
         {/* COMO FUNCIONA */}
-        <section id="como-funciona">
+        <RevealSection id="como-funciona">
           <div className="pronosticos-wrap">
             <div className="pronosticos-section-title">
               <div>
-                <h2>Cómo funciona</h2>
+                <h2>¿Cómo funciona?</h2>
                 <p className="pronosticos-lead">Simple, trazable y pensado para que <b>escalés</b> a múltiples lotes y campos.</p>
               </div>
             </div>
@@ -89,10 +99,10 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
               </div>
             </div>
           </div>
-        </section>
+        </RevealSection>
 
         {/* MODULOS */}
-        <section id="modulos">
+        <RevealSection id="modulos">
           <div className="pronosticos-wrap">
             <div className="pronosticos-section-title">
               <div>
@@ -105,103 +115,103 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
 
             <div className="pronosticos-grid pronosticos-cols-2">
               <div className="pronosticos-card">
-                <h3 style={{margin: '0 0 12px', fontSize: '20px'}}>Análisis de Campaña</h3>
-                <p className="pronosticos-lead" style={{marginBottom: '16px'}}>
+                <h3 className="pronosticos-card-title">Análisis de Campaña</h3>
+                <p className="pronosticos-lead mb-4">
                   Dashboard completo con análisis detallado de datos de suelo, clima y rendimiento de <b>tu campaña</b>.
                 </p>
                 <ul className="pronosticos-list">
                   <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
                     <span>Análisis de datos históricos de <b>tu campo</b></span>
                   </li>
                   <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
                     <span>Monitoreo de clima y variables de <b>tu zona</b></span>
                   </li>
                   <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
                     <span>Visualización de rendimientos y tendencias</span>
                   </li>
                 </ul>
               </div>
 
               <div className="pronosticos-card">
-                <h3 style={{margin: '0 0 12px', fontSize: '20px'}}>Análisis de Brechas y Rendimientos</h3>
-                <p className="pronosticos-lead" style={{marginBottom: '16px'}}>
+                <h3 className="pronosticos-card-title">Análisis de Brechas y Rendimientos</h3>
+                <p className="pronosticos-lead mb-4">
                   Escenarios de brechas y rendimiento con <b>tu lote</b> real. Modelo de IA para simular escenarios y evaluar riesgos.
                 </p>
                 <ul className="pronosticos-list">
                   <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
                     <span>Escenarios de rendimiento con <b>tu lote</b></span>
                   </li>
                   <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
                     <span>Brechas por ambiente (potencial vs pronosticado)</span>
                   </li>
                   <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
                     <span>Recomendaciones de fertilización para cerrar <b>tu brecha</b></span>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div className="pronosticos-card" style={{marginTop: '18px'}}>
-              <h3 style={{margin: '0 0 12px'}}>Lo que te muestra el reporte</h3>
-              <p className="pronosticos-lead" style={{margin: '0 0 16px', maxWidth: 'none'}}>
+            <div className="pronosticos-card report-preview-card mt-4">
+              <h3 className="pronosticos-card-title">Lo que te muestra el reporte</h3>
+              <p className="pronosticos-lead mb-4" style={{ maxWidth: 'none' }}>
                 Al abrir <b>tu reporte</b>, esto es lo que encontrás:
               </p>
 
-              <div className="pronosticos-grid pronosticos-cols-2" style={{gap: '14px'}}>
-                <div className="pronosticos-mini" style={{padding: '16px'}}>
-                  <h4 style={{margin: '0 0 8px', fontSize: '15px', color: 'var(--btn)'}}>1. Comparación de fechas de siembra</h4>
-                  <p style={{margin: 0, fontSize: '13px', lineHeight: '1.6'}}>
-                    Posibilidad de comparar distintas fechas de siembra, <b>42 días en adelante</b> y <b>42 días para atrás</b>. 
+              <div className="pronosticos-grid pronosticos-cols-2 gap-3">
+                <div className="pronosticos-mini p-4">
+                  <h4 className="pronosticos-mini-title">1. Comparación de fechas de siembra</h4>
+                  <p className="pronosticos-mini-text">
+                    Posibilidad de comparar distintas fechas de siembra, <b>42 días en adelante</b> y <b>42 días para atrás</b>.
                     Visualizá cómo impacta la fecha de siembra en el rendimiento pronosticado de <b>tu cultivo</b>.
                   </p>
                 </div>
-                <div className="pronosticos-mini" style={{padding: '16px'}}>
-                  <h4 style={{margin: '0 0 8px', fontSize: '15px', color: 'var(--btn)'}}>2. Modelo clima + suelo</h4>
-                  <p style={{margin: 0, fontSize: '13px', lineHeight: '1.6'}}>
+                <div className="pronosticos-mini p-4">
+                  <h4 className="pronosticos-mini-title">2. Modelo clima + suelo</h4>
+                  <p className="pronosticos-mini-text">
                     Gráfico de barras comparando <b>Potencial vs Pronosticado</b> por ambiente (Alta, Media, Baja) en <b>tn/ha</b>.
                     Te muestra la <b>brecha</b> en toneladas por hectárea y datos de agua útil, lluvia del ciclo y agua total.
                   </p>
                 </div>
-                <div className="pronosticos-mini" style={{padding: '16px'}}>
-                  <h4 style={{margin: '0 0 8px', fontSize: '15px', color: 'var(--btn)'}}>3. Distribución de rendimiento</h4>
-                  <p style={{margin: 0, fontSize: '13px', lineHeight: '1.6'}}>
+                <div className="pronosticos-mini p-4">
+                  <h4 className="pronosticos-mini-title">3. Distribución de rendimiento</h4>
+                  <p className="pronosticos-mini-text">
                     Gráfico con la distribución esperada de rendimiento mostrando <b>Media, P10, P90</b> y escenarios climáticos
                     (precipitaciones ±15%, temperatura ±3°C) para que entiendas el rango de <b>tu rendimiento</b>.
                   </p>
                 </div>
-                <div className="pronosticos-mini" style={{padding: '16px'}}>
-                  <h4 style={{margin: '0 0 8px', fontSize: '15px', color: 'var(--btn)'}}>4. Déficit de presión de vapor (DPV)</h4>
-                  <p style={{margin: 0, fontSize: '13px', lineHeight: '1.6'}}>
+                <div className="pronosticos-mini p-4">
+                  <h4 className="pronosticos-mini-title">4. Déficit de presión de vapor (DPV)</h4>
+                  <p className="pronosticos-mini-text">
                     Promedio de DPV de los días analizados con categorías (Muy bajo, Óptimo, Moderado, Alto), evolución diaria
                     y tabla de días críticos con DPV &gt; 2.0 kPa en <b>tu campaña</b>.
                   </p>
                 </div>
-                <div className="pronosticos-mini" style={{padding: '16px'}}>
-                  <h4 style={{margin: '0 0 8px', fontSize: '15px', color: 'var(--btn)'}}>5. Captura de carbono</h4>
-                  <p style={{margin: 0, fontSize: '13px', lineHeight: '1.6'}}>
+                <div className="pronosticos-mini p-4">
+                  <h4 className="pronosticos-mini-title">5. Captura de carbono</h4>
+                  <p className="pronosticos-mini-text">
                     Gráfico de barras mostrando las toneladas de CO₂ equivalente que fija <b>tu cultivo</b> por ambiente,
                     basado en el rendimiento pronosticado. Incluye explicación de qué es y para qué sirve.
                   </p>
                 </div>
-                <div className="pronosticos-mini" style={{padding: '16px'}}>
-                  <h4 style={{margin: '0 0 8px', fontSize: '15px', color: 'var(--btn)'}}>6. Recomendación de nutrientes a fertilizar</h4>
-                  <p style={{margin: 0, fontSize: '13px', lineHeight: '1.6'}}>
+                <div className="pronosticos-mini p-4">
+                  <h4 className="pronosticos-mini-title">6. Recomendación de nutrientes a fertilizar</h4>
+                  <p className="pronosticos-mini-text">
                     Recomendaciones específicas de fertilización basadas en <b>tu brecha de rendimiento</b>, el análisis de <b>tu suelo</b> y los requerimientos de <b>tu cultivo</b>. Incluye dosis por nutriente y por ambiente para cerrar <b>tu brecha</b>.
                   </p>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </RevealSection>
 
         {/* COMO EMPIEZO */}
-        <section id="como-empezar">
+        <RevealSection id="como-empezar">
           <div className="pronosticos-wrap">
             <div className="pronosticos-section-title">
               <div>
@@ -227,18 +237,18 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
               </div>
             </div>
 
-            <div className="pronosticos-card" style={{marginTop: '18px', background: '#E3F2FD', borderColor: 'var(--btn)'}}>
-              <h3 style={{margin: '0 0 8px', color: 'var(--btn)'}}>¿Necesitás ayuda?</h3>
-              <p style={{margin: 0, color: 'var(--text)', fontSize: '14px', lineHeight: '1.6'}}>
+            <div className="pronosticos-card support-card">
+              <h3 className="support-title">¿Necesitás ayuda?</h3>
+              <p className="support-text">
                 Nuestro equipo te acompaña en todo el proceso. Si tenés dudas sobre cómo cargar <b>tus datos</b> o interpretar <b>tu reporte</b>,
                 contactanos y te ayudamos a sacarle el máximo provecho a la plataforma.
               </p>
             </div>
           </div>
-        </section>
+        </RevealSection>
 
         {/* CTA FINAL */}
-        <section className="pronosticos-final-cta">
+        <RevealSection className="pronosticos-final-cta">
           <div className="pronosticos-final-box">
             <div>
               <h3>Comenzá a usarlo</h3>
@@ -249,7 +259,7 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
               <button className="pronosticos-btn pronosticos-btn-outline" onClick={onOpenWhatsApp}>Contactanos</button>
             </div>
           </div>
-        </section>
+        </RevealSection>
       </main>
       <Footer onOpenWhatsApp={onOpenWhatsApp} />
     </div>

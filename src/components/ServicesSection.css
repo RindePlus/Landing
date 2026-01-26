@@ -1,6 +1,6 @@
 .services-section {
-  padding: 80px 40px;
-  background: #f8f9fa;
+  padding: 60px 40px;
+  background: var(--bg-main);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -11,20 +11,22 @@
 }
 
 .services-container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
 .services-title {
   text-align: center;
+  font-family: var(--font-heading);
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: var(--secondary);
   margin-bottom: 60px;
 }
 
 .services-section--with-bg .services-title {
   color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .services-cards {
@@ -35,33 +37,37 @@
 }
 
 .service-card {
-  background: white;
-  border-radius: 15px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
   padding: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   flex: 1;
   min-width: 300px;
   max-width: 380px;
   text-align: left;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .service-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
 }
 
 .service-header {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .service-icon-wrapper {
-  background-color: #ffd700;
-  border-radius: 8px;
-  width: 60px;
-  height: 60px;
+  background-color: #FFD700;
+  /* Yellow */
+  border-radius: 12px;
+  width: 64px;
+  /* Slightly larger wrapper */
+  height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,7 +76,9 @@
 
 .service-icon {
   color: #0066cc;
-  font-size: 28px;
+  /* Blue */
+  font-size: 36px;
+  /* Larger icon */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,17 +86,24 @@
   height: 100%;
 }
 
+/* Specific fix for 'Drops' icon which renders smaller than others */
+.service-card:nth-child(2) .service-icon {
+  font-size: 96px;
+  /* Significantly larger to match visual weight */
+}
+
 .service-card-title {
-  font-size: 1.4rem;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: var(--secondary);
   line-height: 1.2;
   margin: 0;
 }
 
 .service-image {
-  margin-bottom: 20px;
-  border-radius: 10px;
+  margin-bottom: 24px;
+  border-radius: 12px;
   overflow: hidden;
   height: 200px;
   display: flex;
@@ -100,12 +115,17 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-image img {
+  transform: scale(1.05);
 }
 
 .service-description {
+  font-family: var(--font-body);
   font-size: 0.95rem;
-  color: #555;
+  color: var(--text-muted);
   line-height: 1.6;
   margin: 0;
 }
@@ -115,11 +135,11 @@
   .services-section {
     padding: 60px 30px;
   }
-  
+
   .services-cards {
     gap: 20px;
   }
-  
+
   .service-card {
     min-width: 280px;
     max-width: calc(50% - 10px);
@@ -131,41 +151,44 @@
     padding: 40px 15px;
   }
 
-  .services-section--with-bg {
-    background-attachment: scroll;
-  }
-  
+  /* .services-section--with-bg rule removed (was background-attachment: scroll override) */
+
   .services-title {
     font-size: 1.8rem;
     margin-bottom: 30px;
   }
-  
+
   .services-cards {
     flex-direction: column;
     align-items: center;
     gap: 20px;
   }
-  
+
   .service-card {
     max-width: 100%;
     width: 100%;
     min-width: auto;
     padding: 20px 15px;
   }
-  
+
   .service-icon-wrapper {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
   }
-  
+
   .service-icon {
-    font-size: 20px;
+    font-size: 28px;
   }
-  
+
+  .service-card:nth-child(2) .service-icon {
+    font-size: 38px;
+    /* Mobile adjust */
+  }
+
   .service-card-title {
     font-size: 1.1rem;
   }
-  
+
   .service-description {
     font-size: 0.85rem;
   }
@@ -176,38 +199,41 @@
     padding: 30px 10px;
   }
 
-  .services-section--with-bg {
-    background-attachment: scroll;
-  }
-  
+  /* .services-section--with-bg rule removed */
+
   .services-title {
     font-size: 1.6rem;
     margin-bottom: 25px;
   }
-  
+
   .service-card {
     padding: 15px 12px;
   }
-  
+
   .service-header {
     gap: 10px;
     margin-bottom: 12px;
   }
-  
+
   .service-icon-wrapper {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
   }
-  
+
   .service-icon {
-    font-size: 18px;
+    font-size: 24px;
   }
-  
+
+  .service-card:nth-child(2) .service-icon {
+    font-size: 32px;
+    /* Small mobile adjust */
+  }
+
   .service-card-title {
     font-size: 1rem;
   }
-  
+
   .service-description {
     font-size: 0.8rem;
   }
-} 
+}

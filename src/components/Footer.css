@@ -1,16 +1,17 @@
 .footer {
-  width: 100vw;
-  background-color: #ffffff;
-  color: #1f1f1f;
-  border-top: 1px solid rgba(0, 102, 204, 0.35);
-  padding: 60px 0 20px;
+  width: 100%;
+  background-color: var(--bg-card);
+  color: var(--secondary);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 80px 0 30px;
   margin-top: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-body);
 }
 
 .footer-container {
   width: 100%;
-  max-width: none;
+  max-width: 100%;
+  /* Full width */
   margin: 0;
   padding: 0 40px;
   box-sizing: border-box;
@@ -39,9 +40,7 @@
   align-items: flex-end;
 }
 
-.footer-section {
-  /* No flex aquí */
-}
+/* removed empty footer-section rule */
 
 .footer-section:first-child {
   flex: none;
@@ -138,11 +137,11 @@
   .footer {
     padding: 30px 0 15px;
   }
-  
+
   .footer-container {
     padding: 0 15px;
   }
-  
+
   .footer-content {
     flex-direction: column;
     justify-content: flex-start;
@@ -150,39 +149,39 @@
     gap: 20px;
     text-align: left;
   }
-  
+
   .footer-left {
     align-items: flex-start;
     min-width: 0;
     width: 100%;
   }
-  
+
   .footer-right {
     align-items: flex-start;
     min-width: 0;
     width: 100%;
   }
-  
+
   .footer-section {
     margin-bottom: 0;
   }
-  
+
   .footer-title {
     font-size: 1.2rem;
     margin-bottom: 15px;
     text-align: left;
   }
-  
+
   .contact-item {
     justify-content: flex-start;
     font-size: 0.9rem;
   }
-  
+
   .footer-links {
     align-items: flex-start;
     text-align: left;
   }
-  
+
   .footer-link {
     font-size: 0.9rem;
     text-align: left;
@@ -193,29 +192,29 @@
   .footer {
     padding: 25px 0 12px;
   }
-  
+
   .footer-container {
     padding: 0 10px;
   }
-  
+
   .footer-content {
     gap: 15px;
   }
-  
+
   .footer-title {
     font-size: 1.1rem;
   }
-  
+
   .contact-item {
     font-size: 0.85rem;
     gap: 8px;
   }
-  
+
   .contact-icon {
     font-size: 1rem;
   }
-  
+
   .footer-link {
     font-size: 0.85rem;
   }
-} 
+}

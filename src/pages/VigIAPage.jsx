@@ -1,8 +1,23 @@
 import React from 'react';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import Header from '../components/Header';
 import './VigIAPage.css';
 import inicioImage from '../assets/inicio.jpg';
 import { FaWhatsapp } from "react-icons/fa";
+
+const RevealSection = ({ children, className = '', id = '', style = {} }) => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+  return (
+    <section
+      id={id}
+      className={`${className} fade-in-up ${isVisible ? 'visible' : ''}`}
+      ref={ref}
+      style={style}
+    >
+      {children}
+    </section>
+  );
+};
 
 const VigIAPage = ({ onOpenWhatsApp }) => {
   const platformUrl = 'https://vigiabioestress.ddns.net/login/';
@@ -11,7 +26,7 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
   return (
     <div className="vigia-page">
       <Header onOpenWhatsApp={onOpenWhatsApp} />
-      
+
       {/* Hero Section */}
       <section className="vigia-hero">
         <div className="vigia-hero-overlay">
@@ -40,17 +55,17 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
       </section>
 
       {/* Main Content Section */}
-      <section className="vigia-main-content">
+      <RevealSection className="vigia-main-content">
         <div className="vigia-content-wrapper">
           <h2 className="vigia-section-title">La inteligencia que anticipa el estrés antes de que se vea.</h2>
           <p className="vigia-section-text">
             Vig IA BioEstrés es una herramienta de inteligencia predictiva que permite monitorear, diagnosticar y anticipar escenarios de estrés en los cultivos extensivos antes de que se manifiesten. Combina <span className="vigia-highlight">Inteligencia Artificial</span> e <span className="vigia-highlight">Inteligencia Agronómica</span> para generar alertas tempranas y facilitar decisiones preventivas que optimizan el manejo con bioinsumos.
           </p>
         </div>
-      </section>
+      </RevealSection>
 
       {/* Quote Section */}
-      <section className="vigia-quote-section">
+      <RevealSection className="vigia-quote-section">
         <div className="vigia-quote-wrapper">
           <div className="vigia-quote-icon">"</div>
           <p className="vigia-quote-text">
@@ -63,23 +78,23 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
           <div className="vigia-circle vigia-circle-3"></div>
           <div className="vigia-leaf-icon">🍃</div>
         </div>
-      </section>
+      </RevealSection>
 
       {/* How it Works Section */}
-      <section className="vigia-how-it-works">
+      <RevealSection className="vigia-how-it-works">
         <div className="vigia-how-content">
           <div className="vigia-how-header">
             <h2 className="vigia-how-title-blue">Así funciona</h2>
             <h3 className="vigia-how-title-green">Una sola plataforma, todas las variables.</h3>
           </div>
-          
+
           <div className="vigia-how-main">
             <div className="vigia-how-text-block">
               <p>
                 A partir de la geoposición del lote y del contenido inicial de agua en el suelo, <strong>Vig IA BioEstrés</strong> integra pronósticos climáticos y los combina con los requerimientos hídricos específicos del cultivo según su estadio fenológico.
               </p>
             </div>
-            
+
             <div className="vigia-phone-mockup">
               <div className="vigia-phone-screen">
                 <div className="vigia-phone-header">Porcentaje de Agua Útil - próximos 6 meses</div>
@@ -117,10 +132,10 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             </p>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       {/* Features Section */}
-      <section className="vigia-features">
+      <RevealSection className="vigia-features">
         <div className="vigia-features-grid">
           <div className="vigia-feature">
             <div className="vigia-feature-icon">📊</div>
@@ -139,10 +154,10 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             <h4 className="vigia-feature-title">Alertas automáticas y personalizadas</h4>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       {/* Benefits Section */}
-      <section className="vigia-benefits">
+      <RevealSection className="vigia-benefits">
         <div className="vigia-benefits-wrapper">
           <h2 className="vigia-benefits-title">Lo que ganás con usarlo</h2>
           <div className="vigia-benefits-grid">
@@ -171,17 +186,17 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             <span className="vigia-slogan-green">Agronomía</span> <span className="vigia-slogan-blue">potenciada por inteligencia artificial.</span>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       {/* Image Section */}
-      <section className="vigia-image-section">
+      <RevealSection className="vigia-image-section">
         <div className="vigia-image-wrapper">
           <img src={inicioImage} alt="Campo agrícola" className="vigia-field-image" />
         </div>
-      </section>
+      </RevealSection>
 
       {/* Target Audience Section */}
-      <section className="vigia-target">
+      <RevealSection className="vigia-target">
         <div className="vigia-target-wrapper">
           <h2 className="vigia-target-title">Es para quienes asesoran y toman decisiones en el campo</h2>
           <h3 className="vigia-target-subtitle">De la observación al control: la prevención inteligente ahora está en tus manos</h3>
@@ -197,10 +212,10 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             Menos estrés, más rendimiento
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       {/* Easy to Use Section */}
-      <section className="vigia-easy">
+      <RevealSection className="vigia-easy">
         <div className="vigia-easy-wrapper">
           <div className="vigia-easy-content">
             <h2 className="vigia-easy-title">Necesitás muy poco para usarlo</h2>
@@ -222,10 +237,10 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       {/* Accessible Section */}
-      <section className="vigia-accessible">
+      <RevealSection className="vigia-accessible">
         <div className="vigia-accessible-wrapper">
           <div className="vigia-accessible-content">
             <h2 className="vigia-accessible-title">Es accesible</h2>
@@ -248,10 +263,10 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             <img src={inicioImage} alt="Campo de trigo" className="vigia-wheat-image" />
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       {/* Final CTA Section */}
-      <section className="vigia-final-cta">
+      <RevealSection className="vigia-final-cta">
         <div className="vigia-final-cta-wrapper">
           <div className="vigia-final-cta-box">
             <h2 className="vigia-final-cta-title">Comenzá a usarlo</h2>
@@ -261,15 +276,15 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             </a>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       {/* Alliance Section */}
-      <section className="vigia-alliance">
+      <RevealSection className="vigia-alliance">
         <div className="vigia-alliance-wrapper">
           <h2 className="vigia-alliance-title">Una innovación en alianza</h2>
           <h3 className="vigia-alliance-subtitle">Tres equipos, un mismo objetivo: ayudar a anticipar el estrés abiótico en cultivos extensivos.</h3>
           <p className="vigia-alliance-text">
-            Vig iA BioEstrés es el resultado de una alianza entre Agroconsultor, BioRed y Rinde Plus.
+            Vig iA BioEstrés es el resultado de una alianza entre Agroconsultor, BioRed y RindePlus.
           </p>
           <p className="vigia-alliance-text">
             Una misma misión: unir agronomía, inteligencia artificial y bioinsumos potenciando datos para anticipar comportamientos del cultivo.
@@ -283,7 +298,7 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             </div>
             <div className="vigia-partner">
               <div className="vigia-partner-logo vigia-partner-rindeplus">R</div>
-              <h4 className="vigia-partner-name">Rinde Plus</h4>
+              <h4 className="vigia-partner-name">RindePlus</h4>
               <p className="vigia-partner-tagline">AG-TECH</p>
               <p className="vigia-partner-desc">EXPERTOS EN LA FUSIÓN AGRONOMÍA E INTELIGENCIA ARTIFICIAL.</p>
             </div>
@@ -294,7 +309,7 @@ const VigIAPage = ({ onOpenWhatsApp }) => {
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
     </div>
   );

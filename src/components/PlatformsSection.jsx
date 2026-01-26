@@ -8,6 +8,7 @@ import logoHalcon from '../assets/botones/l-Halcon.png';
 import logoKimzza from '../assets/botones/L-Kimzza.png';
 import logoPronosticos from '../assets/botones/L-Pronosticos.png';
 import logoVigia from '../assets/botones/L-Vigia.png';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const platforms = [
   { name: 'Vig IA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia, internal: true, internalType: 'vigia' },
@@ -20,6 +21,8 @@ const platforms = [
 ];
 
 const PlatformsSection = ({ onGoToVigia, onGoToPronosticos, backgroundImage }) => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+
   const handlePlatformClick = (platform) => {
     if (platform.internal) {
       if (platform.internalType === 'vigia' && onGoToVigia) {
@@ -42,9 +45,9 @@ const PlatformsSection = ({ onGoToVigia, onGoToPronosticos, backgroundImage }) =
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none'
       }}
     >
-      <div className="platforms-container">
-        <h2 className="platforms-title">Nuestras Plataformas</h2>
-        <div className="platforms-scroll-wrapper">
+      <div className="platforms-container" ref={ref}>
+        <h2 className={`platforms-title fade-in-up ${isVisible ? 'visible' : ''}`}>Nuestras Plataformas</h2>
+        <div className={`platforms-scroll-wrapper fade-in-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
           <div className="platforms-scroll-container">
             <div className="platforms-scroll">
               {platforms.map((platform, index) => (

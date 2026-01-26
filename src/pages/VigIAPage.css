@@ -68,13 +68,11 @@
   left: 20px;
   width: 60px;
   height: 2px;
-  background: repeating-linear-gradient(
-    to right,
-    white 0px,
-    white 3px,
-    transparent 3px,
-    transparent 6px
-  );
+  background: repeating-linear-gradient(to right,
+      white 0px,
+      white 3px,
+      transparent 3px,
+      transparent 6px);
 }
 
 .vigia-logo-text {
@@ -1082,6 +1080,7 @@
 }
 
 @media (max-width: 480px) {
+
   .vigia-main-content,
   .vigia-quote-section,
   .vigia-how-it-works,
@@ -1113,4 +1112,3 @@
     font-size: 18px;
   }
 }
-

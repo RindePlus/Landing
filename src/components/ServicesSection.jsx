@@ -4,6 +4,7 @@ import { PiPlantLight } from 'react-icons/pi';
 import pronosticoProductividad from '../assets/pronostico_productividad.jpg';
 import huellaHidrica from '../assets/huella_hidrica.jpg';
 import capturaCarbono from '../assets/captura_carbono.jpg';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './ServicesSection.css';
 
 const services = [
@@ -28,6 +29,8 @@ const services = [
 ];
 
 const ServicesSection = ({ backgroundImage }) => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+
   return (
     <section
       className={`services-section${backgroundImage ? ' services-section--with-bg' : ''}`}
@@ -35,11 +38,15 @@ const ServicesSection = ({ backgroundImage }) => {
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none'
       }}
     >
-      <div className="services-container">
-        <h2 className="services-title">Nuestros Servicios</h2>
+      <div className="services-container" ref={ref}>
+        <h2 className={`services-title fade-in-up ${isVisible ? 'visible' : ''}`}>Nuestros Servicios</h2>
         <div className="services-cards">
           {services.map((service, index) => (
-            <div className="service-card" key={index}>
+            <div
+              className={`service-card fade-in-up ${isVisible ? 'visible' : ''}`}
+              key={index}
+              style={{ transitionDelay: `${index * 150}ms` }}
+            >
               <div className="service-header">
                 <div className="service-icon-wrapper">
                   <div className="service-icon">{service.icon}</div>
