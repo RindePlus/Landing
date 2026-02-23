@@ -247,6 +247,90 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
           </div>
         </RevealSection>
 
+        {/* INSTALÁ LA APP (PWA) */}
+        <RevealSection id="instalar-app">
+          <div className="pronosticos-wrap">
+            <div className="pronosticos-section-title">
+              <div>
+                <h2>Instalá la plataforma en tu celular</h2>
+                <p className="pronosticos-lead">
+                  Podés agregar la plataforma como una app en la pantalla de inicio de <b>tu teléfono</b>. No necesitás descargar nada de una tienda — seguí estos pasos según tu dispositivo.
+                </p>
+              </div>
+            </div>
+
+            <div className="pronosticos-grid pronosticos-cols-2">
+              {/* iOS */}
+              <div className="pronosticos-card pwa-card pwa-card-ios">
+                <div className="pwa-card-header">
+                  <div className="pwa-platform-badge pwa-badge-ios" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.02-1.77-.79-3.29-.79s-2 .77-3.27.81c-1.31.04-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.71.85-1.84 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
+                  </div>
+                  <h3 className="pwa-platform-name">iOS (iPhone)</h3>
+                </div>
+                <ol className="pwa-steps">
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">1</span>
+                    <span className="pwa-step-text">Abrí <b>Safari</b> e ingresá al sitio de la plataforma.</span>
+                  </li>
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">2</span>
+                    <span className="pwa-step-text">
+                      Tocá el botón <b>Compartir</b>{' '}
+                      <span className="pwa-inline-icon" aria-label="Ícono de compartir de iOS">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                      </span>{' '}
+                      (el cuadrado con la flecha hacia arriba).
+                    </span>
+                  </li>
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">3</span>
+                    <span className="pwa-step-text">Seleccioná <b>"Añadir a Pantalla de Inicio"</b>.</span>
+                  </li>
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">4</span>
+                    <span className="pwa-step-text">Si querés, cambiá el nombre del acceso directo.</span>
+                  </li>
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">5</span>
+                    <span className="pwa-step-text">Pulsá <b>Añadir</b> y listo.</span>
+                  </li>
+                </ol>
+              </div>
+
+              {/* Android */}
+              <div className="pronosticos-card pwa-card pwa-card-android">
+                <div className="pwa-card-header">
+                  <div className="pwa-platform-badge pwa-badge-android" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.27-.85-.31-.16-.69-.04-.85.27l-1.88 3.24C14.98 8.35 13.54 8 12 8s-2.98.35-4.44.96L5.68 5.73c-.16-.31-.54-.43-.85-.27-.31.16-.43.54-.27.85L6.4 9.48C3.32 11.25 1.18 14.41 1 18h22c-.18-3.59-2.32-6.75-5.4-8.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
+                  </div>
+                  <h3 className="pwa-platform-name">Android</h3>
+                </div>
+                <ol className="pwa-steps">
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">1</span>
+                    <span className="pwa-step-text">Abrí <b>Chrome</b> e ingresá al sitio de la plataforma.</span>
+                  </li>
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">2</span>
+                    <span className="pwa-step-text">Tocá el menú <b className="pwa-dots-icon">⋮</b> (los tres puntos, arriba a la derecha).</span>
+                  </li>
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">3</span>
+                    <span className="pwa-step-text">Seleccioná <b>"Instalar aplicación"</b> o <b>"Añadir a pantalla de inicio"</b>.</span>
+                  </li>
+                  <li className="pwa-step">
+                    <span className="pwa-step-num">4</span>
+                    <span className="pwa-step-text">Confirmá tocando <b>Instalar</b> y listo.</span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+
+          </div>
+        </RevealSection>
+
         {/* CTA FINAL */}
         <RevealSection className="pronosticos-final-cta">
           <div className="pronosticos-final-box">

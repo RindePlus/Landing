@@ -404,6 +404,173 @@
 }
 
 
+/* PWA Install Section */
+.pwa-card {
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.pwa-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.pwa-card-ios::before {
+  background: linear-gradient(90deg, #007AFF, #5AC8FA);
+}
+
+.pwa-card-android::before {
+  background: linear-gradient(90deg, #34A853, #3DDC84);
+}
+
+.pwa-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-top: 4px;
+}
+
+.pwa-platform-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pwa-platform-badge svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pwa-badge-ios {
+  background: linear-gradient(135deg, #007AFF, #5AC8FA);
+  color: #fff;
+}
+
+.pwa-badge-android {
+  background: linear-gradient(135deg, #34A853, #81C995);
+  color: #fff;
+}
+
+.pwa-platform-name {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 0;
+}
+
+.pwa-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pwa-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  padding-bottom: 18px;
+}
+
+.pwa-step:last-child {
+  padding-bottom: 0;
+}
+
+/* Vertical connecting line between step numbers */
+.pwa-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 36px;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+  border-radius: 1px;
+}
+
+.pwa-step-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+}
+
+.pwa-card-ios .pwa-step-num {
+  background: #007AFF;
+  color: #fff;
+}
+
+.pwa-card-android .pwa-step-num {
+  background: #34A853;
+  color: #fff;
+}
+
+.pwa-step-text {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  padding-top: 4px;
+}
+
+.pwa-step-text b {
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.pwa-inline-icon {
+  display: inline-flex;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  color: #007AFF;
+}
+
+.pwa-inline-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pwa-dots-icon {
+  font-size: 1.3em;
+  color: var(--secondary);
+}
+
+.pwa-bottom-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.pwa-cta-btn {
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.35);
+  padding: 16px 36px;
+}
+
+.pwa-cta-btn:hover {
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.5);
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .pronosticos-hero-title {
@@ -455,5 +622,21 @@
   .report-preview-card,
   .support-card {
     padding-top: 50px;
+  }
+
+  .pwa-card {
+    padding: 28px 24px 32px !important;
+  }
+
+  .pwa-card-header {
+    margin-bottom: 22px;
+  }
+
+  .pwa-step-text {
+    font-size: 1rem;
+  }
+
+  .pwa-bottom-cta .pwa-cta-btn {
+    width: 100%;
   }
 }
