@@ -317,7 +317,7 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
                   </li>
                   <li className="pwa-step">
                     <span className="pwa-step-num">3</span>
-                    <span className="pwa-step-text">Seleccioná <b>"Instalar aplicación"</b> o <b>"Añadir a pantalla de inicio"</b>.</span>
+                    <span className="pwa-step-text">Seleccioná <b>"Instalar aplicación"</b>.</span>
                   </li>
                   <li className="pwa-step">
                     <span className="pwa-step-num">4</span>
