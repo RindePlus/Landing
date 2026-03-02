@@ -9,6 +9,7 @@ import TrustedCompanies from './components/TrustedCompanies';
 import Footer from './components/Footer';
 import VigiaPage from './components/VigiaPage';
 import PronosticosPage from './components/PronosticosPage';
+import AapresidPage from './components/AapresidPage';
 import inicioImage from './assets/inicio.jpg';
 import trigoImage from './assets/Trigo.jpg';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
@@ -31,11 +32,16 @@ function App() {
         window.history.replaceState({}, '', '/pronosticos');
         return '/pronosticos';
       }
+      if (url.pathname === '/aapresid' || url.pathname === '/aapresid/') {
+        window.history.replaceState({}, '', '/aapresid');
+        return '/aapresid';
+      }
     }
 
     const pathname = window.location.pathname;
     if (pathname === '/vigia' || pathname === '/vigia/') return '/vigia';
     if (pathname === '/pronosticos' || pathname === '/pronosticos/') return '/pronosticos';
+    if (pathname === '/aapresid' || pathname === '/aapresid/') return '/aapresid';
     return '/';
   });
   const popupRef = useRef(null);
@@ -66,6 +72,8 @@ function App() {
         setRoute('/vigia');
       } else if (pathname === '/pronosticos' || pathname === '/pronosticos/') {
         setRoute('/pronosticos');
+      } else if (pathname === '/aapresid' || pathname === '/aapresid/') {
+        setRoute('/aapresid');
       } else {
         setRoute('/');
       }
@@ -96,6 +104,7 @@ function App() {
   const vigiaLoginUrl = "https://vigiabioestress.ddns.net/login/";
   const isVigiaPage = route === '/vigia' || route === 'vigia';
   const isPronosticosPage = route === '/pronosticos' || route === 'pronosticos';
+  const isAapresidPage = route === '/aapresid' || route === 'aapresid';
 
   const navigateHome = () => {
     window.history.pushState({}, '', '/');
@@ -114,6 +123,13 @@ function App() {
   const navigateToPronosticos = () => {
     window.history.pushState({}, '', '/pronosticos');
     setRoute('/pronosticos');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowWhatsappPopup(false);
+  };
+
+  const navigateToAapresid = () => {
+    window.history.pushState({}, '', '/aapresid');
+    setRoute('/aapresid');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowWhatsappPopup(false);
   };
@@ -193,6 +209,18 @@ function App() {
     );
   }
 
+  if (isAapresidPage) {
+    return (
+      <div className="App">
+        <AapresidPage
+          onOpenWhatsApp={() => setShowWhatsappPopup(true)}
+          onGoToHome={navigateHome}
+        />
+        {whatsappElements}
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       {/* Imagen oculta para precarga */}
@@ -220,6 +248,7 @@ function App() {
           <PlatformsSection
             onGoToVigia={navigateToVigia}
             onGoToPronosticos={navigateToPronosticos}
+            onGoToAapresid={navigateToAapresid}
           />
         </div>
         <div

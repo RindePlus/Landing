@@ -14,13 +14,13 @@ const platforms = [
   { name: 'Vig IA Biostress', href: 'https://vigiabioestress.ddns.net/login/', logo: logoVigia, internal: true, internalType: 'vigia' },
   { name: 'Análisis y brechas', href: 'https://pronosticos.rindeplus.com/login/rindeplus', logo: logoPronosticos, internal: true, internalType: 'pronosticos' },
   { name: 'Huella Hídrica', href: 'https://rphuellahidrica.ddns.net/login/?next=/', logo: logoHuella },
-  { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login/aapresid', logo: logoAapresid },
+  { name: 'Aapresid', href: 'https://pronosticos.rindeplus.com/login/aapresid', logo: logoAapresid, internal: true, internalType: 'aapresid' },
   { name: 'Conci Riego', href: 'https://conciriegopredictivo.ddns.net/login/?next=/', logo: logoConci },
   { name: 'Halcón Monitoreo', href: 'https://halconmonitoreos.ddns.net/login/?next=/', logo: logoHalcon },
   { name: 'Kimzza', href: 'https://kimzza.ddns.net/login/?next=/', logo: logoKimzza },
 ];
 
-const PlatformsSection = ({ onGoToVigia, onGoToPronosticos, backgroundImage }) => {
+const PlatformsSection = ({ onGoToVigia, onGoToPronosticos, onGoToAapresid, backgroundImage }) => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
   const handlePlatformClick = (platform) => {
@@ -31,6 +31,10 @@ const PlatformsSection = ({ onGoToVigia, onGoToPronosticos, backgroundImage }) =
       }
       if (platform.internalType === 'pronosticos' && onGoToPronosticos) {
         onGoToPronosticos();
+        return;
+      }
+      if (platform.internalType === 'aapresid' && onGoToAapresid) {
+        onGoToAapresid();
         return;
       }
     }
