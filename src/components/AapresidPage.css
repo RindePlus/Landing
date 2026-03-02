@@ -236,14 +236,28 @@
   margin: 0;
 }
 
-/* Module cards alignment */
+/* Module cards alignment — subgrid for horizontal alignment */
+#modulos > .aapresid-wrap > .aapresid-grid.aapresid-cols-3 {
+  grid-template-rows: auto auto auto;
+}
+
 #modulos > .aapresid-wrap > .aapresid-grid > .aapresid-card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+}
+
+#modulos > .aapresid-wrap > .aapresid-grid > .aapresid-card .aapresid-card-title {
+  margin-bottom: 6px;
+}
+
+#modulos > .aapresid-wrap > .aapresid-grid > .aapresid-card .aapresid-lead {
+  margin-bottom: 0;
 }
 
 #modulos > .aapresid-wrap > .aapresid-grid > .aapresid-card .aapresid-list {
-  margin-top: auto;
+  margin-top: 20px;
 }
 
 /* Feature Lists inside cards */

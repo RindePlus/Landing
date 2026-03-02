@@ -116,16 +116,16 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
               <div>
                 <h2>Módulos de la plataforma</h2>
                 <p className="pronosticos-lead">
-                  Accedé a diferentes análisis según <b>tu necesidad</b>: análisis de campaña o análisis de brechas y rendimientos.
+                  Accedé a diferentes análisis según <b>tu necesidad</b>: análisis de campaña, análisis de brechas y rendimientos, o pronóstico climático.
                 </p>
               </div>
             </div>
 
-            <div className="pronosticos-grid pronosticos-cols-2">
+            <div className="pronosticos-grid pronosticos-cols-3">
               <div className="pronosticos-card">
                 <h3 className="pronosticos-card-title">Análisis de Campaña</h3>
                 <p className="pronosticos-lead mb-4">
-                  Dashboard completo con análisis detallado de datos de suelo, clima y rendimiento de <b>tu campaña</b>.
+                  Un análisis detallado de <b>tu campaña</b> con datos de suelo, clima y rendimiento.
                 </p>
                 <ul className="pronosticos-list">
                   <li>
@@ -146,7 +146,7 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
               <div className="pronosticos-card">
                 <h3 className="pronosticos-card-title">Análisis de Brechas y Rendimientos</h3>
                 <p className="pronosticos-lead mb-4">
-                  Escenarios de brechas y rendimiento con <b>tu lote</b> real. Modelo de IA para simular escenarios y evaluar riesgos.
+                  Escenarios de brechas y rendimiento para simular acciones y <b>evaluar riesgos</b>.
                 </p>
                 <ul className="pronosticos-list">
                   <li>
@@ -160,6 +160,27 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
                   <li>
                     <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
                     <span>Recomendaciones de fertilización para cerrar <b>tu brecha</b></span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pronosticos-card">
+                <h3 className="pronosticos-card-title">Pronóstico Climático</h3>
+                <p className="pronosticos-lead mb-4">
+                  Pronóstico de alta precisión para <b>tu lote</b> con análisis de estrés.
+                </p>
+                <ul className="pronosticos-list">
+                  <li>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+                    <span>Clima de los últimos <b>15 días</b> y próximos <b>15 días</b> para tu lote</span>
+                  </li>
+                  <li>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+                    <span>Módulo <b>Vig IA</b> integrado para el análisis de <b>estrés</b></span>
+                  </li>
+                  <li>
+                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+                    <span>Integra múltiples fuentes de datos: <b>estaciones meteorológicas</b> y <b>satélites</b></span>
                   </li>
                 </ul>
               </div>

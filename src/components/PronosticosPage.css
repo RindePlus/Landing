@@ -184,6 +184,30 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Module cards alignment — subgrid for horizontal alignment */
+#modulos > .pronosticos-wrap > .pronosticos-grid.pronosticos-cols-3 {
+  grid-template-rows: auto auto auto;
+}
+
+#modulos > .pronosticos-wrap > .pronosticos-grid > .pronosticos-card {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+}
+
+#modulos > .pronosticos-wrap > .pronosticos-grid > .pronosticos-card .pronosticos-card-title {
+  margin-bottom: 6px;
+}
+
+#modulos > .pronosticos-wrap > .pronosticos-grid > .pronosticos-card .pronosticos-lead {
+  margin-bottom: 0;
+}
+
+#modulos > .pronosticos-wrap > .pronosticos-grid > .pronosticos-card .pronosticos-list {
+  margin-top: 20px;
+}
+
 .report-preview-card {
   margin-top: 80px;
   /* Separación externa del resto */

@@ -316,16 +316,16 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
               <div>
                 <h2>Módulos de la plataforma</h2>
                 <p className="aapresid-lead">
-                  Accedé a diferentes análisis según <b>tu necesidad</b>: análisis de campaña o análisis de brechas y rendimientos.
+                  Accedé a diferentes análisis según <b>tu necesidad</b>: análisis de campaña, análisis de brechas y rendimientos, o pronóstico climático.
                 </p>
               </div>
             </div>
 
-            <div className="aapresid-grid aapresid-cols-2">
+            <div className="aapresid-grid aapresid-cols-3">
               <div className="aapresid-card">
                 <h3 className="aapresid-card-title">Análisis de Campaña</h3>
                 <p className="aapresid-lead mb-4">
-                  Dashboard completo con análisis detallado de datos de suelo, clima y rendimiento de <b>tu campaña</b>.
+                  Un análisis detallado de <b>tu campaña</b> con datos de suelo, clima y rendimiento.
                 </p>
                 <ul className="aapresid-list">
                   <li>
@@ -346,7 +346,7 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
               <div className="aapresid-card">
                 <h3 className="aapresid-card-title">Análisis de Brechas y Rendimientos</h3>
                 <p className="aapresid-lead mb-4">
-                  Escenarios de brechas (<b>Estándar e Inteligentes</b>) y rendimiento con <b>tu lote</b> real. Modelo de IA para simular escenarios y evaluar riesgos.
+                  Escenarios de brechas y rendimiento para simular acciones y <b>evaluar riesgos</b>.
                 </p>
                 <ul className="aapresid-list">
                   <li>
@@ -360,6 +360,27 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
                   <li>
                     <CheckIcon />
                     <span>Recomendaciones de fertilización para cerrar <b>tu brecha</b></span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="aapresid-card">
+                <h3 className="aapresid-card-title">Pronóstico Climático</h3>
+                <p className="aapresid-lead mb-4">
+                  Pronóstico de alta precisión para <b>tu lote</b> con análisis de estrés integrado.
+                </p>
+                <ul className="aapresid-list">
+                  <li>
+                    <CheckIcon />
+                    <span>Clima de los últimos <b>15 días</b> y próximos <b>15 días</b> para tu lote</span>
+                  </li>
+                  <li>
+                    <CheckIcon />
+                    <span>Módulo <b>Vig IA</b> integrado para el análisis de <b>estrés</b></span>
+                  </li>
+                  <li>
+                    <CheckIcon />
+                    <span>Integra múltiples fuentes de datos: <b>estaciones meteorológicas</b> y <b>satélites</b></span>
                   </li>
                 </ul>
               </div>
