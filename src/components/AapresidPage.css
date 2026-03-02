@@ -34,14 +34,15 @@
 /* Hero Section */
 .aapresid-hero-section {
   position: relative;
-  aspect-ratio: 876 / 420;
-  min-height: 340px;
+  height: calc(100vw * 420 / 876 - 89px);
+  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 40px;
-  background-size: cover;
-  background-position: center;
+  background-size: 100vw auto;
+  background-position: center top;
+  background-attachment: fixed;
   overflow: hidden;
   margin-top: 0;
 }
@@ -881,6 +882,23 @@
 }
 
 @media (max-width: 768px) {
+  .aapresid-hero-section {
+    aspect-ratio: auto;
+    min-height: 80vh;
+    padding: 60px 20px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .aapresid-hero-inner {
+    gap: 18px;
+  }
+
+  .aapresid-hero-btn {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
   .aapresid-page section {
     padding: 40px 0;
   }
@@ -893,8 +911,12 @@
     font-size: 1.8rem;
   }
 
+  .aapresid-hero-subtitle {
+    font-size: 1.1rem;
+  }
+
   .aapresid-hero-logo {
-    max-width: 240px;
+    max-width: 60vw;
   }
 
   .aapresid-cols-3,
