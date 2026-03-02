@@ -39,6 +39,7 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
   return (
     <div className="vigia-page">
       <section
+        id="top"
         className="vigia-hero"
         style={{ backgroundImage: `url(${heroBackground})` }}
       >
@@ -55,7 +56,7 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
         </div>
       </section>
 
-      <RevealSection className="vigia-section vigia-overview">
+      <RevealSection id="vigia-que-es" className="vigia-section vigia-overview">
         <div className="vigia-wrap">
           <div className="vigia-text-block">
             <h2 className="vigia-title">La inteligencia que anticipa el estrés antes de que se vea</h2>
@@ -84,7 +85,7 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
         </div>
       </RevealSection>
 
-      <section className="vigia-section vigia-how">
+      <section id="vigia-como-funciona" className="vigia-section vigia-how">
         <div className="vigia-how-top-section" style={{ backgroundImage: `url(${fieldTop})` }}>
           <div className="vigia-how-header-section">
             <h2 className="vigia-how-title-blue">Así funciona</h2>
@@ -169,7 +170,7 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
         </div>
       </section>
 
-      <RevealSection className="vigia-section vigia-audience" style={{ backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.9)), url(${farmerBg})` }}>
+      <RevealSection id="vigia-para-quien" className="vigia-section vigia-audience" style={{ backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.9)), url(${farmerBg})` }}>
         <div className="vigia-wrap">
           <div className="vigia-audience-inner">
             <h1 className="vigia-title">Es para quienes asesoran y toman decisiones en el campo</h1>
@@ -187,7 +188,7 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
         </div>
       </RevealSection>
 
-      <RevealSection className="vigia-section vigia-easy" style={{ backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.92)), url(${wheatBg})` }}>
+      <RevealSection id="vigia-empezar" className="vigia-section vigia-easy" style={{ backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.92)), url(${wheatBg})` }}>
         <div className="vigia-wrap">
           <div className="vigia-easy-grid">
             <div>
@@ -215,7 +216,7 @@ const VigiaPage = ({ onOpenWhatsApp, onGoToPlatform }) => {
         </div>
       </RevealSection>
 
-      <RevealSection className="vigia-section">
+      <RevealSection id="vigia-alianza" className="vigia-section">
         <div className="vigia-wrap">
           <div className="vigia-text-block">
             <h1 className="vigia-subtitle">Una innovación en alianza</h1>

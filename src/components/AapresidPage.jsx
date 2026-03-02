@@ -33,7 +33,17 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
       <Header
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
-        showMenu={false}
+        menuItems={[
+          { label: 'Inicio', id: 'top' },
+          { label: '¿Qué es?', id: 'que-es' },
+          { label: 'El problema', id: 'el-problema' },
+          { label: '¿Cómo funciona?', id: 'como-funciona' },
+          { label: 'Brechas', id: 'tipos-brechas' },
+          { label: '¿Para quién?', id: 'para-quien' },
+          { label: 'Módulos', id: 'modulos' },
+          { label: '¿Cómo empiezo?', id: 'como-empezar' },
+          { label: 'Instalar app', id: 'instalar-app' },
+        ]}
       />
 
       <main id="top">

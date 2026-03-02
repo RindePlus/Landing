@@ -5,38 +5,41 @@ import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import './Header.css';
 
-const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true }) => {
+const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true, menuItems }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToContact = () => {
     const contactSection = document.querySelector('#contacto-form');
     if (!contactSection) return;
-    const header = document.querySelector('.header');
-    const headerOffset = header ? header.offsetHeight : 0;
-    const extraOffset = 290;
-    const elementTop = contactSection.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({
-      top: Math.max(0, elementTop - headerOffset - extraOffset),
-      behavior: 'smooth'
-    });
     setIsMenuOpen(false);
+    setTimeout(() => {
+      const header = document.querySelector('.header');
+      const headerOffset = header ? header.offsetHeight : 0;
+      const elementTop = contactSection.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: Math.max(0, elementTop - headerOffset + 250),
+        behavior: 'smooth'
+      });
+    }, 50);
   };
 
   const scrollToSection = (id) => {
     const section = document.querySelector(`#${id}`);
     if (!section) return;
-    const header = document.querySelector('.header');
-    const headerOffset = header ? header.offsetHeight : 0;
-    const elementTop = section.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({
-      top: Math.max(0, elementTop - headerOffset - 10),
-      behavior: 'smooth'
-    });
     setIsMenuOpen(false);
+    setTimeout(() => {
+      const header = document.querySelector('.header');
+      const headerOffset = header ? header.offsetHeight : 0;
+      const elementTop = section.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: Math.max(0, elementTop - headerOffset + 250),
+        behavior: 'smooth'
+      });
+    }, 50);
   };
 
   return (
-    <header className="header">
+    <header className={`header ${isMenuOpen ? 'header--menu-open' : ''}`}>
       <div className="header-content">
         {/* Logo Section */}
         <div className="logo-section">
@@ -51,9 +54,8 @@ const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true }) => {
           </div>
         </div>
 
-        {/* Right Section: Contact Box */}
+        {/* Right Section */}
         <div className="right-group">
-          {/* Contact Box removed as per request */}
           {showMenu && (
             <div className="menu-group">
               <button
@@ -68,32 +70,32 @@ const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true }) => {
                 <span className="hamburger-line" />
                 <span className="hamburger-line" />
               </button>
-              {isMenuOpen && (
-                <div className="hamburger-menu" id="header-menu">
-                  <button type="button" className="menu-item" onClick={() => scrollToSection('inicio')}>
-                    Inicio
-                  </button>
-                  <button type="button" className="menu-item" onClick={() => scrollToSection('caracteristicas')}>
-                    Características
-                  </button>
-                  <button type="button" className="menu-item" onClick={() => scrollToSection('servicios')}>
-                    Servicios
-                  </button>
-                  <button type="button" className="menu-item" onClick={() => scrollToSection('plataformas')}>
-                    Plataformas
-                  </button>
-                  <button type="button" className="menu-item" onClick={scrollToContact}>
-                    Contacto
-                  </button>
-                  <button type="button" className="menu-item" onClick={() => scrollToSection('clientes')}>
-                    Clientes
-                  </button>
-                </div>
-              )}
             </div>
           )}
         </div>
       </div>
+
+      {showMenu && (
+        <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">
+          {(menuItems || [
+            { label: 'Inicio', id: 'inicio' },
+            { label: 'Características', id: 'caracteristicas' },
+            { label: 'Servicios', id: 'servicios' },
+            { label: 'Plataformas', id: 'plataformas' },
+            { label: 'Contacto', id: 'contacto-form', action: scrollToContact },
+            { label: 'Clientes', id: 'clientes' },
+          ]).map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className="menu-item"
+              onClick={() => item.action ? item.action() : scrollToSection(item.id)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+      )}
     </header>
   );
 };

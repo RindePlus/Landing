@@ -183,7 +183,14 @@ function App() {
         <Header
           onOpenWhatsApp={() => setShowWhatsappPopup(true)}
           onLogoClick={navigateHome}
-          showMenu={false}
+          menuItems={[
+            { label: 'Inicio', id: 'top' },
+            { label: '¿Qué es?', id: 'vigia-que-es' },
+            { label: '¿Cómo funciona?', id: 'vigia-como-funciona' },
+            { label: '¿Para quién?', id: 'vigia-para-quien' },
+            { label: '¿Cómo empiezo?', id: 'vigia-empezar' },
+            { label: 'Alianza', id: 'vigia-alianza' },
+          ]}
         />
         <main className="vigia-main">
           <VigiaPage

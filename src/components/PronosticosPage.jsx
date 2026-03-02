@@ -21,7 +21,15 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
       <Header
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
-        showMenu={false}
+        menuItems={[
+          { label: 'Inicio', id: 'top' },
+          { label: '¿Qué es?', id: 'que-es' },
+          { label: '¿Qué soluciona?', id: 'que-soluciona' },
+          { label: '¿Cómo funciona?', id: 'como-funciona' },
+          { label: 'Módulos', id: 'modulos' },
+          { label: '¿Cómo empiezo?', id: 'como-empezar' },
+          { label: 'Instalar app', id: 'instalar-app' },
+        ]}
       />
 
       <main id="top">
