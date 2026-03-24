@@ -58,7 +58,7 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
             <p className="aapresid-hero-subtitle">Dejá de procesar datos. Empezá a tomar decisiones.</p>
             <div className="aapresid-hero-cta-group">
               <a className="aapresid-hero-btn aapresid-hero-btn-primary" href={aapresidLoginUrl} target="_blank" rel="noopener noreferrer">Ir a la plataforma</a>
-              <button className="aapresid-hero-btn aapresid-hero-btn-outline" onClick={onOpenWhatsApp}>Contactanos</button>
+              <a className="aapresid-hero-btn aapresid-hero-btn-outline" href="https://pronosticos.rindeplus.com/pricing" target="_blank" rel="noopener noreferrer">Ver Planes y Precios</a>
             </div>
           </div>
         </section>
@@ -453,8 +453,8 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
 
             <div className="aapresid-grid aapresid-cols-3">
               <div className="aapresid-mini">
-                <h3>1. Contactanos</h3>
-                <p>Escribinos por WhatsApp o completá el formulario. Te armamos el acceso para <b>tu regional</b>.</p>
+                <h3>1. Elegí tu plan</h3>
+                <p>Conocé nuestros planes y elegí el que mejor se adapte a <b>tu regional</b>.</p>
               </div>
               <div className="aapresid-mini">
                 <h3>2. Cargá los lotes de tu regional</h3>
@@ -563,11 +563,11 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
           <div className="aapresid-final-box">
             <div>
               <h3>Empezá a cerrar la brecha</h3>
-              <p>Ingresá a la plataforma o contactanos para arrancar con tu regional.</p>
+              <p>Ingresá a la plataforma o conocé nuestros planes para arrancar con tu regional.</p>
             </div>
             <div className="aapresid-cta-group">
               <a className="aapresid-btn aapresid-btn-primary" href={aapresidLoginUrl} target="_blank" rel="noopener noreferrer">Ir a la plataforma</a>
-              <button className="aapresid-btn aapresid-btn-outline" onClick={onOpenWhatsApp}>Contactanos</button>
+              <a className="aapresid-btn aapresid-btn-outline" href="https://pronosticos.rindeplus.com/pricing" target="_blank" rel="noopener noreferrer">Ver Planes y Precios</a>
             </div>
           </div>
         </RevealSection>

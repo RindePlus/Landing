@@ -43,7 +43,7 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
             <p className="pronosticos-hero-subtitle">Toda tu información en un solo lugar.</p>
             <div className="pronosticos-hero-cta-group">
               <a className="pronosticos-hero-btn pronosticos-hero-btn-primary" href={pronosticosLoginUrl} target="_blank" rel="noopener noreferrer">Ir a la plataforma</a>
-              <button className="pronosticos-hero-btn pronosticos-hero-btn-outline" onClick={onOpenWhatsApp}>Contactanos</button>
+              <a className="pronosticos-hero-btn pronosticos-hero-btn-outline" href="https://pronosticos.rindeplus.com/pricing" target="_blank" rel="noopener noreferrer">Ver Planes y Precios</a>
             </div>
           </div>
         </section>
@@ -365,11 +365,11 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
           <div className="pronosticos-final-box">
             <div>
               <h3>Comenzá a usarlo</h3>
-              <p>Probalo ahora — ingresá directo a la plataforma o contactanos.</p>
+              <p>Probalo ahora — ingresá directo a la plataforma o conocé nuestros planes.</p>
             </div>
             <div className="pronosticos-cta-group">
               <a className="pronosticos-btn pronosticos-btn-primary" href={pronosticosLoginUrl} target="_blank" rel="noopener noreferrer">Ir a la plataforma</a>
-              <button className="pronosticos-btn pronosticos-btn-outline" onClick={onOpenWhatsApp}>Contactanos</button>
+              <a className="pronosticos-btn pronosticos-btn-outline" href="https://pronosticos.rindeplus.com/pricing" target="_blank" rel="noopener noreferrer">Ver Planes y Precios</a>
             </div>
           </div>
         </RevealSection>
