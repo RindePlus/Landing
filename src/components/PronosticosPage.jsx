@@ -2,6 +2,7 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './PronosticosPage.css';
 import Header from './Header';
 import Footer from './Footer';
+import ModulesSection from './ModulesSection';
 import cosechadoraBg from '../assets/cosechadora.jpg';
 
 const RevealSection = ({ children, className = '', id = '' }) => {
@@ -13,7 +14,7 @@ const RevealSection = ({ children, className = '', id = '' }) => {
   );
 };
 
-const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
+const PronosticosPage = ({ onOpenWhatsApp, onGoToHome, onGoToPricing }) => {
   const pronosticosLoginUrl = 'https://pronosticos.rindeplus.com/login/rindeplus';
 
   return (
@@ -43,7 +44,7 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
             <p className="pronosticos-hero-subtitle">Toda tu información en un solo lugar.</p>
             <div className="pronosticos-hero-cta-group">
               <a className="pronosticos-hero-btn pronosticos-hero-btn-primary" href={pronosticosLoginUrl} target="_blank" rel="noopener noreferrer">Ir a la plataforma</a>
-              <a className="pronosticos-hero-btn pronosticos-hero-btn-outline" href="https://pronosticos.rindeplus.com/pricing" target="_blank" rel="noopener noreferrer">Ver Planes y Precios</a>
+              <button type="button" className="pronosticos-hero-btn pronosticos-hero-btn-outline" onClick={onGoToPricing}>Ver Planes y Precios</button>
             </div>
           </div>
         </section>
@@ -111,81 +112,8 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
 
         {/* MODULOS */}
         <RevealSection id="modulos">
+          <ModulesSection />
           <div className="pronosticos-wrap">
-            <div className="pronosticos-section-title">
-              <div>
-                <h2>Módulos de la plataforma</h2>
-                <p className="pronosticos-lead">
-                  Accedé a diferentes análisis según <b>tu necesidad</b>: análisis de campaña, análisis de brechas y rendimientos, o pronóstico climático.
-                </p>
-              </div>
-            </div>
-
-            <div className="pronosticos-grid pronosticos-cols-3">
-              <div className="pronosticos-card">
-                <h3 className="pronosticos-card-title">Análisis de Campaña</h3>
-                <p className="pronosticos-lead mb-4">
-                  Un análisis detallado de <b>tu campaña</b> con datos de suelo, clima y rendimiento.
-                </p>
-                <ul className="pronosticos-list">
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Análisis de datos históricos de <b>tu campo</b></span>
-                  </li>
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Monitoreo de clima y variables de <b>tu zona</b></span>
-                  </li>
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Visualización de rendimientos y tendencias</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pronosticos-card">
-                <h3 className="pronosticos-card-title">Análisis de Brechas y Rendimientos</h3>
-                <p className="pronosticos-lead mb-4">
-                  Escenarios de brechas y rendimiento para simular acciones y <b>evaluar riesgos</b>.
-                </p>
-                <ul className="pronosticos-list">
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Escenarios de rendimiento con <b>tu lote</b></span>
-                  </li>
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Brechas por ambiente (potencial vs pronosticado)</span>
-                  </li>
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Recomendaciones de fertilización para cerrar <b>tu brecha</b></span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pronosticos-card">
-                <h3 className="pronosticos-card-title">Pronóstico Climático</h3>
-                <p className="pronosticos-lead mb-4">
-                  Pronóstico de alta precisión para <b>tu lote</b> con análisis de estrés.
-                </p>
-                <ul className="pronosticos-list">
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Clima de los últimos <b>15 días</b> y próximos <b>15 días</b> para tu lote</span>
-                  </li>
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Módulo <b>Vig IA</b> integrado para el análisis de <b>estrés</b></span>
-                  </li>
-                  <li>
-                    <span className="pronosticos-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-                    <span>Integra múltiples fuentes de datos: <b>estaciones meteorológicas</b> y <b>satélites</b></span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
             <div className="pronosticos-card report-preview-card mt-4">
               <h3 className="pronosticos-card-title">Lo que te muestra el reporte</h3>
               <p className="pronosticos-lead mb-4" style={{ maxWidth: 'none' }}>
@@ -369,7 +297,7 @@ const PronosticosPage = ({ onOpenWhatsApp, onGoToHome }) => {
             </div>
             <div className="pronosticos-cta-group">
               <a className="pronosticos-btn pronosticos-btn-primary" href={pronosticosLoginUrl} target="_blank" rel="noopener noreferrer">Ir a la plataforma</a>
-              <a className="pronosticos-btn pronosticos-btn-outline" href="https://pronosticos.rindeplus.com/pricing" target="_blank" rel="noopener noreferrer">Ver Planes y Precios</a>
+              <button type="button" className="pronosticos-btn pronosticos-btn-outline" onClick={onGoToPricing}>Ver Planes y Precios</button>
             </div>
           </div>
         </RevealSection>

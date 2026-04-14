@@ -10,6 +10,9 @@ import Footer from './components/Footer';
 import VigiaPage from './components/VigiaPage';
 import PronosticosPage from './components/PronosticosPage';
 import AapresidPage from './components/AapresidPage';
+import PricingLandingPage from './components/PricingLandingPage';
+import PricingProductoresPage from './components/PricingProductoresPage';
+import PricingEmpresasPage from './components/PricingEmpresasPage';
 import inicioImage from './assets/inicio.jpg';
 import trigoImage from './assets/Trigo.jpg';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
@@ -19,30 +22,29 @@ function App() {
   const [showWhatsappPopup, setShowWhatsappPopup] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [route, setRoute] = useState(() => {
+    const resolvePath = (pathname) => {
+      if (pathname === '/vigia' || pathname === '/vigia/') return '/vigia';
+      if (pathname === '/pronosticos' || pathname === '/pronosticos/') return '/pronosticos';
+      if (pathname === '/aapresid' || pathname === '/aapresid/') return '/aapresid';
+      if (pathname === '/pricing/productores' || pathname === '/pricing/productores/') return '/pricing/productores';
+      if (pathname === '/pricing/empresas' || pathname === '/pricing/empresas/') return '/pricing/empresas';
+      if (pathname === '/pricing' || pathname === '/pricing/') return '/pricing';
+      return '/';
+    };
+
     // Check for redirect from 404.html
     const redirect = sessionStorage.getItem('redirect');
     if (redirect) {
       sessionStorage.removeItem('redirect');
       const url = new URL(redirect, window.location.origin);
-      if (url.pathname === '/vigia' || url.pathname === '/vigia/') {
-        window.history.replaceState({}, '', '/vigia');
-        return '/vigia';
-      }
-      if (url.pathname === '/pronosticos' || url.pathname === '/pronosticos/') {
-        window.history.replaceState({}, '', '/pronosticos');
-        return '/pronosticos';
-      }
-      if (url.pathname === '/aapresid' || url.pathname === '/aapresid/') {
-        window.history.replaceState({}, '', '/aapresid');
-        return '/aapresid';
+      const resolved = resolvePath(url.pathname);
+      if (resolved !== '/') {
+        window.history.replaceState({}, '', resolved);
+        return resolved;
       }
     }
 
-    const pathname = window.location.pathname;
-    if (pathname === '/vigia' || pathname === '/vigia/') return '/vigia';
-    if (pathname === '/pronosticos' || pathname === '/pronosticos/') return '/pronosticos';
-    if (pathname === '/aapresid' || pathname === '/aapresid/') return '/aapresid';
-    return '/';
+    return resolvePath(window.location.pathname);
   });
   const popupRef = useRef(null);
 
@@ -74,6 +76,12 @@ function App() {
         setRoute('/pronosticos');
       } else if (pathname === '/aapresid' || pathname === '/aapresid/') {
         setRoute('/aapresid');
+      } else if (pathname === '/pricing/productores' || pathname === '/pricing/productores/') {
+        setRoute('/pricing/productores');
+      } else if (pathname === '/pricing/empresas' || pathname === '/pricing/empresas/') {
+        setRoute('/pricing/empresas');
+      } else if (pathname === '/pricing' || pathname === '/pricing/') {
+        setRoute('/pricing');
       } else {
         setRoute('/');
       }
@@ -105,6 +113,9 @@ function App() {
   const isVigiaPage = route === '/vigia' || route === 'vigia';
   const isPronosticosPage = route === '/pronosticos' || route === 'pronosticos';
   const isAapresidPage = route === '/aapresid' || route === 'aapresid';
+  const isPricingLandingPage = route === '/pricing';
+  const isPricingProductoresPage = route === '/pricing/productores';
+  const isPricingEmpresasPage = route === '/pricing/empresas';
 
   const navigateHome = () => {
     window.history.pushState({}, '', '/');
@@ -130,6 +141,27 @@ function App() {
   const navigateToAapresid = () => {
     window.history.pushState({}, '', '/aapresid');
     setRoute('/aapresid');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowWhatsappPopup(false);
+  };
+
+  const navigateToPricing = () => {
+    window.history.pushState({}, '', '/pricing');
+    setRoute('/pricing');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowWhatsappPopup(false);
+  };
+
+  const navigateToPricingProductores = () => {
+    window.history.pushState({}, '', '/pricing/productores');
+    setRoute('/pricing/productores');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowWhatsappPopup(false);
+  };
+
+  const navigateToPricingEmpresas = () => {
+    window.history.pushState({}, '', '/pricing/empresas');
+    setRoute('/pricing/empresas');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowWhatsappPopup(false);
   };
@@ -210,6 +242,7 @@ function App() {
         <PronosticosPage
           onOpenWhatsApp={() => setShowWhatsappPopup(true)}
           onGoToHome={navigateHome}
+          onGoToPricing={navigateToPricing}
         />
         {whatsappElements}
       </div>
@@ -222,6 +255,49 @@ function App() {
         <AapresidPage
           onOpenWhatsApp={() => setShowWhatsappPopup(true)}
           onGoToHome={navigateHome}
+          onGoToPricing={navigateToPricing}
+        />
+        {whatsappElements}
+      </div>
+    );
+  }
+
+  if (isPricingLandingPage) {
+    return (
+      <div className="App">
+        <PricingLandingPage
+          onOpenWhatsApp={() => setShowWhatsappPopup(true)}
+          onGoToHome={navigateHome}
+          onGoToEmpresas={navigateToPricingEmpresas}
+          onGoToProductores={navigateToPricingProductores}
+        />
+        {whatsappElements}
+      </div>
+    );
+  }
+
+  if (isPricingProductoresPage) {
+    return (
+      <div className="App">
+        <PricingProductoresPage
+          onOpenWhatsApp={() => setShowWhatsappPopup(true)}
+          onGoToHome={navigateHome}
+          onGoToPricing={navigateToPricing}
+          onGoToEmpresas={navigateToPricingEmpresas}
+        />
+        {whatsappElements}
+      </div>
+    );
+  }
+
+  if (isPricingEmpresasPage) {
+    return (
+      <div className="App">
+        <PricingEmpresasPage
+          onOpenWhatsApp={() => setShowWhatsappPopup(true)}
+          onGoToHome={navigateHome}
+          onGoToPricing={navigateToPricing}
+          onGoToProductores={navigateToPricingProductores}
         />
         {whatsappElements}
       </div>

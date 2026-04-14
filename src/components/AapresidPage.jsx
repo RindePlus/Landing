@@ -3,6 +3,7 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './AapresidPage.css';
 import Header from './Header';
 import Footer from './Footer';
+import ModulesSection from './ModulesSection';
 import sembradoraBg from '../assets/sembradora.webp';
 import aapresidLogo from '../assets/aapresid-logo.png';
 import { FaBook, FaBrain, FaInfoCircle, FaTimes } from 'react-icons/fa';
@@ -24,7 +25,7 @@ const CheckIcon = () => (
   </span>
 );
 
-const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
+const AapresidPage = ({ onOpenWhatsApp, onGoToHome, onGoToPricing }) => {
   const aapresidLoginUrl = 'https://pronosticos.rindeplus.com/login/aapresid';
   const [showSourcesModal, setShowSourcesModal] = useState(false);
 
@@ -58,7 +59,7 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
             <p className="aapresid-hero-subtitle">Dejá de procesar datos. Empezá a tomar decisiones.</p>
             <div className="aapresid-hero-cta-group">
               <a className="aapresid-hero-btn aapresid-hero-btn-primary" href={aapresidLoginUrl} target="_blank" rel="noopener noreferrer">Ir a la plataforma</a>
-              <a className="aapresid-hero-btn aapresid-hero-btn-outline" href="https://pronosticos.rindeplus.com/pricing" target="_blank" rel="noopener noreferrer">Ver Planes y Precios</a>
+              <button type="button" className="aapresid-hero-btn aapresid-hero-btn-outline" onClick={onGoToPricing}>Ver Planes y Precios</button>
             </div>
           </div>
         </section>
@@ -311,81 +312,8 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
 
         {/* 8. MODULOS */}
         <RevealSection id="modulos">
+          <ModulesSection />
           <div className="aapresid-wrap">
-            <div className="aapresid-section-title">
-              <div>
-                <h2>Módulos de la plataforma</h2>
-                <p className="aapresid-lead">
-                  Accedé a diferentes análisis según <b>tu necesidad</b>: análisis de campaña, análisis de brechas y rendimientos, o pronóstico climático.
-                </p>
-              </div>
-            </div>
-
-            <div className="aapresid-grid aapresid-cols-3">
-              <div className="aapresid-card">
-                <h3 className="aapresid-card-title">Análisis de Campaña</h3>
-                <p className="aapresid-lead mb-4">
-                  Un análisis detallado de <b>tu campaña</b> con datos de suelo, clima y rendimiento.
-                </p>
-                <ul className="aapresid-list">
-                  <li>
-                    <CheckIcon />
-                    <span>Análisis de datos históricos de <b>tu campo</b></span>
-                  </li>
-                  <li>
-                    <CheckIcon />
-                    <span>Monitoreo de clima y variables de <b>tu zona</b></span>
-                  </li>
-                  <li>
-                    <CheckIcon />
-                    <span>Visualización de rendimientos y tendencias</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="aapresid-card">
-                <h3 className="aapresid-card-title">Análisis de Brechas y Rendimientos</h3>
-                <p className="aapresid-lead mb-4">
-                  Escenarios de brechas y rendimiento para simular acciones y <b>evaluar riesgos</b>.
-                </p>
-                <ul className="aapresid-list">
-                  <li>
-                    <CheckIcon />
-                    <span>Escenarios de rendimiento con <b>tu lote</b></span>
-                  </li>
-                  <li>
-                    <CheckIcon />
-                    <span>Brechas por ambiente (potencial vs pronosticado)</span>
-                  </li>
-                  <li>
-                    <CheckIcon />
-                    <span>Recomendaciones de fertilización para cerrar <b>tu brecha</b></span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="aapresid-card">
-                <h3 className="aapresid-card-title">Pronóstico Climático</h3>
-                <p className="aapresid-lead mb-4">
-                  Pronóstico de alta precisión para <b>tu lote</b> con análisis de estrés integrado.
-                </p>
-                <ul className="aapresid-list">
-                  <li>
-                    <CheckIcon />
-                    <span>Clima de los últimos <b>15 días</b> y próximos <b>15 días</b> para tu lote</span>
-                  </li>
-                  <li>
-                    <CheckIcon />
-                    <span>Módulo <b>Vig IA</b> integrado para el análisis de <b>estrés</b></span>
-                  </li>
-                  <li>
-                    <CheckIcon />
-                    <span>Integra múltiples fuentes de datos: <b>estaciones meteorológicas</b> y <b>satélites</b></span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
             <div className="aapresid-card aapresid-report-card">
               <h3 className="aapresid-card-title">Lo que te muestra el reporte</h3>
               <p className="aapresid-lead mb-4" style={{ maxWidth: 'none' }}>
@@ -567,7 +495,7 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome }) => {
             </div>
             <div className="aapresid-cta-group">
               <a className="aapresid-btn aapresid-btn-primary" href={aapresidLoginUrl} target="_blank" rel="noopener noreferrer">Ir a la plataforma</a>
-              <a className="aapresid-btn aapresid-btn-outline" href="https://pronosticos.rindeplus.com/pricing" target="_blank" rel="noopener noreferrer">Ver Planes y Precios</a>
+              <button type="button" className="aapresid-btn aapresid-btn-outline" onClick={onGoToPricing}>Ver Planes y Precios</button>
             </div>
           </div>
         </RevealSection>

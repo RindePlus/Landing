@@ -1,0 +1,242 @@
+/* ============================================================
+   PricingEmpresasPage — /pricing/empresas
+   ============================================================ */
+
+.rp-emp__hero {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.rp-emp__hero .rp-h1 { margin-bottom: 16px; }
+
+.rp-emp__hero-copy {
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  color: var(--rp-gray-500);
+  max-width: 42rem;
+  margin: 16px auto 0;
+  line-height: 1.65;
+}
+
+.rp-emp__principles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 80px;
+}
+
+@media (min-width: 768px) {
+  .rp-emp__principles {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ============================================================
+   Expectations card
+   ============================================================ */
+.rp-emp__expect {
+  margin-bottom: 80px;
+}
+
+.rp-emp__expect-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.rp-emp__expect-header .rp-h2 { margin-bottom: 12px; }
+
+.rp-emp__expect-header p {
+  font-size: 0.95rem;
+  color: var(--rp-gray-500);
+  max-width: 42rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.rp-emp__expect-card {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--rp-amber-200);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px -16px rgba(245, 158, 11, 0.18);
+  transition: box-shadow 0.5s ease;
+}
+
+.rp-emp__expect-card:hover {
+  box-shadow: 0 32px 56px -16px rgba(245, 158, 11, 0.28);
+}
+
+.rp-emp__expect-bar {
+  height: 6px;
+  background: linear-gradient(90deg, var(--rp-amber-400), var(--rp-amber-500), var(--rp-amber-600));
+  transform-origin: left;
+  animation: rp-draw-bar 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+.rp-emp__expect-grid {
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .rp-emp__expect-grid { padding: 40px; }
+}
+
+@media (min-width: 768px) {
+  .rp-emp__expect-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 36px;
+  }
+}
+
+.rp-emp__expect-item {
+  display: flex;
+  gap: 16px;
+}
+
+.rp-emp__expect-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--rp-amber-400), var(--rp-amber-600));
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px -4px rgba(245, 158, 11, 0.5);
+}
+
+.rp-emp__expect-item h4 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--rp-gray-900);
+  margin: 0 0 4px;
+}
+
+.rp-emp__expect-item p {
+  font-size: 0.88rem;
+  color: var(--rp-gray-600);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.rp-emp__expect-reassure {
+  max-width: 960px;
+  margin: 16px auto 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--rp-gray-500);
+  font-style: italic;
+  text-align: center;
+  padding: 0 16px;
+  line-height: 1.55;
+}
+
+.rp-emp__expect-reassure svg {
+  color: var(--rp-blue-500);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.rp-emp__expect-quote {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 640px;
+  margin: 40px auto 0;
+  font-size: 0.95rem;
+  color: var(--rp-gray-600);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.55;
+}
+
+.rp-emp__expect-quote svg {
+  color: var(--rp-amber-400);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.rp-emp__expect-quote svg.flipped {
+  transform: rotate(180deg);
+}
+
+/* ============================================================
+   Plans
+   ============================================================ */
+.rp-emp__pricing {
+  margin-bottom: 64px;
+}
+
+.rp-emp__pricing-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.rp-emp__pricing-header .rp-h2 { margin-bottom: 12px; }
+
+.rp-emp__pricing-header p {
+  font-size: 0.95rem;
+  color: var(--rp-gray-500);
+  max-width: 42rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.rp-emp__plan-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: stretch;
+  margin-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+  .rp-emp__plan-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+.rp-emp__plan-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--rp-amber-800);
+  background: var(--rp-amber-50);
+  border: 1px solid var(--rp-amber-200);
+  align-self: flex-start;
+  margin-bottom: 24px;
+}
+
+.rp-emp__faq {
+  margin-top: 16px;
+}
+
+.rp-emp__faq-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.rp-emp__faq-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.4vw, 1.85rem);
+  font-weight: 800;
+  color: var(--rp-gray-900);
+  margin: 0;
+}
