@@ -74,6 +74,22 @@
   --rp-indigo-700: #4338ca;
 
   --rp-violet-50: #f5f3ff;
+  --rp-violet-100: #ede9fe;
+  --rp-violet-200: #ddd6fe;
+  --rp-violet-300: #c4b5fd;
+  --rp-violet-400: #a78bfa;
+  --rp-violet-500: #8b5cf6;
+  --rp-violet-600: #7c3aed;
+  --rp-violet-700: #6d28d9;
+
+  --rp-rose-50: #fff1f2;
+  --rp-rose-100: #ffe4e6;
+  --rp-rose-200: #fecdd3;
+  --rp-rose-300: #fda4af;
+  --rp-rose-400: #fb7185;
+  --rp-rose-500: #f43f5e;
+  --rp-rose-600: #e11d48;
+  --rp-rose-700: #be123c;
 }
 
 /* ============================================================
@@ -438,6 +454,26 @@
   box-shadow: 0 16px 24px -8px rgba(99, 102, 241, 0.45);
 }
 .rp-acc-indigo.rp-principle:hover { border-color: var(--rp-indigo-300); }
+
+.rp-acc-rose .rp-principle__bar {
+  background: linear-gradient(90deg, var(--rp-rose-400), var(--rp-rose-500), var(--rp-rose-600));
+}
+.rp-acc-rose .rp-principle__icon-glow { background: var(--rp-rose-400); }
+.rp-acc-rose .rp-principle__icon-inner {
+  background: linear-gradient(135deg, var(--rp-rose-400), var(--rp-rose-600));
+  box-shadow: 0 16px 24px -8px rgba(244, 63, 94, 0.45);
+}
+.rp-acc-rose.rp-principle:hover { border-color: var(--rp-rose-300); }
+
+.rp-acc-violet .rp-principle__bar {
+  background: linear-gradient(90deg, var(--rp-violet-400), var(--rp-violet-500), var(--rp-violet-600));
+}
+.rp-acc-violet .rp-principle__icon-glow { background: var(--rp-violet-400); }
+.rp-acc-violet .rp-principle__icon-inner {
+  background: linear-gradient(135deg, var(--rp-violet-400), var(--rp-violet-600));
+  box-shadow: 0 16px 24px -8px rgba(139, 92, 246, 0.45);
+}
+.rp-acc-violet.rp-principle:hover { border-color: var(--rp-violet-300); }
 
 /* ============================================================
    Generic card (info, faq, plan, step)

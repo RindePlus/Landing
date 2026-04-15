@@ -1,26 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
 import Header from './components/Header';
-import ContactForm from './components/ContactForm';
-import FeatureCards from './components/FeatureCards';
-import ServicesSection from './components/ServicesSection';
-import PlatformsSection from './components/PlatformsSection';
-import HeroWindow from './components/HeroWindow';
-import TrustedCompanies from './components/TrustedCompanies';
 import Footer from './components/Footer';
+import HomePage from './components/HomePage';
 import VigiaPage from './components/VigiaPage';
 import PronosticosPage from './components/PronosticosPage';
 import AapresidPage from './components/AapresidPage';
 import PricingLandingPage from './components/PricingLandingPage';
 import PricingProductoresPage from './components/PricingProductoresPage';
 import PricingEmpresasPage from './components/PricingEmpresasPage';
-import inicioImage from './assets/inicio.jpg';
-import trigoImage from './assets/Trigo.jpg';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import './App.css';
 
 function App() {
   const [showWhatsappPopup, setShowWhatsappPopup] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [route, setRoute] = useState(() => {
     const resolvePath = (pathname) => {
       if (pathname === '/vigia' || pathname === '/vigia/') return '/vigia';
@@ -47,25 +39,6 @@ function App() {
     return resolvePath(window.location.pathname);
   });
   const popupRef = useRef(null);
-
-  // Carga agresiva de la imagen principal
-  useEffect(() => {
-    // Técnica simple pero efectiva
-    const img = new Image();
-    img.onload = () => setImageLoaded(true);
-    img.onerror = () => setImageLoaded(true);
-    img.src = inicioImage;
-
-    // Forzar la carga inmediata
-    if (img.complete) {
-      setImageLoaded(true);
-    }
-
-    // También intentar con fetch inmediato
-    fetch(inicioImage)
-      .then(() => setImageLoaded(true))
-      .catch(() => { });
-  }, []);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -306,56 +279,12 @@ function App() {
 
   return (
     <div className="App">
-      {/* Imagen oculta para precarga */}
-      <img
-        src={inicioImage}
-        alt=""
-        style={{ display: 'none' }}
-        onLoad={() => setImageLoaded(true)}
-      />
-      <Header
+      <HomePage
         onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-        onLogoClick={navigateHome}
+        onGoToVigia={navigateToVigia}
+        onGoToPronosticos={navigateToPronosticos}
+        onGoToAapresid={navigateToAapresid}
       />
-      <main className="main-content">
-        <div id="inicio">
-          <HeroWindow />
-        </div>
-        <div id="caracteristicas">
-          <FeatureCards backgroundColor="#f8f9fa" />
-        </div>
-        <div id="servicios">
-          <ServicesSection backgroundImage={trigoImage} />
-        </div>
-        <div id="plataformas">
-          <PlatformsSection
-            onGoToVigia={navigateToVigia}
-            onGoToPronosticos={navigateToPronosticos}
-            onGoToAapresid={navigateToAapresid}
-          />
-        </div>
-        <div
-          className={`hero-section ${imageLoaded ? 'loaded' : ''}`}
-          style={{ backgroundImage: `url(${inicioImage})` }}
-        >
-          <div className="hero-overlay">
-            <div className="hero-content">
-              <div className="hero-text">
-                <h1 className="hero-title">Aumenta el rendimiento de tu campo</h1>
-              </div>
-              <div className="hero-form">
-                <ContactForm />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="clientes">
-          <TrustedCompanies />
-        </div>
-        <div id="contacto">
-          <Footer onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
-        </div>
-      </main>
       {whatsappElements}
     </div>
   );
