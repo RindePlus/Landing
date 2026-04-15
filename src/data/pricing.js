@@ -55,6 +55,50 @@ export const PLANES_EMPRESAS = [
   },
 ];
 
+export const AAPRESID_MIN_SOCIOS = 10;
+export const AAPRESID_PROMO_VALIDA_HASTA = 'Junio 2026';
+
+export const PLANES_AAPRESID = [
+  {
+    id: 'aapresid-standard',
+    nombre: 'Standard',
+    tagline: 'Puerta de entrada al ecosistema',
+    descripcion:
+      'Los módulos base para que cada socio de la regional analice su campaña y sus brechas desde el primer día.',
+    precioAnualLista: 360,
+    precioAnual: 240,
+    precioMensualEq: 20,
+    ahorroAnual: 120,
+    modulos: [
+      'Análisis de Campaña',
+      'Brechas Estándar',
+      'Pronóstico Climático',
+      'Actualizaciones futuras (parcial)',
+    ],
+    destacado: false,
+  },
+  {
+    id: 'aapresid-full',
+    nombre: 'Full',
+    tagline: 'Solución productiva completa',
+    descripcion:
+      'Todo lo del Standard más la capa analítica avanzada y las próximas actualizaciones productivas.',
+    precioAnualLista: 720,
+    precioAnual: 480,
+    precioMensualEq: 40,
+    ahorroAnual: 240,
+    modulos: [
+      'Análisis de Campaña',
+      'Brechas Estándar',
+      'Brechas Inteligentes',
+      'Vig IA (próxima actualización)',
+      'Pronóstico Climático',
+      'Todas las actualizaciones productivas',
+    ],
+    destacado: true,
+  },
+];
+
 export function calcularProductor(hectareas) {
   const ha = Math.max(0, Number.isFinite(hectareas) ? hectareas : 0);
   const suscripcion = PLAN_PRODUCTOR.precioAnual;
