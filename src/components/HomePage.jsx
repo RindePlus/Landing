@@ -61,7 +61,7 @@ const OWN_PLATFORMS = [
     internal: 'vigia',
   },
   {
-    id: 'pronosticos',
+    id: 'brechas',
     name: 'Análisis y brechas',
     tag: 'Núcleo  Agronómico',
     logo: logoPronosticos,
@@ -69,7 +69,7 @@ const OWN_PLATFORMS = [
       'Análisis de campaña y brechas de rendimiento por lote. Datos de clima, suelo e históricos unificados en un solo reporte.',
     accent: 'rp-plat-sky',
     logoBg: '#0067cb',
-    internal: 'pronosticos',
+    internal: 'brechas',
   },
   {
     id: 'huella',
@@ -357,7 +357,7 @@ const FinalCta = ({ onOpenWhatsApp }) => (
 const HomePage = ({
   onOpenWhatsApp,
   onGoToVigia,
-  onGoToPronosticos,
+  onGoToBrechas,
   onGoToAapresid,
 }) => {
   const scrollToSection = (id) => {
@@ -373,7 +373,7 @@ const HomePage = ({
 
   const handleInternalNav = (internalType) => {
     if (internalType === 'vigia' && onGoToVigia) return onGoToVigia();
-    if (internalType === 'pronosticos' && onGoToPronosticos) return onGoToPronosticos();
+    if (internalType === 'brechas' && onGoToBrechas) return onGoToBrechas();
     if (internalType === 'aapresid' && onGoToAapresid) return onGoToAapresid();
   };
 

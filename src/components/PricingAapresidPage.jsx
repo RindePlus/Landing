@@ -43,7 +43,7 @@ const PRINCIPLES = [
   {
     Icon: FaStar,
     title: 'Descuento especial por lanzamiento',
-    copy: `Precio aliado institucional, válido hasta ${AAPRESID_PROMO_VALIDA_HASTA}. Una ventana corta para que las regionales arranquen con beneficios únicos.`,
+    copy: `Precio aliado institucional, válido hasta ${AAPRESID_PROMO_VALIDA_HASTA}.`,
     accent: 'rp-acc-amber',
     delay: 'rp-d-4',
   },
@@ -391,7 +391,6 @@ const PricingAapresidPage = ({
                 className="rp-cta"
                 onClick={handleCoordinar}
               >
-                <FaSeedling />
                 Coordinemos una demo para la regional
                 <FaArrowRight />
               </button>

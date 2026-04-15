@@ -3,7 +3,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import VigiaPage from './components/VigiaPage';
-import PronosticosPage from './components/PronosticosPage';
 import BrechasPage from './components/BrechasPage';
 import AapresidPage from './components/AapresidPage';
 import PricingLandingPage from './components/PricingLandingPage';
@@ -18,7 +17,6 @@ function App() {
   const [route, setRoute] = useState(() => {
     const resolvePath = (pathname) => {
       if (pathname === '/vigia' || pathname === '/vigia/') return '/vigia';
-      if (pathname === '/pronosticos' || pathname === '/pronosticos/') return '/pronosticos';
       if (pathname === '/brechas' || pathname === '/brechas/') return '/brechas';
       if (pathname === '/aapresid' || pathname === '/aapresid/') return '/aapresid';
       if (pathname === '/pricing/productores' || pathname === '/pricing/productores/') return '/pricing/productores';
@@ -49,8 +47,6 @@ function App() {
       const pathname = window.location.pathname;
       if (pathname === '/vigia' || pathname === '/vigia/') {
         setRoute('/vigia');
-      } else if (pathname === '/pronosticos' || pathname === '/pronosticos/') {
-        setRoute('/pronosticos');
       } else if (pathname === '/brechas' || pathname === '/brechas/') {
         setRoute('/brechas');
       } else if (pathname === '/aapresid' || pathname === '/aapresid/') {
@@ -92,7 +88,6 @@ function App() {
   const whatsappUrl = "https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus";
   const vigiaLoginUrl = "https://vigiabioestress.ddns.net/login/";
   const isVigiaPage = route === '/vigia' || route === 'vigia';
-  const isPronosticosPage = route === '/pronosticos' || route === 'pronosticos';
   const isBrechasPage = route === '/brechas';
   const isAapresidPage = route === '/aapresid' || route === 'aapresid';
   const isPricingLandingPage = route === '/pricing';
@@ -110,13 +105,6 @@ function App() {
   const navigateToVigia = () => {
     window.history.pushState({}, '', '/vigia');
     setRoute('/vigia');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setShowWhatsappPopup(false);
-  };
-
-  const navigateToPronosticos = () => {
-    window.history.pushState({}, '', '/pronosticos');
-    setRoute('/pronosticos');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowWhatsappPopup(false);
   };
@@ -233,19 +221,6 @@ function App() {
     );
   }
 
-  if (isPronosticosPage) {
-    return (
-      <div className="App">
-        <PronosticosPage
-          onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-          onGoToHome={navigateHome}
-          onGoToPricing={navigateToPricing}
-        />
-        {whatsappElements}
-      </div>
-    );
-  }
-
   if (isBrechasPage) {
     return (
       <div className="App">
@@ -333,7 +308,7 @@ function App() {
       <HomePage
         onOpenWhatsApp={() => setShowWhatsappPopup(true)}
         onGoToVigia={navigateToVigia}
-        onGoToPronosticos={navigateToBrechas}
+        onGoToBrechas={navigateToBrechas}
         onGoToAapresid={navigateToAapresid}
       />
       {whatsappElements}
