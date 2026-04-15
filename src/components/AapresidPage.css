@@ -254,8 +254,10 @@
   display: block;
   width: 100%;
   height: auto;
-  max-height: 440px;
+  aspect-ratio: 4 / 3;
+  max-height: none;
   object-fit: cover;
+  object-position: center;
 }
 
 /* AAPRESID logo centered over the hero image */
@@ -265,7 +267,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
-  width: clamp(160px, 36%, 260px);
+  width: clamp(290px, 65%, 484px);
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 20px 36px rgba(15, 23, 42, 0.6))
