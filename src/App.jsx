@@ -104,7 +104,9 @@ function App() {
 
         <div className="wa-widget__panel">
           <p className="wa-widget__greeting">
-            Hola <span role="img" aria-label="saludo">👋</span> ¿En qué podemos ayudarte?
+            Hola <span role="img" aria-label="saludo">👋</span>
+            <br />
+            ¿En qué podemos ayudarte?
           </p>
           <a
             href={whatsappUrl}

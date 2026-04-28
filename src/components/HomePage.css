@@ -19,7 +19,7 @@
    ============================================================ */
 .rp-home__hero {
   position: relative;
-  padding: 140px 24px 80px;
+  padding: 140px 24px 48px;
   min-height: 92vh;
   display: flex;
   align-items: center;
@@ -28,7 +28,7 @@
 }
 
 @media (min-width: 768px) {
-  .rp-home__hero { padding: 180px 40px 120px; min-height: 88vh; }
+  .rp-home__hero { padding: 180px 40px 72px; min-height: 88vh; }
 }
 
 /* Single ambient glow — brand gold */
@@ -606,26 +606,26 @@
 .rp-home__trusted {
   position: relative;
   width: 100%;
-  padding: 80px 0;
+  padding: 32px 0 80px;
 }
 
 @media (min-width: 768px) {
-  .rp-home__trusted { padding: 112px 0; }
+  .rp-home__trusted { padding: 40px 0 112px; }
 }
 
 @media (min-width: 1024px) {
-  .rp-home__trusted { padding: 128px 0; }
+  .rp-home__trusted { padding: 48px 0 128px; }
 }
 
 .rp-home__trusted-header {
   max-width: 1440px;
-  margin: 0 auto 48px;
+  margin: 0 auto 24px;
   padding: 0 24px;
   text-align: center;
 }
 
 @media (min-width: 768px) {
-  .rp-home__trusted-header { padding: 0 40px; margin-bottom: 56px; }
+  .rp-home__trusted-header { padding: 0 40px; margin-bottom: 28px; }
 }
 
 .rp-home__trusted-carousel {

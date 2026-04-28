@@ -283,11 +283,7 @@ const TrustedSection = () => (
   <section className="rp-home__trusted" id="clientes">
     <div className="rp-home__trusted-header">
       <Reveal>
-        <div className="rp-num-eyebrow">Confían</div>
-        <h2 className="rp-home__section-title">
-          Trabajamos con empresas que{' '}
-          <span className="rp-home__section-title-accent">mueven el campo</span>
-        </h2>
+        <div className="rp-num-eyebrow">Confían en nosotros</div>
       </Reveal>
     </div>
     <Reveal className="rp-home__trusted-carousel">
@@ -367,6 +363,8 @@ const HomePage = ({
       <main>
         <HeroSection onScrollToPlatforms={handleScrollToPlatforms} />
 
+        <TrustedSection />
+
         <BenefitsSection />
 
         <PlatformsBlock
@@ -390,8 +388,6 @@ const HomePage = ({
           gridVariant="rp-home__plat-grid--four"
           onInternalNav={handleInternalNav}
         />
-
-        <TrustedSection />
 
         <FinalCta onOpenWhatsApp={onOpenWhatsApp} />
       </main>

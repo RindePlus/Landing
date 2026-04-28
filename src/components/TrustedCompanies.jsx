@@ -40,26 +40,70 @@ const TrustedCompanies = () => {
 
     let animationId;
     let position = 0;
-    const speed = 0.5; // pixels per frame
+    const speed = 60;
+    let isDragging = false;
+    let startX = 0;
+    let dragOffset = 0;
+    let lastTime = performance.now();
 
-    const animate = () => {
-      position -= speed;
+    const clampPosition = () => {
+      const half = carousel.scrollWidth / 2;
+      if (position <= -half) position += half;
+      if (position > 0) position -= half;
+    };
 
-      // Reset position when first set of logos is out of view
-      if (position <= -carousel.scrollWidth / 2) {
-        position = 0;
+    const animate = (now) => {
+      const dt = (now - lastTime) / 1000;
+      lastTime = now;
+      if (!isDragging) {
+        position -= speed * dt;
+        clampPosition();
+        carousel.style.transform = `translateX(${position}px)`;
       }
-
-      carousel.style.transform = `translateX(${position}px)`;
       animationId = requestAnimationFrame(animate);
     };
+
+    const getX = (e) => (e.touches ? e.touches[0].clientX : e.clientX);
+
+    const onStart = (e) => {
+      isDragging = true;
+      startX = getX(e);
+      dragOffset = position;
+      carousel.style.cursor = 'grabbing';
+    };
+
+    const onMove = (e) => {
+      if (!isDragging) return;
+      const delta = getX(e) - startX;
+      position = dragOffset + delta;
+      clampPosition();
+      carousel.style.transform = `translateX(${position}px)`;
+    };
+
+    const onEnd = () => {
+      isDragging = false;
+      carousel.style.cursor = 'grab';
+    };
+
+    carousel.style.cursor = 'grab';
+
+    carousel.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+    carousel.addEventListener('touchstart', onStart, { passive: true });
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onEnd);
 
     animationId = requestAnimationFrame(animate);
 
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
+      cancelAnimationFrame(animationId);
+      carousel.removeEventListener('mousedown', onStart);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onEnd);
+      carousel.removeEventListener('touchstart', onStart);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onEnd);
     };
   }, []);
 
