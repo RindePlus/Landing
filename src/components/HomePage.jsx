@@ -1,8 +1,4 @@
 import {
-  FaChartLine,
-  FaSearch,
-  FaClock,
-  FaDollarSign,
   FaArrowRight,
   FaWhatsapp,
 } from 'react-icons/fa';
@@ -24,28 +20,20 @@ import './HomePage.css';
 
 const BENEFITS = [
   {
-    Icon: FaSearch,
     title: 'Decisiones informadas',
     copy: 'Conocé el momento óptimo para sembrar, fertilizar y cosechar con datos de tu lote.',
-    accent: 'rp-acc-emerald',
   },
   {
-    Icon: FaChartLine,
     title: 'Optimización de recursos',
     copy: 'Ajustá insumos y manejo para reducir costos sin resignar rendimiento.',
-    accent: 'rp-acc-blue',
   },
   {
-    Icon: FaClock,
     title: 'Planificación a largo plazo',
     copy: 'Anticipá riesgos y armá estrategias de campaña con visibilidad real.',
-    accent: 'rp-acc-sky',
   },
   {
-    Icon: FaDollarSign,
     title: 'Mejora en la rentabilidad',
     copy: 'Cada decisión vale plata. Nosotros te ayudamos a que valga más.',
-    accent: 'rp-acc-amber',
   },
 ];
 
@@ -189,22 +177,6 @@ const HeroSection = ({ onScrollToPlatforms }) => (
   </section>
 );
 
-const PrincipleCard = ({ Icon, title, copy, accent, delay }) => (
-  <article className={`rp-principle ${accent} rp-card-in ${delay || ''}`}>
-    <div className="rp-principle__bar" />
-    <div className="rp-principle__body">
-      <div className="rp-principle__icon">
-        <div className="rp-principle__icon-glow" />
-        <div className="rp-principle__icon-inner">
-          <Icon />
-        </div>
-      </div>
-      <h3 className="rp-principle__title">{title}</h3>
-      <p className="rp-principle__copy">{copy}</p>
-    </div>
-  </article>
-);
-
 const BenefitsSection = () => (
   <section className="rp-home__section" id="beneficios">
     <Reveal className="rp-home__section-header">
@@ -219,18 +191,19 @@ const BenefitsSection = () => (
     </Reveal>
 
     <Reveal>
-      <div className="rp-home__benefits-grid">
+      <ol className="rp-home__benefits-list">
         {BENEFITS.map((b, i) => (
-          <PrincipleCard
-            key={b.title}
-            Icon={b.Icon}
-            title={b.title}
-            copy={b.copy}
-            accent={b.accent}
-            delay={`rp-d-${i + 1}`}
-          />
+          <li key={b.title} className="rp-home__benefit-item">
+            <span className="rp-home__benefit-num">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div className="rp-home__benefit-text">
+              <h3 className="rp-home__benefit-title">{b.title}</h3>
+              <p className="rp-home__benefit-copy">{b.copy}</p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </Reveal>
   </section>
 );

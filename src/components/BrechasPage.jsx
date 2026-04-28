@@ -404,8 +404,7 @@ const LaPlataformaSection = () => (
     <Reveal className="rp-brechas__section-header">
       <div className="rp-brechas__eyebrow">La plataforma</div>
       <h2 className="rp-brechas__section-title">
-        Una herramienta de{' '}
-        <span className="rp-brechas__section-title-accent">análisis y decisión</span>
+        Qué hace la plataforma
       </h2>
       <p className="rp-brechas__section-subtitle">
         Centraliza los datos del lote y los traduce en{' '}
@@ -484,7 +483,7 @@ const ComoFunciona = () => (
 
 const ModulosSection = () => (
   <section className="rp-brechas__section" id="modulos">
-    <ModulesSection />
+    <ModulesSection eyebrow="Módulos" />
   </section>
 );
 
@@ -502,23 +501,26 @@ const ReporteSection = () => (
     </Reveal>
 
     <Reveal>
-      <div className="rp-brechas__report-grid">
-        {REPORT_ITEMS.map((item) => (
-          <article
-            key={item.num}
-            className={`rp-brechas__report rp-brechas__report--${item.accent}`}
-          >
-            <div className="rp-brechas__report-bar" />
-            <div className="rp-brechas__report-body">
-              <div className="rp-brechas__report-head">
-                <span className="rp-brechas__report-num">{item.num}</span>
-                <h3 className="rp-brechas__report-title">{item.title}</h3>
-              </div>
-              <p className="rp-brechas__report-copy">{item.copy}</p>
-            </div>
-          </article>
-        ))}
-      </div>
+      <table className="rp-brechas__report-table">
+        <tbody>
+          {[0, 1, 2].map((row) => (
+            <tr key={row}>
+              {[0, 1].map((col) => {
+                const item = REPORT_ITEMS[row * 2 + col];
+                return (
+                  <td key={item.num} className="rp-brechas__report-cell">
+                    <div className="rp-brechas__report-head">
+                      <span className="rp-brechas__report-num">{item.num}</span>
+                      <h3 className="rp-brechas__report-title">{item.title}</h3>
+                    </div>
+                    <p className="rp-brechas__report-copy">{item.copy}</p>
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </Reveal>
   </section>
 );
@@ -828,7 +830,6 @@ const BrechasPage = ({ onOpenWhatsApp, onGoToHome, onGoToPricing }) => {
           { label: 'Inicio', id: 'top' },
           { label: 'El problema', id: 'el-problema' },
           { label: 'La plataforma', id: 'que-es' },
-          { label: 'Cómo funciona', id: 'como-funciona' },
           { label: 'Módulos', id: 'modulos' },
           { label: 'El reporte', id: 'reporte' },
           { label: 'Cómo empiezo', id: 'como-empezar' },
@@ -839,7 +840,6 @@ const BrechasPage = ({ onOpenWhatsApp, onGoToHome, onGoToPricing }) => {
         <HeroSection onGoToPricing={onGoToPricing} />
         <ElProblemaSection onOpenSources={openSources} />
         <LaPlataformaSection />
-        <ComoFunciona />
         <ModulosSection />
         <ReporteSection />
         <AhorroTiempoSection />

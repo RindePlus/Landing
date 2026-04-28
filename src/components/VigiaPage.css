@@ -144,10 +144,7 @@
 
 .rp-vigia__hero-title em {
   font-style: normal;
-  background: linear-gradient(90deg, var(--rp-indigo-600), var(--rp-sky-600), var(--rp-indigo-700));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--rp-blue-700);
 }
 
 .rp-vigia__hero-subtitle {
@@ -244,12 +241,7 @@
 }
 
 .rp-vigia__hero-card-bar {
-  height: 6px;
-  background: linear-gradient(90deg, var(--rp-indigo-400), var(--rp-sky-500), var(--rp-indigo-600));
-  transform-origin: left;
-  animation: rp-draw-bar 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
-  position: relative;
-  z-index: 1;
+  display: none;
 }
 
 .rp-vigia__hero-card-img {
@@ -339,11 +331,7 @@
 }
 
 .rp-vigia__section-title-accent {
-  background: var(--rp-pricing-heading-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding-bottom: 3px;
+  color: var(--rp-blue-700);
 }
 
 .rp-vigia__section-subtitle {
@@ -391,21 +379,15 @@
 .rp-vigia__quote-card {
   position: relative;
   background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
-  border: 1px solid var(--rp-emerald-200);
+  border: 1px solid var(--rp-blue-200);
   border-radius: 24px;
   padding: 40px 36px 36px;
-  box-shadow: 0 28px 56px -24px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 28px 56px -24px rgba(29, 78, 216, 0.2);
   overflow: hidden;
 }
 
 .rp-vigia__quote-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, var(--rp-emerald-400), var(--rp-sky-500), var(--rp-indigo-500));
-  transform-origin: left;
-  animation: rp-draw-bar 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  display: none;
 }
 
 .rp-vigia__quote-mark {
@@ -413,7 +395,7 @@
   font-size: 4.5rem;
   font-weight: 800;
   line-height: 0.8;
-  color: var(--rp-emerald-200);
+  color: var(--rp-blue-200);
   margin: 0 0 8px;
 }
 
@@ -428,10 +410,7 @@
 
 .rp-vigia__quote-text em {
   font-style: normal;
-  background: linear-gradient(90deg, var(--rp-emerald-600), var(--rp-blue-600));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--rp-blue-700);
   font-weight: 800;
 }
 
@@ -458,7 +437,7 @@
   mix-blend-mode: multiply;
 }
 
-.rp-vigia__venn-circle:nth-child(1) { background: var(--rp-emerald-300); margin-right: -16px; }
+.rp-vigia__venn-circle:nth-child(1) { background: var(--rp-blue-300); margin-right: -16px; }
 .rp-vigia__venn-circle:nth-child(2) { background: var(--rp-sky-300); margin-right: -16px; z-index: 1; }
 .rp-vigia__venn-circle:nth-child(3) { background: var(--rp-indigo-300); }
 
@@ -491,8 +470,8 @@
 .rp-vigia__how-highlight {
   position: relative;
   padding: 14px 20px;
-  border-left: 3px solid var(--rp-emerald-500);
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.08), transparent 60%);
+  border-left: 3px solid var(--rp-blue-500);
+  background: linear-gradient(90deg, rgba(29, 78, 216, 0.06), transparent 60%);
   border-radius: 0 12px 12px 0;
   font-family: var(--font-heading);
   font-size: clamp(1.05rem, 1.4vw, 1.3rem);
@@ -503,10 +482,7 @@
 }
 
 .rp-vigia__how-highlight strong {
-  background: linear-gradient(90deg, var(--rp-emerald-600), var(--rp-blue-600));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--rp-blue-700);
   font-weight: 800;
   font-style: normal;
 }
@@ -524,7 +500,7 @@
   content: '';
   position: absolute;
   inset: -20px;
-  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.25) 0%, transparent 65%);
+  background: radial-gradient(circle at center, rgba(29, 78, 216, 0.2) 0%, transparent 65%);
   filter: blur(40px);
   z-index: 0;
 }
@@ -580,7 +556,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--rp-emerald-700);
+  color: var(--rp-blue-700);
   margin-bottom: 14px;
 }
 
@@ -589,11 +565,11 @@
   content: '';
   width: 30px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--rp-emerald-300));
+  background: linear-gradient(90deg, transparent, var(--rp-gold-400));
 }
 
 .rp-vigia__benefits-eyebrow::after {
-  background: linear-gradient(90deg, var(--rp-emerald-300), transparent);
+  background: linear-gradient(90deg, var(--rp-gold-400), transparent);
 }
 
 .rp-vigia__benefits-title {
@@ -635,7 +611,7 @@
 .rp-vigia__reason:hover {
   background: linear-gradient(
     90deg,
-    rgba(16, 185, 129, 0.04) 0%,
+    rgba(29, 78, 216, 0.04) 0%,
     transparent 60%
   );
 }
@@ -646,10 +622,7 @@
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.02em;
-  background: var(--rp-pricing-heading-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--rp-gold-500);
   padding-bottom: 4px;
   min-width: 64px;
   display: inline-block;
@@ -659,7 +632,7 @@
   width: 1px;
   height: 100%;
   min-height: 48px;
-  background: linear-gradient(180deg, var(--rp-emerald-300), transparent);
+  background: linear-gradient(180deg, var(--rp-gold-300), transparent);
   display: block;
 }
 
@@ -695,8 +668,8 @@
   max-width: 960px;
   margin: 0 auto;
   padding: 28px 40px;
-  border-left: 5px solid var(--rp-emerald-500);
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), transparent 65%);
+  border-left: 5px solid var(--rp-blue-500);
+  background: linear-gradient(90deg, rgba(29, 78, 216, 0.06), transparent 65%);
   border-radius: 0 16px 16px 0;
   overflow: hidden;
 }
@@ -712,10 +685,7 @@
 }
 
 .rp-vigia__inline-banner p span {
-  background: linear-gradient(90deg, var(--rp-emerald-600), var(--rp-blue-600));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--rp-blue-700);
   font-weight: 800;
   font-style: normal;
 }
@@ -753,10 +723,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.24em;
-  background: linear-gradient(90deg, var(--rp-emerald-600), var(--rp-blue-600));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--rp-blue-700);
 }
 
 .rp-vigia__strip::before,
@@ -765,13 +732,11 @@
   display: block;
   width: 60px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.6));
-  -webkit-background-clip: border-box;
-          background-clip: border-box;
+  background: linear-gradient(90deg, transparent, var(--rp-gold-400));
 }
 
 .rp-vigia__strip::after {
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.6), transparent);
+  background: linear-gradient(90deg, var(--rp-gold-400), transparent);
 }
 
 /* ============================================================
@@ -801,20 +766,7 @@
 }
 
 .rp-vigia__easy-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 5px;
-  transform-origin: left;
-  animation: rp-draw-bar 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
-}
-
-.rp-vigia__easy-card--a::before {
-  background: linear-gradient(90deg, var(--rp-emerald-400), var(--rp-emerald-600));
-}
-
-.rp-vigia__easy-card--b::before {
-  background: linear-gradient(90deg, var(--rp-amber-400), var(--rp-amber-600));
+  display: none;
 }
 
 .rp-vigia__easy-eyebrow {
@@ -827,7 +779,7 @@
   margin-bottom: 10px;
 }
 
-.rp-vigia__easy-card--a .rp-vigia__easy-eyebrow { color: var(--rp-emerald-700); }
+.rp-vigia__easy-card--a .rp-vigia__easy-eyebrow { color: var(--rp-blue-700); }
 .rp-vigia__easy-card--b .rp-vigia__easy-eyebrow { color: var(--rp-amber-700); }
 
 .rp-vigia__easy-title {
@@ -867,24 +819,18 @@
 
 .rp-vigia__list-icon {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--rp-emerald-400), var(--rp-emerald-600));
-  color: #fff;
+  color: var(--rp-blue-600);
+  font-size: 18px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  box-shadow: 0 8px 16px -6px rgba(16, 185, 129, 0.45);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .rp-vigia__quote-box {
   margin-top: auto;
   padding: 16px 18px;
-  background: linear-gradient(90deg, var(--rp-emerald-50), #fff);
-  border: 1px solid var(--rp-emerald-200);
+  background: linear-gradient(90deg, var(--rp-blue-50), #fff);
+  border: 1px solid var(--rp-blue-200);
   border-radius: 14px;
   font-size: 0.9rem;
   color: var(--rp-gray-700);
@@ -893,10 +839,7 @@
 }
 
 .rp-vigia__quote-box strong {
-  background: linear-gradient(90deg, var(--rp-emerald-600), var(--rp-blue-600));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--rp-blue-700);
   font-weight: 800;
   font-style: normal;
 }
@@ -1009,17 +952,11 @@
 }
 
 .rp-vigia__ally-bar {
-  height: 5px;
-  transform-origin: left;
-  animation: rp-draw-bar 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  display: none;
 }
 
-.rp-vigia__ally--sky .rp-vigia__ally-bar     { background: linear-gradient(90deg, var(--rp-sky-400), var(--rp-sky-500), var(--rp-sky-600)); }
-.rp-vigia__ally--emerald .rp-vigia__ally-bar { background: linear-gradient(90deg, var(--rp-emerald-400), var(--rp-emerald-500), var(--rp-emerald-600)); }
-.rp-vigia__ally--amber .rp-vigia__ally-bar   { background: linear-gradient(90deg, var(--rp-amber-400), var(--rp-amber-500), var(--rp-amber-600)); }
-
 .rp-vigia__ally--sky:hover     { border-color: var(--rp-sky-300); }
-.rp-vigia__ally--emerald:hover { border-color: var(--rp-emerald-300); }
+.rp-vigia__ally--emerald:hover { border-color: var(--rp-gold-300); }
 .rp-vigia__ally--amber:hover   { border-color: var(--rp-amber-300); }
 
 .rp-vigia__ally-logo {
@@ -1041,7 +978,7 @@
 }
 
 .rp-vigia__ally--sky     .rp-vigia__ally-logo-glow { background: var(--rp-sky-300); }
-.rp-vigia__ally--emerald .rp-vigia__ally-logo-glow { background: var(--rp-emerald-300); }
+.rp-vigia__ally--emerald .rp-vigia__ally-logo-glow { background: var(--rp-gold-300); }
 .rp-vigia__ally--amber   .rp-vigia__ally-logo-glow { background: var(--rp-amber-300); }
 
 .rp-vigia__ally-logo img {

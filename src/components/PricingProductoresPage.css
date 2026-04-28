@@ -84,14 +84,11 @@
 .rp-prod__step:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 32px -12px rgba(15, 23, 42, 0.18);
-  border-color: var(--rp-emerald-300);
+  border-color: var(--rp-blue-300);
 }
 
 .rp-prod__step-bar {
-  height: 6px;
-  background: linear-gradient(90deg, var(--rp-emerald-400), var(--rp-emerald-500), var(--rp-emerald-600));
-  transform-origin: left;
-  animation: rp-draw-bar 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  display: none;
 }
 
 .rp-prod__step-body { padding: 24px; }
@@ -100,7 +97,7 @@
   font-family: var(--font-heading);
   font-size: 3rem;
   font-weight: 800;
-  color: var(--rp-emerald-100);
+  color: var(--rp-gold-200);
   line-height: 1;
   margin-bottom: 12px;
   letter-spacing: -0.02em;
@@ -108,7 +105,7 @@
 }
 
 .rp-prod__step:hover .rp-prod__step-num {
-  color: var(--rp-emerald-200);
+  color: var(--rp-gold-300);
 }
 
 .rp-prod__step h3 {
@@ -164,9 +161,9 @@
   position: relative;
   background: #fff;
   border-radius: 22px;
-  border: 2px solid var(--rp-emerald-500);
+  border: 2px solid var(--rp-blue-500);
   padding: clamp(28px, 3vw, 40px);
-  box-shadow: 0 24px 48px -16px rgba(16, 185, 129, 0.28);
+  box-shadow: 0 24px 48px -16px rgba(29, 78, 216, 0.28);
   margin-top: 14px;
 }
 
@@ -183,8 +180,8 @@
   font-size: 0.72rem;
   font-weight: 700;
   color: #fff;
-  background: var(--rp-emerald-600);
-  box-shadow: 0 8px 16px -4px rgba(16, 185, 129, 0.45);
+  background: var(--rp-blue-600);
+  box-shadow: 0 8px 16px -4px rgba(29, 78, 216, 0.45);
   white-space: nowrap;
 }
 
@@ -197,17 +194,11 @@
 }
 
 .rp-prod__plan-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, var(--rp-emerald-500), var(--rp-emerald-600));
-  color: #fff;
-  font-size: 26px;
+  color: var(--rp-blue-600);
+  font-size: 28px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 10px 20px -6px rgba(16, 185, 129, 0.45);
 }
 
 .rp-prod__plan-name {

@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import rindeplusLogo from '../assets/Logo.png';
-import { FaFacebook } from "react-icons/fa6";
-import { FaInstagram } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
 import './Header.css';
 
 const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true, menuItems }) => {
@@ -41,38 +38,28 @@ const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true, menuItems }) => 
   return (
     <header className={`header ${isMenuOpen ? 'header--menu-open' : ''}`}>
       <div className="header-content">
-        {/* Logo Section */}
-        <div className="logo-section">
-          <div className="logo-icon">
-            <img
-              src={rindeplusLogo}
-              alt="RindePlus Logo"
-              className="logo-image"
-              onClick={onLogoClick}
-              style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
-            />
-          </div>
-        </div>
+        <img
+          src={rindeplusLogo}
+          alt="RindePlus Logo"
+          className="logo-image"
+          onClick={onLogoClick}
+          style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
+        />
 
-        {/* Right Section */}
-        <div className="right-group">
-          {showMenu && (
-            <div className="menu-group">
-              <button
-                type="button"
-                className={`hamburger-button ${isMenuOpen ? 'open' : ''}`}
-                onClick={() => setIsMenuOpen((open) => !open)}
-                aria-label="Abrir menú"
-                aria-expanded={isMenuOpen}
-                aria-controls="header-menu"
-              >
-                <span className="hamburger-line" />
-                <span className="hamburger-line" />
-                <span className="hamburger-line" />
-              </button>
-            </div>
-          )}
-        </div>
+        {showMenu && (
+          <button
+            type="button"
+            className={`hamburger-button ${isMenuOpen ? 'open' : ''}`}
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label="Abrir menú"
+            aria-expanded={isMenuOpen}
+            aria-controls="header-menu"
+          >
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
+          </button>
+        )}
       </div>
 
       {showMenu && (

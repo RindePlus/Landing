@@ -16,21 +16,46 @@
 
 .rp-modules__header {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 40px;
+}
+
+.rp-modules__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--rp-blue-700);
+  margin-bottom: 20px;
+}
+
+.rp-modules__eyebrow::before,
+.rp-modules__eyebrow::after {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rp-gold-400));
+}
+
+.rp-modules__eyebrow::after {
+  background: linear-gradient(90deg, var(--rp-gold-400), transparent);
 }
 
 .rp-modules__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-size: clamp(1.9rem, 4vw, 3rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  margin: 0 0 12px;
-  background: var(--rp-pricing-heading-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding-bottom: 3px;
-  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin: 0 0 14px;
+  color: var(--rp-gray-900);
+  line-height: 1.08;
+}
+
+.rp-modules__title-accent {
+  color: var(--rp-blue-700);
 }
 
 .rp-modules__subtitle {
@@ -73,7 +98,7 @@
 }
 
 .rp-module__text { order: 1; }
-.rp-module__visual { order: 2; }
+.rp-module__visual { order: 2; display: flex; align-items: center; justify-content: center; }
 
 @media (min-width: 768px) {
   .rp-module__text { grid-column: span 6; }
@@ -125,163 +150,16 @@
 .rp-module__list li > .rp-check { margin-top: 3px; }
 
 /* Visual column */
-.rp-module__card {
-  position: relative;
-  background: #fff;
-  border: 1px solid var(--rp-gray-200);
-  border-radius: 22px;
-  box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.14);
-  overflow: hidden;
-  aspect-ratio: 5 / 4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.35s;
-}
-
-.rp-module__card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.22);
-}
-
-.rp-module__bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  transform-origin: left;
-  animation: rp-draw-bar 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
-  z-index: 2;
-}
-
-.rp-module__soft-bg {
-  position: absolute;
-  inset: 0;
-  opacity: 0.7;
-  z-index: 0;
-}
-
-.rp-module__dots {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, #000 1px, transparent 1px);
-  background-size: 22px 22px;
-  opacity: 0.05;
-  z-index: 0;
-}
-
-.rp-module__icon-wrap {
-  position: relative;
-  width: 128px;
-  height: 128px;
-  z-index: 1;
-}
-
-@media (min-width: 640px) {
-  .rp-module__icon-wrap { width: 144px; height: 144px; }
-}
-
-.rp-module__icon-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 28px;
-  filter: blur(40px);
-  animation: rp-glow-pulse 3.5s ease-in-out infinite;
-}
-
-.rp-module__icon {
-  position: relative;
+.rp-module__chart {
   width: 100%;
-  height: 100%;
-  border-radius: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 64px;
-  box-shadow: 0 24px 40px -12px rgba(15, 23, 42, 0.3);
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.rp-module__card:hover .rp-module__icon {
-  transform: scale(1.06) rotate(3deg);
-}
-
-@media (min-width: 640px) {
-  .rp-module__icon { font-size: 72px; }
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
 }
 
 /* ============================================================
    Color variants per module
    ============================================================ */
-.rp-mod-blue .rp-module__bar {
-  background: linear-gradient(90deg, var(--rp-blue-400), var(--rp-blue-500), var(--rp-blue-600));
-}
-.rp-mod-blue .rp-module__soft-bg {
-  background: linear-gradient(135deg, var(--rp-blue-50), #fff, var(--rp-indigo-50));
-}
-.rp-mod-blue .rp-module__icon-glow { background: var(--rp-blue-400); }
-.rp-mod-blue .rp-module__icon {
-  background: linear-gradient(135deg, var(--rp-blue-400), var(--rp-blue-600));
-  box-shadow: 0 24px 40px -12px rgba(59, 130, 246, 0.45);
-}
-.rp-mod-blue .rp-module__card:hover { border-color: var(--rp-blue-300); }
-
-.rp-mod-amber .rp-module__bar {
-  background: linear-gradient(90deg, var(--rp-amber-400), var(--rp-amber-500), var(--rp-amber-600));
-}
-.rp-mod-amber .rp-module__soft-bg {
-  background: linear-gradient(135deg, var(--rp-amber-50), #fff, #fef9c3);
-}
-.rp-mod-amber .rp-module__icon-glow { background: var(--rp-amber-400); }
-.rp-mod-amber .rp-module__icon {
-  background: linear-gradient(135deg, var(--rp-amber-400), var(--rp-amber-600));
-  box-shadow: 0 24px 40px -12px rgba(245, 158, 11, 0.45);
-}
-.rp-mod-amber .rp-module__card:hover { border-color: var(--rp-amber-300); }
-
-.rp-mod-emerald .rp-module__bar {
-  background: linear-gradient(90deg, var(--rp-emerald-400), var(--rp-emerald-500), var(--rp-emerald-600));
-}
-.rp-mod-emerald .rp-module__soft-bg {
-  background: linear-gradient(135deg, var(--rp-emerald-50), #fff, #f0fdf4);
-}
-.rp-mod-emerald .rp-module__icon-glow { background: var(--rp-emerald-400); }
-.rp-mod-emerald .rp-module__icon {
-  background: linear-gradient(135deg, var(--rp-emerald-400), var(--rp-emerald-600));
-  box-shadow: 0 24px 40px -12px rgba(16, 185, 129, 0.5);
-}
-.rp-mod-emerald .rp-module__card:hover { border-color: var(--rp-emerald-300); }
-
-.rp-mod-sky .rp-module__bar {
-  background: linear-gradient(90deg, var(--rp-sky-400), var(--rp-sky-500), var(--rp-sky-600));
-}
-.rp-mod-sky .rp-module__soft-bg {
-  background: linear-gradient(135deg, var(--rp-sky-50), #fff, var(--rp-blue-50));
-}
-.rp-mod-sky .rp-module__icon-glow { background: var(--rp-sky-400); }
-.rp-mod-sky .rp-module__icon {
-  background: linear-gradient(135deg, var(--rp-sky-400), var(--rp-sky-600));
-  box-shadow: 0 24px 40px -12px rgba(14, 165, 233, 0.45);
-}
-.rp-mod-sky .rp-module__card:hover { border-color: var(--rp-sky-300); }
-
-.rp-mod-indigo .rp-module__bar {
-  background: linear-gradient(90deg, var(--rp-indigo-400), var(--rp-indigo-500), var(--rp-indigo-600));
-}
-.rp-mod-indigo .rp-module__soft-bg {
-  background: linear-gradient(135deg, var(--rp-indigo-50), #fff, var(--rp-violet-50));
-}
-.rp-mod-indigo .rp-module__icon-glow { background: var(--rp-indigo-400); }
-.rp-mod-indigo .rp-module__icon {
-  background: linear-gradient(135deg, var(--rp-indigo-400), var(--rp-indigo-600));
-  box-shadow: 0 24px 40px -12px rgba(99, 102, 241, 0.45);
-}
-.rp-mod-indigo .rp-module__card:hover { border-color: var(--rp-indigo-300); }
 
 /* ============================================================
    Intersection observer trigger

@@ -21,6 +21,7 @@ import sembradoraBg from '../assets/sembradora.webp';
 import aapresidLogo from '../assets/aapresid-logo.png';
 import './pricing.css';
 import './HomePage.css';
+import './BrechasPage.css';
 import './AapresidPage.css';
 
 const AAPRESID_LOGIN_URL = 'https://pronosticos.rindeplus.com/login/aapresid';
@@ -571,23 +572,26 @@ const ReporteSection = () => (
     </Reveal>
 
     <Reveal>
-      <div className="rp-aapresid__report-grid">
-        {REPORT_ITEMS.map((item) => (
-          <article
-            key={item.num}
-            className={`rp-aapresid__report rp-aapresid__report--${item.accent}`}
-          >
-            <div className="rp-aapresid__report-bar" />
-            <div className="rp-aapresid__report-body">
-              <div className="rp-aapresid__report-head">
-                <span className="rp-aapresid__report-num">{item.num}</span>
-                <h3 className="rp-aapresid__report-title">{item.title}</h3>
-              </div>
-              <p className="rp-aapresid__report-copy">{item.copy}</p>
-            </div>
-          </article>
-        ))}
-      </div>
+      <table className="rp-brechas__report-table">
+        <tbody>
+          {[0, 1, 2].map((row) => (
+            <tr key={row}>
+              {[0, 1].map((col) => {
+                const item = REPORT_ITEMS[row * 2 + col];
+                return (
+                  <td key={item.num} className="rp-brechas__report-cell">
+                    <div className="rp-brechas__report-head">
+                      <span className="rp-brechas__report-num">{item.num}</span>
+                      <h3 className="rp-brechas__report-title">{item.title}</h3>
+                    </div>
+                    <p className="rp-brechas__report-copy">{item.copy}</p>
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </Reveal>
   </section>
 );
@@ -607,36 +611,20 @@ const ParaQuienSection = () => (
     </Reveal>
 
     <Reveal>
-      <div className="rp-aapresid__audience-grid">
-        {AUDIENCE_CARDS.map((card) => {
-          const IconComp = card.Icon;
-          return (
-            <article
-              key={card.id}
-              className={`rp-aapresid__audience rp-aapresid__audience--${card.accent}`}
-            >
-              <div className="rp-aapresid__audience-bar" />
-              <div className="rp-aapresid__audience-body">
-                <div className="rp-aapresid__audience-badge">
-                  <IconComp />
-                </div>
-                <h3>{card.title}</h3>
-                <ul className="rp-aapresid__audience-list">
-                  {card.bullets.map((bullet, i) => (
-                    <li key={i}>
-                      <span className="rp-aapresid__audience-check">
-                        <FaCheck />
-                      </span>
-                      <span className="rp-aapresid__audience-text">
-                        {bullet}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          );
-        })}
+      <div className="rp-aapresid__audience-clean">
+        {AUDIENCE_CARDS.map((card) => (
+          <div key={card.id} className="rp-aapresid__audience-col">
+            <h3 className="rp-aapresid__audience-heading">{card.title}</h3>
+            <ul className="rp-aapresid__audience-list">
+              {card.bullets.map((bullet, i) => (
+                <li key={i}>
+                  <span className="rp-check"><FaCheck /></span>
+                  <span className="rp-aapresid__audience-text">{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </Reveal>
   </section>
@@ -959,7 +947,6 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome, onGoToPricing }) => {
         <HeroSection onGoToPricing={onGoToPricing} />
         <ElProblemaSection onOpenSources={openSources} />
         <LaPlataformaSection />
-        <ComoFunciona />
         <ModulosSection />
         <ReporteSection />
         <AhorroTiempoSection />

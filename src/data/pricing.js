@@ -55,7 +55,7 @@ export const PLANES_EMPRESAS = [
   },
 ];
 
-export const AAPRESID_MIN_SOCIOS = 10;
+export const AAPRESID_MIN_SOCIOS = 15;
 export const AAPRESID_PROMO_VALIDA_HASTA = 'Junio 2026';
 
 export const PLANES_AAPRESID = [

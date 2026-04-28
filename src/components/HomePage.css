@@ -31,39 +31,25 @@
   .rp-home__hero { padding: 180px 40px 120px; min-height: 88vh; }
 }
 
-/* Aurora blobs */
-.rp-home__hero::before,
-.rp-home__hero::after {
+/* Single ambient glow — brand gold */
+.rp-home__hero::before {
   content: '';
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.55;
+  filter: blur(80px);
+  opacity: 0.3;
   z-index: 0;
-  animation: rp-aurora-float 18s ease-in-out infinite;
   pointer-events: none;
-}
-
-.rp-home__hero::before {
-  width: 520px;
-  height: 520px;
-  top: -140px;
-  left: -120px;
-  background: radial-gradient(circle at center, #a7f3d0 0%, transparent 70%);
+  width: 600px;
+  height: 600px;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at center, var(--rp-gold-200) 0%, transparent 70%);
 }
 
 .rp-home__hero::after {
-  width: 600px;
-  height: 600px;
-  top: -220px;
-  right: -180px;
-  background: radial-gradient(circle at center, #ddd6fe 0%, transparent 70%);
-  animation-delay: -9s;
-}
-
-@keyframes rp-aurora-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%      { transform: translate(40px, -30px) scale(1.08); }
+  display: none;
 }
 
 /* Grid pattern overlay */
@@ -97,28 +83,22 @@
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(29, 78, 216, 0.2);
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--rp-emerald-700);
+  color: var(--rp-blue-700);
   margin-bottom: 32px;
-  box-shadow: 0 8px 24px -10px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 8px 24px -10px rgba(29, 78, 216, 0.2);
 }
 
 .rp-home__hero-eyebrow-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--rp-emerald-500);
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
-  animation: rp-dot-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes rp-dot-pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18); }
-  50%      { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.08); }
+  background: var(--rp-gold-500);
+  box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.2);
 }
 
 .rp-home__hero-title {
@@ -192,13 +172,13 @@
 
 .rp-home__hero-btn--primary {
   color: #fff;
-  background: linear-gradient(135deg, var(--rp-emerald-500), var(--rp-emerald-600));
-  box-shadow: 0 14px 28px -12px rgba(16, 185, 129, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, var(--rp-blue-600), var(--rp-blue-700));
+  box-shadow: 0 14px 28px -12px rgba(29, 78, 216, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .rp-home__hero-btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 36px -14px rgba(16, 185, 129, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 36px -14px rgba(29, 78, 216, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .rp-home__hero-btn--ghost {
@@ -283,7 +263,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.22em;
-  color: var(--rp-emerald-700);
+  color: var(--rp-blue-700);
   margin-bottom: 20px;
 }
 
@@ -292,11 +272,11 @@
   content: '';
   width: 36px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--rp-emerald-300));
+  background: linear-gradient(90deg, transparent, var(--rp-gold-400));
 }
 
 .rp-num-eyebrow::after {
-  background: linear-gradient(90deg, var(--rp-emerald-300), transparent);
+  background: linear-gradient(90deg, var(--rp-gold-400), transparent);
 }
 
 .rp-home__section-title {
@@ -310,11 +290,7 @@
 }
 
 .rp-home__section-title-accent {
-  background: var(--rp-pricing-heading-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding-bottom: 3px;
+  color: var(--rp-blue-700);
 }
 
 .rp-home__section-subtitle {
@@ -328,29 +304,73 @@
 /* ============================================================
    Benefits section — 4 compact principle cards
    ============================================================ */
-.rp-home__benefits-grid {
+/* Numbered editorial list */
+.rp-home__benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px;
+  gap: 0;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-@media (min-width: 640px) {
-  .rp-home__benefits-grid { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 768px) {
+  .rp-home__benefits-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 48px;
+  }
 }
 
-@media (min-width: 1024px) {
-  .rp-home__benefits-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.rp-home__benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rp-gray-200);
 }
 
-.rp-home__benefits-grid .rp-principle__body { padding: 26px 24px; }
-.rp-home__benefits-grid .rp-principle__icon {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 18px;
+.rp-home__benefit-item:last-child {
+  border-bottom: none;
 }
-.rp-home__benefits-grid .rp-principle__icon-inner { font-size: 22px; }
-.rp-home__benefits-grid .rp-principle__title { font-size: 1.05rem; }
-.rp-home__benefits-grid .rp-principle__copy { font-size: 0.85rem; }
+
+@media (min-width: 768px) {
+  .rp-home__benefit-item:nth-last-child(2) {
+    border-bottom: none;
+  }
+}
+
+.rp-home__benefit-num {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--rp-gold-500);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.rp-home__benefit-text {
+  min-width: 0;
+}
+
+.rp-home__benefit-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+  font-weight: 700;
+  color: var(--rp-gray-900);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.rp-home__benefit-copy {
+  font-size: clamp(0.92rem, 1.1vw, 1rem);
+  color: var(--rp-gray-500);
+  line-height: 1.6;
+  margin: 0;
+}
 
 /* ============================================================
    Platforms sections — PlatformCard flex (centra orphan al wrap)
@@ -370,8 +390,20 @@
   max-width: 420px;
 }
 
+.rp-home__plat-grid--four {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .rp-home__plat-grid--four > .rp-platcard {
-  max-width: 360px;
+  max-width: none;
+  flex: none;
+}
+
+@media (min-width: 640px) {
+  .rp-home__plat-grid--four {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -412,9 +444,7 @@
 }
 
 .rp-platcard__bar {
-  height: 5px;
-  transform-origin: left;
-  animation: rp-draw-bar 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  display: none;
 }
 
 .rp-platcard__top {
@@ -638,16 +668,16 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    #052e16 0%,
-    #083344 55%,
-    #052e16 100%
+    #0c1a3d 0%,
+    #142952 55%,
+    #0c1a3d 100%
   );
   border-radius: 28px;
   padding: clamp(40px, 5vw, 72px);
   text-align: center;
   overflow: hidden;
   box-shadow:
-    0 40px 80px -24px rgba(5, 46, 22, 0.5),
+    0 40px 80px -24px rgba(12, 26, 61, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
@@ -656,8 +686,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 10%, rgba(16, 185, 129, 0.35) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.28) 0%, transparent 45%);
+    radial-gradient(circle at 20% 10%, rgba(212, 160, 23, 0.25) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 45%);
   pointer-events: none;
 }
 
@@ -691,7 +721,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: #a7f3d0;
+  color: var(--rp-gold-300);
   margin-bottom: 24px;
 }
 
@@ -700,9 +730,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--rp-emerald-400);
-  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.3);
-  animation: rp-dot-pulse 2.4s ease-in-out infinite;
+  background: var(--rp-gold-400);
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.3);
 }
 
 .rp-home__cta-title {
@@ -718,7 +747,7 @@
 .rp-home__cta-title em {
   font-style: italic;
   font-weight: 500;
-  background: linear-gradient(90deg, #a7f3d0, #bae6fd, #a7f3d0);
+  background: linear-gradient(90deg, var(--rp-gold-300), var(--rp-blue-300), var(--rp-gold-300));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -741,8 +770,8 @@
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;
-  color: #052e16;
-  background: linear-gradient(135deg, #fff 0%, #d1fae5 100%);
+  color: #0c1a3d;
+  background: linear-gradient(135deg, #fff 0%, var(--rp-gold-100) 100%);
   border: none;
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s, background 0.3s;

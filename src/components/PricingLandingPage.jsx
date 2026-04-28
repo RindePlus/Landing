@@ -88,13 +88,9 @@ const PricingLandingPage = ({
                   key={p.title}
                   className={`rp-principle ${p.accent} rp-card-in ${p.delay}`}
                 >
-                  <div className="rp-principle__bar" />
                   <div className="rp-principle__body">
                     <div className="rp-principle__icon">
-                      <div className="rp-principle__icon-glow" />
-                      <div className="rp-principle__icon-inner">
-                        <IconComp />
-                      </div>
+                      <IconComp />
                     </div>
                     <h3 className="rp-principle__title">{p.title}</h3>
                     <p className="rp-principle__copy">{p.copy}</p>
@@ -111,9 +107,6 @@ const PricingLandingPage = ({
               className="rp-selector rp-selector--blue rp-card-in rp-d-5"
             >
               <div className="rp-selector__top">
-                <div className="rp-selector__icon">
-                  <FaBuilding />
-                </div>
                 <span className="rp-selector__chip rp-selector__chip--blue">
                   Modelo B2B
                 </span>
@@ -145,9 +138,6 @@ const PricingLandingPage = ({
               className="rp-selector rp-selector--emerald rp-card-in rp-d-6"
             >
               <div className="rp-selector__top">
-                <div className="rp-selector__icon">
-                  <FaSeedling />
-                </div>
                 <span className="rp-selector__chip rp-selector__chip--emerald">
                   Modelo B2C
                 </span>

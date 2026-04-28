@@ -135,13 +135,9 @@ const PricingProductoresPage = ({
                   key={p.title}
                   className={`rp-principle ${p.accent} rp-card-in ${p.delay}`}
                 >
-                  <div className="rp-principle__bar" />
                   <div className="rp-principle__body">
                     <div className="rp-principle__icon">
-                      <div className="rp-principle__icon-glow" />
-                      <div className="rp-principle__icon-inner">
-                        <IconComp />
-                      </div>
+                      <IconComp />
                     </div>
                     <h3 className="rp-principle__title">{p.title}</h3>
                     <p className="rp-principle__copy">{p.copy}</p>
@@ -199,18 +195,6 @@ const PricingProductoresPage = ({
                   </div>
                 </div>
 
-                <div className="rp-unlimited">
-                  <div className="rp-unlimited__icon"><FaInfinity /></div>
-                  <div className="rp-unlimited__text">
-                    <div className="rp-unlimited__title">
-                      Lotes y hectáreas ilimitados
-                    </div>
-                    <div className="rp-unlimited__subtitle">
-                      Toda tu explotación incluida en el plan base
-                    </div>
-                  </div>
-                </div>
-
                 <div className="rp-prod__price-block">
                   <div className="rp-prod__price">
                     <span className="rp-prod__price-amount">
@@ -264,7 +248,7 @@ const PricingProductoresPage = ({
             </div>
             <div className="rp-faq-grid">
               {FAQ.map(({ q, a }) => (
-                <div key={q} className="rp-card rp-faq-card">
+                <div key={q} className="rp-faq-card">
                   <h3>{q}</h3>
                   <p>{a}</p>
                 </div>

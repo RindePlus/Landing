@@ -2,7 +2,6 @@ import {
   FaUsers,
   FaInfinity,
   FaHandshake,
-  FaShieldAlt,
   FaCheck,
   FaArrowRight,
   FaArrowLeft,
@@ -21,6 +20,7 @@ import {
   formatUSD,
 } from '../data/pricing';
 import './pricing.css';
+import './PricingEmpresasPage.css';
 import './PricingAapresidPage.css';
 
 const PRINCIPLES = [
@@ -246,13 +246,9 @@ const PricingAapresidPage = ({
                   key={p.title}
                   className={`rp-principle ${p.accent} rp-card-in ${p.delay}`}
                 >
-                  <div className="rp-principle__bar" />
                   <div className="rp-principle__body">
                     <div className="rp-principle__icon">
-                      <div className="rp-principle__icon-glow" />
-                      <div className="rp-principle__icon-inner">
-                        <IconComp />
-                      </div>
+                      <IconComp />
                     </div>
                     <h3 className="rp-principle__title">{p.title}</h3>
                     <p className="rp-principle__copy">{p.copy}</p>
@@ -262,8 +258,8 @@ const PricingAapresidPage = ({
             })}
           </div>
 
-          <div className="rp-aap__expect">
-            <div className="rp-aap__expect-header">
+          <div className="rp-emp__expect">
+            <div className="rp-emp__expect-header">
               <h2 className="rp-h2">Qué esperamos de la regional</h2>
               <p>
                 Rinde Plus te da la herramienta. La regional aporta la cercanía
@@ -272,31 +268,17 @@ const PricingAapresidPage = ({
               </p>
             </div>
 
-            <div className="rp-aap__expect-card">
-              <div className="rp-aap__expect-bar" />
-              <div className="rp-aap__expect-grid">
-                {EXPECTATIONS.map(({ title, desc }) => (
-                  <div key={title} className="rp-aap__expect-item">
-                    <div className="rp-aap__expect-icon">
-                      <FaCheck />
-                    </div>
-                    <div>
-                      <h4>{title}</h4>
-                      <p>{desc}</p>
-                    </div>
+            <ol className="rp-emp__expect-list">
+              {EXPECTATIONS.map(({ title, desc }, i) => (
+                <li key={title} className="rp-emp__expect-item">
+                  <span className="rp-emp__expect-num">{String(i + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h4 className="rp-emp__expect-title">{title}</h4>
+                    <p className="rp-emp__expect-desc">{desc}</p>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <p className="rp-aap__expect-reassure">
-              <FaShieldAlt />
-              <span>
-                Rinde Plus aporta la plataforma, el soporte técnico, las
-                mejoras continuas, la documentación y el onboarding inicial del
-                administrador.
-              </span>
-            </p>
+                </li>
+              ))}
+            </ol>
           </div>
 
           <div className="rp-aap__pricing">
@@ -326,20 +308,6 @@ const PricingAapresidPage = ({
                   )}
                   <h3 className="rp-plan__name">{plan.nombre}</h3>
                   <p className="rp-plan__tagline">{plan.descripcion}</p>
-
-                  <div className="rp-unlimited">
-                    <div className="rp-unlimited__icon">
-                      <FaInfinity />
-                    </div>
-                    <div className="rp-unlimited__text">
-                      <div className="rp-unlimited__title">
-                        Lotes y hectáreas ilimitados
-                      </div>
-                      <div className="rp-unlimited__subtitle">
-                        En todos los planes, sin costos por escala
-                      </div>
-                    </div>
-                  </div>
 
                   <div className="rp-aap__plan-discount">
                     <span className="rp-aap__plan-old">
@@ -406,7 +374,7 @@ const PricingAapresidPage = ({
             </div>
             <div className="rp-faq-grid">
               {FAQ.map(({ q, a }) => (
-                <div key={q} className="rp-card rp-faq-card">
+                <div key={q} className="rp-faq-card">
                   <h3>{q}</h3>
                   <p>{a}</p>
                 </div>

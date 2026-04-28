@@ -3,11 +3,100 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './pricing.css';
 import './ModulesSection.css';
 
+/* ── Mini chart SVGs ── */
+
+const ChartDashboard = ({ color1, color2 }) => (
+  <svg viewBox="0 0 200 120" fill="none" className="rp-module__chart">
+    <defs>
+      <linearGradient id="dashArea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor={color1} stopOpacity="0.25" />
+        <stop offset="100%" stopColor={color1} stopOpacity="0" />
+      </linearGradient>
+    </defs>
+    {/* Grid lines */}
+    <line x1="20" y1="24" x2="190" y2="24" stroke="#e2e8f0" strokeWidth="0.8" />
+    <line x1="20" y1="48" x2="190" y2="48" stroke="#e2e8f0" strokeWidth="0.8" />
+    <line x1="20" y1="72" x2="190" y2="72" stroke="#e2e8f0" strokeWidth="0.8" />
+    <line x1="20" y1="96" x2="190" y2="96" stroke="#e2e8f0" strokeWidth="0.8" />
+    {/* Area + line */}
+    <path d="M20 82 L54 60 L88 68 L122 38 L156 44 L190 22" stroke={color1} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M20 82 L54 60 L88 68 L122 38 L156 44 L190 22 V96 H20 Z" fill="url(#dashArea)" />
+    {/* Bars behind */}
+    <rect x="46" y="70" width="16" height="26" rx="3" fill={color2} opacity="0.18" />
+    <rect x="80" y="58" width="16" height="38" rx="3" fill={color2} opacity="0.18" />
+    <rect x="114" y="50" width="16" height="46" rx="3" fill={color2} opacity="0.18" />
+    <rect x="148" y="42" width="16" height="54" rx="3" fill={color2} opacity="0.18" />
+    {/* Dots */}
+    <circle cx="54" cy="60" r="3.5" fill="#fff" stroke={color1} strokeWidth="2" />
+    <circle cx="122" cy="38" r="3.5" fill="#fff" stroke={color1} strokeWidth="2" />
+    <circle cx="190" cy="22" r="3.5" fill="#fff" stroke={color2} strokeWidth="2" />
+  </svg>
+);
+
+const ChartGapBars = ({ color1, color2 }) => (
+  <svg viewBox="0 0 200 120" fill="none" className="rp-module__chart">
+    <rect x="10" y="14" width="140" height="18" rx="4" fill={color1} opacity="0.2" />
+    <rect x="10" y="14" width="100" height="18" rx="4" fill={color1} />
+    <rect x="10" y="44" width="140" height="18" rx="4" fill={color2} opacity="0.2" />
+    <rect x="10" y="44" width="85" height="18" rx="4" fill={color2} />
+    <rect x="10" y="74" width="140" height="18" rx="4" fill={color1} opacity="0.2" />
+    <rect x="10" y="74" width="120" height="18" rx="4" fill={color1} opacity="0.7" />
+  </svg>
+);
+
+const ChartGroupedBars = () => (
+  <svg viewBox="0 0 200 120" fill="none" className="rp-module__chart">
+    {/* Grupo 1 */}
+    <rect x="18" y="62" width="22" height="46" rx="4" fill="#ef4444" opacity="0.45" />
+    <rect x="44" y="28" width="22" height="80" rx="4" fill="#10b981" />
+    {/* Grupo 2 */}
+    <rect x="82" y="72" width="22" height="36" rx="4" fill="#ef4444" opacity="0.45" />
+    <rect x="108" y="22" width="22" height="86" rx="4" fill="#10b981" />
+    {/* Grupo 3 */}
+    <rect x="146" y="56" width="22" height="52" rx="4" fill="#ef4444" opacity="0.45" />
+    <rect x="172" y="32" width="22" height="76" rx="4" fill="#10b981" />
+    <line x1="12" y1="112" x2="200" y2="112" stroke="#cbd5e1" strokeWidth="1.5" />
+  </svg>
+);
+
+const ChartAreaForecast = ({ color1, color2 }) => (
+  <svg viewBox="0 0 200 120" fill="none" className="rp-module__chart">
+    <defs>
+      <linearGradient id="pastFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor={color1} stopOpacity="0.3" />
+        <stop offset="100%" stopColor={color1} stopOpacity="0" />
+      </linearGradient>
+      <linearGradient id="futureFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor={color2} stopOpacity="0.15" />
+        <stop offset="100%" stopColor={color2} stopOpacity="0" />
+      </linearGradient>
+    </defs>
+    <path d="M12 80 L40 60 L68 65 L96 45" stroke={color1} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12 80 L40 60 L68 65 L96 45 V110 H12 Z" fill="url(#pastFill)" />
+    <line x1="96" y1="8" x2="96" y2="110" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4 3" />
+    <path d="M96 45 L124 35 L152 50 L180 28" stroke={color2} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 4" />
+    <path d="M96 45 L124 35 L152 50 L180 28 V110 H96 Z" fill="url(#futureFill)" />
+  </svg>
+);
+
+const ChartGauge = ({ color1, color2 }) => (
+  <svg viewBox="0 0 200 130" fill="none" className="rp-module__chart">
+    <path d="M30 100 A70 70 0 0 1 170 100" stroke="#e2e8f0" strokeWidth="12" strokeLinecap="round" fill="none" />
+    <path d="M30 100 A70 70 0 0 1 130 34" stroke={color1} strokeWidth="12" strokeLinecap="round" fill="none" />
+    <circle cx="100" cy="100" r="6" fill={color2} />
+    <line x1="100" y1="100" x2="122" y2="44" stroke={color2} strokeWidth="2.5" strokeLinecap="round" />
+    <text x="100" y="125" textAnchor="middle" fontSize="11" fontWeight="700" fill="#334155" fontFamily="var(--font-heading)">Riesgo medio</text>
+  </svg>
+);
+
+/* ── Module data ── */
+
 const MODULES = [
   {
     id: 'analisis',
-    Icon: FaChartBar,
     EyebrowIcon: FaChartBar,
+    Chart: ChartDashboard,
+    chartColors: ['#3b82f6', '#1d4ed8'],
     eyebrow: 'Dashboard',
     eyebrowClass: 'rp-eyebrow--blue',
     accentClass: 'rp-mod-blue',
@@ -23,8 +112,9 @@ const MODULES = [
   },
   {
     id: 'brechas-estandar',
-    Icon: FaBookOpen,
     EyebrowIcon: FaBookOpen,
+    Chart: ChartGapBars,
+    chartColors: ['#f59e0b', '#d97706'],
     eyebrow: 'Bibliografía',
     eyebrowClass: 'rp-eyebrow--amber',
     accentClass: 'rp-mod-amber',
@@ -41,8 +131,9 @@ const MODULES = [
   },
   {
     id: 'brechas-inteligentes',
-    Icon: FaBrain,
     EyebrowIcon: FaBrain,
+    Chart: ChartGroupedBars,
+    chartColors: [],
     eyebrow: 'Machine Learning',
     eyebrowClass: 'rp-eyebrow--emerald',
     accentClass: 'rp-mod-emerald',
@@ -59,8 +150,9 @@ const MODULES = [
   },
   {
     id: 'pronostico',
-    Icon: FaCloudSun,
     EyebrowIcon: FaCloudSun,
+    Chart: ChartAreaForecast,
+    chartColors: ['#0ea5e9', '#6366f1'],
     eyebrow: 'Clima',
     eyebrowClass: 'rp-eyebrow--sky',
     accentClass: 'rp-mod-sky',
@@ -77,8 +169,9 @@ const MODULES = [
   },
   {
     id: 'vigia',
-    Icon: FaEye,
     EyebrowIcon: FaEye,
+    Chart: ChartGauge,
+    chartColors: ['#6366f1', '#4f46e5'],
     eyebrow: 'Inteligencia predictiva',
     eyebrowClass: 'rp-eyebrow--indigo',
     accentClass: 'rp-mod-indigo',
@@ -96,13 +189,14 @@ const MODULES = [
   },
 ];
 
-const ModulesSection = () => {
+const ModulesSection = ({ eyebrow }) => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
   return (
     <div ref={ref} className={`rp-modules ${isVisible ? 'rp-modules--visible' : ''}`}>
       <div className="rp-modules__header">
-        <h2 className="rp-modules__title">Qué hace la plataforma</h2>
+        {eyebrow && <div className="rp-modules__eyebrow">{eyebrow}</div>}
+        <h2 className="rp-modules__title">Los módulos que <span className="rp-modules__title-accent">potencian tu campaña</span></h2>
         <p className="rp-modules__subtitle">
           Cinco módulos integrados que trabajan juntos para que cada decisión
           sobre tu campaña esté respaldada por datos.
@@ -119,7 +213,7 @@ const ModulesSection = () => {
 };
 
 const ModuleRow = ({ mod, reversed }) => {
-  const { Icon, EyebrowIcon } = mod;
+  const { EyebrowIcon, Chart, chartColors } = mod;
 
   return (
     <div className={`rp-module ${reversed ? 'rp-module--reversed' : ''}`}>
@@ -144,17 +238,7 @@ const ModuleRow = ({ mod, reversed }) => {
       </div>
 
       <div className="rp-module__visual">
-        <div className={`rp-module__card ${mod.accentClass}`}>
-          <div className="rp-module__bar" />
-          <div className="rp-module__soft-bg" />
-          <div className="rp-module__dots" />
-          <div className="rp-module__icon-wrap">
-            <div className="rp-module__icon-glow" />
-            <div className="rp-module__icon">
-              <Icon />
-            </div>
-          </div>
-        </div>
+        <Chart color1={chartColors[0]} color2={chartColors[1]} />
       </div>
     </div>
   );

@@ -19,9 +19,9 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--rp-emerald-700);
-  background: var(--rp-emerald-50);
-  border: 1px solid var(--rp-emerald-200);
+  color: var(--rp-blue-700);
+  background: var(--rp-blue-50);
+  border: 1px solid var(--rp-blue-200);
 }
 
 .rp-aap__hero-chip svg {
@@ -43,25 +43,15 @@
 .rp-aap__offer {
   position: relative;
   background:
-    radial-gradient(1200px 260px at 15% 0%, rgba(16, 185, 129, 0.18), transparent 70%),
-    radial-gradient(900px 260px at 95% 100%, rgba(37, 99, 235, 0.16), transparent 70%),
-    linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #ecfdf5 100%);
-  border: 1px solid var(--rp-emerald-200);
+    radial-gradient(1200px 260px at 15% 0%, rgba(29, 78, 216, 0.12), transparent 70%),
+    radial-gradient(900px 260px at 95% 100%, rgba(212, 160, 23, 0.1), transparent 70%),
+    linear-gradient(135deg, #ffffff 0%, #eff6ff 50%, #f0f4ff 100%);
+  border: 1px solid var(--rp-blue-200);
   border-radius: 26px;
   padding: clamp(28px, 4vw, 48px);
   margin-bottom: 80px;
   overflow: hidden;
-  box-shadow: 0 30px 60px -24px rgba(16, 185, 129, 0.28);
-}
-
-.rp-aap__offer::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 6px;
-  background: linear-gradient(90deg, var(--rp-emerald-400), var(--rp-emerald-500), var(--rp-blue-500));
-  transform-origin: left;
-  animation: rp-draw-bar 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  box-shadow: 0 30px 60px -24px rgba(29, 78, 216, 0.22);
 }
 
 .rp-aap__offer-prices-col {
@@ -125,8 +115,8 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #fff;
-  background: linear-gradient(135deg, var(--rp-emerald-500), var(--rp-emerald-600));
-  box-shadow: 0 8px 16px -6px rgba(16, 185, 129, 0.55);
+  background: linear-gradient(135deg, var(--rp-blue-500), var(--rp-blue-600));
+  box-shadow: 0 8px 16px -6px rgba(29, 78, 216, 0.55);
   margin-bottom: 16px;
 }
 
@@ -146,10 +136,7 @@
 }
 
 .rp-aap__offer-title span {
-  background: linear-gradient(90deg, var(--rp-emerald-600), var(--rp-blue-600));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--rp-blue-700);
   white-space: nowrap;
 }
 
@@ -168,22 +155,17 @@
   padding: 16px 18px;
   border-radius: 16px;
   background: #fff;
-  border: 1px solid var(--rp-emerald-200);
-  box-shadow: 0 10px 22px -12px rgba(16, 185, 129, 0.28);
+  border: 1px solid var(--rp-blue-200);
+  box-shadow: 0 10px 22px -12px rgba(29, 78, 216, 0.2);
 }
 
 .rp-aap__offer-req-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  color: var(--rp-blue-600);
+  font-size: 22px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: #fff;
-  background: linear-gradient(135deg, var(--rp-emerald-500), var(--rp-emerald-600));
-  box-shadow: 0 8px 16px -4px rgba(16, 185, 129, 0.5);
-  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .rp-aap__offer-req-title {
@@ -192,7 +174,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--rp-emerald-700);
+  color: var(--rp-blue-700);
   margin-bottom: 2px;
 }
 
@@ -233,13 +215,13 @@
 .rp-aap__offer-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 18px 30px -14px rgba(15, 23, 42, 0.2);
-  border-color: var(--rp-emerald-300);
+  border-color: var(--rp-blue-300);
 }
 
 .rp-aap__offer-card--featured {
-  border-color: var(--rp-emerald-500);
-  background: linear-gradient(180deg, #ffffff 0%, #ecfdf5 100%);
-  box-shadow: 0 18px 32px -14px rgba(16, 185, 129, 0.4);
+  border-color: var(--rp-blue-500);
+  background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
+  box-shadow: 0 18px 32px -14px rgba(29, 78, 216, 0.35);
 }
 
 .rp-aap__offer-card header {
@@ -265,8 +247,8 @@
   font-size: 0.72rem;
   font-weight: 800;
   color: #fff;
-  background: linear-gradient(135deg, var(--rp-emerald-500), var(--rp-emerald-600));
-  box-shadow: 0 4px 10px -3px rgba(16, 185, 129, 0.5);
+  background: linear-gradient(135deg, var(--rp-blue-500), var(--rp-blue-600));
+  box-shadow: 0 4px 10px -3px rgba(29, 78, 216, 0.5);
 }
 
 .rp-aap__offer-card-price {
@@ -308,7 +290,7 @@
 .rp-aap__offer-card-saving {
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--rp-emerald-700);
+  color: var(--rp-blue-700);
 }
 
 /* ============================================================
@@ -355,22 +337,19 @@
   max-width: 960px;
   margin: 0 auto;
   background: #fff;
-  border: 1px solid var(--rp-emerald-200);
+  border: 1px solid var(--rp-blue-200);
   border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 24px 48px -16px rgba(16, 185, 129, 0.22);
+  box-shadow: 0 24px 48px -16px rgba(29, 78, 216, 0.18);
   transition: box-shadow 0.5s ease;
 }
 
 .rp-aap__expect-card:hover {
-  box-shadow: 0 32px 56px -16px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 32px 56px -16px rgba(29, 78, 216, 0.25);
 }
 
 .rp-aap__expect-bar {
-  height: 6px;
-  background: linear-gradient(90deg, var(--rp-emerald-400), var(--rp-emerald-500), var(--rp-emerald-600));
-  transform-origin: left;
-  animation: rp-draw-bar 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  display: none;
 }
 
 .rp-aap__expect-grid {
@@ -398,16 +377,11 @@
 
 .rp-aap__expect-icon {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--rp-emerald-400), var(--rp-emerald-600));
-  color: #fff;
-  font-size: 18px;
+  color: var(--rp-blue-600);
+  font-size: 22px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 16px -4px rgba(16, 185, 129, 0.5);
+  margin-top: 2px;
 }
 
 .rp-aap__expect-item h4 {
@@ -441,7 +415,7 @@
 }
 
 .rp-aap__expect-reassure svg {
-  color: var(--rp-emerald-500);
+  color: var(--rp-blue-500);
   flex-shrink: 0;
   margin-top: 3px;
 }
@@ -488,16 +462,16 @@
 }
 
 .rp-aap__plan:hover {
-  border-color: var(--rp-emerald-300);
+  border-color: var(--rp-blue-300);
 }
 
 .rp-aap__plan--featured {
-  border: 2px solid var(--rp-emerald-500);
-  box-shadow: 0 24px 48px -16px rgba(16, 185, 129, 0.3);
+  border: 2px solid var(--rp-blue-500);
+  box-shadow: 0 24px 48px -16px rgba(29, 78, 216, 0.25);
 }
 
 .rp-aap__plan--featured:hover {
-  border-color: var(--rp-emerald-500);
+  border-color: var(--rp-blue-500);
 }
 
 .rp-aap__plan-discount {
@@ -518,7 +492,7 @@
 }
 
 .rp-aap__plan-arrow {
-  color: var(--rp-emerald-500);
+  color: var(--rp-blue-600);
   font-weight: 800;
 }
 
@@ -532,8 +506,8 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: #fff;
-  background: linear-gradient(135deg, var(--rp-emerald-500), var(--rp-emerald-600));
-  box-shadow: 0 6px 12px -4px rgba(16, 185, 129, 0.5);
+  background: linear-gradient(135deg, var(--rp-blue-500), var(--rp-blue-600));
+  box-shadow: 0 6px 12px -4px rgba(29, 78, 216, 0.5);
 }
 
 .rp-aap__plan-req {
@@ -544,9 +518,9 @@
   border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--rp-emerald-700);
-  background: var(--rp-emerald-50);
-  border: 1px solid var(--rp-emerald-200);
+  color: var(--rp-blue-700);
+  background: var(--rp-blue-50);
+  border: 1px solid var(--rp-blue-200);
   align-self: flex-start;
   margin-bottom: 22px;
 }

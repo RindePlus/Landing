@@ -45,7 +45,7 @@ const Footer = ({ onOpenWhatsApp }) => {
               onClick={onOpenWhatsApp}
               aria-label="Abrir chat de WhatsApp"
             >
-              <span className="rp-footer__contact-icon">
+              <span className="rp-footer__contact-icon rp-footer__contact-icon--whatsapp">
                 <FaWhatsapp />
               </span>
               <span className="rp-footer__contact-text">
