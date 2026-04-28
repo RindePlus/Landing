@@ -406,12 +406,15 @@
   }
 }
 
-@media (min-width: 1024px) {
-  .rp-home__plat-grid--three { gap: 28px; }
+@media (min-width: 1200px) {
+  .rp-home__plat-grid--four {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
 }
 
-@media (min-width: 1200px) {
-  .rp-home__plat-grid--four { gap: 24px; }
+@media (min-width: 1024px) {
+  .rp-home__plat-grid--three { gap: 28px; }
 }
 
 /* ============================================================
@@ -464,12 +467,7 @@
 }
 
 .rp-platcard__logo-glow {
-  position: absolute;
-  inset: -12px;
-  border-radius: 50%;
-  filter: blur(24px);
-  opacity: 0.55;
-  animation: rp-glow-pulse 3.5s ease-in-out infinite;
+  display: none;
 }
 
 .rp-platcard__logo-inner {
@@ -488,7 +486,7 @@
 }
 
 .rp-platcard:hover .rp-platcard__logo-inner {
-  transform: rotate(-4deg) scale(1.04);
+  transform: none;
 }
 
 .rp-platcard__logo-inner img {
@@ -496,6 +494,11 @@
   height: 64px;
   object-fit: contain;
   display: block;
+}
+
+.rp-platcard[data-plat-id="halcon"] .rp-platcard__logo-inner img {
+  width: 61px;
+  height: 61px;
 }
 
 .rp-platcard__tag {

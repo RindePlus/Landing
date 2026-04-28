@@ -222,6 +222,7 @@ const PlatformCard = ({ platform, onInternalNav }) => {
       type="button"
       onClick={handleClick}
       className={`rp-platcard ${platform.accent}`}
+      data-plat-id={platform.id}
     >
       <div className="rp-platcard__bar" />
       <div className="rp-platcard__top">
