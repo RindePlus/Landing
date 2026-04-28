@@ -86,40 +86,36 @@ function App() {
 
   const whatsappElements = (
     <>
-      <button
-        className="whatsapp-float"
-        onClick={() => setShowWhatsappPopup((v) => !v)}
-        aria-label="WhatsApp"
-      >
-        <FaWhatsapp />
-      </button>
       {showWhatsappPopup && (
-        <div className="whatsapp-popup-bg">
-          <div className="whatsapp-popup" ref={popupRef}>
-            <div className="whatsapp-popup-header">
-              <FaWhatsapp className="whatsapp-popup-logo" />
-              <span className="whatsapp-popup-title">WhatsApp</span>
-              <button className="whatsapp-popup-close" onClick={() => setShowWhatsappPopup(false)} aria-label="Cerrar">
-                <FaTimes />
-              </button>
-            </div>
-            <div className="whatsapp-popup-body">
-              <div className="whatsapp-popup-message">
-                <span>Hola <span role="img" aria-label="saludo">👋</span></span><br />
-                ¿En qué podemos ayudarte?
-              </div>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="whatsapp-popup-send"
-              >
-                Enviar
-              </a>
-            </div>
-          </div>
-        </div>
+        <div className="wa-overlay" onClick={() => setShowWhatsappPopup(false)} />
       )}
+      <div
+        ref={popupRef}
+        className={`wa-widget ${showWhatsappPopup ? 'wa-widget--open' : ''}`}
+      >
+        <button
+          className="wa-widget__fab"
+          onClick={() => setShowWhatsappPopup((v) => !v)}
+          aria-label="WhatsApp"
+        >
+          <FaWhatsapp className="wa-widget__fab-icon wa-widget__fab-icon--wa" />
+          <FaTimes className="wa-widget__fab-icon wa-widget__fab-icon--close" />
+        </button>
+
+        <div className="wa-widget__panel">
+          <p className="wa-widget__greeting">
+            Hola <span role="img" aria-label="saludo">👋</span> ¿En qué podemos ayudarte?
+          </p>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="wa-widget__send"
+          >
+            Escribinos por WhatsApp
+          </a>
+        </div>
+      </div>
     </>
   );
 
