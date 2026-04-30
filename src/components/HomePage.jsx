@@ -307,14 +307,15 @@ const FinalCta = ({ onOpenWhatsApp }) => (
             formularios largos, sin vendedores: el equipo de Rinde Plus te
             responde directo.
           </p>
-          <button
-            type="button"
+          <a
+            href="https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus"
+            target="_blank"
+            rel="noopener noreferrer"
             className="rp-home__cta-btn"
-            onClick={onOpenWhatsApp}
           >
             <FaWhatsapp />
             Escribinos por WhatsApp
-          </button>
+          </a>
           <div className="rp-home__cta-hint">Respuesta en menos de 24hs</div>
         </div>
       </div>
