@@ -182,7 +182,7 @@ const BenefitsSection = () => (
     <Reveal className="rp-home__section-header">
       <div className="rp-num-eyebrow">Qué ganás</div>
       <h2 className="rp-home__section-title">
-        Data aplicada a{' '}
+        Datos aplicados a{' '}
         <span className="rp-home__section-title-accent">tu producción</span>
       </h2>
       <p className="rp-home__section-subtitle">
