@@ -65,7 +65,7 @@ const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true, menuItems }) => 
       {showMenu && (
         <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">
           {(menuItems || [
-            { label: 'Inicio', id: 'inicio' },
+            { label: 'Volver a inicio', id: 'inicio' },
             { label: 'Características', id: 'caracteristicas' },
             { label: 'Servicios', id: 'servicios' },
             { label: 'Plataformas', id: 'plataformas' },

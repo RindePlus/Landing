@@ -117,7 +117,7 @@ const PricingAapresidPage = ({
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
         menuItems={[
-          { label: 'Inicio', id: 'top' },
+          { label: 'Volver a inicio', id: 'top', action: onGoToHome },
           { label: 'Planes', id: 'top', action: onGoToPricing },
           { label: 'Contacto', id: 'top', action: onOpenWhatsApp },
         ]}

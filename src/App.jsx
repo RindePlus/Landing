@@ -130,7 +130,7 @@ function App() {
               onOpenWhatsApp={() => setShowWhatsappPopup(true)}
               onLogoClick={() => navigate('/')}
               menuItems={[
-                { label: 'Inicio', id: 'top' },
+                { label: 'Volver a inicio', id: 'top', action: () => navigate('/') },
                 { label: '¿Qué es?', id: 'vigia-que-es' },
                 { label: '¿Cómo funciona?', id: 'vigia-como-funciona' },
                 { label: '¿Para quién?', id: 'vigia-para-quien' },

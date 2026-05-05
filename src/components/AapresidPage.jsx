@@ -24,7 +24,7 @@ import './HomePage.css';
 import './BrechasPage.css';
 import './AapresidPage.css';
 
-const AAPRESID_LOGIN_URL = 'https://pronosticos.rindeplus.com/login/aapresid';
+const AAPRESID_LOGIN_URL = 'https://plataforma.rindeplus.com/login/aapresid';
 
 /* ---------------- Data ---------------- */
 
@@ -932,7 +932,7 @@ const AapresidPage = ({ onOpenWhatsApp, onGoToHome, onGoToPricing }) => {
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
         menuItems={[
-          { label: 'Inicio', id: 'top' },
+          { label: 'Volver a inicio', id: 'top', action: onGoToHome },
           { label: 'El problema', id: 'el-problema' },
           { label: 'La plataforma', id: 'que-es' },
           { label: 'Cómo funciona', id: 'como-funciona' },

@@ -20,7 +20,7 @@ import './pricing.css';
 import './HomePage.css';
 import './BrechasPage.css';
 
-const PRONOSTICOS_LOGIN_URL = 'https://pronosticos.rindeplus.com/login/rindeplus';
+const PRONOSTICOS_LOGIN_URL = 'https://plataforma.rindeplus.com/login/rindeplus';
 
 /* ---------------- Data ---------------- */
 
@@ -827,7 +827,7 @@ const BrechasPage = ({ onOpenWhatsApp, onGoToHome, onGoToPricing }) => {
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
         menuItems={[
-          { label: 'Inicio', id: 'top' },
+          { label: 'Volver a inicio', id: 'top', action: onGoToHome },
           { label: 'El problema', id: 'el-problema' },
           { label: 'La plataforma', id: 'que-es' },
           { label: 'Módulos', id: 'modulos' },
