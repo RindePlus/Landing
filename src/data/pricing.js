@@ -66,9 +66,9 @@ export const PLANES_AAPRESID = [
     descripcion:
       'Los módulos base para que cada socio de la regional analice su campaña y sus brechas desde el primer día.',
     precioAnualLista: 360,
-    precioAnual: 240,
-    precioMensualEq: 20,
-    ahorroAnual: 120,
+    precioAnual: 280,
+    precioMensualEq: 23,
+    ahorroAnual: 80,
     modulos: [
       'Análisis de Campaña',
       'Brechas Estándar',
@@ -84,9 +84,9 @@ export const PLANES_AAPRESID = [
     descripcion:
       'Todo lo del Standard más la capa analítica avanzada y las próximas actualizaciones productivas.',
     precioAnualLista: 720,
-    precioAnual: 480,
-    precioMensualEq: 40,
-    ahorroAnual: 240,
+    precioAnual: 560,
+    precioMensualEq: 46,
+    ahorroAnual: 160,
     modulos: [
       'Análisis de Campaña',
       'Brechas Estándar',
