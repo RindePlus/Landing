@@ -20,7 +20,7 @@ import './pricing.css';
 import './HomePage.css';
 import './BrechasPage.css';
 
-const PRONOSTICOS_LOGIN_URL = 'https://plataforma.rindeplus.com/login/rindeplus';
+const PRONOSTICOS_LOGIN_URL = 'https://app.rindeplus.com/login/rindeplus';
 
 /* ---------------- Data ---------------- */
 

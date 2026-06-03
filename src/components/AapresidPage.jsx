@@ -24,7 +24,7 @@ import './HomePage.css';
 import './BrechasPage.css';
 import './AapresidPage.css';
 
-const AAPRESID_LOGIN_URL = 'https://plataforma.rindeplus.com/login/aapresid';
+const AAPRESID_LOGIN_URL = 'https://app.rindeplus.com/login/aapresid';
 
 /* ---------------- Data ---------------- */
 
