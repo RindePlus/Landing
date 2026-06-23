@@ -68,7 +68,7 @@ const OWN_PLATFORMS = [
       'Análisis del uso y la necesidad de agua de tus cultivos. Evapotranspiración y balance hídrico en tiempo real.',
     accent: 'rp-plat-indigo',
     logoBg: '#7870c4',
-    href: 'https://rphuellahidrica.ddns.net/login/?next=/',
+    href: 'https://pronosticos.rindeplus.com/login/rindeplus',
   },
 ];
 

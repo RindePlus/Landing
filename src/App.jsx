@@ -78,7 +78,7 @@ function App() {
   }, [showWhatsappPopup]);
 
   const whatsappUrl = "https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus";
-  const vigiaLoginUrl = "https://vigiabioestress.ddns.net/login/";
+  const vigiaLoginUrl = "https://pronosticos.rindeplus.com/login/rindeplus";
 
   const openVigiaLogin = () => {
     window.open(vigiaLoginUrl, '_blank', 'noopener,noreferrer');
