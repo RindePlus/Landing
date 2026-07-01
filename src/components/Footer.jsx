@@ -1,4 +1,4 @@
-import { MdEmail, MdLocationOn } from 'react-icons/md';
+import { LuMail, LuMapPin } from 'react-icons/lu';
 import { FaWhatsapp } from 'react-icons/fa';
 import './Footer.css';
 
@@ -28,7 +28,7 @@ const Footer = ({ onOpenWhatsApp }) => {
               aria-label="Enviar email a inforindeplus@gmail.com"
             >
               <span className="rp-footer__contact-icon rp-footer__contact-icon--blue">
-                <MdEmail />
+                <LuMail />
               </span>
               <span className="rp-footer__contact-text">
                 <span className="rp-footer__contact-label">Email</span>
@@ -64,7 +64,7 @@ const Footer = ({ onOpenWhatsApp }) => {
               aria-label="Ver ubicación en Google Maps"
             >
               <span className="rp-footer__contact-icon rp-footer__contact-icon--amber">
-                <MdLocationOn />
+                <LuMapPin />
               </span>
               <span className="rp-footer__contact-text">
                 <span className="rp-footer__contact-label">Oficina</span>

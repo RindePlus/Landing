@@ -129,3 +129,26 @@
     gap: 15px;
   }
 }
+
+/* ============================================================
+   GitHub skin — HOME ONLY (.rp-home)
+   Logo tiles stay white in both themes so partner logos (built for
+   a white background) remain legible in dark mode.
+   ============================================================ */
+.rp-home .trusted-companies-section {
+  background: transparent;
+}
+
+.rp-home .company-logo {
+  background: #fff;
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius);
+  box-shadow: var(--gh-shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.rp-home .company-logo:hover {
+  border-color: var(--gh-border-strong);
+  box-shadow: var(--gh-shadow-card);
+  transform: translateY(-1px);
+}

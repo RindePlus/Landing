@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import rindeplusLogo from '../assets/Logo.png';
+import { LuSun, LuMoon } from 'react-icons/lu';
+import rindeplusLogo from '../assets/rindeplus-logo-light.png';
+import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
 import './Header.css';
 
-const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true, menuItems }) => {
+const Header = ({
+  onOpenWhatsApp,
+  onLogoClick,
+  showMenu = true,
+  menuItems,
+  theme,
+  onToggleTheme,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToContact = () => {
@@ -35,11 +44,20 @@ const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true, menuItems }) => 
     }, 50);
   };
 
+  const items = menuItems || [
+    { label: 'Volver a inicio', id: 'inicio' },
+    { label: 'Características', id: 'caracteristicas' },
+    { label: 'Servicios', id: 'servicios' },
+    { label: 'Plataformas', id: 'plataformas' },
+    { label: 'Contacto', id: 'contacto-form', action: scrollToContact },
+    { label: 'Clientes', id: 'clientes' },
+  ];
+
   return (
     <header className={`header ${isMenuOpen ? 'header--menu-open' : ''}`}>
       <div className="header-content">
         <img
-          src={rindeplusLogo}
+          src={theme === 'dark' ? rindeplusLogoDark : rindeplusLogo}
           alt="RindePlus Logo"
           className="logo-image"
           onClick={onLogoClick}
@@ -47,44 +65,51 @@ const Header = ({ onOpenWhatsApp, onLogoClick, showMenu = true, menuItems }) => 
         />
 
         {showMenu && (
-          <button
-            type="button"
-            className={`hamburger-button ${isMenuOpen ? 'open' : ''}`}
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label="Abrir menú"
-            aria-expanded={isMenuOpen}
-            aria-controls="header-menu"
-          >
-            <span className="hamburger-line" />
-            <span className="hamburger-line" />
-            <span className="hamburger-line" />
-          </button>
+          <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">
+            {items.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className="menu-item"
+                onClick={() => item.action ? item.action() : scrollToSection(item.id)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
         )}
-      </div>
 
-      {showMenu && (
-        <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">
-          {(menuItems || [
-            { label: 'Volver a inicio', id: 'inicio' },
-            { label: 'Características', id: 'caracteristicas' },
-            { label: 'Servicios', id: 'servicios' },
-            { label: 'Plataformas', id: 'plataformas' },
-            { label: 'Contacto', id: 'contacto-form', action: scrollToContact },
-            { label: 'Clientes', id: 'clientes' },
-          ]).map((item) => (
+        <div className="header-actions">
+          {onToggleTheme && (
             <button
-              key={item.id}
               type="button"
-              className="menu-item"
-              onClick={() => item.action ? item.action() : scrollToSection(item.id)}
+              className="header-theme-toggle"
+              onClick={onToggleTheme}
+              aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
+              title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
             >
-              {item.label}
+              {theme === 'dark' ? <LuSun /> : <LuMoon />}
             </button>
-          ))}
-        </nav>
-      )}
+          )}
+
+          {showMenu && (
+            <button
+              type="button"
+              className={`hamburger-button ${isMenuOpen ? 'open' : ''}`}
+              onClick={() => setIsMenuOpen((open) => !open)}
+              aria-label="Abrir menú"
+              aria-expanded={isMenuOpen}
+              aria-controls="header-menu"
+            >
+              <span className="hamburger-line" />
+              <span className="hamburger-line" />
+              <span className="hamburger-line" />
+            </button>
+          )}
+        </div>
+      </div>
     </header>
   );
 };
 
-export default Header; 
+export default Header;

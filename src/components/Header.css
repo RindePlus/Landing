@@ -1,5 +1,7 @@
 /* ============================================================
    Header
+   Base rules = current look for all routes (hamburger + drawer).
+   `.rp-home .header ...` = GitHub skin + inline desktop nav (home only).
    ============================================================ */
 
 .header {
@@ -34,6 +36,7 @@
 }
 
 .header-content {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -51,6 +54,13 @@ img.logo-image {
 
 img.logo-image:hover {
   transform: scale(1.05);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .hamburger-button {
@@ -102,11 +112,18 @@ img.logo-image:hover {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* ---- Nav drawer ---- */
+/* ---- Nav drawer (default for all routes / all widths) ---- */
 .header-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   gap: 2px;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -182,7 +199,33 @@ img.logo-image:hover {
   transform: translateY(-50%) scaleX(1);
 }
 
-/* ---- Responsive ---- */
+/* Theme toggle — only rendered on the home (GitHub icon button) */
+.header-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--gh-radius, 6px);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--gh-fg-muted, #656d76);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.header-theme-toggle:hover {
+  background: var(--gh-surface-2, #f6f8fa);
+  border-color: var(--gh-border, #d0d7de);
+  color: var(--gh-fg, #1f2328);
+}
+
+.header-theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- Responsive (base) ---- */
 @media (max-width: 1024px) {
   .header-content {
     padding: 14px 22px;
@@ -206,5 +249,110 @@ img.logo-image:hover {
 
   img.logo-image {
     height: 45px;
+  }
+}
+
+/* ============================================================
+   GitHub header skin — HOME ONLY (.rp-home)
+   ============================================================ */
+.rp-home .header {
+  background-color: var(--gh-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: var(--gh-shadow-sm);
+  border-bottom: 1px solid var(--gh-border);
+  color: var(--gh-fg);
+}
+
+.rp-home .header::after {
+  display: none;
+}
+
+.rp-home .header-content {
+  padding: 10px 24px;
+}
+
+.rp-home img.logo-image {
+  height: 42px;
+}
+
+/* hamburger + drawer skin (home mobile) */
+.rp-home .hamburger-line {
+  background-color: var(--gh-fg-muted);
+}
+
+.rp-home .hamburger-button:hover {
+  background-color: var(--gh-surface-2);
+}
+
+.rp-home .hamburger-button.open .hamburger-line {
+  background-color: var(--gh-accent);
+}
+
+.rp-home .header-nav {
+  background-color: var(--gh-surface);
+  border-bottom: 1px solid var(--gh-border);
+  box-shadow: var(--gh-shadow-overlay);
+}
+
+.rp-home .menu-item {
+  color: var(--gh-fg);
+  font-weight: 500;
+  border-radius: var(--gh-radius);
+}
+
+.rp-home .menu-item:hover {
+  background-color: var(--gh-surface-2);
+  color: var(--gh-accent);
+}
+
+.rp-home .menu-item::before {
+  background: var(--gh-accent);
+}
+
+/* ---- Inline horizontal nav on desktop (home) ---- */
+@media (min-width: 768px) {
+  .rp-home .header-nav {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    max-height: none;
+    overflow: visible;
+    opacity: 1;
+    padding: 0;
+    margin-left: auto;
+    margin-right: 8px;
+    background: transparent;
+    border-bottom: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .rp-home .menu-item {
+    width: auto;
+    opacity: 1;
+    transform: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gh-fg-muted);
+    border-radius: var(--gh-radius);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .rp-home .menu-item:hover {
+    background: var(--gh-surface-2);
+    color: var(--gh-fg);
+    padding-left: 12px;
+  }
+
+  .rp-home .menu-item::before {
+    display: none;
+  }
+
+  .rp-home .hamburger-button {
+    display: none;
   }
 }

@@ -237,3 +237,99 @@
   background: var(--rp-gold-500);
   box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.2);
 }
+
+/* ============================================================
+   GitHub footer skin — HOME ONLY (.rp-home)
+   ============================================================ */
+.rp-home .rp-footer {
+  background: var(--gh-surface);
+  color: var(--gh-fg-muted);
+  border-top: 1px solid var(--gh-border);
+}
+
+/* Replace the gold/blue accent line with a flat GitHub border */
+.rp-home .rp-footer::before {
+  display: none;
+}
+
+.rp-home .rp-footer__column-title {
+  color: var(--gh-fg-muted);
+  letter-spacing: 0.12em;
+}
+
+.rp-home .rp-footer__column-title::before,
+.rp-home .rp-footer__column-title::after {
+  background: var(--gh-border);
+}
+
+.rp-home .rp-footer__contact-item {
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  color: var(--gh-fg);
+  border-radius: var(--gh-radius);
+  box-shadow: var(--gh-shadow-sm);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.rp-home .rp-footer__contact-item:hover {
+  background: var(--gh-surface-2);
+  border-color: var(--gh-border-strong);
+  transform: translateY(-1px);
+}
+
+/* Contact icons → soft square chips with a fine border (line icons inside) */
+.rp-home .rp-footer__contact-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--gh-radius);
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent);
+  border: 1px solid var(--gh-border);
+}
+
+.rp-home .rp-footer__contact-icon--whatsapp {
+  background: rgba(37, 211, 102, 0.14);
+  color: #1a8a48;
+  border-color: rgba(37, 211, 102, 0.35);
+}
+
+.rp-home .rp-footer__contact-icon--amber {
+  background: var(--gh-detail-green-soft);
+  color: var(--gh-detail-green);
+  border-color: var(--gh-border);
+}
+
+.rp-home .rp-footer__contact-label {
+  color: var(--gh-fg-subtle);
+}
+
+.rp-home .rp-footer__contact-value {
+  color: var(--gh-fg);
+  font-weight: 500;
+}
+
+.rp-home .rp-footer__divider {
+  background: var(--gh-border);
+}
+
+.rp-home .rp-footer__copyright {
+  color: var(--gh-fg-muted);
+}
+
+.rp-home .rp-footer__copyright strong {
+  color: var(--gh-fg);
+}
+
+.rp-home .rp-footer__made {
+  color: var(--gh-fg-subtle);
+}
+
+.rp-home .rp-footer__made-dot {
+  background: var(--gh-detail-green);
+  box-shadow: 0 0 0 3px var(--gh-detail-green-soft);
+}
+
+/* WhatsApp chip stays legible in dark mode */
+[data-rp-theme="dark"] .rp-home .rp-footer__contact-icon--whatsapp {
+  color: #3fb950;
+}

@@ -1,15 +1,15 @@
 /* ============================================================
-   HomePage — modernización editorial
-   Secciones: Hero, About (Nosotros), Benefits, Platforms (2),
-              Trusted companies, Final CTA.
-   Reusa el design system `rp-*` de pricing.css
+   HomePage — estética GitHub (refresh fiel pero cálido)
+   Secciones: Hero, Benefits, Platforms (2), Trusted, Final CTA.
+   Todo el restyle vive bajo `.rp-home` para no afectar otras rutas.
+   Tokens: --gh-* (definidos en index.css). Dark: [data-rp-theme="dark"].
    ============================================================ */
 
 .rp-home {
   min-height: 100vh;
-  background: var(--rp-pricing-bg);
+  background: var(--gh-canvas);
   font-family: var(--font-body);
-  color: var(--rp-gray-900);
+  color: var(--gh-fg);
   position: relative;
   overflow-x: clip;
 }
@@ -31,37 +31,22 @@
   .rp-home__hero { padding: 180px 40px 72px; min-height: 88vh; }
 }
 
-/* Single ambient glow — brand gold */
-.rp-home__hero::before {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.3;
-  z-index: 0;
-  pointer-events: none;
-  width: 600px;
-  height: 600px;
-  top: -180px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: radial-gradient(circle at center, var(--rp-gold-200) 0%, transparent 70%);
-}
-
+/* Flat GitHub canvas — no ambient glow */
+.rp-home__hero::before,
 .rp-home__hero::after {
   display: none;
 }
 
-/* Grid pattern overlay */
+/* Subtle grid pattern overlay (fades toward the edges) */
 .rp-home__hero-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
+    linear-gradient(to right, rgba(31, 35, 40, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 35, 40, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, #000 35%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 78%);
   z-index: 0;
   pointer-events: none;
 }
@@ -74,141 +59,134 @@
   text-align: center;
 }
 
+/* GitHub "label" pill */
 .rp-home__hero-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 18px;
+  gap: 8px;
+  padding: 5px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(29, 78, 216, 0.2);
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--rp-blue-700);
-  margin-bottom: 32px;
-  box-shadow: 0 8px 24px -10px rgba(29, 78, 216, 0.2);
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  box-shadow: var(--gh-shadow-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--gh-fg-muted);
+  margin-bottom: 28px;
 }
 
 .rp-home__hero-eyebrow-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--rp-gold-500);
-  box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.2);
+  background: var(--gh-detail-green);
+  box-shadow: 0 0 0 3px var(--gh-detail-green-soft);
 }
 
 .rp-home__hero-title {
   font-family: var(--font-heading);
   font-size: clamp(2.4rem, 6vw, 5rem);
   font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  margin: 0 0 28px;
-  color: var(--rp-gray-900);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+  color: var(--gh-fg);
 }
 
 .rp-home__hero-title-accent {
   display: block;
-  background: var(--rp-pricing-heading-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding-bottom: 6px;
+  color: var(--gh-accent);
+  padding-bottom: 4px;
 }
 
 .rp-home__hero-title-italic {
   font-style: italic;
   font-weight: 500;
-  background: var(--rp-pricing-heading-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--gh-accent);
 }
 
 .rp-home__hero-subtitle {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
-  color: var(--rp-gray-600);
+  color: var(--gh-fg-muted);
   max-width: 640px;
-  margin: 0 auto 44px;
-  line-height: 1.65;
+  margin: 0 auto 40px;
+  line-height: 1.6;
   font-weight: 400;
 }
 
 .rp-home__hero-subtitle strong {
-  color: var(--rp-gray-900);
-  font-weight: 700;
+  color: var(--gh-fg);
+  font-weight: 600;
 }
 
 .rp-home__hero-ctas {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 
+/* GitHub buttons */
 .rp-home__hero-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 15px 30px;
-  border-radius: 16px;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: var(--gh-radius);
   font-family: var(--font-body);
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   text-decoration: none;
-  border: none;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s, background 0.3s;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.rp-home__hero-btn svg { transition: transform 0.3s ease; }
-.rp-home__hero-btn:hover svg { transform: translateX(4px); }
+.rp-home__hero-btn svg { transition: transform 0.2s ease; }
+.rp-home__hero-btn:hover svg { transform: translateX(3px); }
 
+/* primary (solid accent) */
 .rp-home__hero-btn--primary {
-  color: #fff;
-  background: linear-gradient(135deg, var(--rp-blue-600), var(--rp-blue-700));
-  box-shadow: 0 14px 28px -12px rgba(29, 78, 216, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: var(--gh-accent-fg);
+  background: var(--gh-accent);
+  box-shadow: var(--gh-shadow-sm);
 }
 
 .rp-home__hero-btn--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 36px -14px rgba(29, 78, 216, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background: var(--gh-accent-hover);
+  transform: translateY(-1px);
 }
 
+/* secondary (bordered surface) */
 .rp-home__hero-btn--ghost {
-  color: var(--rp-gray-900);
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--rp-gray-200);
-  box-shadow: 0 8px 16px -8px rgba(15, 23, 42, 0.15);
+  color: var(--gh-fg);
+  background: var(--gh-surface);
+  border-color: var(--gh-border);
+  box-shadow: var(--gh-shadow-sm);
 }
 
 .rp-home__hero-btn--ghost:hover {
-  background: #fff;
-  border-color: var(--rp-gray-300);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 24px -10px rgba(15, 23, 42, 0.22);
+  background: var(--gh-surface-2);
+  border-color: var(--gh-border-strong);
+  transform: translateY(-1px);
 }
 
 /* Tiny marquee of domain labels under CTAs */
 .rp-home__hero-marquee {
   display: flex;
-  gap: 28px;
+  gap: 24px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--rp-gray-400);
+  letter-spacing: 0.1em;
+  color: var(--gh-fg-subtle);
 }
 
 .rp-home__hero-marquee span { white-space: nowrap; }
@@ -218,7 +196,7 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--rp-gray-300);
+  background: var(--gh-border-strong);
   vertical-align: middle;
 }
 
@@ -240,8 +218,7 @@
   .rp-home__section { padding: 48px 40px 128px; }
 }
 
-/* Collapse top padding on every section after the first content section,
-   so consecutive sections flow tighter without losing bottom breathing room. */
+/* Collapse top padding on consecutive sections */
 .rp-home__section + .rp-home__section,
 .rp-home__section + .rp-home__trusted,
 .rp-home__trusted + .rp-home__section {
@@ -257,63 +234,57 @@
 .rp-num-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   font-family: var(--font-heading);
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--rp-blue-700);
-  margin-bottom: 20px;
+  letter-spacing: 0.14em;
+  color: var(--gh-accent);
+  margin-bottom: 18px;
 }
 
 .rp-num-eyebrow::before,
 .rp-num-eyebrow::after {
   content: '';
-  width: 36px;
+  width: 32px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--rp-gold-400));
-}
-
-.rp-num-eyebrow::after {
-  background: linear-gradient(90deg, var(--rp-gold-400), transparent);
+  background: var(--gh-border);
 }
 
 .rp-home__section-title {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   margin: 0 0 16px;
-  color: var(--rp-gray-900);
+  color: var(--gh-fg);
 }
 
 .rp-home__section-title-accent {
-  color: var(--rp-blue-700);
+  color: var(--gh-accent);
 }
 
 .rp-home__section-subtitle {
   font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   max-width: 38rem;
   margin: 0 auto;
-  line-height: 1.7;
+  line-height: 1.65;
 }
 
 /* ============================================================
-   Benefits section — 4 compact principle cards
+   Benefits section — numbered editorial list
    ============================================================ */
-/* Numbered editorial list */
 .rp-home__benefits-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
   max-width: 800px;
-  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
@@ -326,9 +297,9 @@
 .rp-home__benefit-item {
   display: flex;
   align-items: flex-start;
-  gap: 20px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--rp-gray-200);
+  gap: 18px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--gh-border-muted);
 }
 
 .rp-home__benefit-item:last-child {
@@ -343,13 +314,14 @@
 
 .rp-home__benefit-num {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.03em;
-  color: var(--rp-gold-500);
+  color: var(--gh-accent);
   flex-shrink: 0;
   padding-top: 2px;
+  font-variant-numeric: tabular-nums;
 }
 
 .rp-home__benefit-text {
@@ -358,28 +330,28 @@
 
 .rp-home__benefit-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
   font-weight: 700;
-  color: var(--rp-gray-900);
-  margin: 0 0 8px;
+  color: var(--gh-fg);
+  margin: 0 0 6px;
   line-height: 1.3;
 }
 
 .rp-home__benefit-copy {
   font-size: clamp(0.92rem, 1.1vw, 1rem);
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   line-height: 1.6;
   margin: 0;
 }
 
 /* ============================================================
-   Platforms sections — PlatformCard flex (centra orphan al wrap)
+   Platforms sections
    ============================================================ */
 .rp-home__plat-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 22px;
+  gap: 20px;
 }
 
 .rp-home__plat-grid > .rp-platcard {
@@ -409,22 +381,22 @@
 @media (min-width: 1200px) {
   .rp-home__plat-grid--four {
     grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
+    gap: 20px;
   }
 }
 
 @media (min-width: 1024px) {
-  .rp-home__plat-grid--three { gap: 28px; }
+  .rp-home__plat-grid--three { gap: 24px; }
 }
 
 /* ============================================================
-   Platform card
+   Platform card — GitHub surface card
    ============================================================ */
 .rp-platcard {
   position: relative;
-  background: #fff;
-  border: 1px solid var(--rp-gray-200);
-  border-radius: 24px;
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
   padding: 0;
   overflow: hidden;
   cursor: pointer;
@@ -434,16 +406,17 @@
   color: inherit;
   font-family: inherit;
   text-decoration: none;
-  box-shadow: 0 10px 24px -14px rgba(15, 23, 42, 0.14);
+  box-shadow: var(--gh-shadow-card);
   transition:
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.35s;
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .rp-platcard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 32px 60px -20px rgba(15, 23, 42, 0.22);
+  transform: translateY(-2px);
+  border-color: var(--gh-border-strong);
+  box-shadow: var(--gh-shadow-overlay);
 }
 
 .rp-platcard__bar {
@@ -452,17 +425,17 @@
 
 .rp-platcard__top {
   position: relative;
-  padding: 32px 28px 20px;
+  padding: 28px 26px 18px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
+  gap: 18px;
 }
 
 .rp-platcard__logo {
   position: relative;
-  width: 88px;
-  height: 88px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
 }
 
@@ -479,42 +452,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    0 10px 24px -10px rgba(15, 23, 42, 0.18),
-    inset 0 0 0 1px rgba(15, 23, 42, 0.04);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.rp-platcard:hover .rp-platcard__logo-inner {
-  transform: none;
+  box-shadow: inset 0 0 0 1px rgba(31, 35, 40, 0.08);
 }
 
 .rp-platcard__logo-inner img {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   display: block;
 }
 
 .rp-platcard[data-plat-id="halcon"] .rp-platcard__logo-inner img {
-  width: 61px;
-  height: 61px;
+  width: 57px;
+  height: 57px;
 }
 
+/* GitHub "label" tag — neutral base, tinted per variant */
 .rp-platcard__tag {
   display: inline-flex;
   align-items: center;
-  padding: 5px 12px;
+  padding: 3px 10px;
   border-radius: 999px;
-  font-size: 0.64rem;
-  font-weight: 700;
+  font-size: 0.66rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   white-space: nowrap;
+  color: var(--gh-accent);
+  background: var(--gh-accent-soft);
+  border: 1px solid var(--gh-border);
 }
 
 .rp-platcard__body {
-  padding: 0 28px 28px;
+  padding: 0 26px 26px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -522,86 +492,60 @@
 
 .rp-platcard__title {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--rp-gray-900);
-  margin: 0 0 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gh-fg);
+  margin: 0 0 8px;
   letter-spacing: -0.015em;
   line-height: 1.2;
 }
 
 .rp-platcard__copy {
   font-size: 0.88rem;
-  color: var(--rp-gray-600);
+  color: var(--gh-fg-muted);
   line-height: 1.6;
-  margin: 0 0 22px;
+  margin: 0 0 20px;
   flex: 1;
 }
 
 .rp-platcard__cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--rp-gray-900);
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gh-accent);
   margin-top: auto;
 }
 
 .rp-platcard__cta svg {
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.2s ease;
 }
 
 .rp-platcard:hover .rp-platcard__cta svg {
-  transform: translateX(6px);
+  transform: translateX(4px);
 }
 
-/* Platform card color variants */
-.rp-plat-emerald .rp-platcard__bar      { background: linear-gradient(90deg, var(--rp-emerald-400), var(--rp-emerald-500), var(--rp-emerald-600)); }
-.rp-plat-emerald .rp-platcard__logo-glow{ background: var(--rp-emerald-400); }
-.rp-plat-emerald .rp-platcard__tag      { color: var(--rp-emerald-700); background: var(--rp-emerald-50); border: 1px solid var(--rp-emerald-200); }
-.rp-plat-emerald:hover                  { border-color: var(--rp-emerald-300); }
-.rp-plat-emerald .rp-platcard__cta      { color: var(--rp-emerald-700); }
+/* ------------------------------------------------------------
+   Platform variants — blue is the base; green/amber are the only
+   real "detail" accents (retain class names so the JSX is untouched)
+   ------------------------------------------------------------ */
+.rp-plat-emerald .rp-platcard__tag {
+  color: var(--gh-detail-green);
+  background: var(--gh-detail-green-soft);
+}
+.rp-plat-emerald .rp-platcard__cta { color: var(--gh-detail-green); }
 
-.rp-plat-indigo .rp-platcard__bar       { background: linear-gradient(90deg, var(--rp-indigo-400), var(--rp-indigo-500), var(--rp-indigo-600)); }
-.rp-plat-indigo .rp-platcard__logo-glow { background: var(--rp-indigo-400); }
-.rp-plat-indigo .rp-platcard__tag       { color: var(--rp-indigo-700); background: var(--rp-indigo-50); border: 1px solid var(--rp-indigo-200); }
-.rp-plat-indigo:hover                   { border-color: var(--rp-indigo-300); }
-.rp-plat-indigo .rp-platcard__cta       { color: var(--rp-indigo-700); }
+.rp-plat-amber .rp-platcard__tag {
+  color: #9a6700;
+  background: #fff8c5;
+  border-color: #eac54f;
+}
 
-.rp-plat-sky .rp-platcard__bar          { background: linear-gradient(90deg, var(--rp-sky-400), var(--rp-sky-500), var(--rp-sky-600)); }
-.rp-plat-sky .rp-platcard__logo-glow    { background: var(--rp-sky-400); }
-.rp-plat-sky .rp-platcard__tag          { color: var(--rp-sky-700); background: var(--rp-sky-50); border: 1px solid var(--rp-sky-200); }
-.rp-plat-sky:hover                      { border-color: var(--rp-sky-300); }
-.rp-plat-sky .rp-platcard__cta          { color: var(--rp-sky-700); }
-
-.rp-plat-amber .rp-platcard__bar        { background: linear-gradient(90deg, var(--rp-amber-400), var(--rp-amber-500), var(--rp-amber-600)); }
-.rp-plat-amber .rp-platcard__logo-glow  { background: var(--rp-amber-400); }
-.rp-plat-amber .rp-platcard__tag        { color: var(--rp-amber-800); background: var(--rp-amber-50); border: 1px solid var(--rp-amber-200); }
-.rp-plat-amber:hover                    { border-color: var(--rp-amber-300); }
-.rp-plat-amber .rp-platcard__cta        { color: var(--rp-amber-700); }
-
-.rp-plat-blue .rp-platcard__bar         { background: linear-gradient(90deg, var(--rp-blue-400), var(--rp-blue-500), var(--rp-blue-600)); }
-.rp-plat-blue .rp-platcard__logo-glow   { background: var(--rp-blue-400); }
-.rp-plat-blue .rp-platcard__tag         { color: var(--rp-blue-700); background: var(--rp-blue-50); border: 1px solid var(--rp-blue-200); }
-.rp-plat-blue:hover                     { border-color: var(--rp-blue-300); }
-.rp-plat-blue .rp-platcard__cta         { color: var(--rp-blue-700); }
-
-.rp-plat-rose .rp-platcard__bar         { background: linear-gradient(90deg, var(--rp-rose-400), var(--rp-rose-500), var(--rp-rose-600)); }
-.rp-plat-rose .rp-platcard__logo-glow   { background: var(--rp-rose-400); }
-.rp-plat-rose .rp-platcard__tag         { color: var(--rp-rose-700); background: var(--rp-rose-50); border: 1px solid var(--rp-rose-200); }
-.rp-plat-rose:hover                     { border-color: var(--rp-rose-300); }
-.rp-plat-rose .rp-platcard__cta         { color: var(--rp-rose-700); }
-
-.rp-plat-violet .rp-platcard__bar       { background: linear-gradient(90deg, var(--rp-violet-400), var(--rp-violet-500), var(--rp-violet-600)); }
-.rp-plat-violet .rp-platcard__logo-glow { background: var(--rp-violet-400); }
-.rp-plat-violet .rp-platcard__tag       { color: var(--rp-violet-700); background: var(--rp-violet-50); border: 1px solid var(--rp-violet-200); }
-.rp-plat-violet:hover                   { border-color: var(--rp-violet-300); }
-.rp-plat-violet .rp-platcard__cta       { color: var(--rp-violet-700); }
+/* sky / indigo / blue / violet / rose → default blue label + blue cta */
 
 /* ============================================================
    Trusted companies — full-width section
-   Header stays centered inside max-width; carousel reaches edges
    ============================================================ */
 .rp-home__trusted {
   position: relative;
@@ -631,7 +575,6 @@
 .rp-home__trusted-carousel {
   position: relative;
   width: 100%;
-  /* Soft fade on left/right edges so the carousel feels infinite */
   mask-image: linear-gradient(
     to right,
     transparent 0%,
@@ -659,7 +602,7 @@
 }
 
 /* ============================================================
-   Final CTA card
+   Final CTA — GitHub callout (mode-adaptive via accent-soft)
    ============================================================ */
 .rp-home__cta {
   max-width: 1000px;
@@ -669,40 +612,18 @@
 
 .rp-home__cta-card {
   position: relative;
-  background: linear-gradient(
-    135deg,
-    #0c1a3d 0%,
-    #142952 55%,
-    #0c1a3d 100%
-  );
-  border-radius: 28px;
-  padding: clamp(40px, 5vw, 72px);
+  background: var(--gh-accent-soft);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  padding: clamp(36px, 5vw, 64px);
   text-align: center;
   overflow: hidden;
-  box-shadow:
-    0 40px 80px -24px rgba(12, 26, 61, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: var(--gh-shadow-card);
 }
 
-.rp-home__cta-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(212, 160, 23, 0.25) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 45%);
-  pointer-events: none;
-}
-
+.rp-home__cta-card::before,
 .rp-home__cta-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 24px 24px;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  display: none;
 }
 
 .rp-home__cta-inner {
@@ -713,19 +634,17 @@
 .rp-home__cta-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 16px;
+  gap: 8px;
+  padding: 5px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-size: 0.7rem;
-  font-weight: 700;
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--rp-gold-300);
-  margin-bottom: 24px;
+  letter-spacing: 0.1em;
+  color: var(--gh-accent);
+  margin-bottom: 22px;
 }
 
 .rp-home__cta-eyebrow::before {
@@ -733,78 +652,86 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--rp-gold-400);
-  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.3);
+  background: var(--gh-detail-green);
+  box-shadow: 0 0 0 3px var(--gh-detail-green-soft);
 }
 
 .rp-home__cta-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 3.6vw, 2.8rem);
+  font-size: clamp(1.75rem, 3.6vw, 2.7rem);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.025em;
-  color: #fff;
-  margin: 0 0 16px;
+  color: var(--gh-fg);
+  margin: 0 0 14px;
 }
 
 .rp-home__cta-title em {
-  font-style: italic;
-  font-weight: 500;
-  background: linear-gradient(90deg, var(--rp-gold-300), var(--rp-blue-300), var(--rp-gold-300));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding: 0 0.15em;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+  font-style: normal;
+  color: var(--gh-accent);
 }
 
 .rp-home__cta-copy {
   font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--gh-fg-muted);
   max-width: 36rem;
-  margin: 0 auto 36px;
-  line-height: 1.65;
+  margin: 0 auto 32px;
+  line-height: 1.6;
 }
 
 .rp-home__cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 17px 34px;
-  border-radius: 18px;
+  gap: 10px;
+  padding: 12px 26px;
+  border-radius: var(--gh-radius);
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 700;
-  color: #0c1a3d;
-  background: linear-gradient(135deg, #fff 0%, var(--rp-gold-100) 100%);
-  border: none;
+  font-weight: 600;
+  color: var(--gh-accent-fg);
+  background: var(--gh-accent);
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s, background 0.3s;
-  box-shadow:
-    0 20px 40px -12px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: var(--gh-shadow-sm);
 }
 
 .rp-home__cta-btn:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 28px 48px -12px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: var(--gh-accent-hover);
+  transform: translateY(-1px);
 }
 
 .rp-home__cta-btn svg {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.2s ease;
 }
 
-.rp-home__cta-btn:hover svg { transform: translateX(5px); }
+.rp-home__cta-btn:hover svg { transform: translateX(4px); }
 
 .rp-home__cta-hint {
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 20px;
-  letter-spacing: 0.08em;
+  color: var(--gh-fg-subtle);
+  margin-top: 18px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+/* ============================================================
+   Dark-mode fixes for values that can't come from tokens
+   ============================================================ */
+[data-rp-theme="dark"] .rp-home__hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(240, 246, 252, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(240, 246, 252, 0.05) 1px, transparent 1px);
+}
+
+[data-rp-theme="dark"] .rp-platcard__logo-inner {
+  box-shadow: inset 0 0 0 1px rgba(240, 246, 252, 0.1);
+}
+
+[data-rp-theme="dark"] .rp-plat-amber .rp-platcard__tag {
+  color: #e3b341;
+  background: #2d2611;
+  border-color: #493f1c;
 }
 
 /* ============================================================
@@ -833,10 +760,10 @@
 @media (max-width: 640px) {
   .rp-home__hero { padding-top: 120px; padding-bottom: 64px; }
   .rp-home__section { padding: 64px 20px; }
-  .rp-platcard__top { padding: 28px 22px 16px; }
-  .rp-platcard__body { padding: 0 22px 24px; }
-  .rp-platcard__logo { width: 76px; height: 76px; }
-  .rp-platcard__logo-inner img { width: 54px; height: 54px; }
+  .rp-platcard__top { padding: 26px 20px 14px; }
+  .rp-platcard__body { padding: 0 20px 22px; }
+  .rp-platcard__logo { width: 72px; height: 72px; }
+  .rp-platcard__logo-inner img { width: 52px; height: 52px; }
   .rp-home__hero-marquee { gap: 16px; font-size: 0.66rem; }
-  .rp-home__cta-card { padding: 40px 28px; }
+  .rp-home__cta-card { padding: 36px 26px; }
 }

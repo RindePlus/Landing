@@ -1,7 +1,6 @@
-import {
-  FaArrowRight,
-  FaWhatsapp,
-} from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaWhatsapp } from 'react-icons/fa';
+import { LuArrowRight } from 'react-icons/lu';
 import Header from './Header';
 import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
@@ -165,7 +164,7 @@ const HeroSection = ({ onScrollToPlatforms }) => (
           onClick={onScrollToPlatforms}
         >
           Ver plataformas
-          <FaArrowRight />
+          <LuArrowRight />
         </button>
       </div>
 
@@ -242,7 +241,7 @@ const PlatformCard = ({ platform, onInternalNav }) => {
         <p className="rp-platcard__copy">{platform.copy}</p>
         <span className="rp-platcard__cta">
           Ir a la plataforma
-          <FaArrowRight />
+          <LuArrowRight />
         </span>
       </div>
     </button>
@@ -331,6 +330,29 @@ const HomePage = ({
   onGoToBrechas,
   onGoToAapresid,
 }) => {
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') return 'light';
+    const stored = localStorage.getItem('rp-theme');
+    if (stored === 'light' || stored === 'dark') return stored;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('data-rp-theme', theme);
+    try {
+      localStorage.setItem('rp-theme', theme);
+    } catch (e) {
+      /* localStorage unavailable — ignore */
+    }
+    // Remove the attribute when leaving the home so other routes stay unthemed.
+    return () => root.removeAttribute('data-rp-theme');
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
+
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -352,6 +374,8 @@ const HomePage = ({
     <div className="rp-home">
       <Header
         onOpenWhatsApp={onOpenWhatsApp}
+        theme={theme}
+        onToggleTheme={toggleTheme}
         menuItems={[
           { label: 'Inicio', id: 'top' },
           { label: 'Beneficios', id: 'beneficios' },

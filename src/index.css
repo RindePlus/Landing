@@ -10,13 +10,72 @@
   --bg-card: #ffffff;
   --text-main: #1e293b;
   --text-muted: #64748b;
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --radius-md: 12px;
   --radius-lg: 24px;
+
+  /* ============================================================
+     GitHub-style design tokens (used by the home / .rp-home)
+     ============================================================ */
+  --gh-canvas: #f6f8fa;
+  --gh-surface: #ffffff;
+  --gh-surface-2: #f6f8fa;
+  --gh-border: #d0d7de;
+  --gh-border-muted: #d8dee4;
+  --gh-border-strong: #afb8c1;
+  --gh-fg: #1f2328;
+  --gh-fg-muted: #656d76;
+  --gh-fg-subtle: #8b949e;
+  --gh-accent: #0969da;
+  --gh-accent-hover: #0860ca;
+  --gh-accent-soft: #ddf4ff;
+  --gh-accent-fg: #ffffff;
+  --gh-brand-blue: #025db8;
+  --gh-detail-green: #018c34;
+  --gh-detail-green-soft: #dafbe1;
+  --gh-detail-yellow: #ffd100;
+  --gh-danger: #cf222e;
+  --gh-radius: 6px;
+  --gh-radius-card: 12px;
+  --gh-shadow-sm: 0 1px 0 rgba(31, 35, 40, 0.04);
+  --gh-shadow-card: 0 1px 3px rgba(31, 35, 40, 0.12), 0 1px 2px rgba(31, 35, 40, 0.06);
+  --gh-shadow-overlay: 0 8px 24px rgba(31, 35, 40, 0.12);
+}
+
+/* GitHub dark mode — activated only on the home (HomePage sets/removes
+   data-rp-theme on <html>; it is cleaned up when leaving the route). */
+[data-rp-theme="dark"] {
+  --gh-canvas: #0d1117;
+  --gh-surface: #161b22;
+  --gh-surface-2: #21262d;
+  --gh-border: #30363d;
+  --gh-border-muted: #21262d;
+  --gh-border-strong: #6e7681;
+  --gh-fg: #e6edf3;
+  --gh-fg-muted: #8b949e;
+  --gh-fg-subtle: #6e7681;
+  --gh-accent: #4493f8;
+  --gh-accent-hover: #58a6ff;
+  --gh-accent-soft: #121d2f;
+  --gh-accent-fg: #ffffff;
+  --gh-brand-blue: #4493f8;
+  --gh-detail-green: #3fb950;
+  --gh-detail-green-soft: #12261e;
+  --gh-detail-yellow: #e3b341;
+  --gh-danger: #f85149;
+  --gh-shadow-sm: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  --gh-shadow-card: 0 1px 3px rgba(1, 4, 9, 0.5);
+  --gh-shadow-overlay: 0 8px 24px rgba(1, 4, 9, 0.7);
+}
+
+/* Canvas + overscroll background follow the home dark theme */
+[data-rp-theme="dark"] body {
+  background-color: #0d1117;
+  color: #e6edf3;
 }
 
 * {
@@ -121,7 +180,7 @@ img {
 }
 
 :focus-visible {
-  outline: 2px solid var(--rp-emerald-500, #10b981);
+  outline: 2px solid var(--gh-accent, #0969da);
   outline-offset: 2px;
 }
 
