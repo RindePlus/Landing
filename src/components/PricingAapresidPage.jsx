@@ -91,7 +91,6 @@ const PricingAapresidPage = ({
   onOpenWhatsApp,
   onGoToHome,
   onGoToPricing,
-  onGoToAapresid,
 }) => {
   const handleCoordinar = () => {
     const msg =
@@ -134,9 +133,9 @@ const PricingAapresidPage = ({
             <button
               type="button"
               className="rp-back-link"
-              onClick={onGoToAapresid}
+              onClick={onGoToHome}
             >
-              <FaArrowLeft /> Volver a AAPRESID
+              <FaArrowLeft /> Volver a inicio
             </button>
             <p className="rp-aap__hero-copy">
               Un único modelo B2B pensado para que la regional contrate Rinde

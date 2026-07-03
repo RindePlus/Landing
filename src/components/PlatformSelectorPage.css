@@ -1,0 +1,281 @@
+/* ============================================================
+   Platform selector page (/plataformas) — GitHub aesthetic
+   Wrapped in .rp-home so it inherits the GitHub header/footer/canvas.
+   ============================================================ */
+
+.rp-platsel {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.rp-platsel__main {
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+}
+
+@media (min-width: 768px) {
+  .rp-platsel__main { padding: 150px 40px 100px; }
+}
+
+/* ---- Hero ---- */
+.rp-platsel__hero {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 48px;
+}
+
+.rp-platsel__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  padding: 6px 12px;
+  border-radius: var(--gh-radius);
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  color: var(--gh-fg-muted);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.rp-platsel__back:hover {
+  background: var(--gh-surface-2);
+  border-color: var(--gh-border-strong);
+  color: var(--gh-fg);
+}
+
+.rp-platsel__back svg { width: 15px; height: 15px; }
+
+.rp-platsel__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  box-shadow: var(--gh-shadow-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gh-fg-muted);
+  margin-bottom: 20px;
+}
+
+.rp-platsel__eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gh-detail-green);
+  box-shadow: 0 0 0 3px var(--gh-detail-green-soft);
+}
+
+.rp-platsel__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--gh-fg);
+  margin: 0 0 16px;
+}
+
+.rp-platsel__title-accent { color: var(--gh-accent); }
+
+.rp-platsel__subtitle {
+  font-size: clamp(0.98rem, 1.4vw, 1.15rem);
+  color: var(--gh-fg-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---- Grid ---- */
+.rp-platsel__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 640px) {
+  .rp-platsel__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 960px) {
+  .rp-platsel__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* The featured (main) card spans full width on top */
+.rp-platsel__card--featured {
+  grid-column: 1 / -1;
+}
+
+/* ---- Card ---- */
+.rp-platsel__card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  box-shadow: var(--gh-shadow-card);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rp-platsel__grid--visible .rp-platsel__card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rp-platsel__grid--visible .rp-platsel__card:nth-child(2) { transition-delay: 0.05s; }
+.rp-platsel__grid--visible .rp-platsel__card:nth-child(3) { transition-delay: 0.1s; }
+.rp-platsel__grid--visible .rp-platsel__card:nth-child(4) { transition-delay: 0.15s; }
+.rp-platsel__grid--visible .rp-platsel__card:nth-child(5) { transition-delay: 0.2s; }
+
+.rp-platsel__card:hover {
+  transform: translateY(-2px);
+  border-color: var(--gh-border-strong);
+  box-shadow: var(--gh-shadow-overlay);
+}
+
+.rp-platsel__card--featured {
+  border-color: var(--gh-accent);
+  box-shadow: 0 0 0 1px var(--gh-accent), var(--gh-shadow-card);
+}
+
+.rp-platsel__card--featured:hover {
+  border-color: var(--gh-accent);
+  box-shadow: 0 0 0 1px var(--gh-accent), var(--gh-shadow-overlay);
+}
+
+.rp-platsel__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.rp-platsel__logo {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: var(--gh-radius);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px rgba(31, 35, 40, 0.08);
+  overflow: hidden;
+}
+
+.rp-platsel__logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.rp-platsel__logo--wide {
+  width: auto;
+  min-width: 150px;
+  padding: 0 16px;
+}
+
+.rp-platsel__logo--wide img {
+  width: auto;
+  height: 34px;
+}
+
+.rp-platsel__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gh-accent);
+  background: var(--gh-accent-soft);
+  border: 1px solid var(--gh-border);
+}
+
+.rp-platsel__card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gh-fg);
+  margin: 0 0 8px;
+  letter-spacing: -0.015em;
+}
+
+.rp-platsel__card-desc {
+  font-size: 0.9rem;
+  color: var(--gh-fg-muted);
+  line-height: 1.55;
+  margin: 0 0 20px;
+  flex: 1;
+}
+
+.rp-platsel__card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: var(--gh-radius);
+  background: var(--gh-accent);
+  color: var(--gh-accent-fg);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-top: auto;
+  transition: background 0.15s ease;
+}
+
+.rp-platsel__card:hover .rp-platsel__card-cta {
+  background: var(--gh-accent-hover);
+}
+
+.rp-platsel__card-cta svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.rp-platsel__card:hover .rp-platsel__card-cta svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---- Help footer line ---- */
+.rp-platsel__help {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: var(--gh-fg-muted);
+}
+
+.rp-platsel__help-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--gh-accent);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rp-platsel__help-link:hover { text-decoration: underline; }

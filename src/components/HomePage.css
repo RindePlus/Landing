@@ -11,7 +11,10 @@
   font-family: var(--font-body);
   color: var(--gh-fg);
   position: relative;
-  overflow-x: clip;
+  /* NOTE: no `overflow-x: clip/hidden` here — it would become the containing
+     block for the Functionalities pinned `position: sticky` and break it.
+     Horizontal overflow is contained by `html,body { overflow-x: hidden }`
+     (index.css) and by each carousel's own `overflow` clip. */
 }
 
 /* ============================================================
@@ -19,8 +22,8 @@
    ============================================================ */
 .rp-home__hero {
   position: relative;
-  padding: 140px 24px 48px;
-  min-height: 92vh;
+  padding: 144px 24px 16px;
+  min-height: 68vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +31,7 @@
 }
 
 @media (min-width: 768px) {
-  .rp-home__hero { padding: 180px 40px 72px; min-height: 88vh; }
+  .rp-home__hero { padding: 178px 40px 20px; min-height: 52vh; }
 }
 
 /* Flat GitHub canvas — no ambient glow */
@@ -41,9 +44,10 @@
 .rp-home__hero-grid {
   position: absolute;
   inset: 0;
+  /* Gold/amber grid (brand), kept in both light and dark modes */
   background-image:
-    linear-gradient(to right, rgba(31, 35, 40, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(31, 35, 40, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(212, 160, 23, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 160, 23, 0.18) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse at center, #000 35%, transparent 78%);
   -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 78%);
@@ -87,11 +91,11 @@
 
 .rp-home__hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-size: clamp(1.9rem, 4.2vw, 3.4rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.06;
   letter-spacing: -0.03em;
-  margin: 0 0 24px;
+  margin: 0 0 22px;
   color: var(--gh-fg);
 }
 
@@ -111,7 +115,7 @@
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   color: var(--gh-fg-muted);
   max-width: 640px;
-  margin: 0 auto 40px;
+  margin: 40px auto 68px;
   line-height: 1.6;
   font-weight: 400;
 }
@@ -123,10 +127,10 @@
 
 .rp-home__hero-ctas {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 48px;
+  margin-bottom: 6px;
 }
 
 /* GitHub buttons */
@@ -162,17 +166,19 @@
 }
 
 /* secondary (bordered surface) */
+/* secondary — plain, like a header nav item (no fill, no border), blue text */
 .rp-home__hero-btn--ghost {
-  color: var(--gh-fg);
-  background: var(--gh-surface);
-  border-color: var(--gh-border);
-  box-shadow: var(--gh-shadow-sm);
+  color: var(--gh-accent);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  font-weight: 600;
 }
 
 .rp-home__hero-btn--ghost:hover {
-  background: var(--gh-surface-2);
-  border-color: var(--gh-border-strong);
-  transform: translateY(-1px);
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent-hover);
+  transform: none;
 }
 
 /* Tiny marquee of domain labels under CTAs */
@@ -311,6 +317,9 @@
     border-bottom: none;
   }
 }
+
+/* "Qué ganás" (Benefits) — menos padding superior */
+#beneficios { padding-top: 10px; }
 
 .rp-home__benefit-num {
   font-family: var(--font-heading);
@@ -550,15 +559,15 @@
 .rp-home__trusted {
   position: relative;
   width: 100%;
-  padding: 32px 0 80px;
+  padding: 2px 0 64px;
 }
 
 @media (min-width: 768px) {
-  .rp-home__trusted { padding: 40px 0 112px; }
+  .rp-home__trusted { padding: 4px 0 96px; }
 }
 
 @media (min-width: 1024px) {
-  .rp-home__trusted { padding: 48px 0 128px; }
+  .rp-home__trusted { padding: 6px 0 112px; }
 }
 
 .rp-home__trusted-header {
@@ -572,23 +581,15 @@
   .rp-home__trusted-header { padding: 0 40px; margin-bottom: 28px; }
 }
 
+/* Full-width WHITE band, edge to edge — stays white in dark mode.
+   The logos move inside; the edge fade lives on the inner track,
+   so the band itself is solid white end to end. */
 .rp-home__trusted-carousel {
   position: relative;
   width: 100%;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    #000 6%,
-    #000 94%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    #000 6%,
-    #000 94%,
-    transparent 100%
-  );
+  background: #ffffff;
+  padding: 18px 0;
+  overflow: hidden;
 }
 
 .rp-home__trusted-carousel > :first-child {
@@ -719,9 +720,10 @@
    Dark-mode fixes for values that can't come from tokens
    ============================================================ */
 [data-rp-theme="dark"] .rp-home__hero-grid {
+  /* keep the gold/amber grid in dark mode too */
   background-image:
-    linear-gradient(to right, rgba(240, 246, 252, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(240, 246, 252, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(212, 160, 23, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 160, 23, 0.22) 1px, transparent 1px);
 }
 
 [data-rp-theme="dark"] .rp-platcard__logo-inner {
@@ -767,3 +769,193 @@
   .rp-home__hero-marquee { gap: 16px; font-size: 0.66rem; }
   .rp-home__cta-card { padding: 36px 26px; }
 }
+
+/* ============================================================
+   Modules wrapper (anchor for #modulos)
+   ============================================================ */
+.rp-home__modules { scroll-margin-top: 80px; }
+
+/* ============================================================
+   "Conocé más" accordion (native <details>)
+   ============================================================ */
+.rp-home__accordion {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rp-home__acc {
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rp-home__acc[open] {
+  border-color: var(--gh-border-strong);
+  box-shadow: var(--gh-shadow-card);
+}
+
+.rp-home__acc-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-weight: 600;
+  color: var(--gh-fg);
+  transition: background 0.15s ease;
+}
+
+.rp-home__acc-summary::-webkit-details-marker { display: none; }
+.rp-home__acc-summary:hover { background: var(--gh-surface-2); }
+
+.rp-home__acc-chevron {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--gh-fg-muted);
+  transition: transform 0.25s ease, color 0.15s ease;
+}
+
+.rp-home__acc[open] .rp-home__acc-chevron {
+  transform: rotate(180deg);
+  color: var(--gh-accent);
+}
+
+.rp-home__acc-body {
+  padding: 0 22px 22px;
+}
+
+.rp-home__acc-lead {
+  font-size: 0.95rem;
+  color: var(--gh-fg-muted);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.rp-home__acc-list,
+.rp-home__acc-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .rp-home__acc-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+.rp-home__acc-list li,
+.rp-home__acc-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.rp-home__acc-item-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rp-home__acc-item-text strong { font-size: 0.92rem; font-weight: 600; color: var(--gh-fg); }
+.rp-home__acc-item-text span { font-size: 0.88rem; color: var(--gh-fg-muted); line-height: 1.5; }
+
+.rp-home__acc-check {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gh-detail-green-soft);
+  color: var(--gh-detail-green);
+  margin-top: 1px;
+}
+.rp-home__acc-check svg { width: 13px; height: 13px; }
+
+.rp-home__acc-step-num {
+  flex-shrink: 0;
+  width: 24px; height: 24px;
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent);
+  font-size: 0.8rem; font-weight: 700;
+  font-family: var(--font-heading);
+}
+
+/* ============================================================
+   AAPRESID mention banner
+   ============================================================ */
+.rp-home__aapresid-section { padding-top: 0; }
+
+.rp-home__aapresid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px;
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-accent-soft);
+}
+
+@media (min-width: 768px) {
+  .rp-home__aapresid {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 36px;
+  }
+}
+
+.rp-home__aapresid-eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gh-accent);
+  margin-bottom: 8px;
+}
+
+.rp-home__aapresid-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--gh-fg);
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.rp-home__aapresid-copy {
+  font-size: 0.95rem;
+  color: var(--gh-fg-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.rp-home__aapresid-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 11px 20px;
+  border-radius: var(--gh-radius);
+  background: var(--gh-accent);
+  color: var(--gh-accent-fg);
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.rp-home__aapresid-btn:hover { background: var(--gh-accent-hover); transform: translateY(-1px); }
+.rp-home__aapresid-btn svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
+.rp-home__aapresid-btn:hover svg { transform: translateX(3px); }

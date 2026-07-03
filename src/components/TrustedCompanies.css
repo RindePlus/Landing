@@ -131,24 +131,38 @@
 }
 
 /* ============================================================
-   GitHub skin — HOME ONLY (.rp-home)
-   Logo tiles stay white in both themes so partner logos (built for
-   a white background) remain legible in dark mode.
+   HOME ONLY (.rp-home): logos ride inside a single full-width WHITE
+   band (see .rp-home__trusted-carousel). No card chrome per logo —
+   they just move over the white. The band stays white in dark mode.
    ============================================================ */
 .rp-home .trusted-companies-section {
   background: transparent;
 }
 
+/* Logos bare on the white band — no chip/border/shadow */
 .rp-home .company-logo {
-  background: #fff;
-  border: 1px solid var(--gh-border);
-  border-radius: var(--gh-radius);
-  box-shadow: var(--gh-shadow-sm);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .rp-home .company-logo:hover {
-  border-color: var(--gh-border-strong);
-  box-shadow: var(--gh-shadow-card);
-  transform: translateY(-1px);
+  border: none;
+  box-shadow: none;
+  transform: none;
 }
+
+/* Edge fade on the moving track so the white band stays solid edge to edge */
+.rp-home .carousel-wrapper {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+}
+
+/* Band height: compact track padding + logo box size */
+.rp-home .carousel-track { padding: 8px 0; }
+.rp-home .company-logo { height: 100px; width: 160px; }
+
+/* Draggable: show grab cursor over the moving band */
+.rp-home .carousel-track { cursor: grab; }
+.rp-home .carousel-track:active { cursor: grabbing; }

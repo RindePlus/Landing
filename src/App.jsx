@@ -1,10 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
 import HomePage from './components/HomePage';
-import VigiaPage from './components/VigiaPage';
-import BrechasPage from './components/BrechasPage';
-import AapresidPage from './components/AapresidPage';
+import PlatformSelectorPage from './components/PlatformSelectorPage';
 import PricingLandingPage from './components/PricingLandingPage';
 import PricingProductoresPage from './components/PricingProductoresPage';
 import PricingEmpresasPage from './components/PricingEmpresasPage';
@@ -17,9 +13,7 @@ const KNOWN_ROUTES = [
   '/pricing/empresas',
   '/pricing/aapresid',
   '/pricing',
-  '/vigia',
-  '/brechas',
-  '/aapresid',
+  '/plataformas',
 ];
 
 function resolvePath(pathname) {
@@ -78,11 +72,6 @@ function App() {
   }, [showWhatsappPopup]);
 
   const whatsappUrl = "https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus";
-  const vigiaLoginUrl = "https://pronosticos.rindeplus.com/login/rindeplus";
-
-  const openVigiaLogin = () => {
-    window.open(vigiaLoginUrl, '_blank', 'noopener,noreferrer');
-  };
 
   const whatsappElements = (
     <>
@@ -123,44 +112,11 @@ function App() {
 
   const renderPage = () => {
     switch (route) {
-      case '/vigia':
+      case '/plataformas':
         return (
-          <>
-            <Header
-              onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-              onLogoClick={() => navigate('/')}
-              menuItems={[
-                { label: 'Volver a inicio', id: 'top', action: () => navigate('/') },
-                { label: '¿Qué es?', id: 'vigia-que-es' },
-                { label: '¿Cómo funciona?', id: 'vigia-como-funciona' },
-                { label: '¿Para quién?', id: 'vigia-para-quien' },
-                { label: '¿Cómo empiezo?', id: 'vigia-empezar' },
-                { label: 'Alianza', id: 'vigia-alianza' },
-              ]}
-            />
-            <main className="vigia-main">
-              <VigiaPage
-                onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-                onGoToPlatform={openVigiaLogin}
-              />
-              <Footer onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
-            </main>
-          </>
-        );
-      case '/brechas':
-        return (
-          <BrechasPage
+          <PlatformSelectorPage
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
             onGoToHome={() => navigate('/')}
-            onGoToPricing={() => navigate('/pricing')}
-          />
-        );
-      case '/aapresid':
-        return (
-          <AapresidPage
-            onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-            onGoToHome={() => navigate('/')}
-            onGoToPricing={() => navigate('/pricing/aapresid')}
           />
         );
       case '/pricing':
@@ -196,16 +152,14 @@ function App() {
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
             onGoToHome={() => navigate('/')}
             onGoToPricing={() => navigate('/pricing')}
-            onGoToAapresid={() => navigate('/aapresid')}
           />
         );
       default:
         return (
           <HomePage
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-            onGoToVigia={() => navigate('/vigia')}
-            onGoToBrechas={() => navigate('/brechas')}
-            onGoToAapresid={() => navigate('/aapresid')}
+            onGoToPlatforms={() => navigate('/plataformas')}
+            onGoToAapresidPricing={() => navigate('/pricing/aapresid')}
           />
         );
     }

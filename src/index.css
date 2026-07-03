@@ -38,6 +38,8 @@
   --gh-detail-green: #018c34;
   --gh-detail-green-soft: #dafbe1;
   --gh-detail-yellow: #ffd100;
+  --gh-detail-yellow-strong: #bf8700;
+  --gh-detail-yellow-soft: #fff8c5;
   --gh-danger: #cf222e;
   --gh-radius: 6px;
   --gh-radius-card: 12px;
@@ -66,6 +68,8 @@
   --gh-detail-green: #3fb950;
   --gh-detail-green-soft: #12261e;
   --gh-detail-yellow: #e3b341;
+  --gh-detail-yellow-strong: #e3b341;
+  --gh-detail-yellow-soft: #2e2a13;
   --gh-danger: #f85149;
   --gh-shadow-sm: 0 0 0 1px rgba(0, 0, 0, 0.2);
   --gh-shadow-card: 0 1px 3px rgba(1, 4, 9, 0.5);
@@ -90,7 +94,9 @@ html {
 
 html,
 body {
-  overflow-x: hidden;
+  /* `clip` (not `hidden`) so these don't become scroll containers, which would
+     break `position: sticky` used by the Functionalities pinned section. */
+  overflow-x: clip;
   width: 100%;
   max-width: 100%;
 }
@@ -143,7 +149,7 @@ h6 {
 #root {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip; /* `clip` not `hidden` — keep `position: sticky` working */
 }
 
 /* Mejoras para dispositivos móviles */
