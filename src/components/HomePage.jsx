@@ -129,7 +129,7 @@ const HeroSection = ({ onGoToPlatforms, onScrollToFuncionalidades }) => (
 const BenefitsSection = () => (
   <section className="rp-home__section" id="beneficios">
     <Reveal className="rp-home__section-header">
-      <div className="rp-num-eyebrow">Qué ganás</div>
+      <div className="rp-num-eyebrow">Beneficios</div>
       <h2 className="rp-home__section-title">
         Datos aplicados a{' '}
         <span className="rp-home__section-title-accent">tu producción</span>

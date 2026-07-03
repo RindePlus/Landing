@@ -107,13 +107,32 @@
 .rp-fx__dot.is-active { width: 26px; background: var(--gh-accent); }
 
 .rp-fx__hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  border: 0;
+  background: none;
+  padding: 6px 0;
+  font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--gh-fg-subtle);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   min-width: 76px;
-  text-align: right;
+  cursor: pointer;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.rp-fx__hint svg { width: 15px; height: 15px; transition: transform 0.18s ease; }
+.rp-fx__hint:hover { color: var(--gh-accent); }
+.rp-fx__hint:hover svg { transform: translateX(3px); }
+.rp-fx__hint:active svg { transform: translateX(1px); }
+.rp-fx__hint:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* ---- Track (translated by JS on desktop) ---- */
@@ -394,7 +413,28 @@
      tallest panel's height → the bottom-anchored buttons line up across panels. */
   .rp-fx__sticky { position: static; height: auto; padding-top: 0; overflow: visible; }
 
-  .rp-fx__topbar { margin-top: 4px; padding: 0 24px; height: 56px; }
+  /* Pin the counter/dots/Deslizá as a sub-header while the section is in view
+     (desktop already pins it via the 100vh scroll-jack). Sits just below the
+     65px fixed site header; opaque so panels scroll underneath it. */
+  .rp-fx__topbar {
+    position: sticky;
+    top: 62px; /* tuck 1px under the ~63px fixed header — no seam */
+    z-index: 20;
+    margin-top: 0;
+    padding: 0 24px;
+    height: 56px;
+    /* match the header surface (not the canvas) so the pinned sub-header reads
+       as one unit with the site header instead of a separate grey band */
+    background: var(--gh-surface);
+    border-bottom: 1px solid var(--gh-border);
+  }
+
+  /* More air across the intro stack on mobile (eyebrow → title → subtitle →
+     counter row). */
+  .rp-fx__head { padding-bottom: 34px; }
+  .rp-fx__eyebrow { margin-bottom: 18px; }
+  .rp-fx__title { margin-bottom: 20px; }
+  .rp-fx__subtitle { line-height: 1.65; }
 
   .rp-fx__track {
     overflow-x: auto;
@@ -414,7 +454,7 @@
     width: 100vw;
     height: auto;
     scroll-snap-align: center;
-    padding: 18px 24px 28px;
+    padding: 32px 24px 28px;
   }
   .rp-fx__panel:first-child,
   .rp-fx__panel:last-child { padding-left: 24px; padding-right: 24px; }

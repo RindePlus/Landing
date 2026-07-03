@@ -7,6 +7,7 @@ import {
   LuCheck,
   LuPlus,
   LuArrowLeft,
+  LuArrowRight,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './Functionalities.css';
@@ -431,7 +432,14 @@ const Functionalities = () => {
                 />
               ))}
             </div>
-            <span className="rp-fx__hint">Deslizá →</span>
+            <button
+              type="button"
+              className="rp-fx__hint"
+              onClick={() => goTo((active + 1) % COUNT)}
+              aria-label="Ver la siguiente funcionalidad"
+            >
+              Deslizá <LuArrowRight />
+            </button>
           </div>
 
           <div className="rp-fx__track" ref={trackRef}>

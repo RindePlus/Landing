@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { LuSun, LuMoon, LuLogIn } from 'react-icons/lu';
 import rindeplusLogo from '../assets/rindeplus-logo-light.png';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
@@ -14,6 +14,19 @@ const Header = ({
   onGoToPlatforms,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+
+  // Close the mobile drawer when tapping/clicking outside the header.
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+    const handlePointerDown = (event) => {
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [isMenuOpen]);
 
   const scrollToContact = () => {
     const contactSection = document.querySelector('#contacto-form');
@@ -55,7 +68,7 @@ const Header = ({
   ];
 
   return (
-    <header className={`header ${isMenuOpen ? 'header--menu-open' : ''}`}>
+    <header ref={headerRef} className={`header ${isMenuOpen ? 'header--menu-open' : ''}`}>
       <div className="header-content">
         {/* LEFT — quick access (inline nav on desktop / hamburger + drawer on mobile) */}
         <div className="header-left">
@@ -86,6 +99,32 @@ const Header = ({
                   {item.label}
                 </button>
               ))}
+
+              {/* Theme switch — lives in the drawer on mobile; the header keeps
+                  the icon toggle on desktop. */}
+              {onToggleTheme && (
+                <div className="header-nav__theme">
+                  <span className="header-nav__theme-label">
+                    {theme === 'dark' ? 'Modo oscuro' : 'Modo claro'}
+                  </span>
+                  <button
+                    type="button"
+                    className="rp-theme-switch"
+                    role="switch"
+                    aria-checked={theme === 'dark'}
+                    aria-label="Cambiar entre modo claro y oscuro"
+                    onClick={onToggleTheme}
+                  >
+                    <span className="rp-theme-switch__icon rp-theme-switch__icon--sun">
+                      <LuSun />
+                    </span>
+                    <span className="rp-theme-switch__icon rp-theme-switch__icon--moon">
+                      <LuMoon />
+                    </span>
+                    <span className="rp-theme-switch__knob" />
+                  </button>
+                </div>
+              )}
             </nav>
           )}
         </div>

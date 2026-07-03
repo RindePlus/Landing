@@ -237,6 +237,82 @@ img.logo-image:hover {
   height: 18px;
 }
 
+/* Theme control placement: icon toggle in the header on desktop, sun/moon
+   switch inside the drawer on mobile. */
+@media (max-width: 767px) {
+  .header-theme-toggle { display: none; }
+}
+
+/* Drawer footer row holding the theme switch — only inside the mobile drawer. */
+.header-nav__theme {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 6px;
+  padding: 16px 24px 4px;
+  border-top: 1px solid var(--gh-border);
+}
+@media (max-width: 767px) {
+  .header-nav__theme { display: flex; }
+}
+
+.header-nav__theme-label {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gh-fg-muted);
+}
+
+/* Sun/moon switch */
+.rp-theme-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  width: 62px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--gh-border);
+  background: var(--gh-surface-2);
+  cursor: pointer;
+}
+
+.rp-theme-switch__icon {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  color: var(--gh-fg-subtle);
+  transition: color 0.2s ease;
+}
+
+.rp-theme-switch__icon svg { width: 15px; height: 15px; display: block; }
+
+.rp-theme-switch__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gh-canvas);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.rp-theme-switch[aria-checked='true'] .rp-theme-switch__knob {
+  transform: translateX(30px);
+}
+
+/* highlight the active side */
+.rp-theme-switch[aria-checked='false'] .rp-theme-switch__icon--sun,
+.rp-theme-switch[aria-checked='true'] .rp-theme-switch__icon--moon {
+  color: var(--gh-accent);
+}
+
 /* Platform / login button — renders only when onGoToPlatforms is passed */
 .header-platform-btn {
   display: inline-flex;
@@ -310,21 +386,43 @@ img.logo-image:hover {
   display: none;
 }
 
+/* Drawer open: drop the header's own divider line + shadow so the bar and the
+   menu below it read as one seamless white surface (no grey seam between them). */
+.rp-home .header--menu-open {
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
 .rp-home .header-content {
   padding: 10px 24px;
+}
+
+@media (max-width: 767px) {
+  .rp-home .header-content { padding: 10px 14px; }
 }
 
 .rp-home img.logo-image {
   height: 42px;
 }
 
-/* hamburger + drawer skin (home mobile) */
+/* hamburger + drawer skin (home mobile) — matches the theme-toggle button:
+   34px rounded square, subtle border on hover. */
+.rp-home .hamburger-button {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--gh-radius, 6px);
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
 .rp-home .hamburger-line {
+  width: 18px;
   background-color: var(--gh-fg-muted);
 }
 
 .rp-home .hamburger-button:hover {
   background-color: var(--gh-surface-2);
+  border-color: var(--gh-border);
 }
 
 .rp-home .hamburger-button.open .hamburger-line {
@@ -334,7 +432,13 @@ img.logo-image:hover {
 .rp-home .header-nav {
   background-color: var(--gh-surface);
   border-bottom: 1px solid var(--gh-border);
-  box-shadow: var(--gh-shadow-overlay);
+  /* Bottom-only shadow: offset ≥ blur + negative spread keeps it from bleeding
+     up over the header's background (which paints behind this drawer). */
+  box-shadow: 0 14px 20px -10px rgba(31, 35, 40, 0.2);
+}
+
+[data-rp-theme='dark'] .rp-home .header-nav {
+  box-shadow: 0 14px 20px -10px rgba(1, 4, 9, 0.6);
 }
 
 .rp-home .menu-item {
