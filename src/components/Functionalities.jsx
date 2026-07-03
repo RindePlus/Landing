@@ -99,6 +99,7 @@ const FUNCTIONALITIES = [
     sections: [
       {
         id: 'estandar',
+        tab: 'Estándar',
         subtag: 'Bibliografía',
         subname: 'Brechas Estándar',
         description:
@@ -115,6 +116,7 @@ const FUNCTIONALITIES = [
       },
       {
         id: 'inteligentes',
+        tab: 'Inteligentes',
         subtag: 'Machine Learning',
         subname: 'Brechas Inteligentes',
         description:
@@ -231,38 +233,63 @@ const FlipBlock = ({ description, bullets, problem, gain }) => {
   );
 };
 
+/* ── Dual panel (Brechas) — two sections side by side on desktop,
+   a segmented switch (one at a time) on mobile ── */
+
+const DualPanel = ({ item }) => {
+  const [activeSec, setActiveSec] = useState(0);
+
+  return (
+    <article className="rp-fx__panel rp-fx__panel--dual">
+      <div className="rp-fx__panel-inner rp-fx__panel-inner--dual">
+        <div className="rp-fx__dual-head">
+          <h3 className="rp-fx__name">{item.name}</h3>
+          {/* mobile-only switch between the two brechas */}
+          <div className="rp-fx__seg" role="tablist" aria-label="Tipo de brecha">
+            {item.sections.map((s, i) => (
+              <button
+                key={s.id}
+                type="button"
+                role="tab"
+                aria-selected={i === activeSec}
+                className={`rp-fx__seg-btn ${i === activeSec ? 'is-active' : ''}`}
+                onClick={() => setActiveSec(i)}
+              >
+                {s.tab}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="rp-fx__dual-grid">
+          {item.sections.map((s, i) => (
+            <div
+              key={s.id}
+              className={`rp-fx__dual-section ${i === activeSec ? 'is-active' : ''}`}
+            >
+              <span className="rp-fx__subtag">{s.subtag}</span>
+              <h4 className="rp-fx__subname">{s.subname}</h4>
+              <FlipBlock
+                description={s.description}
+                bullets={s.bullets}
+                problem={s.problem}
+                gain={s.gain}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+};
+
 /* ── Panel ── */
 
 const FunctionalityPanel = ({ item }) => {
   const { Chart, chartColors } = item;
 
-  // Merged "Brechas de rendimiento" — two text sections side by side, no chart
-  if (item.dual) {
-    return (
-      <article className="rp-fx__panel rp-fx__panel--dual">
-        <div className="rp-fx__panel-inner rp-fx__panel-inner--dual">
-          <div className="rp-fx__dual-head">
-            <h3 className="rp-fx__name">{item.name}</h3>
-          </div>
-
-          <div className="rp-fx__dual-grid">
-            {item.sections.map((s) => (
-              <div key={s.id} className="rp-fx__dual-section">
-                <span className="rp-fx__subtag">{s.subtag}</span>
-                <h4 className="rp-fx__subname">{s.subname}</h4>
-                <FlipBlock
-                  description={s.description}
-                  bullets={s.bullets}
-                  problem={s.problem}
-                  gain={s.gain}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </article>
-    );
-  }
+  // Merged "Brechas de rendimiento"
+  if (item.dual) return <DualPanel item={item} />;
 
   // Standard — text column + chart
   return (

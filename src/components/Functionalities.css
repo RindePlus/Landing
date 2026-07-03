@@ -346,6 +346,10 @@
 
 .rp-fx__dual-section { min-width: 0; }
 
+/* Segmented switch — hidden on desktop (both brechas show side by side);
+   becomes the mobile control that toggles between the two. */
+.rp-fx__seg { display: none; }
+
 .rp-fx__subtag {
   display: inline-block;
   font-size: 0.66rem;
@@ -372,11 +376,6 @@
    bottom-anchored buttons line up). */
 .rp-fx__text > .rp-fx__flip { margin-top: calc(clamp(20px, 4vh, 40px) + 63px); }
 
-@media (max-width: 767px) {
-  .rp-fx__dual-grid { grid-template-columns: 1fr; gap: 28px; }
-  .rp-fx__panel-inner--dual { padding-top: 8px; }
-}
-
 /* ---- Dark overrides ---- */
 [data-rp-theme="dark"] .rp-fx__detail--problem .rp-fx__detail-ico { background: #362d13; color: #e3b341; }
 [data-rp-theme="dark"] .rp-fx__detail--problem .rp-fx__detail-label { color: #e3b341; }
@@ -391,8 +390,12 @@
    ============================================================ */
 @media (max-width: 767px) {
   .rp-fx { height: auto !important; }
+  /* Static, natural-height stage. Stays a flex column so every panel shares the
+     tallest panel's height → the bottom-anchored buttons line up across panels. */
   .rp-fx__sticky { position: static; height: auto; padding-top: 0; overflow: visible; }
-  .rp-fx__topbar { margin-top: 8px; }
+
+  .rp-fx__topbar { margin-top: 4px; padding: 0 24px; height: 56px; }
+
   .rp-fx__track {
     overflow-x: auto;
     overflow-y: hidden;
@@ -403,20 +406,102 @@
   }
   .rp-fx__track::-webkit-scrollbar { display: none; }
 
+  /* One full-width panel per screen — no cramped next-panel peek.
+     height:auto (not the base 100%) lets align-items:stretch equalise every
+     panel to the tallest, so the bottom-pinned buttons line up across panels. */
   .rp-fx__panel {
-    flex: 0 0 88vw;
-    width: 88vw;
+    flex: 0 0 100vw;
+    width: 100vw;
     height: auto;
     scroll-snap-align: center;
-    padding: 12px 8px 8px;
+    padding: 18px 24px 28px;
   }
-  .rp-fx__panel:first-child { padding-left: 16px; }
-  .rp-fx__panel:last-child { padding-right: 16px; }
+  .rp-fx__panel:first-child,
+  .rp-fx__panel:last-child { padding-left: 24px; padding-right: 24px; }
 
-  .rp-fx__panel-inner { grid-template-columns: 1fr; gap: 18px; }
-  .rp-fx__visual { order: -1; }
-  .rp-fx__chart { max-height: 130px; }
-  .rp-fx__flip { height: clamp(300px, 46vh, 360px); }
+  /* Flex column so the text/flip can stretch to fill the (equal) panel height
+     and pin the button to the bottom. */
+  .rp-fx__panel-inner {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    gap: 0;
+  }
+  .rp-fx__text { flex: 1; padding-top: 0; }
+
+  /* Charts are decorative on desktop; drop them on mobile for a clean,
+     text-first read. */
+  .rp-fx__visual { display: none; }
+
+  /* Title top-anchored, no desktop reserve gap; generous air below it. */
+  .rp-fx__text > .rp-fx__flip { margin-top: 0; }
+  .rp-fx__name { font-size: clamp(1.85rem, 8.5vw, 2.35rem); margin-bottom: 28px; }
+  .rp-fx__desc { font-size: 1.02rem; line-height: 1.72; margin: 0 0 32px; }
+  /* Standard panels only (`.rp-fx__text` doesn't exist in the dual Brechas
+     panel) — more air title→párrafo and párrafo→bullets. */
+  .rp-fx__text .rp-fx__name { margin-bottom: 44px; }
+  .rp-fx__text .rp-fx__desc { margin-bottom: 46px; }
+  .rp-fx__bullets { gap: 17px; }
+  .rp-fx__bullets li { font-size: 1.02rem; line-height: 1.5; gap: 13px; }
+
+  /* Keep the real 3D flip: the block fills the panel so its bottom-anchored
+     button lands at the same Y on every panel (aligned "Más información"). */
+  /* min-height ≥ tallest face content (measured ~524px): the faces are
+     absolutely positioned so they don't grow the flip — without this floor the
+     button overflows on text-heavy panels. flex:1 then stretches every flip to
+     the tallest panel so all buttons pin to the same bottom line. */
+  .rp-fx__flip { flex: 1 1 auto; height: auto; min-height: 460px; }
+  /* auto → pin the button to the bottom of the (equal-height) flip so it lands
+     on the same line on every panel. The leftover space above it is the air. */
+  .rp-fx__more, .rp-fx__back-btn { margin-top: auto; }
+  /* "Más información" (back) — more air título→problema and problema→mejora. */
+  .rp-fx__flip-face--back { padding-top: 20px; }
+  .rp-fx__detail { margin-bottom: 40px; }
+
+  /* ---- Brechas as a segmented switch ---- */
+  .rp-fx__panel-inner--dual { display: flex; flex-direction: column; padding-top: 0; }
+  .rp-fx__dual-head { margin-bottom: 0; }
+  .rp-fx__seg {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    margin: 6px 0 30px;
+    padding: 5px;
+    background: var(--gh-surface-2);
+    border: 1px solid var(--gh-border);
+    border-radius: 999px;
+  }
+  .rp-fx__seg-btn {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    color: var(--gh-fg-muted);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .rp-fx__seg-btn.is-active {
+    background: var(--gh-accent);
+    color: var(--gh-accent-fg);
+    box-shadow: var(--gh-shadow-sm);
+  }
+  .rp-fx__dual-grid {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: stretch; /* override base `start`, else the column collapses to content width */
+    grid-template-columns: none;
+    gap: 0;
+  }
+  .rp-fx__dual-section { display: none; }
+  .rp-fx__dual-section.is-active { display: flex; flex-direction: column; flex: 1; align-items: stretch; }
+  /* the switch already labels the section — drop the redundant subname */
+  .rp-fx__panel--dual .rp-fx__subname { display: none; }
+  .rp-fx__panel--dual .rp-fx__subtag { margin-bottom: 14px; }
 }
 
 /* ============================================================
