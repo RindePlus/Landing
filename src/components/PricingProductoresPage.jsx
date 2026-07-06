@@ -186,8 +186,9 @@ const PricingProductoresPage = ({
 
                 <div className="rp-prod__price-block">
                   <div className="rp-prod__price">
+                    <span className="rp-prod__price-currency">USD</span>
                     <span className="rp-prod__price-amount">
-                      USD {PLAN_PRODUCTOR.precioAnual}
+                      {PLAN_PRODUCTOR.precioAnual}
                     </span>
                     <span className="rp-prod__price-period">/ año</span>
                   </div>

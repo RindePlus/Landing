@@ -42,8 +42,19 @@
   box-shadow: var(--gh-shadow-overlay);
 }
 
-.rp-pricing .rp-plan__name,
-.rp-pricing .rp-plan__price-amount { color: var(--gh-fg); }
+/* Accent plan name + contained price: the number leads, "USD" is context */
+.rp-pricing .rp-plan__name { color: var(--gh-accent); }
+
+.rp-pricing .rp-plan__price-amount {
+  color: var(--gh-fg);
+  font-size: 2.5rem;
+}
+
+.rp-pricing .rp-plan__price-currency {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gh-fg-muted);
+}
 
 .rp-pricing .rp-plan__tagline,
 .rp-pricing .rp-plan__price-period,

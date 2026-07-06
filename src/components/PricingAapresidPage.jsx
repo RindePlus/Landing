@@ -166,8 +166,9 @@ const PricingAapresidPage = ({
                       USD {standard.precioAnualLista}
                     </span>
                     <div className="rp-aap__offer-card-new">
+                      <span className="rp-aap__offer-card-currency">USD</span>
                       <span className="rp-aap__offer-card-amount">
-                        USD {standard.precioAnual}
+                        {standard.precioAnual}
                       </span>
                       <span className="rp-aap__offer-card-period">/ año</span>
                     </div>
@@ -189,8 +190,9 @@ const PricingAapresidPage = ({
                       USD {full.precioAnualLista}
                     </span>
                     <div className="rp-aap__offer-card-new">
+                      <span className="rp-aap__offer-card-currency">USD</span>
                       <span className="rp-aap__offer-card-amount">
-                        USD {full.precioAnual}
+                        {full.precioAnual}
                       </span>
                       <span className="rp-aap__offer-card-period">/ año</span>
                     </div>
@@ -285,8 +287,9 @@ const PricingAapresidPage = ({
                   </div>
 
                   <div className="rp-plan__price">
+                    <span className="rp-plan__price-currency">USD</span>
                     <span className="rp-plan__price-amount">
-                      USD {plan.precioAnual}
+                      {plan.precioAnual}
                     </span>
                     <span className="rp-plan__price-period">/ año</span>
                   </div>

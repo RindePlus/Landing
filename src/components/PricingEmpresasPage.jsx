@@ -181,8 +181,9 @@ const PricingEmpresasPage = ({
                   <p className="rp-plan__tagline">{plan.descripcion}</p>
 
                   <div className="rp-plan__price">
+                    <span className="rp-plan__price-currency">USD</span>
                     <span className="rp-plan__price-amount">
-                      USD {plan.precioAnual}
+                      {plan.precioAnual}
                     </span>
                     <span className="rp-plan__price-period">/ año</span>
                   </div>

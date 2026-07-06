@@ -177,9 +177,9 @@
 
 .rp-prod__plan-name {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 800;
-  color: var(--gh-fg);
+  color: var(--gh-accent);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -201,9 +201,15 @@
   gap: 6px;
 }
 
+.rp-prod__price-currency {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gh-fg-muted);
+}
+
 .rp-prod__price-amount {
   font-family: var(--font-heading);
-  font-size: 3.2rem;
+  font-size: 2.5rem;
   font-weight: 800;
   color: var(--gh-fg);
   line-height: 1;

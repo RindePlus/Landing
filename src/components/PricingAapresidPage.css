@@ -180,6 +180,12 @@
   gap: 6px;
 }
 
+.rp-aap__offer-card-currency {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gh-fg-muted);
+}
+
 .rp-aap__offer-card-amount {
   font-family: var(--font-heading);
   font-size: 2.1rem;
