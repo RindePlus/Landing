@@ -7,10 +7,14 @@
 /* First section clears the fixed header via `.rp-pricing main` padding */
 .rp-pricing__hero.rp-home__section {
   padding-top: 48px;
+  padding-bottom: 40px; /* tighter hand-off to the Aapresid banner below */
 }
 
 @media (min-width: 768px) {
-  .rp-pricing__hero.rp-home__section { padding-top: 64px; }
+  .rp-pricing__hero.rp-home__section {
+    padding-top: 64px;
+    padding-bottom: 48px;
+  }
 }
 
 /* ---- Selector cards (Empresas / Productores) ---- */
@@ -79,8 +83,8 @@
 }
 
 .rp-selector__chip--emerald {
-  color: var(--gh-detail-green);
-  background: var(--gh-detail-green-soft);
+  color: var(--gh-detail-yellow-strong);
+  background: var(--gh-detail-yellow-soft);
   border: 1px solid var(--gh-border);
 }
 

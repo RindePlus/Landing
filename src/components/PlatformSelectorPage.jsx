@@ -21,11 +21,11 @@ const PLATFORMS = [
     href: 'https://app.rindeplus.com/login/rindeplus',
   },
   {
-    id: 'aapresid',
+    id: 'Aapresid',
     name: 'Aapresid',
     logo: logoAapresid,
     logoBg: '#008c35',
-    desc: 'Versión para socios y ATR de la red AAPRESID.',
+    desc: 'Versión para socios y ATR de la red Aapresid.',
     href: 'https://app.rindeplus.com/login/aapresid',
   },
   {

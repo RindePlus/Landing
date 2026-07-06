@@ -11,15 +11,19 @@ import './App.css';
 const KNOWN_ROUTES = [
   '/pricing/productores',
   '/pricing/empresas',
-  '/pricing/aapresid',
+  '/pricing/Aapresid',
   '/pricing',
   '/plataformas',
 ];
 
 function resolvePath(pathname) {
   const clean = pathname.replace(/\/+$/, '') || '/';
-  if (KNOWN_ROUTES.includes(clean)) return clean;
-  return '/';
+  // Case-insensitive match so older shared links (e.g. /pricing/aapresid)
+  // keep resolving to the canonical route.
+  const match = KNOWN_ROUTES.find(
+    (route) => route.toLowerCase() === clean.toLowerCase(),
+  );
+  return match || '/';
 }
 
 function App() {
@@ -126,7 +130,7 @@ function App() {
             onGoToHome={() => navigate('/')}
             onGoToEmpresas={() => navigate('/pricing/empresas')}
             onGoToProductores={() => navigate('/pricing/productores')}
-            onGoToAapresid={() => navigate('/pricing/aapresid')}
+            onGoToAapresid={() => navigate('/pricing/Aapresid')}
             onGoToPlatforms={() => navigate('/plataformas')}
           />
         );
@@ -148,7 +152,7 @@ function App() {
             onGoToProductores={() => navigate('/pricing/productores')}
           />
         );
-      case '/pricing/aapresid':
+      case '/pricing/Aapresid':
         return (
           <PricingAapresidPage
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}

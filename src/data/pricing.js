@@ -55,12 +55,12 @@ export const PLANES_EMPRESAS = [
   },
 ];
 
-export const AAPRESID_MIN_SOCIOS = 15;
-export const AAPRESID_PROMO_VALIDA_HASTA = 'Junio 2026';
+export const Aapresid_MIN_SOCIOS = 15;
+export const Aapresid_PROMO_VALIDA_HASTA = 'Junio 2026';
 
-export const PLANES_AAPRESID = [
+export const PLANES_Aapresid = [
   {
-    id: 'aapresid-standard',
+    id: 'Aapresid-standard',
     nombre: 'Standard',
     tagline: 'Puerta de entrada al ecosistema',
     descripcion:
@@ -78,7 +78,7 @@ export const PLANES_AAPRESID = [
     destacado: false,
   },
   {
-    id: 'aapresid-full',
+    id: 'Aapresid-full',
     nombre: 'Full',
     tagline: 'Solución productiva completa',
     descripcion:

@@ -7,7 +7,7 @@ import chiaratechLogo from '../assets/related companies/chiaratech.png';
 import aaasLogo from '../assets/related companies/aaas.png';
 import kimzzaLogo from '../assets/related companies/kimzza.png';
 import conciLogo from '../assets/related companies/conci.png';
-import aapresidLogo from '../assets/related companies/aapresid.png';
+import AapresidLogo from '../assets/related companies/aapresid.png';
 import adjLogo from '../assets/related companies/adj.png';
 import halconLogo from '../assets/related companies/halcon.png';
 import bioredLogo from '../assets/related companies/biored.png';
@@ -34,7 +34,7 @@ const TrustedCompanies = () => {
     { id: 5, logo: aaasLogo, name: 'Agro Assistance Service', h: 47 },
     { id: 6, logo: kimzzaLogo, name: 'Kimzza', h: 42 },
     { id: 7, logo: conciLogo, name: 'Conci Riego', mono: true, h: 45 },
-    { id: 8, logo: aapresidLogo, name: 'Aapresid', h: 40 },
+    { id: 8, logo: AapresidLogo, name: 'Aapresid', h: 40 },
     { id: 9, logo: adjLogo, name: 'ADJ', h: 50 },
     { id: 10, logo: halconLogo, name: 'Halcón', h: 50 },
     { id: 11, logo: bioredLogo, name: 'BioRed', h: 66 },

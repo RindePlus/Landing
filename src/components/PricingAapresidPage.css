@@ -1,5 +1,5 @@
 /* ============================================================
-   PricingAapresidPage — /pricing/aapresid (GitHub skin)
+   PricingAapresidPage — /pricing/Aapresid (GitHub skin)
    Tokens --gh-*; shared primitives come re-skinned from
    pricing-gh.css under the .rp-pricing scope.
    ============================================================ */
@@ -58,7 +58,7 @@
   padding: clamp(28px, 4vw, 44px);
   margin-bottom: 72px;
   overflow: hidden;
-  /* accent bar on the left, echoing the AAPRESID banner on /pricing */
+  /* accent bar on the left, echoing the Aapresid banner on /pricing */
   box-shadow: inset 4px 0 0 var(--gh-accent), var(--gh-shadow-card);
 }
 

@@ -12,9 +12,9 @@ import Header from './Header';
 import Footer from './Footer';
 import { useRpTheme } from '../hooks/useRpTheme';
 import {
-  PLANES_AAPRESID,
-  AAPRESID_MIN_SOCIOS,
-  AAPRESID_PROMO_VALIDA_HASTA,
+  PLANES_Aapresid,
+  Aapresid_MIN_SOCIOS,
+  Aapresid_PROMO_VALIDA_HASTA,
   buildWhatsAppUrl,
   formatUSD,
 } from '../data/pricing';
@@ -42,7 +42,7 @@ const PRINCIPLES = [
   {
     Icon: FaStar,
     title: 'Descuento especial por lanzamiento',
-    copy: `Precio aliado institucional, válido hasta ${AAPRESID_PROMO_VALIDA_HASTA}.`,
+    copy: `Precio aliado institucional, válido hasta ${Aapresid_PROMO_VALIDA_HASTA}.`,
     accent: 'rp-acc-amber',
     delay: 'rp-d-4',
   },
@@ -50,8 +50,8 @@ const PRINCIPLES = [
 
 const EXPECTATIONS = [
   {
-    title: `Mínimo ${AAPRESID_MIN_SOCIOS} socios de la regional`,
-    desc: `El descuento se activa cuando al menos ${AAPRESID_MIN_SOCIOS} socios de la misma regional AAPRESID contratan Rinde Plus, sin importar qué plan elige cada uno.`,
+    title: `Mínimo ${Aapresid_MIN_SOCIOS} socios de la regional`,
+    desc: `El descuento se activa cuando al menos ${Aapresid_MIN_SOCIOS} socios de la misma regional Aapresid contratan Rinde Plus, sin importar qué plan elige cada uno.`,
   },
   {
     title: 'Un coordinador designado',
@@ -69,20 +69,20 @@ const EXPECTATIONS = [
 
 const FAQ = [
   {
-    q: `¿Por qué el mínimo de ${AAPRESID_MIN_SOCIOS} socios?`,
+    q: `¿Por qué el mínimo de ${Aapresid_MIN_SOCIOS} socios?`,
     a: 'Porque este precio es un precio de alianza institucional: pensado para que la regional empuje la adopción a escala y que cada socio reciba el beneficio de la negociación en conjunto.',
   },
   {
     q: '¿Todos los socios tienen que estar en el mismo plan?',
-    a: `No. Cada socio elige el plan que más le sirve (Standard o Full) de forma independiente. Lo único que importa es que el total de socios de la regional contratando Rinde Plus sea ${AAPRESID_MIN_SOCIOS} o más: ahí el descuento se aplica automáticamente a todas las cuentas, sea cual sea su plan.`,
+    a: `No. Cada socio elige el plan que más le sirve (Standard o Full) de forma independiente. Lo único que importa es que el total de socios de la regional contratando Rinde Plus sea ${Aapresid_MIN_SOCIOS} o más: ahí el descuento se aplica automáticamente a todas las cuentas, sea cual sea su plan.`,
   },
   {
     q: '¿Qué pasa si sumo un socio nuevo a mitad de año?',
-    a: 'Se prorratea el costo hasta el próximo ciclo anual, manteniendo el precio aliado AAPRESID. Se incorpora bajo el mismo esquema que el resto de la regional.',
+    a: 'Se prorratea el costo hasta el próximo ciclo anual, manteniendo el precio aliado Aapresid. Se incorpora bajo el mismo esquema que el resto de la regional.',
   },
   {
     q: '¿Hasta cuándo tengo tiempo de acceder a este precio?',
-    a: `Es un descuento especial por lanzamiento de la alianza con AAPRESID, válido hasta ${AAPRESID_PROMO_VALIDA_HASTA}. Las regionales que firmen antes de esa fecha conservan el precio aliado para su contrato inicial.`,
+    a: `Es un descuento especial por lanzamiento de la alianza con Aapresid, válido hasta ${Aapresid_PROMO_VALIDA_HASTA}. Las regionales que firmen antes de esa fecha conservan el precio aliado para su contrato inicial.`,
   },
 ];
 
@@ -96,13 +96,13 @@ const PricingAapresidPage = ({
 
   const handleCoordinar = () => {
     const msg =
-      `Hola, soy de una Regional AAPRESID y quiero conocer más sobre el plan ` +
-      `aliado para socios (+${AAPRESID_MIN_SOCIOS} socios). ¿Podemos coordinar una demo?`;
+      `Hola, soy de una Regional Aapresid y quiero conocer más sobre el plan ` +
+      `aliado para socios (+${Aapresid_MIN_SOCIOS} socios). ¿Podemos coordinar una demo?`;
     window.open(buildWhatsAppUrl(msg), '_blank', 'noopener,noreferrer');
   };
 
-  const standard = PLANES_AAPRESID.find((p) => p.id === 'aapresid-standard');
-  const full = PLANES_AAPRESID.find((p) => p.id === 'aapresid-full');
+  const standard = PLANES_Aapresid.find((p) => p.id === 'Aapresid-standard');
+  const full = PLANES_Aapresid.find((p) => p.id === 'Aapresid-full');
   const stdDiscountPct = Math.round(
     ((standard.precioAnualLista - standard.precioAnual) /
       standard.precioAnualLista) *
@@ -133,7 +133,7 @@ const PricingAapresidPage = ({
             </span>
             <h1 className="rp-home__section-title">
               Plan para Regionales{' '}
-              <span className="rp-home__section-title-accent">AAPRESID</span>
+              <span className="rp-home__section-title-accent">Aapresid</span>
             </h1>
             <p className="rp-home__section-subtitle">
               Un único modelo B2B pensado para que la regional contrate Rinde
@@ -147,16 +147,16 @@ const PricingAapresidPage = ({
             <div className="rp-aap__offer-grid">
               <div className="rp-aap__offer-intro">
                 <span className="rp-aap__offer-eyebrow">
-                  <FaTag /> Precio especial AAPRESID
+                  <FaTag /> Precio especial Aapresid
                 </span>
                 <h2 className="rp-aap__offer-title">
-                  Sumá <span>+{AAPRESID_MIN_SOCIOS} socios</span> de la regional
+                  Sumá <span>+{Aapresid_MIN_SOCIOS} socios</span> de la regional
                   y ahorrá hasta {stdDiscountPct}% por socio.
                 </h2>
                 <p className="rp-aap__offer-copy">
                   Cada socio elige el plan que más le sirve. El descuento se
                   aplica a todas las cuentas cuando la regional llega a{' '}
-                  {AAPRESID_MIN_SOCIOS} socios contratando Rinde Plus, en
+                  {Aapresid_MIN_SOCIOS} socios contratando Rinde Plus, en
                   cualquier combinación de planes.
                 </p>
                 <div className="rp-aap__offer-req">
@@ -168,7 +168,7 @@ const PricingAapresidPage = ({
                       Único requisito
                     </div>
                     <div className="rp-aap__offer-req-desc">
-                      Al menos <b>{AAPRESID_MIN_SOCIOS} socios</b> de la misma
+                      Al menos <b>{Aapresid_MIN_SOCIOS} socios</b> de la misma
                       regional contratando Rinde Plus, en el plan que cada uno
                       elija.
                     </div>
@@ -228,7 +228,7 @@ const PricingAapresidPage = ({
                   <FaClock />
                   <span>
                     Descuento especial por tiempo limitado · válido hasta{' '}
-                    <b>{AAPRESID_PROMO_VALIDA_HASTA}</b>
+                    <b>{Aapresid_PROMO_VALIDA_HASTA}</b>
                   </span>
                 </div>
               </div>
@@ -286,14 +286,14 @@ const PricingAapresidPage = ({
               <p>
                 Cada socio contrata el plan que más le sirve: Standard o Full.
                 El precio especial se aplica automáticamente cuando la regional
-                tiene al menos {AAPRESID_MIN_SOCIOS} socios contratando, en
+                tiene al menos {Aapresid_MIN_SOCIOS} socios contratando, en
                 cualquier combinación de planes. Descuento válido hasta{' '}
-                {AAPRESID_PROMO_VALIDA_HASTA}.
+                {Aapresid_PROMO_VALIDA_HASTA}.
               </p>
             </div>
 
             <div className="rp-aap__plan-grid">
-              {PLANES_AAPRESID.map((plan) => (
+              {PLANES_Aapresid.map((plan) => (
                 <article
                   key={plan.id}
                   className={`rp-plan rp-aap__plan ${
@@ -314,7 +314,7 @@ const PricingAapresidPage = ({
                     </span>
                     <span className="rp-aap__plan-arrow">→</span>
                     <span className="rp-aap__plan-tag">
-                      Precio especial AAPRESID
+                      Precio especial Aapresid
                     </span>
                   </div>
 
@@ -330,7 +330,7 @@ const PricingAapresidPage = ({
 
                   <span className="rp-aap__plan-req">
                     <FaUsers />
-                    Con +{AAPRESID_MIN_SOCIOS} socios de la regional contratando
+                    Con +{Aapresid_MIN_SOCIOS} socios de la regional contratando
                   </span>
 
                   <ul className="rp-plan__list">
@@ -345,7 +345,7 @@ const PricingAapresidPage = ({
                   </ul>
 
                   <p className="rp-plan__footer-note">
-                    Descuento especial válido hasta {AAPRESID_PROMO_VALIDA_HASTA}.
+                    Descuento especial válido hasta {Aapresid_PROMO_VALIDA_HASTA}.
                     Facturación anual única.
                   </p>
                 </article>
