@@ -559,35 +559,23 @@
 .rp-home__trusted {
   position: relative;
   width: 100%;
-  padding: 2px 0 64px;
+  padding: 28px 0 32px;
 }
 
 @media (min-width: 768px) {
-  .rp-home__trusted { padding: 4px 0 96px; }
+  .rp-home__trusted { padding: 36px 0 40px; }
 }
 
 @media (min-width: 1024px) {
-  .rp-home__trusted { padding: 6px 0 112px; }
+  .rp-home__trusted { padding: 40px 0 48px; }
 }
 
-.rp-home__trusted-header {
-  max-width: 1440px;
-  margin: 0 auto 24px;
-  padding: 0 24px;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .rp-home__trusted-header { padding: 0 40px; margin-bottom: 28px; }
-}
-
-/* Full-width WHITE band, edge to edge — stays white in dark mode.
-   The logos move inside; the edge fade lives on the inner track,
-   so the band itself is solid white end to end. */
+/* Full-width strip, logos ride directly on the page canvas (no band).
+   Monochrome tint per theme + hover color reveal live in
+   TrustedCompanies.css under the .rp-home scope. */
 .rp-home__trusted-carousel {
   position: relative;
   width: 100%;
-  background: #ffffff;
   padding: 18px 0;
   overflow: hidden;
 }
@@ -603,23 +591,14 @@
 }
 
 /* ============================================================
-   Final CTA — theme-aware callout, bookends the hero's gold grid
+   Final CTA — open section on the canvas; the hero's gold grid
+   returns anchored to the page's end, fading out upward.
    ============================================================ */
 .rp-home__cta {
-  max-width: 1168px; /* 1120 card + 24px gutters → aligns with the blocks above */
-  margin: 0 auto;
-  padding: 0 24px 80px;
-}
-
-.rp-home__cta-card {
   position: relative;
-  background: linear-gradient(165deg, var(--gh-surface) 0%, var(--gh-surface-2) 100%);
-  border: 1px solid var(--gh-border);
-  border-radius: var(--gh-radius-card);
-  padding: clamp(40px, 6vw, 72px);
+  padding: clamp(32px, 5vw, 56px) 24px clamp(88px, 11vw, 140px);
   text-align: center;
   overflow: hidden;
-  box-shadow: var(--gh-shadow-card);
 }
 
 .rp-home__cta-grid {
@@ -627,17 +606,19 @@
   inset: 0;
   z-index: 0;
   background-image:
-    linear-gradient(to right, rgba(212, 160, 23, 0.17) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(212, 160, 23, 0.17) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse at 50% 26%, #000 28%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 26%, #000 28%, transparent 80%);
+    linear-gradient(to right, rgba(212, 160, 23, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 160, 23, 0.18) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 100%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 100%, #000 30%, transparent 80%);
   pointer-events: none;
 }
 
 .rp-home__cta-inner {
   position: relative;
   z-index: 1;
+  max-width: 1120px;
+  margin: 0 auto;
 }
 
 .rp-home__cta-title {
@@ -658,12 +639,14 @@
 .rp-home__cta-copy {
   font-size: clamp(0.95rem, 1.2vw, 1.1rem);
   color: var(--gh-fg-muted);
-  max-width: 36rem;
-  margin: 0 auto 34px;
+  max-width: 42rem; /* wide enough for the copy to sit in two lines on desktop */
+  margin: 56px auto 72px;
   line-height: 1.6;
+  text-wrap: balance;
 }
 
-/* Strong inverse button: dark on light mode, light on dark mode. */
+/* WhatsApp-green button — same in both modes, white text & icon.
+   #1da851 is WhatsApp's deep brand green (better white-text contrast than #25d366). */
 .rp-home__cta-btn {
   display: inline-flex;
   align-items: center;
@@ -673,20 +656,21 @@
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;
-  color: var(--gh-canvas);
-  background: var(--gh-fg);
+  color: #ffffff;
+  background: #1da851;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   box-shadow: var(--gh-shadow-sm);
 }
 
 .rp-home__cta-btn:hover {
+  background: #178f45;
   transform: translateY(-1px);
   box-shadow: var(--gh-shadow-card);
 }
 
-.rp-home__cta-btn svg { color: #25d366; width: 18px; height: 18px; }
+.rp-home__cta-btn svg { color: #ffffff; width: 18px; height: 18px; }
 
 .rp-home__cta-hint {
   font-size: 0.72rem;
@@ -699,7 +683,8 @@
 /* ============================================================
    Dark-mode fixes for values that can't come from tokens
    ============================================================ */
-[data-rp-theme="dark"] .rp-home__hero-grid {
+[data-rp-theme="dark"] .rp-home__hero-grid,
+[data-rp-theme="dark"] .rp-home__cta-grid {
   /* keep the gold/amber grid in dark mode too */
   background-image:
     linear-gradient(to right, rgba(212, 160, 23, 0.22) 1px, transparent 1px),
@@ -738,7 +723,6 @@
 
 /* Lower-home zone: snappier, more professional entrances (only here). */
 #empezar .rp-reveal,
-.rp-home__aapresid-section .rp-reveal,
 .rp-home__cta .rp-reveal {
   transition-duration: 0.55s;
 }
@@ -754,7 +738,6 @@
   .rp-platcard__logo { width: 72px; height: 72px; }
   .rp-platcard__logo-inner img { width: 52px; height: 52px; }
   .rp-home__hero-marquee { gap: 16px; font-size: 0.66rem; }
-  .rp-home__cta-card { padding: 40px 22px; }
   .rp-home__cta-btn { padding: 14px 18px; }
 }
 
@@ -840,7 +823,7 @@
   height: 10px;
   margin-top: 6px;
   border-radius: 50%;
-  background: var(--gh-detail-green);
+  background: var(--gh-detail-yellow);
 }
 
 .rp-home__empezar-dot::before {
@@ -848,7 +831,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: var(--gh-detail-green);
+  background: var(--gh-detail-yellow);
   animation: rp-dot-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
@@ -906,83 +889,48 @@
 .rp-home__empezar-cta svg { width: 17px; height: 17px; transition: transform 0.2s ease; }
 .rp-home__empezar-cta:hover svg { transform: translateX(3px); }
 
-/* ============================================================
-   AAPRESID mention banner
-   ============================================================ */
-.rp-home__aapresid-section { padding-top: 0; }
-
-.rp-home__aapresid {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 28px 28px 28px 32px;
-  border: 1px solid var(--gh-border);
-  border-radius: var(--gh-radius-card);
-  background: var(--gh-surface);
-  /* subtle brand accent bar on the left (clipped by the radius) + resting lift */
-  box-shadow: inset 4px 0 0 var(--gh-accent), var(--gh-shadow-sm);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+/* Tighter hand-off into the final CTA: the principles row closes the
+   section, so #empezar gives back most of its bottom padding. */
+#empezar.rp-home__section {
+  padding-bottom: clamp(40px, 5vw, 64px);
 }
 
-.rp-home__aapresid:hover {
-  border-color: var(--gh-border-strong);
-  box-shadow: inset 4px 0 0 var(--gh-accent), var(--gh-shadow-card);
+/* ============================================================
+   Pricing principles row (moved from /pricing) — icon + title +
+   copy columns with hairline dividers. Base structure comes from
+   pricing.css (.rp-principle*); these gh-token overrides keep it
+   theme-aware on the home.
+   ============================================================ */
+.rp-home__principles {
+  max-width: 1120px;
+  margin: 24px auto 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
 }
 
 @media (min-width: 768px) {
-  .rp-home__aapresid {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 28px 36px 28px 40px;
+  .rp-home__principles {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
   }
 }
 
-.rp-home__aapresid-eyebrow {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--gh-accent);
-  margin-bottom: 8px;
+.rp-home .rp-principle { border-left: 1px solid var(--gh-border); }
+.rp-home .rp-principle:first-child { border-left: none; }
+
+@media (max-width: 767px) {
+  /* single column: horizontal dividers read better than left borders */
+  .rp-home .rp-principle { border-left: none; border-top: 1px solid var(--gh-border); }
+  .rp-home .rp-principle:first-child { border-top: none; }
 }
 
-.rp-home__aapresid-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  font-weight: 700;
-  color: var(--gh-fg);
-  margin: 0 0 6px;
-  letter-spacing: -0.02em;
-}
+.rp-home .rp-principle__title { color: var(--gh-fg); }
+.rp-home .rp-principle__copy { color: var(--gh-fg-muted); }
 
-.rp-home__aapresid-copy {
-  font-size: 0.95rem;
-  color: var(--gh-fg-muted);
-  margin: 0;
-  line-height: 1.55;
-}
+.rp-home .rp-acc-emerald .rp-principle__icon { color: var(--gh-detail-green); }
+.rp-home .rp-acc-blue .rp-principle__icon { color: var(--gh-accent); }
+.rp-home .rp-acc-amber .rp-principle__icon { color: var(--gh-detail-yellow-strong); }
 
-.rp-home__aapresid-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  padding: 11px 20px;
-  border-radius: var(--gh-radius);
-  background: var(--gh-accent);
-  color: var(--gh-accent-fg);
-  border: none;
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-.rp-home__aapresid-btn:hover { background: var(--gh-accent-hover); transform: translateY(-1px); }
-.rp-home__aapresid-btn svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
-.rp-home__aapresid-btn:hover svg { transform: translateX(3px); }
+.rp-home .rp-principle:hover { border-color: var(--gh-border-strong); }

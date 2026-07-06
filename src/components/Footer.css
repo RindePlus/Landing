@@ -296,7 +296,7 @@
 .rp-home .rp-footer__contact-icon--amber {
   background: none;
   border: none;
-  color: var(--gh-detail-green);
+  color: var(--gh-detail-yellow);
 }
 
 .rp-home .rp-footer__contact-label {
@@ -325,8 +325,8 @@
 }
 
 .rp-home .rp-footer__made-dot {
-  background: var(--gh-detail-green);
-  box-shadow: 0 0 0 3px var(--gh-detail-green-soft);
+  background: var(--gh-detail-yellow);
+  box-shadow: 0 0 0 3px var(--gh-detail-yellow-soft);
 }
 
 /* WhatsApp chip stays legible in dark mode */

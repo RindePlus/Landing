@@ -211,6 +211,31 @@ img.logo-image:hover {
   transform: translateY(-50%) scaleX(1);
 }
 
+/* Back button — rendered when the page passes onBack (pricing routes).
+   Styled like the inline nav items (no border), only the arrow sets it apart. */
+.header-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  flex-shrink: 0;
+  border-radius: var(--gh-radius, 6px);
+  background: transparent;
+  border: none;
+  color: var(--gh-fg-muted, #656d76);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.header-back-btn:hover {
+  background: var(--gh-surface-2, #f6f8fa);
+  color: var(--gh-fg, #1f2328);
+}
+
+
 /* Theme toggle — only rendered on the home (GitHub icon button) */
 .header-theme-toggle {
   display: flex;
@@ -238,9 +263,10 @@ img.logo-image:hover {
 }
 
 /* Theme control placement: icon toggle in the header on desktop, sun/moon
-   switch inside the drawer on mobile. */
+   switch inside the drawer on mobile. Menu-less headers (pricing routes)
+   have no drawer, so the icon toggle stays visible at every width. */
 @media (max-width: 767px) {
-  .header-theme-toggle { display: none; }
+  .header:not(.header--no-menu) .header-theme-toggle { display: none; }
 }
 
 /* Drawer footer row holding the theme switch — only inside the mobile drawer. */

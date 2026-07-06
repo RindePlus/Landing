@@ -1,15 +1,17 @@
 import React, { useEffect, useRef } from 'react';
-import logo0 from '../assets/related companies/logo-0.png';
-import logo1 from '../assets/related companies/logo-1.png';
-import logo2 from '../assets/related companies/logo-2.png';
-import logo3 from '../assets/related companies/logo-3.png';
-import logo4 from '../assets/related companies/logo-4.png';
-import logo5 from '../assets/related companies/logo-5.png';
-import logo6 from '../assets/related companies/logo-6.png';
-import conciLogo from '../assets/Conci.jpg';
-import aapresidLogo from '../assets/aapresid.png';
-import adjLogo from '../assets/adj.jpeg';
-import halconLogo from '../assets/Alcon.jpeg';
+import altinaLogo from '../assets/related companies/altina.png';
+import chiaraviglioLogo from '../assets/related companies/chiaraviglio.png';
+import promeLogo from '../assets/related companies/prome.png';
+import muniraLogo from '../assets/related companies/munira.png';
+import chiaratechLogo from '../assets/related companies/chiaratech.png';
+import aaasLogo from '../assets/related companies/aaas.png';
+import kimzzaLogo from '../assets/related companies/kimzza.png';
+import conciLogo from '../assets/related companies/conci.png';
+import aapresidLogo from '../assets/related companies/aapresid.png';
+import adjLogo from '../assets/related companies/adj.png';
+import halconLogo from '../assets/related companies/halcon.png';
+import bioredLogo from '../assets/related companies/biored.png';
+import agroconsultorLogo from '../assets/related companies/agroconsultor.png';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './TrustedCompanies.css';
 
@@ -17,18 +19,26 @@ const TrustedCompanies = () => {
   const carouselRef = useRef(null);
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
+  // `mono: true` → single-color artwork with no brand-color version; on
+  // hover it goes to full black (light mode) / full white (dark mode)
+  // instead of revealing colors.
+  // `h` → rendered height in px. Assets are trimmed to their artwork, so
+  // these values equalise the *visual area* of each logo (taller for
+  // stacked/square marks, shorter for wide wordmarks).
   const companies = [
-    { id: 0, logo: logo0, name: 'Empresa 1' },
-    { id: 1, logo: logo1, name: 'Empresa 2' },
-    { id: 2, logo: logo2, name: 'Empresa 3' },
-    { id: 3, logo: logo3, name: 'Empresa 4' },
-    { id: 4, logo: logo4, name: 'Empresa 5' },
-    { id: 5, logo: logo5, name: 'Empresa 6' },
-    { id: 6, logo: logo6, name: 'Empresa 7' },
-    { id: 7, logo: conciLogo, name: 'Conci' },
-    { id: 8, logo: aapresidLogo, name: 'Aapresid' },
-    { id: 9, logo: adjLogo, name: 'Adj' },
-    { id: 10, logo: halconLogo, name: 'Halcon' },
+    { id: 0, logo: altinaLogo, name: 'Altina', h: 41 },
+    { id: 1, logo: chiaraviglioLogo, name: 'Chiaraviglio Hnos', h: 46 },
+    { id: 2, logo: promeLogo, name: 'Prome AgroNegocios', h: 54 },
+    { id: 3, logo: muniraLogo, name: 'Munira Foods', mono: true, h: 64 },
+    { id: 4, logo: chiaratechLogo, name: 'Chiara Tech', h: 57 },
+    { id: 5, logo: aaasLogo, name: 'Agro Assistance Service', h: 47 },
+    { id: 6, logo: kimzzaLogo, name: 'Kimzza', h: 42 },
+    { id: 7, logo: conciLogo, name: 'Conci Riego', mono: true, h: 45 },
+    { id: 8, logo: aapresidLogo, name: 'Aapresid', h: 40 },
+    { id: 9, logo: adjLogo, name: 'ADJ', h: 50 },
+    { id: 10, logo: halconLogo, name: 'Halcón', h: 50 },
+    { id: 11, logo: bioredLogo, name: 'BioRed', h: 66 },
+    { id: 12, logo: agroconsultorLogo, name: 'Agroconsultor', h: 40 },
   ];
 
   // Duplicate companies for seamless loop
@@ -115,8 +125,15 @@ const TrustedCompanies = () => {
         <div className="carousel-wrapper">
           <div className="carousel-track" ref={carouselRef}>
             {duplicatedCompanies.map((company, index) => (
-              <div key={`${company.id}-${index}`} className="company-logo">
-                <img src={company.logo} alt={company.name} />
+              <div
+                key={`${company.id}-${index}`}
+                className={`company-logo ${company.mono ? 'company-logo--mono' : ''}`}
+              >
+                <img
+                  src={company.logo}
+                  alt={company.name}
+                  style={company.h ? { height: `${company.h}px` } : undefined}
+                />
               </div>
             ))}
           </div>

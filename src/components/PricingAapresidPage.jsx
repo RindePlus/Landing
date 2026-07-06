@@ -4,14 +4,13 @@ import {
   FaHandshake,
   FaCheck,
   FaArrowRight,
-  FaArrowLeft,
   FaTag,
-  FaSeedling,
   FaClock,
   FaStar,
 } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
+import { useRpTheme } from '../hooks/useRpTheme';
 import {
   PLANES_AAPRESID,
   AAPRESID_MIN_SOCIOS,
@@ -20,7 +19,7 @@ import {
   formatUSD,
 } from '../data/pricing';
 import './pricing.css';
-import './PricingEmpresasPage.css';
+import './pricing-gh.css';
 import './PricingAapresidPage.css';
 
 const PRINCIPLES = [
@@ -51,7 +50,7 @@ const PRINCIPLES = [
 
 const EXPECTATIONS = [
   {
-    title: 'Mínimo 10 socios de la regional',
+    title: `Mínimo ${AAPRESID_MIN_SOCIOS} socios de la regional`,
     desc: `El descuento se activa cuando al menos ${AAPRESID_MIN_SOCIOS} socios de la misma regional AAPRESID contratan Rinde Plus, sin importar qué plan elige cada uno.`,
   },
   {
@@ -91,7 +90,10 @@ const PricingAapresidPage = ({
   onOpenWhatsApp,
   onGoToHome,
   onGoToPricing,
+  onGoToPlatforms,
 }) => {
+  const { theme, toggleTheme } = useRpTheme();
+
   const handleCoordinar = () => {
     const msg =
       `Hola, soy de una Regional AAPRESID y quiero conocer más sobre el plan ` +
@@ -111,15 +113,15 @@ const PricingAapresidPage = ({
   );
 
   return (
-    <div className="rp-page">
+    <div className="rp-home rp-pricing rp-aap-page">
       <Header
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
-        menuItems={[
-          { label: 'Volver a inicio', id: 'top', action: onGoToHome },
-          { label: 'Planes', id: 'top', action: onGoToPricing },
-          { label: 'Contacto', id: 'top', action: onOpenWhatsApp },
-        ]}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onGoToPlatforms={onGoToPlatforms}
+        onBack={onGoToPricing}
+        showMenu={false}
       />
 
       <main id="top">
@@ -129,15 +131,11 @@ const PricingAapresidPage = ({
               <FaHandshake />
               Plan aliado institucional
             </span>
-            <h1 className="rp-h1">Plan para Regionales AAPRESID</h1>
-            <button
-              type="button"
-              className="rp-back-link"
-              onClick={onGoToHome}
-            >
-              <FaArrowLeft /> Volver a inicio
-            </button>
-            <p className="rp-aap__hero-copy">
+            <h1 className="rp-home__section-title">
+              Plan para Regionales{' '}
+              <span className="rp-home__section-title-accent">AAPRESID</span>
+            </h1>
+            <p className="rp-home__section-subtitle">
               Un único modelo B2B pensado para que la regional contrate Rinde
               Plus para todos sus socios, con un precio diferencial por ser
               parte de la alianza.
@@ -257,8 +255,9 @@ const PricingAapresidPage = ({
             })}
           </div>
 
-          <div className="rp-emp__expect">
-            <div className="rp-emp__expect-header">
+          <div className="rp-aap__expect">
+            <div className="rp-aap__expect-header">
+              <div className="rp-num-eyebrow">La alianza</div>
               <h2 className="rp-h2">Qué esperamos de la regional</h2>
               <p>
                 Rinde Plus te da la herramienta. La regional aporta la cercanía
@@ -267,13 +266,13 @@ const PricingAapresidPage = ({
               </p>
             </div>
 
-            <ol className="rp-emp__expect-list">
+            <ol className="rp-aap__expect-list">
               {EXPECTATIONS.map(({ title, desc }, i) => (
-                <li key={title} className="rp-emp__expect-item">
-                  <span className="rp-emp__expect-num">{String(i + 1).padStart(2, '0')}</span>
+                <li key={title} className="rp-aap__expect-item">
+                  <span className="rp-aap__expect-num">{String(i + 1).padStart(2, '0')}</span>
                   <div>
-                    <h4 className="rp-emp__expect-title">{title}</h4>
-                    <p className="rp-emp__expect-desc">{desc}</p>
+                    <h4 className="rp-aap__expect-title">{title}</h4>
+                    <p className="rp-aap__expect-desc">{desc}</p>
                   </div>
                 </li>
               ))}
@@ -282,6 +281,7 @@ const PricingAapresidPage = ({
 
           <div className="rp-aap__pricing">
             <div className="rp-aap__pricing-header">
+              <div className="rp-num-eyebrow">Planes</div>
               <h2 className="rp-h2">Los dos planes · Elegí por socio</h2>
               <p>
                 Cada socio contrata el plan que más le sirve: Standard o Full.
@@ -369,6 +369,7 @@ const PricingAapresidPage = ({
 
           <div className="rp-aap__faq">
             <div className="rp-aap__faq-header">
+              <div className="rp-num-eyebrow">FAQ</div>
               <h2>Preguntas frecuentes</h2>
             </div>
             <div className="rp-faq-grid">

@@ -131,15 +131,16 @@
 }
 
 /* ============================================================
-   HOME ONLY (.rp-home): logos ride inside a single full-width WHITE
-   band (see .rp-home__trusted-carousel). No card chrome per logo —
-   they just move over the white. The band stays white in dark mode.
+   HOME ONLY (.rp-home): logos ride directly on the page canvas —
+   no band, no card chrome. They render as monochrome silhouettes
+   (dark in light mode, light in dark mode) and reveal the real
+   brand colors on hover.
    ============================================================ */
 .rp-home .trusted-companies-section {
   background: transparent;
 }
 
-/* Logos bare on the white band — no chip/border/shadow */
+/* Logos bare on the canvas — no chip/border/shadow */
 .rp-home .company-logo {
   background: transparent;
   border: none;
@@ -153,15 +154,56 @@
   transform: none;
 }
 
-/* Edge fade on the moving track so the white band stays solid edge to edge */
+/* Monochrome tint (needs transparent-background sources) */
+.rp-home .company-logo img {
+  filter: grayscale(1) brightness(0);
+  opacity: 0.72;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.rp-home .company-logo:hover img {
+  filter: none;
+  opacity: 1;
+}
+
+[data-rp-theme="dark"] .rp-home .company-logo img {
+  filter: grayscale(1) brightness(0) invert(1);
+  opacity: 0.75;
+}
+
+[data-rp-theme="dark"] .rp-home .company-logo:hover img {
+  filter: none;
+  opacity: 1;
+}
+
+/* Single-color sources (Munira, Conci): hover goes to full black in
+   light mode / full white in dark mode instead of brand color */
+.rp-home .company-logo--mono:hover img {
+  filter: grayscale(1) brightness(0);
+  opacity: 1;
+}
+
+[data-rp-theme="dark"] .rp-home .company-logo--mono:hover img {
+  filter: grayscale(1) brightness(0) invert(1);
+  opacity: 1;
+}
+
+/* Edge fade on the moving track so logos dissolve at the viewport edges */
 .rp-home .carousel-wrapper {
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
 }
 
-/* Band height: compact track padding + logo box size */
-.rp-home .carousel-track { padding: 8px 0; }
-.rp-home .company-logo { height: 100px; width: 160px; }
+/* Uniform sizing: assets are trimmed to their artwork and each <img> gets an
+   inline height tuned for equal visual area, so boxes hug their logo and the
+   40px track gap reads even from one mark to the next. */
+.rp-home .carousel-track { padding: 8px 0; gap: 104px; }
+.rp-home .company-logo { height: 88px; width: auto; padding: 0 6px; }
+.rp-home .company-logo img {
+  width: auto;
+  max-width: none;
+  max-height: none;
+}
 
 /* Draggable: show grab cursor over the moving band */
 .rp-home .carousel-track { cursor: grab; }

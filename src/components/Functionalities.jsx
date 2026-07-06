@@ -338,8 +338,21 @@ const Functionalities = () => {
       if (isJack()) {
         const extra = Math.max(0, track.scrollWidth - window.innerWidth);
         wrapper.style.height = `${window.innerHeight + extra}px`;
+        // The pinned stage fills the viewport but its content is top-aligned,
+        // so tall screens leave dead space under the panels. Pull the next
+        // section up over that dead zone (keeping 80px of breathing room) so
+        // the hand-off out of the scroll-jack reads like a normal section gap.
+        const sticky = track.parentElement;
+        const stickyTop = sticky.getBoundingClientRect().top;
+        let contentBottom = 0;
+        track.querySelectorAll('.rp-fx__text > *, .rp-fx__visual > *').forEach((el) => {
+          contentBottom = Math.max(contentBottom, el.getBoundingClientRect().bottom - stickyTop);
+        });
+        const dead = contentBottom > 0 ? sticky.offsetHeight - contentBottom : 0;
+        wrapper.style.marginBottom = `-${Math.max(0, Math.round(dead - 80))}px`;
       } else {
         wrapper.style.height = '';
+        wrapper.style.marginBottom = '';
         track.style.transform = '';
       }
     };
@@ -400,7 +413,6 @@ const Functionalities = () => {
   return (
     <section id="funcionalidades" className="rp-fx-section">
       <div ref={headRef} className={`rp-fx__head ${headVisible ? 'is-visible' : ''}`}>
-        <div className="rp-fx__eyebrow">La plataforma</div>
         <h2 className="rp-fx__title">
           Funcionalidades que{' '}
           <span className="rp-fx__title-accent">trabajan por tu campaña</span>

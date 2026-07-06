@@ -126,6 +126,8 @@ function App() {
             onGoToHome={() => navigate('/')}
             onGoToEmpresas={() => navigate('/pricing/empresas')}
             onGoToProductores={() => navigate('/pricing/productores')}
+            onGoToAapresid={() => navigate('/pricing/aapresid')}
+            onGoToPlatforms={() => navigate('/plataformas')}
           />
         );
       case '/pricing/productores':
@@ -152,6 +154,7 @@ function App() {
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
             onGoToHome={() => navigate('/')}
             onGoToPricing={() => navigate('/pricing')}
+            onGoToPlatforms={() => navigate('/plataformas')}
           />
         );
       default:
@@ -160,7 +163,6 @@ function App() {
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
             onGoToPlatforms={() => navigate('/plataformas')}
             onGoToPricing={() => navigate('/pricing')}
-            onGoToAapresidPricing={() => navigate('/pricing/aapresid')}
           />
         );
     }

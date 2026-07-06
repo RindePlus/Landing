@@ -12,6 +12,8 @@ const Header = ({
   theme,
   onToggleTheme,
   onGoToPlatforms,
+  onBack,
+  backLabel = 'Volver',
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef(null);
@@ -68,10 +70,23 @@ const Header = ({
   ];
 
   return (
-    <header ref={headerRef} className={`header ${isMenuOpen ? 'header--menu-open' : ''}`}>
+    <header
+      ref={headerRef}
+      className={`header ${isMenuOpen ? 'header--menu-open' : ''} ${!showMenu ? 'header--no-menu' : ''}`}
+    >
       <div className="header-content">
         {/* LEFT — quick access (inline nav on desktop / hamburger + drawer on mobile) */}
         <div className="header-left">
+          {onBack && (
+            <button
+              type="button"
+              className="header-back-btn"
+              onClick={onBack}
+            >
+              {backLabel}
+            </button>
+          )}
+
           {showMenu && (
             <button
               type="button"

@@ -1,0 +1,84 @@
+/* ============================================================
+   AAPRESID mention banner (shared — rendered on /pricing).
+   GitHub-skin tokens; needs the .rp-home scope on the page shell.
+   ============================================================ */
+.rp-home__aapresid-section { padding-top: 0; }
+
+/* Snappier entrance, matching the lower-home zone timing */
+.rp-home__aapresid-section .rp-reveal { transition-duration: 0.55s; }
+
+.rp-home__aapresid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 28px 28px 32px;
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+  /* subtle brand accent bar on the left (clipped by the radius) + resting lift */
+  box-shadow: inset 4px 0 0 var(--gh-accent), var(--gh-shadow-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rp-home__aapresid:hover {
+  border-color: var(--gh-border-strong);
+  box-shadow: inset 4px 0 0 var(--gh-accent), var(--gh-shadow-card);
+}
+
+@media (min-width: 768px) {
+  .rp-home__aapresid {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 36px 28px 40px;
+  }
+}
+
+.rp-home__aapresid-eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gh-accent);
+  margin-bottom: 8px;
+}
+
+.rp-home__aapresid-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--gh-fg);
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.rp-home__aapresid-copy {
+  font-size: 0.95rem;
+  color: var(--gh-fg-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.rp-home__aapresid-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 11px 20px;
+  border-radius: var(--gh-radius);
+  background: var(--gh-accent);
+  color: var(--gh-accent-fg);
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.rp-home__aapresid-btn:hover { background: var(--gh-accent-hover); transform: translateY(-1px); }
+.rp-home__aapresid-btn svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
+.rp-home__aapresid-btn:hover svg { transform: translateX(3px); }

@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaInfinity, FaChartLine, FaCalendarAlt } from 'react-icons/fa';
 import { LuArrowRight } from 'react-icons/lu';
 import Header from './Header';
 import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
 import Functionalities from './Functionalities';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import Reveal from './Reveal';
+import { useRpTheme } from '../hooks/useRpTheme';
 import './pricing.css';
 import './HomePage.css';
 
@@ -27,6 +27,32 @@ const BENEFITS = [
   {
     title: 'Mejora en la rentabilidad',
     copy: 'Cada decisión vale plata. Nosotros te ayudamos a que valga más.',
+  },
+];
+
+// Pricing principles (moved here from /pricing) — shown under the
+// "Conocé más" cards.
+const PRINCIPLES = [
+  {
+    Icon: FaInfinity,
+    title: 'Acceso ilimitado',
+    copy:
+      'Todos los lotes y hectáreas que necesites, en cada uno de los planes. Sin tope, sin asteriscos, sin letra chica.',
+    accent: 'rp-acc-blue',
+  },
+  {
+    Icon: FaChartLine,
+    title: 'Sin costo por escala',
+    copy:
+      'El precio refleja lo que cuesta construir la herramienta, no el tamaño del campo del cliente.',
+    accent: 'rp-acc-emerald',
+  },
+  {
+    Icon: FaCalendarAlt,
+    title: 'Un plan anual simple',
+    copy:
+      'Precio anual único en dólares. Abajo te mostramos el equivalente mensual, sin letra chica ni descuentos con asteriscos.',
+    accent: 'rp-acc-amber',
   },
 ];
 
@@ -72,23 +98,6 @@ const ACCORDION = [
 ];
 
 /* ---------------- Subcomponents ---------------- */
-
-const Reveal = ({ children, className = '', id, delay }) => {
-  const [ref, isVisible] = useIntersectionObserver({
-    threshold: 0.15,
-    triggerOnce: true,
-  });
-  const delayClass = delay ? `rp-reveal--delay-${delay}` : '';
-  return (
-    <div
-      id={id}
-      ref={ref}
-      className={`rp-reveal ${delayClass} ${isVisible ? 'rp-is-visible' : ''} ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 const HeroSection = ({ onGoToPlatforms, onScrollToFuncionalidades }) => (
   <section className="rp-home__hero" id="top">
@@ -162,8 +171,8 @@ const AntesDeEmpezarSection = ({ onGoToPricing }) => (
     <Reveal className="rp-home__section-header">
       <div className="rp-num-eyebrow">Antes de empezar</div>
       <h2 className="rp-home__section-title">
-        Cómo arrancás y{' '}
-        <span className="rp-home__section-title-accent">para quién es</span>
+        Conocé más{' '}
+        <span className="rp-home__section-title-accent">sobre Rinde Plus</span>
       </h2>
       <p className="rp-home__section-subtitle">
         Todo lo que necesitás saber para dar el primer paso.
@@ -202,30 +211,23 @@ const AntesDeEmpezarSection = ({ onGoToPricing }) => (
         <LuArrowRight />
       </button>
     </Reveal>
-  </section>
-);
 
-const AapresidBanner = ({ onGoToAapresidPricing }) => (
-  <section className="rp-home__section rp-home__aapresid-section">
-    <Reveal>
-      <div className="rp-home__aapresid">
-        <div className="rp-home__aapresid-text">
-          <span className="rp-home__aapresid-eyebrow">Programa AAPRESID</span>
-          <h2 className="rp-home__aapresid-title">
-            ¿Sos socio de una Regional de AAPRESID?
-          </h2>
-          <p className="rp-home__aapresid-copy">
-            Tenemos un programa y precios especiales para socios y ATR de la red.
-          </p>
-        </div>
-        <button
-          type="button"
-          className="rp-home__aapresid-btn"
-          onClick={onGoToAapresidPricing}
-        >
-          Ver planes AAPRESID
-          <LuArrowRight />
-        </button>
+    <Reveal delay={4}>
+      <div className="rp-home__principles">
+        {PRINCIPLES.map((p) => {
+          const IconComp = p.Icon;
+          return (
+            <article key={p.title} className={`rp-principle ${p.accent}`}>
+              <div className="rp-principle__body">
+                <div className="rp-principle__icon">
+                  <IconComp />
+                </div>
+                <h3 className="rp-principle__title">{p.title}</h3>
+                <p className="rp-principle__copy">{p.copy}</p>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </Reveal>
   </section>
@@ -233,11 +235,6 @@ const AapresidBanner = ({ onGoToAapresidPricing }) => (
 
 const TrustedSection = () => (
   <section className="rp-home__trusted" id="clientes">
-    <div className="rp-home__trusted-header">
-      <Reveal>
-        <div className="rp-num-eyebrow">Confían en nosotros</div>
-      </Reveal>
-    </div>
     <Reveal className="rp-home__trusted-carousel">
       <TrustedCompanies />
     </Reveal>
@@ -246,30 +243,27 @@ const TrustedSection = () => (
 
 const FinalCta = ({ onOpenWhatsApp }) => (
   <section className="rp-home__cta">
+    <div className="rp-home__cta-grid" aria-hidden="true" />
     <Reveal>
-      <div className="rp-home__cta-card">
-        <div className="rp-home__cta-grid" aria-hidden="true" />
-        <div className="rp-home__cta-inner">
-          <h2 className="rp-home__cta-title">
-            ¿Querés saber más sobre{' '}
-            <em>cómo podemos ayudarte?</em>
-          </h2>
-          <p className="rp-home__cta-copy">
-            Contanos un poco de tu operación y coordinamos una llamada. Sin
-            formularios largos, sin vendedores: el equipo de Rinde Plus te
-            responde directo.
-          </p>
-          <a
-            href="https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rp-home__cta-btn"
-          >
-            <FaWhatsapp />
-            Escribinos por WhatsApp
-          </a>
-          <div className="rp-home__cta-hint">Respuesta en menos de 24hs</div>
-        </div>
+      <div className="rp-home__cta-inner">
+        <h2 className="rp-home__cta-title">
+          ¿Querés saber más sobre{' '}
+          <em>cómo podemos ayudarte?</em>
+        </h2>
+        <p className="rp-home__cta-copy">
+          Contanos un poco de tu operación y coordinamos una llamada. Sin
+          formularios largos, sin vendedores: el equipo de Rinde Plus te
+          responde directo.
+        </p>
+        <a
+          href="https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rp-home__cta-btn"
+        >
+          Escribinos por WhatsApp
+        </a>
+        <div className="rp-home__cta-hint">Respuesta en menos de 24hs</div>
       </div>
     </Reveal>
   </section>
@@ -277,29 +271,8 @@ const FinalCta = ({ onOpenWhatsApp }) => (
 
 /* ---------------- Main component ---------------- */
 
-const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing, onGoToAapresidPricing }) => {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') return 'light';
-    const stored = localStorage.getItem('rp-theme');
-    if (stored === 'light' || stored === 'dark') return stored;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute('data-rp-theme', theme);
-    try {
-      localStorage.setItem('rp-theme', theme);
-    } catch (e) {
-      /* localStorage unavailable — ignore */
-    }
-    // Remove the attribute when leaving the home so other routes stay unthemed.
-    return () => root.removeAttribute('data-rp-theme');
-  }, [theme]);
-
-  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
+const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing }) => {
+  const { theme, toggleTheme } = useRpTheme();
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -341,8 +314,6 @@ const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing, onGoToAapres
         <BenefitsSection />
 
         <AntesDeEmpezarSection onGoToPricing={onGoToPricing} />
-
-        <AapresidBanner onGoToAapresidPricing={onGoToAapresidPricing} />
 
         <FinalCta onOpenWhatsApp={onOpenWhatsApp} />
       </main>

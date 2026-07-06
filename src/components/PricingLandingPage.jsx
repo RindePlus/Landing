@@ -1,43 +1,11 @@
-import {
-  FaInfinity,
-  FaChartLine,
-  FaCalendarAlt,
-  FaBuilding,
-  FaSeedling,
-  FaArrowRight,
-  FaCheck,
-} from 'react-icons/fa';
+import { FaArrowRight, FaCheck } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
+import AapresidBanner from './AapresidBanner';
+import { useRpTheme } from '../hooks/useRpTheme';
 import './pricing.css';
+import './pricing-gh.css';
 import './PricingLandingPage.css';
-
-const PRINCIPLES = [
-  {
-    Icon: FaInfinity,
-    title: 'Acceso ilimitado',
-    copy:
-      'Todos los lotes y hectáreas que necesites, en cada uno de los planes. Sin tope, sin asteriscos, sin letra chica.',
-    accent: 'rp-acc-emerald',
-    delay: 'rp-d-2',
-  },
-  {
-    Icon: FaChartLine,
-    title: 'Sin costo por escala',
-    copy:
-      'El precio refleja lo que cuesta construir la herramienta, no el tamaño del campo del cliente.',
-    accent: 'rp-acc-blue',
-    delay: 'rp-d-3',
-  },
-  {
-    Icon: FaCalendarAlt,
-    title: 'Un plan anual simple',
-    copy:
-      'Precio anual único en dólares. Abajo te mostramos el equivalente mensual, sin letra chica ni descuentos con asteriscos.',
-    accent: 'rp-acc-amber',
-    delay: 'rp-d-4',
-  },
-];
 
 const EMPRESAS_POINTS = [
   'Una plataforma centralizada para toda tu red',
@@ -56,51 +24,38 @@ const PricingLandingPage = ({
   onGoToHome,
   onGoToEmpresas,
   onGoToProductores,
+  onGoToAapresid,
+  onGoToPlatforms,
 }) => {
+  const { theme, toggleTheme } = useRpTheme();
+
   return (
-    <div className="rp-page">
+    <div className="rp-home rp-pricing">
       <Header
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
-        menuItems={[
-          { label: 'Volver a inicio', id: 'top', action: onGoToHome },
-          { label: 'Empresas', id: 'top', action: onGoToEmpresas },
-          { label: 'Productores', id: 'top', action: onGoToProductores },
-          { label: 'Contacto', id: 'top', action: onOpenWhatsApp },
-        ]}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onGoToPlatforms={onGoToPlatforms}
+        onBack={onGoToHome}
+        showMenu={false}
       />
 
       <main id="top">
-        <section className="rp-container">
-          <div className="rp-pricing-landing__hero rp-fade-in rp-d-1">
-            <h1 className="rp-h1">¿Cómo vas a usar Rinde Plus?</h1>
-            <p className="rp-pricing-landing__hero-copy">
+        <section className="rp-home__section rp-pricing__hero">
+          <div className="rp-home__section-header rp-fade-in rp-d-1">
+            <div className="rp-num-eyebrow">Planes y precios</div>
+            <h1 className="rp-home__section-title">
+              ¿Cómo vas a usar{' '}
+              <span className="rp-home__section-title-accent">Rinde Plus</span>?
+            </h1>
+            <p className="rp-home__section-subtitle">
               Tenemos dos modelos pensados para dos formas muy distintas de
               tomar decisiones a campo. Elegí el que está hecho para vos.
             </p>
           </div>
 
-          <div className="rp-pricing-landing__principles">
-            {PRINCIPLES.map((p) => {
-              const IconComp = p.Icon;
-              return (
-                <article
-                  key={p.title}
-                  className={`rp-principle ${p.accent} rp-card-in ${p.delay}`}
-                >
-                  <div className="rp-principle__body">
-                    <div className="rp-principle__icon">
-                      <IconComp />
-                    </div>
-                    <h3 className="rp-principle__title">{p.title}</h3>
-                    <p className="rp-principle__copy">{p.copy}</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="rp-pricing-landing__selectors">
+          <div className="rp-pricing__selectors">
             <button
               type="button"
               onClick={onGoToEmpresas}
@@ -164,6 +119,8 @@ const PricingLandingPage = ({
             </button>
           </div>
         </section>
+
+        <AapresidBanner onGoToAapresidPricing={onGoToAapresid} />
       </main>
 
       <Footer onOpenWhatsApp={onOpenWhatsApp} />

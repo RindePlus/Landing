@@ -1,0 +1,90 @@
+/* ============================================================
+   pricing-gh.css — GitHub-theme skin for the pricing routes.
+   Scope: `.rp-pricing`, applied together with `.rp-home` (which
+   brings the gh header/footer skins, canvas background and fonts).
+   Overrides the light-only primitives from pricing.css with
+   --gh-* tokens so pricing follows the home aesthetic, dark mode
+   included. /pricing/empresas and /pricing/productores don't use
+   this scope and keep the legacy look.
+   ============================================================ */
+
+/* Shell — clearance for the fixed gh header */
+.rp-pricing main {
+  padding-top: 64px;
+}
+
+/* Typography */
+.rp-pricing .rp-h1,
+.rp-pricing .rp-h2 {
+  color: var(--gh-fg);
+}
+
+/* Principle columns: the gh-token skin for .rp-principle now lives in
+   HomePage.css under `.rp-home` (covers the home and the AAPRESID page). */
+
+/* ---- Check bullets ---- */
+.rp-pricing .rp-check {
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent);
+}
+
+/* ---- Plan cards ---- */
+.rp-pricing .rp-plan {
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  box-shadow: var(--gh-shadow-card);
+}
+
+.rp-pricing .rp-plan:hover {
+  transform: translateY(-2px);
+  border-color: var(--gh-border-strong);
+  box-shadow: var(--gh-shadow-overlay);
+}
+
+.rp-pricing .rp-plan__name,
+.rp-pricing .rp-plan__price-amount { color: var(--gh-fg); }
+
+.rp-pricing .rp-plan__tagline,
+.rp-pricing .rp-plan__price-period,
+.rp-pricing .rp-plan__price-monthly { color: var(--gh-fg-muted); }
+
+.rp-pricing .rp-plan__list li { color: var(--gh-fg); }
+.rp-pricing .rp-plan__footer-note { color: var(--gh-fg-subtle); }
+
+.rp-pricing .rp-plan__badge {
+  background: var(--gh-accent);
+  box-shadow: var(--gh-shadow-card);
+}
+
+.rp-pricing .rp-plan__badge--emerald {
+  background: var(--gh-detail-green);
+  box-shadow: var(--gh-shadow-card);
+}
+
+/* ---- CTA button (GitHub primary) ---- */
+.rp-pricing .rp-cta {
+  background: var(--gh-accent);
+  color: var(--gh-accent-fg);
+  border-radius: var(--gh-radius);
+  font-weight: 600;
+  box-shadow: var(--gh-shadow-sm);
+}
+
+.rp-pricing .rp-cta:hover {
+  background: var(--gh-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--gh-shadow-card);
+}
+
+.rp-pricing .rp-cta__help { color: var(--gh-fg-subtle); }
+
+/* ---- FAQ ---- */
+.rp-pricing .rp-faq-card { border-top: 1px solid var(--gh-border); }
+.rp-pricing .rp-faq-card:last-child { border-bottom: 1px solid var(--gh-border); }
+.rp-pricing .rp-faq-card h3 { color: var(--gh-fg); }
+.rp-pricing .rp-faq-card p { color: var(--gh-fg-muted); }
+
+/* ---- Back link (inline, if used inside content) ---- */
+.rp-pricing .rp-back-link { color: var(--gh-fg-muted); }
+.rp-pricing .rp-back-link:hover { color: var(--gh-fg); }
