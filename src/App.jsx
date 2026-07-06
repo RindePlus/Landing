@@ -140,7 +140,7 @@ function App() {
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
             onGoToHome={() => navigate('/')}
             onGoToPricing={() => navigate('/pricing')}
-            onGoToEmpresas={() => navigate('/pricing/empresas')}
+            onGoToPlatforms={() => navigate('/plataformas')}
           />
         );
       case '/pricing/empresas':
@@ -149,7 +149,7 @@ function App() {
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
             onGoToHome={() => navigate('/')}
             onGoToPricing={() => navigate('/pricing')}
-            onGoToProductores={() => navigate('/pricing/productores')}
+            onGoToPlatforms={() => navigate('/plataformas')}
           />
         );
       case '/pricing/Aapresid':

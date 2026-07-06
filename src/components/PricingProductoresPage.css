@@ -1,26 +1,41 @@
 /* ============================================================
-   PricingProductoresPage — /pricing/productores
+   PricingProductoresPage — /pricing/productores (GitHub skin)
+   Tokens --gh-*; shared primitives come re-skinned from
+   pricing-gh.css under the .rp-pricing scope.
    ============================================================ */
 
+/* ---- Hero ---- */
 .rp-prod__hero {
   text-align: center;
   margin-bottom: 56px;
 }
 
-.rp-prod__hero .rp-h1 { margin-bottom: 16px; }
+.rp-prod__hero .rp-home__section-title { margin: 18px 0 16px; }
 
-.rp-prod__hero-copy {
-  font-size: clamp(1rem, 1.2vw, 1.125rem);
-  color: var(--rp-gray-500);
-  max-width: 42rem;
-  margin: 16px auto 0;
-  line-height: 1.65;
+.rp-prod__hero .rp-home__section-subtitle {
+  max-width: 44rem;
+  margin: 0 auto;
 }
 
+.rp-prod__hero-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gh-detail-yellow-strong);
+  background: var(--gh-detail-yellow-soft);
+  border: 1px solid var(--gh-border);
+}
+
+/* ---- Principles ---- */
 .rp-prod__principles {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 8px;
   margin-bottom: 80px;
 }
 
@@ -31,27 +46,23 @@
   }
 }
 
+/* ============================================================
+   Steps — "Cómo funciona el acompañamiento"
+   ============================================================ */
 .rp-prod__steps {
   margin-bottom: 80px;
 }
 
 .rp-prod__steps-header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
-.rp-prod__steps-header h2 {
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 800;
-  color: var(--rp-gray-900);
-  margin: 0 0 8px;
-  letter-spacing: -0.01em;
-}
+.rp-prod__steps-header .rp-h2 { margin-bottom: 12px; }
 
 .rp-prod__steps-header p {
   font-size: 0.95rem;
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   max-width: 32rem;
   margin: 0 auto;
   line-height: 1.6;
@@ -73,58 +84,50 @@
 
 .rp-prod__step {
   position: relative;
-  background: #fff;
-  border: 1px solid var(--rp-gray-200);
-  border-radius: 20px;
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
   overflow: hidden;
-  box-shadow: 0 6px 14px -6px rgba(15, 23, 42, 0.1);
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.35s;
+  box-shadow: var(--gh-shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .rp-prod__step:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 32px -12px rgba(15, 23, 42, 0.18);
-  border-color: var(--rp-blue-300);
-}
-
-.rp-prod__step-bar {
-  display: none;
+  transform: translateY(-2px);
+  border-color: var(--gh-border-strong);
+  box-shadow: var(--gh-shadow-card);
 }
 
 .rp-prod__step-body { padding: 24px; }
 
 .rp-prod__step-num {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: 2.6rem;
   font-weight: 800;
-  color: var(--rp-gold-200);
+  color: var(--gh-accent);
   line-height: 1;
   margin-bottom: 12px;
   letter-spacing: -0.02em;
-  transition: color 0.4s ease;
-}
-
-.rp-prod__step:hover .rp-prod__step-num {
-  color: var(--rp-gold-300);
+  font-variant-numeric: tabular-nums;
 }
 
 .rp-prod__step h3 {
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 700;
-  color: var(--rp-gray-900);
+  color: var(--gh-fg);
   margin: 0 0 4px;
 }
 
 .rp-prod__step p {
-  font-size: 0.8rem;
-  color: var(--rp-gray-600);
+  font-size: 0.82rem;
+  color: var(--gh-fg-muted);
   line-height: 1.55;
   margin: 0;
 }
 
 /* ============================================================
-   Plan card + calculator area
+   Plan card
    ============================================================ */
 .rp-prod__pricing {
   margin-bottom: 64px;
@@ -139,7 +142,7 @@
 
 .rp-prod__pricing-header p {
   font-size: 0.95rem;
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   max-width: 42rem;
   margin: 0 auto;
   line-height: 1.6;
@@ -156,14 +159,13 @@
   max-width: 720px;
 }
 
-/* Plan card */
 .rp-prod__plan {
   position: relative;
-  background: #fff;
-  border-radius: 22px;
-  border: 2px solid var(--rp-blue-500);
+  background: var(--gh-surface);
+  border-radius: var(--gh-radius-card);
+  border: 1px solid var(--gh-accent);
   padding: clamp(28px, 3vw, 40px);
-  box-shadow: 0 24px 48px -16px rgba(29, 78, 216, 0.28);
+  box-shadow: var(--gh-shadow-card);
   margin-top: 14px;
 }
 
@@ -179,9 +181,9 @@
   border-radius: 999px;
   font-size: 0.72rem;
   font-weight: 700;
-  color: #fff;
-  background: var(--rp-blue-600);
-  box-shadow: 0 8px 16px -4px rgba(29, 78, 216, 0.45);
+  color: var(--gh-accent-fg);
+  background: var(--gh-accent);
+  box-shadow: var(--gh-shadow-card);
   white-space: nowrap;
 }
 
@@ -194,7 +196,7 @@
 }
 
 .rp-prod__plan-icon {
-  color: var(--rp-blue-600);
+  color: var(--gh-detail-green);
   font-size: 28px;
   flex-shrink: 0;
   display: flex;
@@ -205,14 +207,14 @@
   font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 800;
-  color: var(--rp-gray-900);
+  color: var(--gh-fg);
   margin: 0;
   letter-spacing: -0.02em;
 }
 
 .rp-prod__plan-tagline {
   font-size: 0.88rem;
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   margin: 4px 0 0;
   line-height: 1.5;
 }
@@ -231,21 +233,21 @@
   font-family: var(--font-heading);
   font-size: 3.2rem;
   font-weight: 800;
-  color: var(--rp-gray-900);
+  color: var(--gh-fg);
   line-height: 1;
   letter-spacing: -0.02em;
 }
 
 .rp-prod__price-period {
   font-size: 0.95rem;
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   font-weight: 500;
 }
 
 .rp-prod__price-monthly {
   margin-top: 6px;
   font-size: 0.85rem;
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   font-style: italic;
 }
 
@@ -255,22 +257,25 @@
   align-items: flex-start;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 14px;
-  background: var(--rp-amber-50);
-  border: 1px solid var(--rp-amber-200);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-detail-yellow-soft);
+  border: 1px solid var(--gh-border);
   font-size: 0.88rem;
-  color: var(--rp-gray-700);
+  color: var(--gh-fg-muted);
   line-height: 1.5;
 }
 
 .rp-prod__extra-icon {
-  color: var(--rp-amber-600);
+  color: var(--gh-detail-yellow-strong);
   font-size: 16px;
   margin-top: 2px;
   flex-shrink: 0;
 }
 
-.rp-prod__extra strong { color: var(--rp-amber-800); font-weight: 700; }
+.rp-prod__extra strong {
+  color: var(--gh-detail-yellow-strong);
+  font-weight: 700;
+}
 
 .rp-prod__plan-list {
   list-style: none;
@@ -290,7 +295,7 @@
   align-items: flex-start;
   gap: 10px;
   font-size: 0.88rem;
-  color: var(--rp-gray-700);
+  color: var(--gh-fg);
   line-height: 1.45;
 }
 
@@ -310,6 +315,6 @@
   font-family: var(--font-heading);
   font-size: clamp(1.5rem, 2.4vw, 1.85rem);
   font-weight: 800;
-  color: var(--rp-gray-900);
+  color: var(--gh-fg);
   margin: 0;
 }

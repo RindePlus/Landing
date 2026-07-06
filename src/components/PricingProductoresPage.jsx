@@ -5,13 +5,14 @@ import {
   FaLeaf,
   FaCheck,
   FaArrowRight,
-  FaArrowLeft,
   FaPlus,
 } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
+import { useRpTheme } from '../hooks/useRpTheme';
 import { PLAN_PRODUCTOR, buildWhatsAppUrl } from '../data/pricing';
 import './pricing.css';
+import './pricing-gh.css';
 import './PricingProductoresPage.css';
 
 const PRINCIPLES = [
@@ -87,8 +88,10 @@ const PricingProductoresPage = ({
   onOpenWhatsApp,
   onGoToHome,
   onGoToPricing,
-  onGoToEmpresas,
+  onGoToPlatforms,
 }) => {
+  const { theme, toggleTheme } = useRpTheme();
+
   const handleContratar = () => {
     const msg =
       `Hola, soy productor y me interesa el plan Premium de Rinde Plus. ` +
@@ -97,30 +100,26 @@ const PricingProductoresPage = ({
   };
 
   return (
-    <div className="rp-page">
+    <div className="rp-home rp-pricing rp-prod-page">
       <Header
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
-        menuItems={[
-          { label: 'Volver a inicio', id: 'top', action: onGoToHome },
-          { label: 'Planes', id: 'top', action: onGoToPricing },
-          { label: 'Empresas', id: 'top', action: onGoToEmpresas },
-          { label: 'Contacto', id: 'top', action: onOpenWhatsApp },
-        ]}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onGoToPlatforms={onGoToPlatforms}
+        onBack={onGoToPricing}
+        showMenu={false}
       />
 
       <main id="top">
         <section className="rp-container">
           <div className="rp-prod__hero rp-fade-in rp-d-1">
-            <h1 className="rp-h1">Rinde Plus para Productores</h1>
-            <button
-              type="button"
-              className="rp-back-link"
-              onClick={onGoToPricing}
-            >
-              <FaArrowLeft /> Volver a la selección
-            </button>
-            <p className="rp-prod__hero-copy">
+            <span className="rp-prod__hero-chip">Modelo B2C</span>
+            <h1 className="rp-home__section-title">
+              Rinde Plus para{' '}
+              <span className="rp-home__section-title-accent">Productores</span>
+            </h1>
+            <p className="rp-home__section-subtitle">
               La herramienta completa más un equipo agronómico acompañándote
               toda la campaña. Vos sos dueño de la decisión. Nosotros de que no
               te falte nada.
@@ -149,7 +148,8 @@ const PricingProductoresPage = ({
 
           <div className="rp-prod__steps">
             <div className="rp-prod__steps-header">
-              <h2>Cómo funciona el acompañamiento</h2>
+              <div className="rp-num-eyebrow">Acompañamiento</div>
+              <h2 className="rp-h2">Cómo funciona el acompañamiento</h2>
               <p>
                 Cuatro momentos claros donde el equipo Rinde Plus trabaja con
                 vos, sobre los lotes que elijas.
@@ -159,7 +159,6 @@ const PricingProductoresPage = ({
             <div className="rp-prod__steps-grid">
               {STEPS.map(({ num, title, copy }) => (
                 <article key={num} className="rp-prod__step">
-                  <div className="rp-prod__step-bar" />
                   <div className="rp-prod__step-body">
                     <div className="rp-prod__step-num">{num}</div>
                     <h3>{title}</h3>
@@ -172,6 +171,7 @@ const PricingProductoresPage = ({
 
           <div className="rp-prod__pricing">
             <div className="rp-prod__pricing-header">
+              <div className="rp-num-eyebrow">El plan</div>
               <h2 className="rp-h2">Conocés los resultados · Elegí cómo empezar</h2>
               <p>
                 Un plan único: la herramienta completa + nuestro equipo
@@ -244,6 +244,7 @@ const PricingProductoresPage = ({
 
           <div className="rp-prod__faq">
             <div className="rp-prod__faq-header">
+              <div className="rp-num-eyebrow">FAQ</div>
               <h2>Preguntas frecuentes</h2>
             </div>
             <div className="rp-faq-grid">

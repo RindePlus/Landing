@@ -1,26 +1,41 @@
 /* ============================================================
-   PricingEmpresasPage — /pricing/empresas
+   PricingEmpresasPage — /pricing/empresas (GitHub skin)
+   Tokens --gh-*; shared primitives come re-skinned from
+   pricing-gh.css under the .rp-pricing scope.
    ============================================================ */
 
+/* ---- Hero ---- */
 .rp-emp__hero {
   text-align: center;
   margin-bottom: 56px;
 }
 
-.rp-emp__hero .rp-h1 { margin-bottom: 16px; }
+.rp-emp__hero .rp-home__section-title { margin: 18px 0 16px; }
 
-.rp-emp__hero-copy {
-  font-size: clamp(1rem, 1.2vw, 1.125rem);
-  color: var(--rp-gray-500);
-  max-width: 42rem;
-  margin: 16px auto 0;
-  line-height: 1.65;
+.rp-emp__hero .rp-home__section-subtitle {
+  max-width: 44rem;
+  margin: 0 auto;
 }
 
+.rp-emp__hero-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gh-accent);
+  background: var(--gh-accent-soft);
+  border: 1px solid var(--gh-border);
+}
+
+/* ---- Principles ---- */
 .rp-emp__principles {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 8px;
   margin-bottom: 80px;
 }
 
@@ -32,7 +47,7 @@
 }
 
 /* ============================================================
-   Expectations card
+   Expectations — numbered editorial list (home benefits style)
    ============================================================ */
 .rp-emp__expect {
   margin-bottom: 80px;
@@ -47,7 +62,7 @@
 
 .rp-emp__expect-header p {
   font-size: 0.95rem;
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   max-width: 42rem;
   margin: 0 auto;
   line-height: 1.6;
@@ -57,39 +72,60 @@
   list-style: none;
   padding: 0;
   margin: 0 auto;
-  max-width: 720px;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 1000px;
+}
+
+@media (min-width: 768px) {
+  .rp-emp__expect-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 48px;
+  }
 }
 
 .rp-emp__expect-item {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
+  gap: 18px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--gh-border-muted);
+}
+
+.rp-emp__expect-item:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  .rp-emp__expect-item:nth-last-child(2) {
+    border-bottom: none;
+  }
 }
 
 .rp-emp__expect-num {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
   font-weight: 800;
-  color: var(--rp-gold-500);
   line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--gh-accent);
   flex-shrink: 0;
   margin-top: 2px;
+  font-variant-numeric: tabular-nums;
 }
 
 .rp-emp__expect-title {
   font-family: var(--font-heading);
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--rp-gray-900);
+  color: var(--gh-fg);
   margin: 0 0 4px;
 }
 
 .rp-emp__expect-desc {
   font-size: 0.92rem;
-  color: var(--rp-gray-600);
+  color: var(--gh-fg-muted);
   line-height: 1.6;
   margin: 0;
 }
@@ -110,7 +146,7 @@
 
 .rp-emp__pricing-header p {
   font-size: 0.95rem;
-  color: var(--rp-gray-500);
+  color: var(--gh-fg-muted);
   max-width: 42rem;
   margin: 0 auto;
   line-height: 1.6;
@@ -137,14 +173,19 @@
   padding: 5px 12px;
   border-radius: 999px;
   font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--rp-amber-800);
-  background: var(--rp-amber-50);
-  border: 1px solid var(--rp-amber-200);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gh-detail-yellow-strong);
+  background: var(--gh-detail-yellow-soft);
+  border: 1px solid var(--gh-border);
   align-self: flex-start;
   margin-bottom: 24px;
 }
 
+/* ============================================================
+   FAQ
+   ============================================================ */
 .rp-emp__faq {
   margin-top: 16px;
 }
@@ -158,6 +199,6 @@
   font-family: var(--font-heading);
   font-size: clamp(1.5rem, 2.4vw, 1.85rem);
   font-weight: 800;
-  color: var(--rp-gray-900);
+  color: var(--gh-fg);
   margin: 0;
 }

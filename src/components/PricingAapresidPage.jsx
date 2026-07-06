@@ -33,9 +33,9 @@ const PRINCIPLES = [
   },
   {
     Icon: FaInfinity,
-    title: 'Todo ilimitado, por siempre',
+    title: 'Lotes ilimitados',
     copy:
-      'Cada cuenta tiene acceso ilimitado a lotes, hectáreas y módulos. Sin topes, sin fiscalizaciones, sin letra chica.',
+      'Cada cuenta tiene acceso a todos sus lotes sin límites de hectáreas.',
     accent: 'rp-acc-blue',
     delay: 'rp-d-3',
   },

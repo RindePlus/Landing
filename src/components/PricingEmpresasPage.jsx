@@ -4,12 +4,13 @@ import {
   FaCogs,
   FaCheck,
   FaArrowRight,
-  FaArrowLeft,
 } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
+import { useRpTheme } from '../hooks/useRpTheme';
 import { PLANES_EMPRESAS, buildWhatsAppUrl } from '../data/pricing';
 import './pricing.css';
+import './pricing-gh.css';
 import './PricingEmpresasPage.css';
 
 const PRINCIPLES = [
@@ -23,9 +24,9 @@ const PRINCIPLES = [
   },
   {
     Icon: FaInfinity,
-    title: 'Todo ilimitado, por siempre',
+    title: 'Lotes ilimitados',
     copy:
-      'Cada cuenta tiene acceso ilimitado a lotes, hectáreas y módulos. Sin fiscalizaciones, sin letra chica.',
+      'Cada cuenta tiene acceso a todos sus lotes sin límites de hectáreas.',
     accent: 'rp-acc-emerald',
     delay: 'rp-d-3',
   },
@@ -81,8 +82,10 @@ const PricingEmpresasPage = ({
   onOpenWhatsApp,
   onGoToHome,
   onGoToPricing,
-  onGoToProductores,
+  onGoToPlatforms,
 }) => {
+  const { theme, toggleTheme } = useRpTheme();
+
   const handleCoordinar = () => {
     const msg =
       `Hola, soy de una organización interesada en Rinde Plus para Empresas. ` +
@@ -91,30 +94,26 @@ const PricingEmpresasPage = ({
   };
 
   return (
-    <div className="rp-page">
+    <div className="rp-home rp-pricing rp-emp-page">
       <Header
         onOpenWhatsApp={onOpenWhatsApp}
         onLogoClick={onGoToHome}
-        menuItems={[
-          { label: 'Volver a inicio', id: 'top', action: onGoToHome },
-          { label: 'Planes', id: 'top', action: onGoToPricing },
-          { label: 'Productores', id: 'top', action: onGoToProductores },
-          { label: 'Contacto', id: 'top', action: onOpenWhatsApp },
-        ]}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onGoToPlatforms={onGoToPlatforms}
+        onBack={onGoToPricing}
+        showMenu={false}
       />
 
       <main id="top">
         <section className="rp-container">
           <div className="rp-emp__hero rp-fade-in rp-d-1">
-            <h1 className="rp-h1">Planes para Empresas</h1>
-            <button
-              type="button"
-              className="rp-back-link"
-              onClick={onGoToPricing}
-            >
-              <FaArrowLeft /> Volver a la selección
-            </button>
-            <p className="rp-emp__hero-copy">
+            <span className="rp-emp__hero-chip">Modelo B2B</span>
+            <h1 className="rp-home__section-title">
+              Planes para{' '}
+              <span className="rp-home__section-title-accent">Empresas</span>
+            </h1>
+            <p className="rp-home__section-subtitle">
               Una suscripción anual fija por cada socio o cliente. Sin
               hectáreas, sin lotes, sin variables. La misma herramienta para
               toda tu red.
@@ -143,6 +142,7 @@ const PricingEmpresasPage = ({
 
           <div className="rp-emp__expect">
             <div className="rp-emp__expect-header">
+              <div className="rp-num-eyebrow">El modelo</div>
               <h2 className="rp-h2">Qué esperamos de tu organización</h2>
               <p>
                 Rinde Plus te da la herramienta. Tu organización aporta la
@@ -166,6 +166,7 @@ const PricingEmpresasPage = ({
 
           <div className="rp-emp__pricing">
             <div className="rp-emp__pricing-header">
+              <div className="rp-num-eyebrow">Planes</div>
               <h2 className="rp-h2">Conocés todo · Elegí tu plan</h2>
               <p>
                 Dos planes por empresa socia o cliente. Precio anual único en
@@ -214,7 +215,7 @@ const PricingEmpresasPage = ({
             <div className="rp-cta-wrap">
               <button
                 type="button"
-                className="rp-cta rp-cta--blue"
+                className="rp-cta"
                 onClick={handleCoordinar}
               >
                 Coordinemos una demo
@@ -228,6 +229,7 @@ const PricingEmpresasPage = ({
 
           <div className="rp-emp__faq">
             <div className="rp-emp__faq-header">
+              <div className="rp-num-eyebrow">FAQ</div>
               <h2>Preguntas frecuentes</h2>
             </div>
             <div className="rp-faq-grid">
