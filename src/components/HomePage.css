@@ -114,8 +114,8 @@
 .rp-home__hero-subtitle {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   color: var(--gh-fg-muted);
-  max-width: 640px;
-  margin: 40px auto 68px;
+  max-width: 800px;
+  margin: 52px auto 84px;
   line-height: 1.6;
   font-weight: 400;
 }
@@ -290,7 +290,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 @media (min-width: 768px) {
@@ -603,28 +603,36 @@
 }
 
 /* ============================================================
-   Final CTA — GitHub callout (mode-adaptive via accent-soft)
+   Final CTA — theme-aware callout, bookends the hero's gold grid
    ============================================================ */
 .rp-home__cta {
-  max-width: 1000px;
+  max-width: 1168px; /* 1120 card + 24px gutters → aligns with the blocks above */
   margin: 0 auto;
   padding: 0 24px 80px;
 }
 
 .rp-home__cta-card {
   position: relative;
-  background: var(--gh-accent-soft);
+  background: linear-gradient(165deg, var(--gh-surface) 0%, var(--gh-surface-2) 100%);
   border: 1px solid var(--gh-border);
   border-radius: var(--gh-radius-card);
-  padding: clamp(36px, 5vw, 64px);
+  padding: clamp(40px, 6vw, 72px);
   text-align: center;
   overflow: hidden;
   box-shadow: var(--gh-shadow-card);
 }
 
-.rp-home__cta-card::before,
-.rp-home__cta-card::after {
-  display: none;
+.rp-home__cta-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(212, 160, 23, 0.17) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 160, 23, 0.17) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 26%, #000 28%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 26%, #000 28%, transparent 80%);
+  pointer-events: none;
 }
 
 .rp-home__cta-inner {
@@ -632,35 +640,14 @@
   z-index: 1;
 }
 
-.rp-home__cta-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--gh-accent);
-  margin-bottom: 22px;
-}
-
-.rp-home__cta-eyebrow::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--gh-detail-green);
-  box-shadow: 0 0 0 3px var(--gh-detail-green-soft);
-}
-
 .rp-home__cta-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 3.6vw, 2.7rem);
+  font-size: clamp(1.9rem, 3.8vw, 2.9rem);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.12;
   letter-spacing: -0.025em;
   color: var(--gh-fg);
-  margin: 0 0 14px;
+  margin: 0 0 16px;
 }
 
 .rp-home__cta-title em {
@@ -672,37 +659,34 @@
   font-size: clamp(0.95rem, 1.2vw, 1.1rem);
   color: var(--gh-fg-muted);
   max-width: 36rem;
-  margin: 0 auto 32px;
+  margin: 0 auto 34px;
   line-height: 1.6;
 }
 
+/* Strong inverse button: dark on light mode, light on dark mode. */
 .rp-home__cta-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 26px;
+  padding: 14px 30px;
   border-radius: var(--gh-radius);
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 600;
-  color: var(--gh-accent-fg);
-  background: var(--gh-accent);
+  font-weight: 700;
+  color: var(--gh-canvas);
+  background: var(--gh-fg);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   box-shadow: var(--gh-shadow-sm);
 }
 
 .rp-home__cta-btn:hover {
-  background: var(--gh-accent-hover);
   transform: translateY(-1px);
+  box-shadow: var(--gh-shadow-card);
 }
 
-.rp-home__cta-btn svg {
-  transition: transform 0.2s ease;
-}
-
-.rp-home__cta-btn:hover svg { transform: translateX(4px); }
+.rp-home__cta-btn svg { color: #25d366; width: 18px; height: 18px; }
 
 .rp-home__cta-hint {
   font-size: 0.72rem;
@@ -752,6 +736,13 @@
 .rp-reveal--delay-3.rp-is-visible { transition-delay: 240ms; }
 .rp-reveal--delay-4.rp-is-visible { transition-delay: 320ms; }
 
+/* Lower-home zone: snappier, more professional entrances (only here). */
+#empezar .rp-reveal,
+.rp-home__aapresid-section .rp-reveal,
+.rp-home__cta .rp-reveal {
+  transition-duration: 0.55s;
+}
+
 /* ============================================================
    Responsive adjustments
    ============================================================ */
@@ -763,7 +754,8 @@
   .rp-platcard__logo { width: 72px; height: 72px; }
   .rp-platcard__logo-inner img { width: 52px; height: 52px; }
   .rp-home__hero-marquee { gap: 16px; font-size: 0.66rem; }
-  .rp-home__cta-card { padding: 36px 26px; }
+  .rp-home__cta-card { padding: 40px 22px; }
+  .rp-home__cta-btn { padding: 14px 18px; }
 }
 
 /* ============================================================
@@ -772,62 +764,101 @@
 .rp-home__modules { scroll-margin-top: 80px; }
 
 /* ============================================================
-   "Conocé más" accordion (native <details>)
+   "Antes de empezar" — two always-open cards side by side
    ============================================================ */
-.rp-home__accordion {
-  max-width: 820px;
+.rp-home__empezar-grid {
+  max-width: 1120px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
-.rp-home__acc {
+@media (min-width: 768px) {
+  .rp-home__empezar-grid { grid-template-columns: repeat(2, 1fr); gap: 44px; }
+}
+
+/* the Reveal wrapper is the grid cell; the card fills it (equal heights) */
+.rp-home__empezar-reveal { display: flex; }
+.rp-home__empezar-card {
+  flex: 1;
   background: var(--gh-surface);
   border: 1px solid var(--gh-border);
   border-radius: var(--gh-radius-card);
-  overflow: hidden;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: var(--gh-shadow-sm);
+  padding: 30px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.rp-home__acc[open] {
+.rp-home__empezar-card:hover {
   border-color: var(--gh-border-strong);
   box-shadow: var(--gh-shadow-card);
 }
 
-.rp-home__acc-summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 18px 22px;
-  cursor: pointer;
-  list-style: none;
+.rp-home__empezar-title {
   font-family: var(--font-heading);
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  font-weight: 600;
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--gh-fg);
-  transition: background 0.15s ease;
+  margin: 0 0 14px;
 }
 
-.rp-home__acc-summary::-webkit-details-marker { display: none; }
-.rp-home__acc-summary:hover { background: var(--gh-surface-2); }
+.rp-home__empezar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
 
-.rp-home__acc-chevron {
-  width: 20px;
-  height: 20px;
+.rp-home__empezar-list li {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* connecting rail (timeline spine) linking the dots; hidden behind each node */
+.rp-home__empezar-list li:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 11px;
+  width: 2px;
+  height: calc(100% + 16px); /* bridges the 16px list gap to the next dot */
+  background: var(--gh-border);
+  z-index: 0;
+}
+
+/* pulsing green dot node — no numbers, no ticks */
+.rp-home__empezar-dot {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
-  color: var(--gh-fg-muted);
-  transition: transform 0.25s ease, color 0.15s ease;
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--gh-detail-green);
 }
 
-.rp-home__acc[open] .rp-home__acc-chevron {
-  transform: rotate(180deg);
-  color: var(--gh-accent);
+.rp-home__empezar-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--gh-detail-green);
+  animation: rp-dot-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-.rp-home__acc-body {
-  padding: 0 22px 22px;
+@keyframes rp-dot-ping {
+  0% { transform: scale(1); opacity: 0.55; }
+  70%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-home__empezar-dot::before { display: none; }
 }
 
 .rp-home__acc-lead {
@@ -837,51 +868,43 @@
   margin: 0 0 16px;
 }
 
-.rp-home__acc-list,
-.rp-home__acc-steps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 12px;
-}
-
-@media (min-width: 640px) {
-  .rp-home__acc-list { grid-template-columns: repeat(2, 1fr); }
-}
-
-.rp-home__acc-list li,
-.rp-home__acc-steps li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.rp-home__acc-item-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.rp-home__acc-item-text strong { font-size: 0.92rem; font-weight: 600; color: var(--gh-fg); }
+.rp-home__acc-item-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.rp-home__acc-item-text strong { font-size: 1.02rem; font-weight: 600; color: var(--gh-fg); }
 .rp-home__acc-item-text span { font-size: 0.88rem; color: var(--gh-fg-muted); line-height: 1.5; }
 
-.rp-home__acc-check {
-  flex-shrink: 0;
-  width: 20px; height: 20px;
-  border-radius: 999px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--gh-detail-green-soft);
-  color: var(--gh-detail-green);
-  margin-top: 1px;
+/* Desktop: give every description a 2-line floor so the timeline nodes line up
+   across both cards (items sit on matching rows regardless of text length). */
+@media (min-width: 768px) {
+  .rp-home__empezar-list .rp-home__acc-item-text span { min-height: 2lh; }
 }
-.rp-home__acc-check svg { width: 13px; height: 13px; }
 
-.rp-home__acc-step-num {
-  flex-shrink: 0;
-  width: 24px; height: 24px;
-  border-radius: 999px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--gh-accent-soft);
-  color: var(--gh-accent);
-  font-size: 0.8rem; font-weight: 700;
-  font-family: var(--font-heading);
+/* Section CTA — "Ver planes y precios", centered below the cards */
+.rp-home__empezar-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
+
+.rp-home__empezar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 28px;
+  border-radius: var(--gh-radius);
+  background: var(--gh-accent);
+  color: var(--gh-accent-fg);
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--gh-shadow-sm);
+  transition: background 0.15s ease;
+}
+
+.rp-home__empezar-cta:hover { background: var(--gh-accent-hover); }
+.rp-home__empezar-cta svg { width: 17px; height: 17px; transition: transform 0.2s ease; }
+.rp-home__empezar-cta:hover svg { transform: translateX(3px); }
 
 /* ============================================================
    AAPRESID mention banner
@@ -893,12 +916,20 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  max-width: 900px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 28px;
+  padding: 28px 28px 28px 32px;
   border: 1px solid var(--gh-border);
   border-radius: var(--gh-radius-card);
-  background: var(--gh-accent-soft);
+  background: var(--gh-surface);
+  /* subtle brand accent bar on the left (clipped by the radius) + resting lift */
+  box-shadow: inset 4px 0 0 var(--gh-accent), var(--gh-shadow-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rp-home__aapresid:hover {
+  border-color: var(--gh-border-strong);
+  box-shadow: inset 4px 0 0 var(--gh-accent), var(--gh-shadow-card);
 }
 
 @media (min-width: 768px) {
@@ -906,7 +937,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 28px 36px;
+    padding: 28px 36px 28px 40px;
   }
 }
 

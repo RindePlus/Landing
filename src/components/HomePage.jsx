@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
-import { LuArrowRight, LuChevronDown, LuCheck } from 'react-icons/lu';
+import { LuArrowRight } from 'react-icons/lu';
 import Header from './Header';
 import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
@@ -157,7 +157,7 @@ const BenefitsSection = () => (
   </section>
 );
 
-const AntesDeEmpezarSection = () => (
+const AntesDeEmpezarSection = ({ onGoToPricing }) => (
   <section className="rp-home__section" id="empezar">
     <Reveal className="rp-home__section-header">
       <div className="rp-num-eyebrow">Antes de empezar</div>
@@ -166,51 +166,41 @@ const AntesDeEmpezarSection = () => (
         <span className="rp-home__section-title-accent">para quién es</span>
       </h2>
       <p className="rp-home__section-subtitle">
-        Desplegá cada tema para dar el primer paso con toda la info.
+        Todo lo que necesitás saber para dar el primer paso.
       </p>
     </Reveal>
 
-    <Reveal>
-      <div className="rp-home__accordion">
-        {ACCORDION.map((a) => (
-          <details key={a.id} className="rp-home__acc" name="conocer">
-            <summary className="rp-home__acc-summary">
-              <span>{a.q}</span>
-              <LuChevronDown className="rp-home__acc-chevron" />
-            </summary>
-            <div className="rp-home__acc-body">
-              <p className="rp-home__acc-lead">{a.lead}</p>
-              {a.steps ? (
-                <ol className="rp-home__acc-steps">
-                  {a.steps.map((s, i) => (
-                    <li key={s.t}>
-                      <span className="rp-home__acc-step-num">{i + 1}</span>
-                      <div className="rp-home__acc-item-text">
-                        <strong>{s.t}</strong>
-                        <span>{s.d}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <ul className="rp-home__acc-list">
-                  {a.items.map((it) => (
-                    <li key={it.t}>
-                      <span className="rp-home__acc-check">
-                        <LuCheck />
-                      </span>
-                      <div className="rp-home__acc-item-text">
-                        <strong>{it.t}</strong>
-                        <span>{it.d}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </details>
-        ))}
-      </div>
+    <div className="rp-home__empezar-grid">
+      {[...ACCORDION].reverse().map((a, i) => (
+        <Reveal key={a.id} delay={i + 1} className="rp-home__empezar-reveal">
+          <div className="rp-home__empezar-card">
+            <h3 className="rp-home__empezar-title">{a.q}</h3>
+            <p className="rp-home__acc-lead">{a.lead}</p>
+            <ul className="rp-home__empezar-list">
+              {(a.steps || a.items).map((item) => (
+                <li key={item.t}>
+                  <span className="rp-home__empezar-dot" aria-hidden="true" />
+                  <div className="rp-home__acc-item-text">
+                    <strong>{item.t}</strong>
+                    <span>{item.d}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+
+    <Reveal delay={3} className="rp-home__empezar-footer">
+      <button
+        type="button"
+        className="rp-home__empezar-cta"
+        onClick={onGoToPricing}
+      >
+        Ver planes y precios
+        <LuArrowRight />
+      </button>
     </Reveal>
   </section>
 );
@@ -258,8 +248,8 @@ const FinalCta = ({ onOpenWhatsApp }) => (
   <section className="rp-home__cta">
     <Reveal>
       <div className="rp-home__cta-card">
+        <div className="rp-home__cta-grid" aria-hidden="true" />
         <div className="rp-home__cta-inner">
-          <span className="rp-home__cta-eyebrow">Hablemos</span>
           <h2 className="rp-home__cta-title">
             ¿Querés saber más sobre{' '}
             <em>cómo podemos ayudarte?</em>
@@ -350,7 +340,7 @@ const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing, onGoToAapres
 
         <BenefitsSection />
 
-        <AntesDeEmpezarSection />
+        <AntesDeEmpezarSection onGoToPricing={onGoToPricing} />
 
         <AapresidBanner onGoToAapresidPricing={onGoToAapresidPricing} />
 
