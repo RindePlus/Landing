@@ -651,8 +651,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 30px;
-  border-radius: var(--gh-radius);
+  padding: 14px 34px;
+  border-radius: 999px;
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;
@@ -660,14 +660,14 @@
   background: #1da851;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: var(--gh-shadow-sm);
+  transition: background 0.15s ease, transform 0.15s ease;
+  /* keyframes shared with the pricing CTAs (pricing-gh.css) */
+  animation: rp-cta-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .rp-home__cta-btn:hover {
   background: #178f45;
   transform: translateY(-1px);
-  box-shadow: var(--gh-shadow-card);
 }
 
 .rp-home__cta-btn svg { color: #ffffff; width: 18px; height: 18px; }

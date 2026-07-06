@@ -120,8 +120,7 @@ const HeroSection = ({ onGoToPlatforms, onScrollToFuncionalidades }) => (
           className="rp-home__hero-btn rp-home__hero-btn--primary"
           onClick={onGoToPlatforms}
         >
-          Ir a la plataforma
-          <LuArrowRight />
+          Ver Plataformas
         </button>
         <button
           type="button"

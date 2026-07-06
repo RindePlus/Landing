@@ -28,53 +28,29 @@
   margin: 0 auto 48px;
 }
 
+/* Plain text button, like the home hero's "Ver funcionalidades" ghost */
 .rp-platsel__back {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 24px;
-  padding: 6px 12px;
+  padding: 11px 20px;
   border-radius: var(--gh-radius);
-  background: var(--gh-surface);
-  border: 1px solid var(--gh-border);
-  color: var(--gh-fg-muted);
+  background: transparent;
+  border: none;
+  color: var(--gh-accent);
   font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .rp-platsel__back:hover {
-  background: var(--gh-surface-2);
-  border-color: var(--gh-border-strong);
-  color: var(--gh-fg);
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent-hover);
 }
 
 .rp-platsel__back svg { width: 15px; height: 15px; }
-
-.rp-platsel__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 14px;
-  border-radius: 999px;
-  background: var(--gh-surface);
-  border: 1px solid var(--gh-border);
-  box-shadow: var(--gh-shadow-sm);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--gh-fg-muted);
-  margin-bottom: 20px;
-}
-
-.rp-platsel__eyebrow-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gh-detail-green);
-  box-shadow: 0 0 0 3px var(--gh-detail-green-soft);
-}
 
 .rp-platsel__title {
   font-family: var(--font-heading);
@@ -117,6 +93,7 @@
 
 /* ---- Card ---- */
 .rp-platsel__card {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 24px;
@@ -152,21 +129,11 @@
   box-shadow: var(--gh-shadow-overlay);
 }
 
-.rp-platsel__card--featured {
-  border-color: var(--gh-accent);
-  box-shadow: 0 0 0 1px var(--gh-accent), var(--gh-shadow-card);
-}
-
-.rp-platsel__card--featured:hover {
-  border-color: var(--gh-accent);
-  box-shadow: 0 0 0 1px var(--gh-accent), var(--gh-shadow-overlay);
-}
-
+/* Logo + title side by side */
 .rp-platsel__card-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 16px;
 }
 
@@ -189,18 +156,26 @@
   object-fit: contain;
 }
 
+/* Featured (Rinde Plus) logo — bare, no box, larger */
 .rp-platsel__logo--wide {
   width: auto;
-  min-width: 150px;
-  padding: 0 16px;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .rp-platsel__logo--wide img {
   width: auto;
-  height: 34px;
+  height: 52px;
 }
 
+/* Pinned to the card's top-right corner, with a pulsing accent ring */
 .rp-platsel__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
@@ -212,6 +187,17 @@
   color: var(--gh-accent);
   background: var(--gh-accent-soft);
   border: 1px solid var(--gh-border);
+  animation: rp-badge-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes rp-badge-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--gh-accent) 45%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 9px transparent;
+  }
 }
 
 .rp-platsel__card-title {
@@ -219,7 +205,7 @@
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--gh-fg);
-  margin: 0 0 8px;
+  margin: 0;
   letter-spacing: -0.015em;
 }
 
@@ -235,7 +221,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  align-self: flex-start;
+  align-self: flex-end;
   padding: 8px 16px;
   border-radius: var(--gh-radius);
   background: var(--gh-accent);
@@ -260,22 +246,8 @@
   transform: translate(2px, -2px);
 }
 
-/* ---- Help footer line ---- */
+/* ---- Footer row below the grid (back-to-home button) ---- */
 .rp-platsel__help {
   text-align: center;
   margin-top: 40px;
-  font-size: 0.9rem;
-  color: var(--gh-fg-muted);
 }
-
-.rp-platsel__help-link {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  color: var(--gh-accent);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.rp-platsel__help-link:hover { text-decoration: underline; }
