@@ -268,35 +268,35 @@
   color: var(--gh-fg);
   border-radius: var(--gh-radius);
   box-shadow: var(--gh-shadow-sm);
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .rp-home .rp-footer__contact-item:hover {
   background: var(--gh-surface-2);
   border-color: var(--gh-border-strong);
-  transform: translateY(-1px);
 }
 
-/* Contact icons → soft square chips with a fine border (line icons inside) */
+/* Contact icons → just the line icon in its colour, no chip/background */
 .rp-home .rp-footer__contact-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--gh-radius);
-  background: var(--gh-accent-soft);
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
+  border-radius: 0;
+  font-size: 1.4rem;
   color: var(--gh-accent);
-  border: 1px solid var(--gh-border);
 }
 
 .rp-home .rp-footer__contact-icon--whatsapp {
-  background: rgba(37, 211, 102, 0.14);
+  background: none;
+  border: none;
   color: #1a8a48;
-  border-color: rgba(37, 211, 102, 0.35);
 }
 
 .rp-home .rp-footer__contact-icon--amber {
-  background: var(--gh-detail-green-soft);
+  background: none;
+  border: none;
   color: var(--gh-detail-green);
-  border-color: var(--gh-border);
 }
 
 .rp-home .rp-footer__contact-label {

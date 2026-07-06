@@ -159,6 +159,7 @@ function App() {
           <HomePage
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
             onGoToPlatforms={() => navigate('/plataformas')}
+            onGoToPricing={() => navigate('/pricing')}
             onGoToAapresidPricing={() => navigate('/pricing/aapresid')}
           />
         );

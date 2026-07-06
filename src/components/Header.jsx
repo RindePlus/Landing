@@ -52,7 +52,7 @@ const Header = ({
       const headerOffset = header ? header.offsetHeight : 0;
       const elementTop = section.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
-        top: Math.max(0, elementTop - headerOffset + 250),
+        top: Math.max(0, elementTop - headerOffset - 8),
         behavior: 'smooth'
       });
     }, 50);
@@ -140,17 +140,6 @@ const Header = ({
 
         {/* RIGHT — actions */}
         <div className="header-actions">
-          {onGoToPlatforms && (
-            <button
-              type="button"
-              className="header-platform-btn"
-              onClick={onGoToPlatforms}
-            >
-              <LuLogIn />
-              <span>Ingresar</span>
-            </button>
-          )}
-
           {onToggleTheme && (
             <button
               type="button"
@@ -160,6 +149,17 @@ const Header = ({
               title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
             >
               {theme === 'dark' ? <LuSun /> : <LuMoon />}
+            </button>
+          )}
+
+          {onGoToPlatforms && (
+            <button
+              type="button"
+              className="header-platform-btn"
+              onClick={onGoToPlatforms}
+            >
+              <span>Ingresar</span>
+              <LuLogIn />
             </button>
           )}
         </div>

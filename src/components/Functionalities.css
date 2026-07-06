@@ -188,12 +188,13 @@
 
 .rp-fx__name {
   font-family: var(--font-heading);
-  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  /* match the other section titles (e.g. "Datos aplicados a tu producción") */
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   color: var(--gh-fg);
   margin: 0 0 22px;
-  line-height: 1.05;
+  line-height: 1.1;
 }
 
 /* ---- Flip block (SOLO el párrafo) ---- */
@@ -475,7 +476,7 @@
 
   /* Title top-anchored, no desktop reserve gap; generous air below it. */
   .rp-fx__text > .rp-fx__flip { margin-top: 0; }
-  .rp-fx__name { font-size: clamp(1.85rem, 8.5vw, 2.35rem); margin-bottom: 28px; }
+  .rp-fx__name { margin-bottom: 28px; }
   .rp-fx__desc { font-size: 1.02rem; line-height: 1.72; margin: 0 0 32px; }
   /* Standard panels only (`.rp-fx__text` doesn't exist in the dual Brechas
      panel) — more air title→párrafo and párrafo→bullets. */

@@ -287,7 +287,7 @@ const FinalCta = ({ onOpenWhatsApp }) => (
 
 /* ---------------- Main component ---------------- */
 
-const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToAapresidPricing }) => {
+const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing, onGoToAapresidPricing }) => {
   const [theme, setTheme] = useState(() => {
     if (typeof window === 'undefined') return 'light';
     const stored = localStorage.getItem('rp-theme');
@@ -332,7 +332,8 @@ const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToAapresidPricing }) =>
         menuItems={[
           { label: 'Inicio', id: 'top' },
           { label: 'Funcionalidades', id: 'funcionalidades' },
-          { label: 'Clientes', id: 'clientes' },
+          { label: 'Beneficios', id: 'beneficios' },
+          { label: 'Precios', id: 'precios', action: onGoToPricing },
           { label: 'Contacto', id: 'top', action: onOpenWhatsApp },
         ]}
       />
