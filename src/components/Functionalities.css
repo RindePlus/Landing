@@ -50,7 +50,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  padding-top: 64px; /* clear the fixed site header */
+  padding-top: 72px; /* clear the fixed site header */
   box-sizing: border-box;
   overflow: hidden;
   display: flex;

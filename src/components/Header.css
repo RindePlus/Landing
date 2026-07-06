@@ -419,15 +419,15 @@ img.logo-image:hover {
 }
 
 .rp-home .header-content {
-  padding: 10px 24px;
+  padding: 11px 24px;
 }
 
 @media (max-width: 767px) {
-  .rp-home .header-content { padding: 10px 14px; }
+  .rp-home .header-content { padding: 11px 14px; }
 }
 
 .rp-home img.logo-image {
-  height: 42px;
+  height: 46px;
 }
 
 /* hamburger + drawer skin (home mobile) — matches the theme-toggle button:
