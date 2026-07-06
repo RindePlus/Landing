@@ -93,7 +93,6 @@
 }
 
 .rp-prod__step:hover {
-  transform: translateY(-2px);
   border-color: var(--gh-border-strong);
   box-shadow: var(--gh-shadow-card);
 }
@@ -169,6 +168,12 @@
     clamp(20px, 2.5vw, 28px);
   box-shadow: var(--gh-shadow-card);
   border: 1px solid var(--gh-border);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rp-prod__plan:hover {
+  border-color: var(--gh-border-strong);
+  box-shadow: var(--gh-shadow-overlay);
 }
 
 .rp-prod__plan-header {

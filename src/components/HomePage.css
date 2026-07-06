@@ -802,19 +802,19 @@
   gap: 14px;
 }
 
-/* connecting rail (timeline spine) linking the dots; hidden behind each node */
+/* connecting rail (timeline spine); gapped so it doesn't touch the dots */
 .rp-home__empezar-list li:not(:last-child)::before {
   content: '';
   position: absolute;
   left: 4px;
-  top: 11px;
+  top: 21px; /* dot ends at 16px + 5px breathing room */
   width: 2px;
-  height: calc(100% + 16px); /* bridges the 16px list gap to the next dot */
+  height: calc(100% - 4px); /* stops 5px short of the next dot */
   background: var(--gh-border);
   z-index: 0;
 }
 
-/* pulsing green dot node — no numbers, no ticks */
+/* static dot node — no numbers, no ticks */
 .rp-home__empezar-dot {
   position: relative;
   z-index: 1;
@@ -824,24 +824,6 @@
   margin-top: 6px;
   border-radius: 50%;
   background: var(--gh-detail-yellow);
-}
-
-.rp-home__empezar-dot::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: var(--gh-detail-yellow);
-  animation: rp-dot-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes rp-dot-ping {
-  0% { transform: scale(1); opacity: 0.55; }
-  70%, 100% { transform: scale(2.6); opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rp-home__empezar-dot::before { display: none; }
 }
 
 .rp-home__acc-lead {

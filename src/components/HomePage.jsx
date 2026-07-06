@@ -294,7 +294,6 @@ const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing }) => {
           { label: 'Funcionalidades', id: 'funcionalidades' },
           { label: 'Beneficios', id: 'beneficios' },
           { label: 'Precios', id: 'precios', action: onGoToPricing },
-          { label: 'Contacto', id: 'top', action: onOpenWhatsApp },
         ]}
       />
 

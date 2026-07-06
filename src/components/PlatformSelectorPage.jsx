@@ -1,4 +1,5 @@
-import { LuArrowUpRight, LuArrowLeft } from 'react-icons/lu';
+import { LuArrowUpRight, LuArrowLeft, LuShare } from 'react-icons/lu';
+import { FaApple, FaAndroid } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
@@ -73,6 +74,70 @@ const PlatformCard = ({ platform }) => (
   </a>
 );
 
+const INSTALL_GUIDES = [
+  {
+    id: 'ios',
+    name: 'iOS (iPhone)',
+    Icon: FaApple,
+    steps: [
+      (
+        <>
+          Abrí <strong>Safari</strong> e ingresá al sitio de la plataforma.
+        </>
+      ),
+      (
+        <>
+          Tocá el botón <strong>Compartir</strong>{' '}
+          <LuShare className="rp-platsel__install-inline-icon" aria-hidden="true" />{' '}
+          (el cuadrado con la flecha hacia arriba).
+        </>
+      ),
+      (
+        <>
+          Seleccioná <strong>"Añadir a Pantalla de Inicio"</strong>.
+        </>
+      ),
+      <>Si querés, cambiá el nombre del acceso directo.</>,
+      (
+        <>
+          Pulsá <strong>Añadir</strong> y listo.
+        </>
+      ),
+    ],
+  },
+  {
+    id: 'android',
+    name: 'Android',
+    Icon: FaAndroid,
+    steps: [
+      (
+        <>
+          Abrí <strong>Chrome</strong> e ingresá al sitio de la plataforma.
+        </>
+      ),
+      (
+        <>
+          Tocá el menú <strong>⋮</strong> (los tres puntos, arriba a la
+          derecha).
+        </>
+      ),
+      (
+        <>
+          Seleccioná <strong>"Instalar aplicación"</strong> (o{' '}
+          <strong>"Añadir a la pantalla principal"</strong>, según tu versión
+          de Chrome).
+        </>
+      ),
+      <>Si querés, cambiá el nombre del acceso directo.</>,
+      (
+        <>
+          Confirmá tocando <strong>Instalar</strong> y listo.
+        </>
+      ),
+    ],
+  },
+];
+
 const PlatformSelectorPage = ({ onOpenWhatsApp, onGoToHome }) => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   const { theme, toggleTheme } = useRpTheme();
@@ -112,6 +177,43 @@ const PlatformSelectorPage = ({ onOpenWhatsApp, onGoToHome }) => {
               }
             />
           ))}
+        </section>
+
+        <section className="rp-platsel__install">
+          <div className="rp-platsel__install-header">
+            <h2 className="rp-platsel__install-title">
+              Instalá la plataforma{' '}
+              <span className="rp-platsel__title-accent">en tu celular</span>
+            </h2>
+            <p className="rp-platsel__subtitle">
+              Podés agregar la plataforma como una app en la pantalla de inicio
+              de tu teléfono. Seguí estos pasos según tu dispositivo.
+            </p>
+          </div>
+
+          <div className="rp-platsel__install-grid">
+            {INSTALL_GUIDES.map(({ id, name, Icon, steps }) => (
+              <article
+                key={id}
+                className={`rp-platsel__install-card rp-platsel__install-card--${id}`}
+              >
+                <div className="rp-platsel__install-top">
+                  <span className="rp-platsel__install-icon">
+                    <Icon />
+                  </span>
+                  <h3 className="rp-platsel__install-name">{name}</h3>
+                </div>
+                <ol className="rp-platsel__install-steps">
+                  {steps.map((step, i) => (
+                    <li key={i}>
+                      <span className="rp-platsel__install-num">{i + 1}</span>
+                      <div className="rp-platsel__install-step-text">{step}</div>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+            ))}
+          </div>
         </section>
 
         <div className="rp-platsel__help">

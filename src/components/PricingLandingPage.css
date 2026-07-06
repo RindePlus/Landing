@@ -52,7 +52,6 @@
 }
 
 .rp-selector:hover {
-  transform: translateY(-2px);
   border-color: var(--gh-border-strong);
   box-shadow: var(--gh-shadow-overlay);
 }

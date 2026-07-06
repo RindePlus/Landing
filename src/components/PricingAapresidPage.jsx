@@ -154,7 +154,7 @@ const PricingAapresidPage = ({
 
               <div className="rp-aap__offer-prices-col">
                 <div className="rp-aap__offer-prices">
-                <article className="rp-aap__offer-card">
+                <a href="#planes" className="rp-aap__offer-card">
                   <header>
                     <span className="rp-aap__offer-card-name">Standard</span>
                     <span className="rp-aap__offer-card-tag">
@@ -176,9 +176,9 @@ const PricingAapresidPage = ({
                   <div className="rp-aap__offer-card-saving">
                     Ahorrás USD {formatUSD(standard.ahorroAnual)} por socio
                   </div>
-                </article>
+                </a>
 
-                <article className="rp-aap__offer-card">
+                <a href="#planes" className="rp-aap__offer-card">
                   <header>
                     <span className="rp-aap__offer-card-name">Full</span>
                     <span className="rp-aap__offer-card-tag">
@@ -200,7 +200,7 @@ const PricingAapresidPage = ({
                   <div className="rp-aap__offer-card-saving">
                     Ahorrás USD {formatUSD(full.ahorroAnual)} por socio
                   </div>
-                </article>
+                </a>
                 </div>
                 <div className="rp-aap__offer-deadline">
                   <span>
@@ -256,7 +256,7 @@ const PricingAapresidPage = ({
             </ol>
           </div>
 
-          <div className="rp-aap__pricing">
+          <div className="rp-aap__pricing" id="planes">
             <div className="rp-aap__pricing-header">
               <div className="rp-num-eyebrow">Planes</div>
               <h2 className="rp-h2">Un plan para cada socio</h2>
