@@ -30,9 +30,14 @@
 @media (min-width: 768px) {
   .rp-home__Aapresid {
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     padding: 28px 36px 28px 40px;
+  }
+
+  /* button pinned to the bottom-right corner of the banner */
+  .rp-home__Aapresid-btn {
+    align-self: flex-end;
   }
 }
 
@@ -68,15 +73,15 @@
   line-height: 1.55;
 }
 
+/* Green — same green as the demo CTAs on the pricing sub-pages */
 .rp-home__Aapresid-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   flex-shrink: 0;
   padding: 11px 20px;
   border-radius: var(--gh-radius);
-  background: var(--gh-accent);
-  color: var(--gh-accent-fg);
+  background: #1da851;
+  color: #ffffff;
   border: none;
   font-family: var(--font-body);
   font-size: 0.92rem;
@@ -84,6 +89,4 @@
   cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
 }
-.rp-home__Aapresid-btn:hover { background: var(--gh-accent-hover); transform: translateY(-1px); }
-.rp-home__Aapresid-btn svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
-.rp-home__Aapresid-btn:hover svg { transform: translateX(3px); }
+.rp-home__Aapresid-btn:hover { background: #178f45; transform: translateY(-1px); }

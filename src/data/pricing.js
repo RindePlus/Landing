@@ -13,8 +13,7 @@ export const PLAN_PRODUCTOR = {
     'Pronóstico Climático',
     'Todos tus lotes y hectáreas, sin tope',
     'Soporte técnico de la plataforma',
-    'Acompañamiento agronómico del equipo Rinde Plus',
-    'Onboarding, capacitación y validación de resultados',
+    'Acompañamiento agronómico',
   ],
 };
 
@@ -47,7 +46,7 @@ export const PLANES_EMPRESAS = [
       'Análisis de Campaña',
       'Brechas Estándar',
       'Brechas Inteligentes',
-      'Vig IA (próxima actualización)',
+      'Vig IA',
       'Pronóstico Climático',
       'Todas las actualizaciones productivas',
     ],
@@ -91,7 +90,7 @@ export const PLANES_Aapresid = [
       'Análisis de Campaña',
       'Brechas Estándar',
       'Brechas Inteligentes',
-      'Vig IA (próxima actualización)',
+      'Vig IA',
       'Pronóstico Climático',
       'Todas las actualizaciones productivas',
     ],

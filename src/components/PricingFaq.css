@@ -1,0 +1,80 @@
+/* ============================================================
+   PricingFaq — collapsible FAQ rows (GitHub skin, tokens --gh-*)
+   Row dividers match the previous static FAQ; the whole row is
+   the toggle target, the panel animates via grid-template-rows.
+   ============================================================ */
+
+.rp-faq {
+  max-width: 760px;
+  margin: 0 auto;
+  border-top: 1px solid var(--gh-border);
+}
+
+.rp-faq__item {
+  border-bottom: 1px solid var(--gh-border);
+}
+
+.rp-faq__question {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--gh-fg);
+  transition: color 0.15s ease;
+}
+
+.rp-faq__question:hover {
+  color: var(--gh-accent);
+}
+
+.rp-faq__chevron {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--gh-fg-muted);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), color 0.15s ease;
+}
+
+.rp-faq__question:hover .rp-faq__chevron,
+.rp-faq__item--open .rp-faq__chevron {
+  color: var(--gh-accent);
+}
+
+.rp-faq__item--open .rp-faq__chevron {
+  transform: rotate(180deg);
+}
+
+/* Height animation: 0fr → 1fr keeps it smooth without measuring content */
+.rp-faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rp-faq__item--open .rp-faq__panel {
+  grid-template-rows: 1fr;
+}
+
+.rp-faq__panel-inner {
+  overflow: hidden;
+}
+
+.rp-faq__panel-inner p {
+  margin: 0;
+  padding: 0 32px 18px 4px;
+  font-size: 0.9rem;
+  color: var(--gh-fg-muted);
+  line-height: 1.6;
+  max-width: 65ch;
+}

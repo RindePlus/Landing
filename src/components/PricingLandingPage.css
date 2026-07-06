@@ -128,7 +128,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   padding: 12px 20px;
   border-radius: var(--gh-radius);
   color: var(--gh-accent-fg);
@@ -141,14 +140,4 @@
 
 .rp-selector:hover .rp-selector__cta {
   background: var(--gh-accent-hover);
-}
-
-.rp-selector__cta svg {
-  width: 14px;
-  height: 14px;
-  transition: transform 0.2s ease;
-}
-
-.rp-selector:hover .rp-selector__cta svg {
-  transform: translateX(3px);
 }

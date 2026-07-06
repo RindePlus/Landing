@@ -4,8 +4,8 @@
    brings the gh header/footer skins, canvas background and fonts).
    Overrides the light-only primitives from pricing.css with
    --gh-* tokens so pricing follows the home aesthetic, dark mode
-   included. /pricing/empresas and /pricing/productores don't use
-   this scope and keep the legacy look.
+   included. Used by /pricing, /pricing/Aapresid, /pricing/empresas
+   and /pricing/productores.
    ============================================================ */
 
 /* Shell — clearance for the fixed gh header */
@@ -52,38 +52,38 @@
 .rp-pricing .rp-plan__list li { color: var(--gh-fg); }
 .rp-pricing .rp-plan__footer-note { color: var(--gh-fg-subtle); }
 
-.rp-pricing .rp-plan__badge {
-  background: var(--gh-accent);
-  box-shadow: var(--gh-shadow-card);
-}
-
-.rp-pricing .rp-plan__badge--emerald {
-  background: var(--gh-detail-green);
-  box-shadow: var(--gh-shadow-card);
-}
-
-/* ---- CTA button (GitHub primary) ---- */
+/* ---- CTA button (WhatsApp-green pill) ----
+   Same green as the home final CTA (the button opens WhatsApp).
+   Pulsing ring borrowed from the home timeline dots (rp-dot-ping). */
 .rp-pricing .rp-cta {
-  background: var(--gh-accent);
-  color: var(--gh-accent-fg);
-  border-radius: var(--gh-radius);
-  font-weight: 600;
-  box-shadow: var(--gh-shadow-sm);
+  background: #1da851;
+  color: #ffffff;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 17px 40px;
+  animation: rp-cta-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .rp-pricing .rp-cta:hover {
-  background: var(--gh-accent-hover);
+  background: #178f45;
   transform: translateY(-1px);
-  box-shadow: var(--gh-shadow-card);
+}
+
+@keyframes rp-cta-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(29, 168, 81, 0.5);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 12px transparent;
+  }
 }
 
 .rp-pricing .rp-cta__help { color: var(--gh-fg-subtle); }
 
-/* ---- FAQ ---- */
-.rp-pricing .rp-faq-card { border-top: 1px solid var(--gh-border); }
-.rp-pricing .rp-faq-card:last-child { border-bottom: 1px solid var(--gh-border); }
-.rp-pricing .rp-faq-card h3 { color: var(--gh-fg); }
-.rp-pricing .rp-faq-card p { color: var(--gh-fg-muted); }
+/* FAQ: the static .rp-faq-card rows were replaced by the collapsible
+   PricingFaq component (PricingFaq.jsx/.css). */
 
 /* ---- Back link (inline, if used inside content) ---- */
 .rp-pricing .rp-back-link { color: var(--gh-fg-muted); }

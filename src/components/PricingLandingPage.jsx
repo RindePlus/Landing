@@ -1,4 +1,4 @@
-import { FaArrowRight, FaCheck } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
 import AapresidBanner from './AapresidBanner';
@@ -83,7 +83,6 @@ const PricingLandingPage = ({
 
               <div className="rp-selector__cta">
                 Ver planes Empresas
-                <FaArrowRight />
               </div>
             </button>
 
@@ -114,7 +113,6 @@ const PricingLandingPage = ({
 
               <div className="rp-selector__cta">
                 Ver plan Productores
-                <FaArrowRight />
               </div>
             </button>
           </div>

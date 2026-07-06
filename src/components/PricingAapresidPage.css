@@ -12,6 +12,11 @@
 
 .rp-aap__hero .rp-home__section-title { margin: 18px 0 16px; }
 
+/* "Aapresid" in green, matching the chip above */
+.rp-aap__hero .rp-home__section-title-accent {
+  color: var(--gh-detail-green);
+}
+
 .rp-aap__hero .rp-home__section-subtitle {
   max-width: 44rem;
   margin: 0 auto;
@@ -27,14 +32,9 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--gh-accent);
-  background: var(--gh-accent-soft);
+  color: var(--gh-detail-green);
+  background: var(--gh-detail-green-soft);
   border: 1px solid var(--gh-border);
-}
-
-.rp-aap__hero-chip svg {
-  width: 12px;
-  height: 12px;
 }
 
 /* ---- Section headers (shared pattern) ---- */
@@ -55,11 +55,10 @@
   background: var(--gh-surface);
   border: 1px solid var(--gh-border);
   border-radius: var(--gh-radius-card);
-  padding: clamp(28px, 4vw, 44px);
+  padding: clamp(20px, 2.5vw, 28px);
   margin-bottom: 72px;
   overflow: hidden;
-  /* accent bar on the left, echoing the Aapresid banner on /pricing */
-  box-shadow: inset 4px 0 0 var(--gh-accent), var(--gh-shadow-card);
+  box-shadow: var(--gh-shadow-card);
 }
 
 .rp-aap__offer-grid {
@@ -75,27 +74,6 @@
     grid-template-columns: 1.15fr 1fr;
     gap: 48px;
   }
-}
-
-.rp-aap__offer-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 14px;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--gh-accent);
-  background: var(--gh-accent-soft);
-  border: 1px solid var(--gh-border);
-  margin-bottom: 16px;
-}
-
-.rp-aap__offer-eyebrow svg {
-  width: 12px;
-  height: 12px;
 }
 
 .rp-aap__offer-title {
@@ -119,46 +97,6 @@
   line-height: 1.6;
   margin: 0 0 22px;
   max-width: 32rem;
-}
-
-.rp-aap__offer-req {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 16px 18px;
-  border-radius: var(--gh-radius-card);
-  background: var(--gh-surface-2);
-  border: 1px solid var(--gh-border);
-}
-
-.rp-aap__offer-req-icon {
-  color: var(--gh-accent);
-  font-size: 22px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  margin-top: 2px;
-}
-
-.rp-aap__offer-req-title {
-  font-family: var(--font-heading);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--gh-accent);
-  margin-bottom: 2px;
-}
-
-.rp-aap__offer-req-desc {
-  font-size: 0.92rem;
-  color: var(--gh-fg-muted);
-  line-height: 1.5;
-}
-
-.rp-aap__offer-req-desc b {
-  color: var(--gh-fg);
-  font-weight: 700;
 }
 
 /* Prices column ------------------------------------------------ */
@@ -193,15 +131,6 @@
   transform: translateY(-2px);
   border-color: var(--gh-border-strong);
   box-shadow: var(--gh-shadow-card);
-}
-
-.rp-aap__offer-card--featured {
-  border-color: var(--gh-accent);
-  box-shadow: var(--gh-shadow-card);
-}
-
-.rp-aap__offer-card--featured:hover {
-  border-color: var(--gh-accent);
 }
 
 .rp-aap__offer-card header {
@@ -273,25 +202,11 @@
 }
 
 .rp-aap__offer-deadline {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 18px;
-  border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--gh-detail-yellow-strong);
-  background: var(--gh-detail-yellow-soft);
-  border: 1px solid var(--gh-border);
   align-self: center;
   text-align: center;
-}
-
-.rp-aap__offer-deadline svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
 }
 
 .rp-aap__offer-deadline b {
@@ -421,15 +336,7 @@
 }
 
 .rp-aap__plan {
-  padding-top: clamp(28px, 3vw, 40px);
-}
-
-.rp-aap__plan--featured {
-  border-color: var(--gh-detail-green);
-}
-
-.rp-aap__plan--featured:hover {
-  border-color: var(--gh-detail-green);
+  padding: clamp(20px, 2.5vw, 28px);
 }
 
 .rp-aap__plan-discount {
@@ -447,44 +354,6 @@
   text-decoration-color: var(--gh-danger);
   text-decoration-thickness: 2px;
   font-weight: 600;
-}
-
-.rp-aap__plan-arrow {
-  color: var(--gh-accent);
-  font-weight: 800;
-}
-
-.rp-aap__plan-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--gh-accent-fg);
-  background: var(--gh-accent);
-}
-
-.rp-aap__plan-req {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--gh-accent);
-  background: var(--gh-accent-soft);
-  border: 1px solid var(--gh-border);
-  align-self: flex-start;
-  margin-bottom: 22px;
-}
-
-.rp-aap__plan-req svg {
-  width: 12px;
-  height: 12px;
 }
 
 /* ============================================================

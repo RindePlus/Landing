@@ -1,15 +1,12 @@
 import {
   FaUsers,
   FaInfinity,
-  FaHandshake,
   FaCheck,
-  FaArrowRight,
-  FaTag,
-  FaClock,
   FaStar,
 } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
+import PricingFaq from './PricingFaq';
 import { useRpTheme } from '../hooks/useRpTheme';
 import {
   PLANES_Aapresid,
@@ -41,7 +38,7 @@ const PRINCIPLES = [
   },
   {
     Icon: FaStar,
-    title: 'Descuento especial por lanzamiento',
+    title: 'Descuento especial',
     copy: `Precio aliado institucional, válido hasta ${Aapresid_PROMO_VALIDA_HASTA}.`,
     accent: 'rp-acc-amber',
     delay: 'rp-d-4',
@@ -127,10 +124,7 @@ const PricingAapresidPage = ({
       <main id="top">
         <section className="rp-container">
           <div className="rp-aap__hero rp-fade-in rp-d-1">
-            <span className="rp-aap__hero-chip">
-              <FaHandshake />
-              Plan aliado institucional
-            </span>
+            <span className="rp-aap__hero-chip">Plan aliado institucional</span>
             <h1 className="rp-home__section-title">
               Plan para Regionales{' '}
               <span className="rp-home__section-title-accent">Aapresid</span>
@@ -146,9 +140,6 @@ const PricingAapresidPage = ({
           <div className="rp-aap__offer rp-card-in rp-d-2">
             <div className="rp-aap__offer-grid">
               <div className="rp-aap__offer-intro">
-                <span className="rp-aap__offer-eyebrow">
-                  <FaTag /> Precio especial Aapresid
-                </span>
                 <h2 className="rp-aap__offer-title">
                   Sumá <span>+{Aapresid_MIN_SOCIOS} socios</span> de la regional
                   y ahorrá hasta {stdDiscountPct}% por socio.
@@ -159,21 +150,6 @@ const PricingAapresidPage = ({
                   {Aapresid_MIN_SOCIOS} socios contratando Rinde Plus, en
                   cualquier combinación de planes.
                 </p>
-                <div className="rp-aap__offer-req">
-                  <div className="rp-aap__offer-req-icon">
-                    <FaUsers />
-                  </div>
-                  <div>
-                    <div className="rp-aap__offer-req-title">
-                      Único requisito
-                    </div>
-                    <div className="rp-aap__offer-req-desc">
-                      Al menos <b>{Aapresid_MIN_SOCIOS} socios</b> de la misma
-                      regional contratando Rinde Plus, en el plan que cada uno
-                      elija.
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div className="rp-aap__offer-prices-col">
@@ -201,7 +177,7 @@ const PricingAapresidPage = ({
                   </div>
                 </article>
 
-                <article className="rp-aap__offer-card rp-aap__offer-card--featured">
+                <article className="rp-aap__offer-card">
                   <header>
                     <span className="rp-aap__offer-card-name">Full</span>
                     <span className="rp-aap__offer-card-tag">
@@ -225,7 +201,6 @@ const PricingAapresidPage = ({
                 </article>
                 </div>
                 <div className="rp-aap__offer-deadline">
-                  <FaClock />
                   <span>
                     Descuento especial por tiempo limitado · válido hasta{' '}
                     <b>{Aapresid_PROMO_VALIDA_HASTA}</b>
@@ -282,7 +257,7 @@ const PricingAapresidPage = ({
           <div className="rp-aap__pricing">
             <div className="rp-aap__pricing-header">
               <div className="rp-num-eyebrow">Planes</div>
-              <h2 className="rp-h2">Los dos planes · Elegí por socio</h2>
+              <h2 className="rp-h2">Un plan para cada socio</h2>
               <p>
                 Cada socio contrata el plan que más le sirve: Standard o Full.
                 El precio especial se aplica automáticamente cuando la regional
@@ -300,21 +275,12 @@ const PricingAapresidPage = ({
                     plan.destacado ? 'rp-aap__plan--featured' : ''
                   }`}
                 >
-                  {plan.destacado && (
-                    <span className="rp-plan__badge rp-plan__badge--emerald">
-                      Más completo
-                    </span>
-                  )}
                   <h3 className="rp-plan__name">{plan.nombre}</h3>
                   <p className="rp-plan__tagline">{plan.descripcion}</p>
 
                   <div className="rp-aap__plan-discount">
                     <span className="rp-aap__plan-old">
                       USD {plan.precioAnualLista}
-                    </span>
-                    <span className="rp-aap__plan-arrow">→</span>
-                    <span className="rp-aap__plan-tag">
-                      Precio especial Aapresid
                     </span>
                   </div>
 
@@ -327,11 +293,6 @@ const PricingAapresidPage = ({
                   <div className="rp-plan__price-monthly">
                     Equivale a USD {plan.precioMensualEq} / mes · por socio
                   </div>
-
-                  <span className="rp-aap__plan-req">
-                    <FaUsers />
-                    Con +{Aapresid_MIN_SOCIOS} socios de la regional contratando
-                  </span>
 
                   <ul className="rp-plan__list">
                     {plan.modulos.map((mod) => (
@@ -359,7 +320,6 @@ const PricingAapresidPage = ({
                 onClick={handleCoordinar}
               >
                 Coordinemos una demo para la regional
-                <FaArrowRight />
               </button>
               <p className="rp-cta__help">
                 Te respondemos por WhatsApp en menos de 24hs.
@@ -369,17 +329,9 @@ const PricingAapresidPage = ({
 
           <div className="rp-aap__faq">
             <div className="rp-aap__faq-header">
-              <div className="rp-num-eyebrow">FAQ</div>
               <h2>Preguntas frecuentes</h2>
             </div>
-            <div className="rp-faq-grid">
-              {FAQ.map(({ q, a }) => (
-                <div key={q} className="rp-faq-card">
-                  <h3>{q}</h3>
-                  <p>{a}</p>
-                </div>
-              ))}
-            </div>
+            <PricingFaq items={FAQ} />
           </div>
         </section>
       </main>

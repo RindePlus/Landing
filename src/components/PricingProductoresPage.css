@@ -143,7 +143,7 @@
 .rp-prod__pricing-header p {
   font-size: 0.95rem;
   color: var(--gh-fg-muted);
-  max-width: 42rem;
+  max-width: 48rem; /* wide enough for the copy to sit in one line */
   margin: 0 auto;
   line-height: 1.6;
 }
@@ -163,44 +163,16 @@
   position: relative;
   background: var(--gh-surface);
   border-radius: var(--gh-radius-card);
-  border: 1px solid var(--gh-accent);
-  padding: clamp(28px, 3vw, 40px);
+  /* top compensated for the heading's internal leading so the optical
+     gap matches the side/bottom padding */
+  padding: clamp(14px, 1.8vw, 21px) clamp(20px, 2.5vw, 28px)
+    clamp(20px, 2.5vw, 28px);
   box-shadow: var(--gh-shadow-card);
-  margin-top: 14px;
-}
-
-.rp-prod__plan-badge {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--gh-accent-fg);
-  background: var(--gh-accent);
-  box-shadow: var(--gh-shadow-card);
-  white-space: nowrap;
+  border: 1px solid var(--gh-border);
 }
 
 .rp-prod__plan-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
   margin-bottom: 20px;
-  margin-top: 8px;
-}
-
-.rp-prod__plan-icon {
-  color: var(--gh-detail-green);
-  font-size: 28px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
 }
 
 .rp-prod__plan-name {
@@ -251,25 +223,12 @@
   font-style: italic;
 }
 
+/* Bare text line — same treatment as the Aapresid deadline notice */
 .rp-prod__extra {
-  margin-top: 16px;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: var(--gh-radius-card);
-  background: var(--gh-detail-yellow-soft);
-  border: 1px solid var(--gh-border);
+  margin: 14px 0 0;
   font-size: 0.88rem;
   color: var(--gh-fg-muted);
   line-height: 1.5;
-}
-
-.rp-prod__extra-icon {
-  color: var(--gh-detail-yellow-strong);
-  font-size: 16px;
-  margin-top: 2px;
-  flex-shrink: 0;
 }
 
 .rp-prod__extra strong {
@@ -283,7 +242,8 @@
   margin: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px 16px;
+  gap: 10px 24px;
+  align-items: start;
 }
 
 @media (min-width: 640px) {

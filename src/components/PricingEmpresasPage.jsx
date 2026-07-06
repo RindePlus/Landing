@@ -3,10 +3,10 @@ import {
   FaInfinity,
   FaCogs,
   FaCheck,
-  FaArrowRight,
 } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
+import PricingFaq from './PricingFaq';
 import { useRpTheme } from '../hooks/useRpTheme';
 import { PLANES_EMPRESAS, buildWhatsAppUrl } from '../data/pricing';
 import './pricing.css';
@@ -74,7 +74,7 @@ const FAQ = [
   },
   {
     q: '¿Por qué solo precio anual?',
-    a: 'Simplificamos el pricing: un precio claro, en dólares, anual. Así no hay descuentos con asteriscos ni sorpresas en la factura.',
+    a: 'Simplificamos el pricing: un precio claro, anual. Así no hay descuentos con asteriscos ni sorpresas en la factura.',
   },
 ];
 
@@ -187,12 +187,9 @@ const PricingEmpresasPage = ({
                     <span className="rp-plan__price-period">/ año</span>
                   </div>
                   <div className="rp-plan__price-monthly">
-                    Equivale a USD {plan.precioMensualEq} / mes
+                    Equivale a USD {plan.precioMensualEq} / mes · por empresa
+                    socia o cliente
                   </div>
-
-                  <span className="rp-emp__plan-tag">
-                    Por cada empresa socia o cliente
-                  </span>
 
                   <ul className="rp-plan__list">
                     {plan.modulos.map((mod) => (
@@ -219,7 +216,6 @@ const PricingEmpresasPage = ({
                 onClick={handleCoordinar}
               >
                 Coordinemos una demo
-                <FaArrowRight />
               </button>
               <p className="rp-cta__help">
                 Te respondemos por WhatsApp en menos de 24hs.
@@ -229,17 +225,9 @@ const PricingEmpresasPage = ({
 
           <div className="rp-emp__faq">
             <div className="rp-emp__faq-header">
-              <div className="rp-num-eyebrow">FAQ</div>
               <h2>Preguntas frecuentes</h2>
             </div>
-            <div className="rp-faq-grid">
-              {FAQ.map(({ q, a }) => (
-                <div key={q} className="rp-faq-card">
-                  <h3>{q}</h3>
-                  <p>{a}</p>
-                </div>
-              ))}
-            </div>
+            <PricingFaq items={FAQ} />
           </div>
         </section>
       </main>

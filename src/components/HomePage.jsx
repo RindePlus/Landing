@@ -51,7 +51,7 @@ const PRINCIPLES = [
     Icon: FaCalendarAlt,
     title: 'Un plan anual simple',
     copy:
-      'Precio anual único en dólares. Abajo te mostramos el equivalente mensual, sin letra chica ni descuentos con asteriscos.',
+      'Precio anual único. Abajo te mostramos el equivalente mensual, sin letra chica ni descuentos con asteriscos.',
     accent: 'rp-acc-amber',
   },
 ];

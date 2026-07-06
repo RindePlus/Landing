@@ -1,4 +1,3 @@
-import { LuArrowRight } from 'react-icons/lu';
 import Reveal from './Reveal';
 import './AapresidBanner.css';
 
@@ -24,7 +23,6 @@ const AapresidBanner = ({ onGoToAapresidPricing }) => (
           onClick={onGoToAapresidPricing}
         >
           Ver planes Aapresid
-          <LuArrowRight />
         </button>
       </div>
     </Reveal>

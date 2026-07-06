@@ -167,20 +167,9 @@
   }
 }
 
-.rp-emp__plan-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--gh-detail-yellow-strong);
-  background: var(--gh-detail-yellow-soft);
-  border: 1px solid var(--gh-border);
-  align-self: flex-start;
-  margin-bottom: 24px;
+/* Tighter, even inner padding — same as the Aapresid plan cards */
+.rp-emp__plan-grid .rp-plan {
+  padding: clamp(20px, 2.5vw, 28px);
 }
 
 /* ============================================================

@@ -2,13 +2,11 @@ import {
   FaUserCheck,
   FaInfinity,
   FaBullseye,
-  FaLeaf,
   FaCheck,
-  FaArrowRight,
-  FaPlus,
 } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
+import PricingFaq from './PricingFaq';
 import { useRpTheme } from '../hooks/useRpTheme';
 import { PLAN_PRODUCTOR, buildWhatsAppUrl } from '../data/pricing';
 import './pricing.css';
@@ -80,7 +78,7 @@ const FAQ = [
   },
   {
     q: '¿Cómo se paga el USD 3/ha?',
-    a: 'Se factura anualmente sobre las hectáreas contratadas. La suscripción a la herramienta es independiente y anual, en dólares.',
+    a: 'Se factura anualmente sobre las hectáreas contratadas. La suscripción a la herramienta es independiente y anual.',
   },
 ];
 
@@ -172,27 +170,18 @@ const PricingProductoresPage = ({
           <div className="rp-prod__pricing">
             <div className="rp-prod__pricing-header">
               <div className="rp-num-eyebrow">El plan</div>
-              <h2 className="rp-h2">Conocés los resultados · Elegí cómo empezar</h2>
+              <h2 className="rp-h2">Un plan único · Todo incluido</h2>
               <p>
-                Un plan único: la herramienta completa + nuestro equipo
-                agronómico sobre los lotes que elijas. Precio anual, en dólares.
+                La herramienta completa + nuestro equipo agronómico sobre los
+                lotes que elijas.
               </p>
             </div>
 
             <div className="rp-prod__grid">
               <article className="rp-prod__plan">
-                <span className="rp-prod__plan-badge">
-                  Plan único · Todo incluido
-                </span>
-
                 <div className="rp-prod__plan-header">
-                  <div className="rp-prod__plan-icon">
-                    <FaLeaf />
-                  </div>
-                  <div>
-                    <h3 className="rp-prod__plan-name">{PLAN_PRODUCTOR.nombre}</h3>
-                    <p className="rp-prod__plan-tagline">{PLAN_PRODUCTOR.tagline}</p>
-                  </div>
+                  <h3 className="rp-prod__plan-name">{PLAN_PRODUCTOR.nombre}</h3>
+                  <p className="rp-prod__plan-tagline">{PLAN_PRODUCTOR.tagline}</p>
                 </div>
 
                 <div className="rp-prod__price-block">
@@ -207,13 +196,10 @@ const PricingProductoresPage = ({
                     Facturación anual única
                   </div>
 
-                  <div className="rp-prod__extra">
-                    <FaPlus className="rp-prod__extra-icon" />
-                    <div>
-                      <strong>USD 3 / ha / año</strong> sólo sobre los lotes
-                      que elijas para asesoramiento personalizado.
-                    </div>
-                  </div>
+                  <p className="rp-prod__extra">
+                    <strong>+ USD 3 por hectárea</strong> sólo sobre los lotes
+                    que elijas para asesoramiento personalizado.
+                  </p>
                 </div>
 
                 <ul className="rp-prod__plan-list">
@@ -234,7 +220,6 @@ const PricingProductoresPage = ({
                 onClick={handleContratar}
               >
                 Quiero empezar
-                <FaArrowRight />
               </button>
               <p className="rp-cta__help">
                 Te respondemos por WhatsApp en menos de 24hs.
@@ -244,17 +229,9 @@ const PricingProductoresPage = ({
 
           <div className="rp-prod__faq">
             <div className="rp-prod__faq-header">
-              <div className="rp-num-eyebrow">FAQ</div>
               <h2>Preguntas frecuentes</h2>
             </div>
-            <div className="rp-faq-grid">
-              {FAQ.map(({ q, a }) => (
-                <div key={q} className="rp-faq-card">
-                  <h3>{q}</h3>
-                  <p>{a}</p>
-                </div>
-              ))}
-            </div>
+            <PricingFaq items={FAQ} />
           </div>
         </section>
       </main>
