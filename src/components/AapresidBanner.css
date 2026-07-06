@@ -79,7 +79,7 @@
   align-items: center;
   flex-shrink: 0;
   padding: 11px 20px;
-  border-radius: var(--gh-radius);
+  border-radius: var(--gh-radius-btn, 10px);
   background: #1da851;
   color: #ffffff;
   border: none;

@@ -274,7 +274,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 22px;
-  border-radius: var(--gh-radius);
+  border-radius: var(--gh-radius-btn, 10px);
   background: var(--gh-accent);
   color: var(--gh-accent-fg);
   border: 1px solid transparent;
@@ -321,7 +321,7 @@
   align-items: center;
   gap: 6px;
   padding: 9px 16px;
-  border-radius: var(--gh-radius);
+  border-radius: var(--gh-radius-btn, 10px);
   background: transparent;
   color: var(--gh-fg-muted);
   border: 1px solid var(--gh-border);

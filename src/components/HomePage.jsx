@@ -1,5 +1,4 @@
 import { FaInfinity, FaChartLine, FaCalendarAlt } from 'react-icons/fa';
-import { LuArrowRight } from 'react-icons/lu';
 import Header from './Header';
 import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
@@ -207,7 +206,6 @@ const AntesDeEmpezarSection = ({ onGoToPricing }) => (
         onClick={onGoToPricing}
       >
         Ver planes y precios
-        <LuArrowRight />
       </button>
     </Reveal>
 

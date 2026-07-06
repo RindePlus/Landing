@@ -42,7 +42,8 @@
   --gh-detail-yellow-soft: #fff8c5;
   --gh-danger: #cf222e;
   --gh-radius: 6px;
-  --gh-radius-card: 12px;
+  --gh-radius-btn: 10px; /* interactive buttons (header, hero, CTAs) */
+  --gh-radius-card: 10px; /* cards share the button curve for a unified look */
   --gh-shadow-sm: 0 1px 0 rgba(31, 35, 40, 0.04);
   --gh-shadow-card: 0 1px 3px rgba(31, 35, 40, 0.12), 0 1px 2px rgba(31, 35, 40, 0.06);
   --gh-shadow-overlay: 0 8px 24px rgba(31, 35, 40, 0.12);

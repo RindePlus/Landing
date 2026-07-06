@@ -266,7 +266,7 @@
   background: var(--gh-surface);
   border: 1px solid var(--gh-border);
   color: var(--gh-fg);
-  border-radius: var(--gh-radius);
+  border-radius: var(--gh-radius-btn, 10px);
   box-shadow: var(--gh-shadow-sm);
   transition: background 0.15s ease, border-color 0.15s ease;
 }

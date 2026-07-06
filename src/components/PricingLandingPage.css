@@ -129,7 +129,7 @@
   align-items: center;
   justify-content: center;
   padding: 12px 20px;
-  border-radius: var(--gh-radius);
+  border-radius: var(--gh-radius-btn, 10px);
   color: var(--gh-accent-fg);
   background: var(--gh-accent);
   font-weight: 600;

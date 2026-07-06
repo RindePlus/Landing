@@ -217,9 +217,9 @@ img.logo-image:hover {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 6px 14px;
   flex-shrink: 0;
-  border-radius: var(--gh-radius, 6px);
+  border-radius: var(--gh-radius-btn, 10px);
   background: transparent;
   border: none;
   color: var(--gh-fg-muted, #656d76);
@@ -243,7 +243,7 @@ img.logo-image:hover {
   justify-content: center;
   width: 34px;
   height: 34px;
-  border-radius: var(--gh-radius, 6px);
+  border-radius: var(--gh-radius-btn, 10px);
   background: transparent;
   border: 1px solid transparent;
   color: var(--gh-fg-muted, #656d76);
@@ -345,8 +345,8 @@ img.logo-image:hover {
   align-items: center;
   gap: 7px;
   height: 34px;
-  padding: 0 14px;
-  border-radius: var(--gh-radius, 6px);
+  padding: 0 16px;
+  border-radius: var(--gh-radius-btn, 10px);
   background: var(--gh-accent, #0969da);
   color: var(--gh-accent-fg, #fff);
   border: 1px solid transparent;
@@ -354,12 +354,11 @@ img.logo-image:hover {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition: background 0.15s ease;
 }
 
 .header-platform-btn:hover {
   background: var(--gh-accent-hover, #0860ca);
-  transform: translateY(-1px);
 }
 
 .header-platform-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
@@ -470,7 +469,7 @@ img.logo-image:hover {
 .rp-home .menu-item {
   color: var(--gh-fg);
   font-weight: 500;
-  border-radius: var(--gh-radius);
+  border-radius: var(--gh-radius-btn, 10px);
 }
 
 .rp-home .menu-item:hover {
@@ -508,7 +507,7 @@ img.logo-image:hover {
     font-size: 14px;
     font-weight: 500;
     color: var(--gh-fg-muted);
-    border-radius: var(--gh-radius);
+    border-radius: var(--gh-radius-btn, 10px);
     transition: background 0.15s ease, color 0.15s ease;
   }
 
