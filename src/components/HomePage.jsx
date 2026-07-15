@@ -1,10 +1,11 @@
-import { FaInfinity, FaChartLine, FaCalendarAlt } from 'react-icons/fa';
+import { FaInfinity, FaChartLine, FaCalendarAlt, FaInstagram } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
 import Functionalities from './Functionalities';
 import Reveal from './Reveal';
 import { useRpTheme } from '../hooks/useRpTheme';
+import { INSTAGRAM_URL, INSTAGRAM_HANDLE, WHATSAPP_URL } from '../data/social';
 import './pricing.css';
 import './HomePage.css';
 
@@ -98,7 +99,7 @@ const ACCORDION = [
 
 /* ---------------- Subcomponents ---------------- */
 
-const HeroSection = ({ onGoToPlatforms, onScrollToFuncionalidades }) => (
+const HeroSection = ({ onGoToPlatforms }) => (
   <section className="rp-home__hero" id="top">
     <div className="rp-home__hero-grid" />
     <div className="rp-home__hero-inner">
@@ -116,18 +117,20 @@ const HeroSection = ({ onGoToPlatforms, onScrollToFuncionalidades }) => (
       <div className="rp-home__hero-ctas rp-fade-in rp-d-4">
         <button
           type="button"
-          className="rp-home__hero-btn rp-home__hero-btn--primary"
+          className="rp-home__hero-btn rp-home__hero-btn--ghost"
           onClick={onGoToPlatforms}
         >
           Ver Plataformas
         </button>
-        <button
-          type="button"
-          className="rp-home__hero-btn rp-home__hero-btn--ghost"
-          onClick={onScrollToFuncionalidades}
+        <a
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rp-home__hero-ig"
         >
-          Ver funcionalidades
-        </button>
+          <FaInstagram aria-hidden="true" />
+          Seguinos en {INSTAGRAM_HANDLE}
+        </a>
       </div>
     </div>
   </section>
@@ -253,7 +256,7 @@ const FinalCta = ({ onOpenWhatsApp }) => (
           responde directo.
         </p>
         <a
-          href="https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus"
+          href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="rp-home__cta-btn"
@@ -271,17 +274,6 @@ const FinalCta = ({ onOpenWhatsApp }) => (
 const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing }) => {
   const { theme, toggleTheme } = useRpTheme();
 
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const header = document.querySelector('.header');
-    const offset = header ? header.offsetHeight : 0;
-    const top = el.getBoundingClientRect().top + window.scrollY - offset + 8;
-    window.scrollTo({ top, behavior: 'smooth' });
-  };
-
-  const handleScrollToFuncionalidades = () => scrollToSection('funcionalidades');
-
   return (
     <div className="rp-home">
       <Header
@@ -298,10 +290,7 @@ const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing }) => {
       />
 
       <main>
-        <HeroSection
-          onGoToPlatforms={onGoToPlatforms}
-          onScrollToFuncionalidades={handleScrollToFuncionalidades}
-        />
+        <HeroSection onGoToPlatforms={onGoToPlatforms} />
 
         <TrustedSection />
 

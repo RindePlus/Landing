@@ -89,4 +89,4 @@
   cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
 }
-.rp-home__Aapresid-btn:hover { background: #178f45; transform: translateY(-1px); }
+.rp-home__Aapresid-btn:hover { background: #178f45; }

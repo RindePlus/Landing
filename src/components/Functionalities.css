@@ -7,6 +7,44 @@
 
 .rp-fx-section { scroll-margin-top: 80px; }
 
+/* ---- Section palette — el verde es acento DE SECCIÓN (identidad agro);
+   los elementos interactivos globales siguen con --gh-accent azul.
+   --fx-accent usa #1a7f37 (4.77:1 sobre canvas claro, AA texto chico);
+   #018c34 queda para trazos gruesos de serie, no para texto pequeño. ---- */
+.rp-fx-section {
+  --fx-accent: #1a7f37;
+  /* GitHub green button pair — AA con texto blanco (a diferencia de
+     --gh-detail-green #018c34, que da 4.38:1 y no llega) */
+  --fx-btn: #1f883d;
+  --fx-btn-hover: #1a7f37;
+  --fx-blue-1: #0969da;
+  --fx-blue-2: #0a4d9e;
+  --fx-teal-1: #0d9488;
+  --fx-teal-2: #2dd4bf;
+  --fx-amber-1: #e0850e;
+  --fx-amber-2: #f5b23e;
+  --fx-grid: #e2e8f0;
+  --fx-dot-fill: var(--gh-canvas);
+}
+
+[data-rp-theme="dark"] .rp-fx-section {
+  --fx-accent: #3fb950;
+  --fx-btn: #238636;
+  --fx-btn-hover: #2ea043;
+  --fx-blue-1: #4493f8;
+  --fx-blue-2: #58a6ff;
+  --fx-teal-1: #2dd4bf;
+  --fx-teal-2: #5eead4;
+  --fx-amber-1: #e3b341;
+  --fx-amber-2: #f0c674;
+  --fx-grid: #30363d;
+}
+
+/* Per-panel palette → generic slots the chart classes consume */
+.rp-fx__panel--blue  { --fx-c1: var(--fx-blue-1);  --fx-c2: var(--fx-blue-2); }
+.rp-fx__panel--teal  { --fx-c1: var(--fx-teal-1);  --fx-c2: var(--fx-teal-2); }
+.rp-fx__panel--amber { --fx-c1: var(--fx-amber-1); --fx-c2: var(--fx-amber-2); }
+
 /* ---- Header (flujo normal) ---- */
 .rp-fx__head {
   text-align: center;
@@ -94,7 +132,7 @@
 }
 
 .rp-fx__dot:hover { background: var(--gh-fg-muted); }
-.rp-fx__dot.is-active { width: 26px; background: var(--gh-accent); }
+.rp-fx__dot.is-active { width: 26px; background: var(--fx-accent); }
 
 .rp-fx__hint {
   display: inline-flex;
@@ -116,7 +154,7 @@
 }
 
 .rp-fx__hint svg { width: 15px; height: 15px; transition: transform 0.18s ease; }
-.rp-fx__hint:hover { color: var(--gh-accent); }
+.rp-fx__hint:hover { color: var(--fx-accent); }
 .rp-fx__hint:hover svg { transform: translateX(3px); }
 .rp-fx__hint:active svg { transform: translateX(1px); }
 .rp-fx__hint:focus-visible {
@@ -127,13 +165,62 @@
 
 /* ---- Track (translated by JS on desktop) ---- */
 .rp-fx__track {
+  position: relative; /* anchor for the continuous field backdrop */
   flex: 1;
   display: flex;
   will-change: transform;
 }
 
+/* ---- Campo continuo — abarca todo el ancho de contenido del track
+   (COUNT × ancho de panel, via --fx-count) y viaja con él ---- */
+.rp-fx__field {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: calc(var(--fx-count, 4) * 100vw);
+  height: clamp(160px, 30vh, 300px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.rp-fx__field svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.rp-fx__field .fx-field-stop { stop-color: var(--gh-detail-green); }
+.rp-fx__field .fx-field-line { stroke: var(--gh-detail-green); }
+
+/* setSize() monta la sección siguiente sobre la zona muerta del stage
+   (margin-bottom negativo). Con el campo ocupando esa zona, la sección
+   necesita un tapón opaco para que el paisaje no asome detrás: el campo se
+   ve completo durante todo el recorrido pinneado y se corta limpio en el
+   hand-off. Como .rp-home__section tiene max-width 1440px centrado, el
+   tapón es un ::before de 100vw (si no, el campo asoma a los costados en
+   pantallas anchas). z-index:0 crea el stacking context propio que deja al
+   ::before (z:-1) detrás del contenido de la sección pero por encima del
+   stage sticky. */
+.rp-fx-section + .rp-home__section {
+  z-index: 0;
+}
+
+.rp-fx-section + .rp-home__section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--gh-canvas);
+  z-index: -1;
+}
+
 /* ---- Panel (full viewport width, sin card) ---- */
 .rp-fx__panel {
+  position: relative;
+  z-index: 1; /* above the positioned field backdrop */
   flex: 0 0 100vw;
   width: 100vw;
   height: 100%;
@@ -275,17 +362,17 @@
   gap: 8px;
   padding: 12px 22px;
   border-radius: var(--gh-radius-btn, 10px);
-  background: var(--gh-accent);
-  color: var(--gh-accent-fg);
+  background: var(--fx-btn);
+  color: #ffffff;
   border: 1px solid transparent;
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition: background 0.15s ease;
 }
 
-.rp-fx__more:hover { background: var(--gh-accent-hover); transform: translateY(-1px); }
+.rp-fx__more:hover { background: var(--fx-btn-hover); }
 .rp-fx__more svg { width: 16px; height: 16px; }
 
 /* back — problema/mejora planos (sin caja) */
@@ -338,13 +425,31 @@
 /* ---- Chart column (pelado, sin recuadro) ---- */
 .rp-fx__visual {
   display: flex;
-  align-items: flex-start; /* top-align → chart sits higher on the Y axis */
+  align-items: flex-start;
   justify-content: center;
-  padding-top: clamp(24px, 6vh, 72px);
+  /* lower on Y so the chart breathes against the field backdrop below */
+  padding-top: clamp(56px, 13vh, 140px);
   color: var(--gh-fg-muted);
 }
 
-.rp-fx__chart { width: 100%; max-width: 560px; height: auto; max-height: 440px; }
+.rp-fx__chart {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  max-height: 440px;
+}
+
+/* Series/grid colors — resolved from the panel palette slots so light/dark
+   themes flip them automatically (see .rp-fx__panel--{green|teal|amber}).
+   Scoped to the panel so both the chart and the motif below it resolve. */
+.rp-fx__panel .fx-s1 { stroke: var(--fx-c1); }
+.rp-fx__panel .fx-s2 { stroke: var(--fx-c2); }
+.rp-fx__panel .fx-f2 { fill: var(--fx-c2); }
+.rp-fx__panel .fx-grid { stroke: var(--fx-grid); }
+.rp-fx__panel .fx-dot { fill: var(--fx-dot-fill); }
+.rp-fx__panel .fx-stop-1 { stop-color: var(--fx-c1); }
+.rp-fx__panel .fx-stop-2 { stop-color: var(--fx-c2); }
+
 
 /* ---- Merged "Brechas de rendimiento" — dos secciones de texto, sin gráfico ---- */
 .rp-fx__panel-inner--dual {
@@ -380,7 +485,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--gh-accent);
+  color: var(--fx-accent);
   margin-bottom: 8px;
 }
 
@@ -406,14 +511,14 @@
 [data-rp-theme="dark"] .rp-fx__detail--gain .rp-fx__detail-ico { background: #143d2a; color: #3fb950; }
 [data-rp-theme="dark"] .rp-fx__detail--gain .rp-fx__detail-label { color: #3fb950; }
 
-[data-rp-theme="dark"] .rp-fx__chart line[stroke="#e2e8f0"],
-[data-rp-theme="dark"] .rp-fx__chart line[stroke="#cbd5e1"] { stroke: #30363d; }
-
 /* ============================================================
    FALLBACK — native horizontal swipe (mobile)
    ============================================================ */
 @media (max-width: 767px) {
-  .rp-fx { height: auto !important; }
+  /* aire entre el final del campo y la sección Beneficios (en desktop lo
+     maneja el pull-up de setSize; acá el margen inline queda vacío y esta
+     regla aplica) */
+  .rp-fx { height: auto !important; margin-bottom: 48px; }
   /* Static, natural-height stage. Stays a flex column so every panel shares the
      tallest panel's height → the bottom-anchored buttons line up across panels. */
   .rp-fx__sticky { position: static; height: auto; padding-top: 0; overflow: visible; }
@@ -473,7 +578,9 @@
   .rp-fx__text { flex: 1; padding-top: 0; }
 
   /* Charts are decorative on desktop; drop them on mobile for a clean,
-     text-first read. */
+     text-first read. The field backdrop stays: anchored to the bottom of
+     the swipe track, it sits behind the bullets/button at low opacity and
+     travels with the panels. */
   .rp-fx__visual { display: none; }
 
   /* Title top-anchored, no desktop reserve gap; generous air below it. */
@@ -569,5 +676,8 @@
     height: auto;
     scroll-snap-align: center;
   }
+  /* match the narrower panel slices so the field doesn't extend the
+     scrollable area with empty space */
+  .rp-fx__field { width: calc(var(--fx-count, 4) * min(92vw, 900px)); }
   .rp-fx__flip-inner { transition: none; }
 }

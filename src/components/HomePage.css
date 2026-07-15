@@ -153,20 +153,8 @@
 .rp-home__hero-btn svg { transition: transform 0.2s ease; }
 .rp-home__hero-btn:hover svg { transform: translateX(3px); }
 
-/* primary (solid accent) */
-.rp-home__hero-btn--primary {
-  color: var(--gh-accent-fg);
-  background: var(--gh-accent);
-  box-shadow: var(--gh-shadow-sm);
-}
-
-.rp-home__hero-btn--primary:hover {
-  background: var(--gh-accent-hover);
-  transform: translateY(-1px);
-}
-
-/* secondary (bordered surface) */
-/* secondary — plain, like a header nav item (no fill, no border), blue text */
+/* ghost — plain, like a header nav item (no fill, no border), blue text;
+   hover fills soft so it reads as a button */
 .rp-home__hero-btn--ghost {
   color: var(--gh-accent);
   background: transparent;
@@ -179,6 +167,34 @@
   background: var(--gh-accent-soft);
   color: var(--gh-accent-hover);
   transform: none;
+}
+
+/* Instagram follow pill — quiet bordered CTA under "Ver Plataformas" */
+.rp-home__hero-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 26px;
+  border-radius: 999px;
+  background: var(--gh-surface);
+  color: var(--gh-fg);
+  border: 1px solid var(--gh-border);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.rp-home__hero-ig:hover {
+  background: var(--gh-surface-2);
+  border-color: var(--gh-border-strong);
+}
+
+.rp-home__hero-ig svg {
+  color: var(--gh-detail-pink);
+  width: 17px;
+  height: 17px;
 }
 
 /* Tiny marquee of domain labels under CTAs */
@@ -660,14 +676,13 @@
   background: #1da851;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition: background 0.15s ease;
   /* keyframes shared with the pricing CTAs (pricing-gh.css) */
   animation: rp-cta-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .rp-home__cta-btn:hover {
   background: #178f45;
-  transform: translateY(-1px);
 }
 
 .rp-home__cta-btn svg { color: #ffffff; width: 18px; height: 18px; }
@@ -847,7 +862,8 @@
 .rp-home__empezar-footer {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 64px;
+  margin-bottom: 24px;
 }
 
 .rp-home__empezar-cta {

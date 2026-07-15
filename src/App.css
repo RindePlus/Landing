@@ -279,6 +279,11 @@
     box-shadow 0.55s ease;
 }
 
+/* darken on hover like the green CTAs — only while closed (open = white panel) */
+.wa-widget:not(.wa-widget--open):hover {
+  background: #1da851;
+}
+
 .wa-widget--open {
   width: 300px;
   height: 240px;

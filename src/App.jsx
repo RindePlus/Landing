@@ -6,6 +6,7 @@ import PricingProductoresPage from './components/PricingProductoresPage';
 import PricingEmpresasPage from './components/PricingEmpresasPage';
 import PricingAapresidPage from './components/PricingAapresidPage';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
+import { WHATSAPP_URL } from './data/social';
 import './App.css';
 
 const KNOWN_ROUTES = [
@@ -75,7 +76,7 @@ function App() {
     };
   }, [showWhatsappPopup]);
 
-  const whatsappUrl = "https://wa.me/5493564593446?text=Hola,%20quiero%20más%20información%20sobre%20Rinde%20Plus";
+  const whatsappUrl = WHATSAPP_URL;
 
   const whatsappElements = (
     <>

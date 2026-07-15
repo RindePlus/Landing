@@ -75,7 +75,7 @@
 .rp-platsel__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px;
+  gap: 20px;
 }
 
 @media (min-width: 640px) {
@@ -170,7 +170,7 @@
   height: 52px;
 }
 
-/* Pinned to the card's top-right corner, with a pulsing accent ring */
+/* Pinned to the card's top-right corner */
 .rp-platsel__badge {
   position: absolute;
   top: 16px;
@@ -186,17 +186,6 @@
   color: var(--gh-accent);
   background: var(--gh-accent-soft);
   border: 1px solid var(--gh-border);
-  animation: rp-badge-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes rp-badge-pulse {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--gh-accent) 45%, transparent);
-  }
-  70%,
-  100% {
-    box-shadow: 0 0 0 9px transparent;
-  }
 }
 
 .rp-platsel__card-title {
@@ -276,12 +265,18 @@
 .rp-platsel__install-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px;
+  gap: 20px;
   align-items: stretch; /* both cards share the tallest height */
 }
 
 @media (min-width: 768px) {
   .rp-platsel__install-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Más aire entre tarjetas en desktop. Mismo gap en ambos grids y mismo
+     contenedor (1100px) → los bordes externos de la fila de plataformas y
+     de las dos guías de instalación quedan siempre alineados. */
+  .rp-platsel__grid,
+  .rp-platsel__install-grid { gap: 32px; }
 }
 
 .rp-platsel__install-card {
@@ -305,17 +300,15 @@
   margin-bottom: 20px;
 }
 
+/* Bare icon in the platform's accent color — no chip behind it,
+   same language as the footer contact icons */
 .rp-platsel__install-icon {
-  width: 44px;
-  height: 44px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--gh-radius-btn, 10px);
-  background: var(--install-accent);
-  color: #ffffff;
-  font-size: 24px;
+  color: var(--install-accent);
+  font-size: 30px;
 }
 
 .rp-platsel__install-name {

@@ -40,6 +40,7 @@
   --gh-detail-yellow: #ffd100;
   --gh-detail-yellow-strong: #bf8700;
   --gh-detail-yellow-soft: #fff8c5;
+  --gh-detail-pink: #bf3989;
   --gh-danger: #cf222e;
   --gh-radius: 6px;
   --gh-radius-btn: 10px; /* interactive buttons (header, hero, CTAs) */
@@ -71,6 +72,7 @@
   --gh-detail-yellow: #e3b341;
   --gh-detail-yellow-strong: #e3b341;
   --gh-detail-yellow-soft: #2e2a13;
+  --gh-detail-pink: #db61a2;
   --gh-danger: #f85149;
   --gh-shadow-sm: 0 0 0 1px rgba(0, 0, 0, 0.2);
   --gh-shadow-card: 0 1px 3px rgba(1, 4, 9, 0.5);

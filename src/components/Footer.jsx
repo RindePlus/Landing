@@ -1,5 +1,6 @@
 import { LuMail, LuMapPin } from 'react-icons/lu';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram } from 'react-icons/fa';
+import { INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../data/social';
 import './Footer.css';
 
 const Footer = ({ onOpenWhatsApp }) => {
@@ -11,6 +12,10 @@ const Footer = ({ onOpenWhatsApp }) => {
     const address = 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina';
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const openInstagram = () => {
+    window.open(INSTAGRAM_URL, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -34,6 +39,24 @@ const Footer = ({ onOpenWhatsApp }) => {
                 <span className="rp-footer__contact-label">Email</span>
                 <span className="rp-footer__contact-value">
                   inforindeplus@gmail.com
+                </span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              className="rp-footer__contact-item"
+              onClick={openInstagram}
+              aria-label="Abrir Instagram de Rinde Plus"
+            >
+              <span className="rp-footer__contact-icon rp-footer__contact-icon--instagram">
+                <FaInstagram />
+              </span>
+              <span className="rp-footer__contact-text">
+                <span className="rp-footer__contact-label">Instagram</span>
+                <span className="rp-footer__contact-value">
+                  {INSTAGRAM_HANDLE}
                 </span>
               </span>
             </button>

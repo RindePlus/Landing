@@ -79,7 +79,7 @@
   background: linear-gradient(90deg, var(--rp-gold-400), transparent);
 }
 
-/* --- Contact row (3 tiles) --- */
+/* --- Contact row (4 tiles: 1-col → 2×2 → 4-up) --- */
 .rp-footer__contact {
   display: grid;
   grid-template-columns: 1fr;
@@ -91,14 +91,17 @@
 
 @media (min-width: 768px) {
   .rp-footer__contact {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-bottom: 48px;
   }
 }
 
 @media (min-width: 1024px) {
-  .rp-footer__contact { gap: 24px; }
+  .rp-footer__contact {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
 }
 
 .rp-footer__contact > li { display: flex; }
@@ -151,6 +154,10 @@
 
 .rp-footer__contact-icon--whatsapp {
   background: #25d366;
+}
+
+.rp-footer__contact-icon--instagram {
+  background: linear-gradient(45deg, #f09433, #dc2743 55%, #bc1888);
 }
 
 .rp-footer__contact-text {
@@ -297,6 +304,12 @@
   background: none;
   border: none;
   color: var(--gh-detail-yellow);
+}
+
+.rp-home .rp-footer__contact-icon--instagram {
+  background: none;
+  border: none;
+  color: var(--gh-detail-pink);
 }
 
 .rp-home .rp-footer__contact-label {

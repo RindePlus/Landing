@@ -78,7 +78,6 @@
 
 .rp-pricing .rp-cta:hover {
   background: #178f45;
-  transform: translateY(-1px);
 }
 
 @keyframes rp-cta-pulse {

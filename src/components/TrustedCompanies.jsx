@@ -12,6 +12,7 @@ import adjLogo from '../assets/related companies/adj.png';
 import halconLogo from '../assets/related companies/halcon.png';
 import bioredLogo from '../assets/related companies/biored.png';
 import agroconsultorLogo from '../assets/related companies/agroconsultor.png';
+import biozelenLogo from '../assets/related companies/biozelen.png';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './TrustedCompanies.css';
 
@@ -39,6 +40,7 @@ const TrustedCompanies = () => {
     { id: 10, logo: halconLogo, name: 'Halcón', h: 50 },
     { id: 11, logo: bioredLogo, name: 'BioRed', h: 66 },
     { id: 12, logo: agroconsultorLogo, name: 'Agroconsultor', h: 40 },
+    { id: 13, logo: biozelenLogo, name: 'Bio Zelen', h: 74 },
   ];
 
   // Duplicate companies for seamless loop
