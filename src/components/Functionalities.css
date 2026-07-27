@@ -23,6 +23,8 @@
   --fx-teal-2: #2dd4bf;
   --fx-amber-1: #e0850e;
   --fx-amber-2: #f5b23e;
+  --fx-green-1: #1a7f37;
+  --fx-green-2: #4ac26b;
   --fx-grid: #e2e8f0;
   --fx-dot-fill: var(--gh-canvas);
 }
@@ -37,6 +39,8 @@
   --fx-teal-2: #5eead4;
   --fx-amber-1: #e3b341;
   --fx-amber-2: #f0c674;
+  --fx-green-1: #3fb950;
+  --fx-green-2: #56d364;
   --fx-grid: #30363d;
 }
 
@@ -44,6 +48,7 @@
 .rp-fx__panel--blue  { --fx-c1: var(--fx-blue-1);  --fx-c2: var(--fx-blue-2); }
 .rp-fx__panel--teal  { --fx-c1: var(--fx-teal-1);  --fx-c2: var(--fx-teal-2); }
 .rp-fx__panel--amber { --fx-c1: var(--fx-amber-1); --fx-c2: var(--fx-amber-2); }
+.rp-fx__panel--green { --fx-c1: var(--fx-green-1); --fx-c2: var(--fx-green-2); }
 
 /* ---- Header (flujo normal) ---- */
 .rp-fx__head {
@@ -177,7 +182,7 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: calc(var(--fx-count, 4) * 100vw);
+  width: calc(var(--fx-count, 5) * 100vw);
   height: clamp(160px, 30vh, 300px);
   z-index: 0;
   pointer-events: none;
@@ -280,6 +285,34 @@
   margin: 0 0 22px;
   line-height: 1.1;
 }
+
+/* Títulos Vig IA — el wordmark reemplaza al texto "Vig IA". La imagen se
+   dimensiona para que la altura de mayúsculas del logo (≈49% del PNG, el
+   resto es el arco y el descendente de la g) calce con la del texto
+   (≈0.72em → 1.47em), y el translate baja el borde inferior (la g) por
+   debajo del baseline del sufijo.
+   El margin-top negativo compensa la altura extra que la imagen (1.47em,
+   con baseline en su borde inferior) suma por ENCIMA del baseline: sin él,
+   el texto del título queda ~0.57em más abajo que en los paneles sin logo
+   (medido: 27.5px @ 48px). Así el sufijo alinea con los otros títulos y el
+   arco sobresale hacia el aire del padding superior. */
+.rp-fx__name--logo {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.34em;
+  margin-top: -0.574em;
+}
+
+.rp-fx__vigia {
+  height: 1.47em;
+  width: auto;
+  transform: translateY(0.19em);
+}
+
+.rp-fx__vigia--dark { display: none; }
+[data-rp-theme="dark"] .rp-fx__vigia--light { display: none; }
+[data-rp-theme="dark"] .rp-fx__vigia--dark { display: inline-block; }
 
 /* ---- Flip block (SOLO el párrafo) ---- */
 .rp-fx__flip {
@@ -440,7 +473,7 @@
 }
 
 /* Series/grid colors — resolved from the panel palette slots so light/dark
-   themes flip them automatically (see .rp-fx__panel--{green|teal|amber}).
+   themes flip them automatically (see .rp-fx__panel--{blue|teal|amber|green}).
    Scoped to the panel so both the chart and the motif below it resolve. */
 .rp-fx__panel .fx-s1 { stroke: var(--fx-c1); }
 .rp-fx__panel .fx-s2 { stroke: var(--fx-c2); }
@@ -449,6 +482,12 @@
 .rp-fx__panel .fx-dot { fill: var(--fx-dot-fill); }
 .rp-fx__panel .fx-stop-1 { stop-color: var(--fx-c1); }
 .rp-fx__panel .fx-stop-2 { stop-color: var(--fx-c2); }
+
+/* Franjas del semáforo de siembra (Vig IA Herbicidas) — tokens gh que ya
+   flipean en dark; opacidad baja para que queden como lavados de fondo. */
+.rp-fx__panel .fx-band-risk { fill: var(--gh-danger); opacity: 0.1; }
+.rp-fx__panel .fx-band-warn { fill: var(--gh-detail-yellow-strong); opacity: 0.12; }
+.rp-fx__panel .fx-band-safe { fill: var(--gh-detail-green); opacity: 0.16; }
 
 
 /* ---- Merged "Brechas de rendimiento" — dos secciones de texto, sin gráfico ---- */
@@ -678,6 +717,6 @@
   }
   /* match the narrower panel slices so the field doesn't extend the
      scrollable area with empty space */
-  .rp-fx__field { width: calc(var(--fx-count, 4) * min(92vw, 900px)); }
+  .rp-fx__field { width: calc(var(--fx-count, 5) * min(92vw, 900px)); }
   .rp-fx__flip-inner { transition: none; }
 }

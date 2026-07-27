@@ -4,12 +4,15 @@ import {
   LuTarget,
   LuCloudSun,
   LuEye,
+  LuFlaskConical,
   LuCheck,
   LuPlus,
   LuArrowLeft,
   LuArrowRight,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import vigiaLogoLight from '../assets/vigia-logo-light.png';
+import vigiaLogoDark from '../assets/vigia-logo-dark.png';
 import './Functionalities.css';
 
 /* ── Mini chart SVGs ──
@@ -72,12 +75,30 @@ const ChartGauge = () => (
   </svg>
 );
 
+/* Ventana de siembra (Vig IA Herbicidas): el residuo decae y cruza el
+   semáforo rojo/amarillo/verde; la línea punteada vertical marca la fecha
+   de siembra segura. Las franjas usan los tokens --gh-danger /
+   --gh-detail-yellow-strong / --gh-detail-green (fx-band-*). */
+const ChartVentanaSiembra = () => (
+  <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
+    <rect className="fx-band-risk" x="16" y="16" width="62" height="86" />
+    <rect className="fx-band-warn" x="78" y="16" width="46" height="86" />
+    <rect className="fx-band-safe" x="124" y="16" width="62" height="86" />
+    <line className="fx-grid" x1="16" y1="58" x2="186" y2="58" strokeWidth="1" strokeDasharray="4 3" />
+    <line className="fx-grid" x1="16" y1="102" x2="186" y2="102" strokeWidth="0.8" />
+    <path className="fx-s1" d="M20 24 C 44 28, 62 40, 82 58 C 102 76, 130 90, 182 96" strokeWidth="2.5" strokeLinecap="round" />
+    <line className="fx-s2" x1="138" y1="24" x2="138" y2="102" strokeWidth="1.5" strokeDasharray="3 3" />
+    <circle className="fx-dot fx-s2" cx="138" cy="90" r="3.5" strokeWidth="2" />
+    <text x="100" y="125" textAnchor="middle" fontSize="11" fontWeight="700" fill="currentColor" fontFamily="var(--font-heading)">Fecha de siembra segura</text>
+  </svg>
+);
+
 /* ── Campo continuo — paisaje de lomas que abarca el ancho COMPLETO del
-   track (los 4 paneles), anclado abajo. Como vive adentro de .rp-fx__track,
+   track (los 5 paneles), anclado abajo. Como vive adentro de .rp-fx__track,
    viaja 1:1 con el translate del scroll-jack (y con el swipe nativo del
    fallback) sin tocar el JS: el campo "pasa" de una funcionalidad a la otra
    sin cortes. Verde calmo vía --gh-detail-green (flipea solo en dark).
-   viewBox 2240 = 4 × 560 y preserveAspectRatio="none" para estirar de punta
+   viewBox 2800 = 5 × 560 y preserveAspectRatio="none" para estirar de punta
    a punta; los trazos usan non-scaling-stroke para no engrosarse. ── */
 
 const FxField = () => (
@@ -85,7 +106,7 @@ const FxField = () => (
   // (COUNT × 100vw): con left/right:0 quedaría en el ancho de layout (100vw)
   // y el paisaje se cortaría al pasar al segundo panel.
   <div className="rp-fx__field" aria-hidden="true" style={{ '--fx-count': COUNT }}>
-    <svg viewBox="0 0 2240 300" fill="none" preserveAspectRatio="none" focusable="false">
+    <svg viewBox="0 0 2800 300" fill="none" preserveAspectRatio="none" focusable="false">
       {/* El color termina EXACTO en la tercera línea (cresta frontal):
           fxFieldClip recorta los rellenos en esa cresta, así ni el degradé
           ni ningún fondo pasan por debajo. La loma frontal queda solo como
@@ -103,18 +124,18 @@ const FxField = () => (
         </linearGradient>
         <clipPath id="fxFieldClip">
           {/* región por encima de la cresta frontal (la cresta, recorrida al revés) */}
-          <path d="M0 0 H2240 V222 C 2160 226, 2060 218, 1920 234 C 1760 256, 1600 218, 1440 238 C 1280 260, 1120 214, 960 236 C 800 258, 640 216, 480 238 C 320 262, 160 214, 0 240 Z" />
+          <path d="M0 0 H2800 V220 C 2660 224, 2540 218, 2400 236 C 2240 258, 2080 214, 1920 234 C 1760 256, 1600 218, 1440 238 C 1280 260, 1120 214, 960 236 C 800 258, 640 216, 480 238 C 320 262, 160 214, 0 240 Z" />
         </clipPath>
       </defs>
 
       {/* rellenos, recortados en la tercera línea */}
       <g clipPath="url(#fxFieldClip)">
         <path
-          d="M0 96 C 140 64, 280 128, 420 100 C 560 74, 700 118, 840 92 C 980 66, 1120 122, 1260 96 C 1400 72, 1540 116, 1680 88 C 1820 62, 1960 112, 2100 92 C 2150 85, 2200 83, 2240 86 V300 H0 Z"
+          d="M0 96 C 140 64, 280 128, 420 100 C 560 74, 700 118, 840 92 C 980 66, 1120 122, 1260 96 C 1400 72, 1540 116, 1680 88 C 1820 62, 1960 112, 2100 92 C 2240 66, 2380 116, 2520 94 C 2610 80, 2710 78, 2800 82 V300 H0 Z"
           fill="url(#fxFieldBack)"
         />
         <path
-          d="M0 172 C 150 140, 300 196, 450 168 C 600 142, 750 190, 900 164 C 1050 140, 1200 194, 1350 168 C 1500 144, 1650 188, 1800 162 C 1950 138, 2100 182, 2240 158 V300 H0 Z"
+          d="M0 172 C 150 140, 300 196, 450 168 C 600 142, 750 190, 900 164 C 1050 140, 1200 194, 1350 168 C 1500 144, 1650 188, 1800 162 C 1950 138, 2100 182, 2240 158 C 2380 134, 2520 180, 2660 156 C 2707 148, 2755 146, 2800 150 V300 H0 Z"
           fill="url(#fxFieldMid)"
         />
       </g>
@@ -122,21 +143,21 @@ const FxField = () => (
       {/* crestas — fuera del clip para que la 3ª línea conserve su trazo completo */}
       <path
         className="fx-field-line"
-        d="M0 96 C 140 64, 280 128, 420 100 C 560 74, 700 118, 840 92 C 980 66, 1120 122, 1260 96 C 1400 72, 1540 116, 1680 88 C 1820 62, 1960 112, 2100 92 C 2150 85, 2200 83, 2240 86"
+        d="M0 96 C 140 64, 280 128, 420 100 C 560 74, 700 118, 840 92 C 980 66, 1120 122, 1260 96 C 1400 72, 1540 116, 1680 88 C 1820 62, 1960 112, 2100 92 C 2240 66, 2380 116, 2520 94 C 2610 80, 2710 78, 2800 82"
         strokeWidth="1.25"
         strokeOpacity="0.25"
         vectorEffect="non-scaling-stroke"
       />
       <path
         className="fx-field-line"
-        d="M0 172 C 150 140, 300 196, 450 168 C 600 142, 750 190, 900 164 C 1050 140, 1200 194, 1350 168 C 1500 144, 1650 188, 1800 162 C 1950 138, 2100 182, 2240 158"
+        d="M0 172 C 150 140, 300 196, 450 168 C 600 142, 750 190, 900 164 C 1050 140, 1200 194, 1350 168 C 1500 144, 1650 188, 1800 162 C 1950 138, 2100 182, 2240 158 C 2380 134, 2520 180, 2660 156 C 2707 148, 2755 146, 2800 150"
         strokeWidth="1.5"
         strokeOpacity="0.35"
         vectorEffect="non-scaling-stroke"
       />
       <path
         className="fx-field-line"
-        d="M0 240 C 160 214, 320 262, 480 238 C 640 216, 800 258, 960 236 C 1120 214, 1280 260, 1440 238 C 1600 218, 1760 256, 1920 234 C 2060 218, 2160 226, 2240 222"
+        d="M0 240 C 160 214, 320 262, 480 238 C 640 216, 800 258, 960 236 C 1120 214, 1280 260, 1440 238 C 1600 218, 1760 256, 1920 234 C 2080 214, 2240 258, 2400 236 C 2540 218, 2660 224, 2800 220"
         strokeWidth="1.75"
         strokeOpacity="0.45"
         vectorEffect="non-scaling-stroke"
@@ -150,6 +171,8 @@ const FxField = () => (
       <path className="fx-field-line" d="M1235 217 C 1265 201, 1315 201, 1345 217" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
       <path className="fx-field-line" d="M1880 216 C 1920 194, 2000 194, 2040 216" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
       <path className="fx-field-line" d="M1905 223 C 1935 207, 1985 207, 2015 223" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
+      <path className="fx-field-line" d="M2500 210 C 2540 188, 2620 188, 2660 210" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
+      <path className="fx-field-line" d="M2525 217 C 2555 201, 2605 201, 2635 217" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
     </svg>
   </div>
 );
@@ -183,6 +206,7 @@ const FUNCTIONALITIES = [
     tag: 'Diagnóstico',
     name: 'Brechas de rendimiento',
     dual: true,
+    segLabel: 'Tipo de brecha',
     sections: [
       {
         id: 'estandar',
@@ -243,26 +267,88 @@ const FUNCTIONALITIES = [
   {
     id: 'vigia',
     Icon: LuEye,
-    Chart: ChartGauge,
-    palette: 'amber',
     tag: 'Inteligencia predictiva',
     name: 'Vig IA BioEstrés',
+    logoSuffix: 'BioEstrés',
+    dual: true,
+    segLabel: 'Tipo de análisis',
+    sections: [
+      {
+        id: 'mitigacion',
+        tab: 'Mitigación',
+        subtag: 'Estrés hídrico y térmico',
+        subname: 'Mitigación de Estrés',
+        description:
+          'Monitoreá y anticipá el estrés hídrico y térmico antes de que se manifieste. Inteligencia Artificial e Inteligencia Agronómica combinadas para alertas tempranas y manejo preventivo con bioinsumos.',
+        bullets: [
+          'Monitoreo de temperatura, humedad y DPV',
+          'Proyección climática con IA y balance hídrico',
+          'Alertas tempranas de estrés hídrico y térmico',
+        ],
+        problem:
+          'El cultivo muestra el estrés cuando ya perdiste rinde: para cuando lo ves a campo, reaccionás tarde y el daño ya está hecho.',
+        gain:
+          'Recibís alertas tempranas para actuar de forma preventiva, proteger el rendimiento y aplicar los bioinsumos en el momento justo.',
+      },
+      {
+        id: 'cultivo-servicio',
+        tab: 'Cultivo de Servicio',
+        subtag: 'Momento de secado',
+        subname: 'Cultivo de Servicio',
+        description:
+          'Seguí cuánta agua consume tu cultivo de servicio comparado contra un barbecho y definí el momento óptimo de secado con datos, cuidando el agua del cultivo que viene.',
+        bullets: [
+          'Consumo de agua del cultivo de servicio vs. barbecho',
+          'Balance hídrico continuo del lote',
+          'Definición del momento óptimo de secado',
+        ],
+        problem:
+          'El secado se define a ojo: si te pasás, el cultivo de servicio consume el agua del cultivo siguiente; si te apurás, perdés cobertura y servicios.',
+        gain:
+          'Sabés cuánta agua está consumiendo frente a un barbecho y elegís el momento de secado que protege la recarga del perfil.',
+      },
+    ],
+  },
+  {
+    id: 'herbicidas',
+    Icon: LuFlaskConical,
+    Chart: ChartVentanaSiembra,
+    palette: 'green',
+    tag: 'Residualidad',
+    name: 'Vig IA Herbicidas',
+    logoSuffix: 'Herbicidas',
     description:
-      'Monitoreá, diagnosticá y anticipá el estrés hídrico y térmico antes de que se manifieste. Combina Inteligencia Artificial e Inteligencia Agronómica para generar alertas tempranas y decisiones preventivas sobre el manejo con bioinsumos.',
+      'Modelá el carry-over de herbicidas residuales y su fitotoxicidad sobre el cultivo que sigue. Riesgo por aplicación según tu suelo, las lluvias y el riego, y la fecha de siembra segura para cada lote.',
     bullets: [
-      'Monitoreo de temperatura, humedad y DPV',
-      'Proyección climática con IA y balance hídrico',
-      'Alertas automáticas sobre estrés hídrico y térmico',
-      'Acción preventiva antes de que el cultivo lo muestre',
+      'Riesgo de carry-over (RCO) por aplicación, actualizado a hoy',
+      'Ventana de siembra segura con semáforo verde, amarillo y rojo',
+      'Residuo en suelo según lluvias, riego y calidad de aplicación',
+      'Alertas de fitotoxicidad antes de sembrar',
     ],
     problem:
-      'El cultivo muestra el estrés cuando ya perdiste rinde: para cuando lo ves a campo, reaccionás tarde y el daño ya está hecho.',
+      'La residualidad no se ve: sembrás sobre un lote con carry-over y la fitotoxicidad te cuesta rinde desde el día uno, cuando ya no hay vuelta atrás.',
     gain:
-      'Recibís alertas tempranas para actuar de forma preventiva, proteger el rendimiento y aplicar los bioinsumos en el momento justo.',
+      'Conocés el riesgo de cada aplicación y la fecha de siembra segura por lote antes de decidir, con el semáforo a la vista para elegir cultivo y fecha.',
   },
 ];
 
 const COUNT = FUNCTIONALITIES.length;
+
+/* ── Panel title — los paneles Vig IA (logoSuffix) reemplazan el texto
+   "Vig IA" por el wordmark de la marca; el sufijo (BioEstrés / Herbicidas)
+   sigue siendo texto. Dos <img> intercambiadas por CSS según data-rp-theme:
+   acá no llega el tema por props y así el swap queda gratis. ── */
+
+const PanelTitle = ({ item }) =>
+  item.logoSuffix ? (
+    <h3 className="rp-fx__name rp-fx__name--logo">
+      <img src={vigiaLogoLight} alt="Vig IA" className="rp-fx__vigia rp-fx__vigia--light" />
+      <img src={vigiaLogoDark} alt="" aria-hidden="true" className="rp-fx__vigia rp-fx__vigia--dark" />
+      <span>{item.logoSuffix}</span>
+    </h3>
+  ) : (
+    <h3 className="rp-fx__name">{item.name}</h3>
+  );
 
 /* ── Reusable flip block (only the paragraph flips) ── */
 
@@ -320,8 +406,8 @@ const FlipBlock = ({ description, bullets, problem, gain }) => {
   );
 };
 
-/* ── Dual panel (Brechas) — two sections side by side on desktop,
-   a segmented switch (one at a time) on mobile ── */
+/* ── Dual panel (Brechas, Vig IA BioEstrés) — two sections side by side on
+   desktop, a segmented switch (one at a time) on mobile ── */
 
 const DualPanel = ({ item }) => {
   const [activeSec, setActiveSec] = useState(0);
@@ -330,9 +416,9 @@ const DualPanel = ({ item }) => {
     <article className="rp-fx__panel rp-fx__panel--dual">
       <div className="rp-fx__panel-inner rp-fx__panel-inner--dual">
         <div className="rp-fx__dual-head">
-          <h3 className="rp-fx__name">{item.name}</h3>
-          {/* mobile-only switch between the two brechas */}
-          <div className="rp-fx__seg" role="tablist" aria-label="Tipo de brecha">
+          <PanelTitle item={item} />
+          {/* mobile-only switch between the two sections */}
+          <div className="rp-fx__seg" role="tablist" aria-label={item.segLabel || item.name}>
             {item.sections.map((s, i) => (
               <button
                 key={s.id}
@@ -375,7 +461,7 @@ const DualPanel = ({ item }) => {
 const FunctionalityPanel = ({ item }) => {
   const { Chart, palette } = item;
 
-  // Merged "Brechas de rendimiento"
+  // Two-section panels (Brechas, Vig IA BioEstrés)
   if (item.dual) return <DualPanel item={item} />;
 
   // Standard — text column + chart
@@ -383,7 +469,7 @@ const FunctionalityPanel = ({ item }) => {
     <article className={`rp-fx__panel${palette ? ` rp-fx__panel--${palette}` : ''}`}>
       <div className="rp-fx__panel-inner">
         <div className="rp-fx__text">
-          <h3 className="rp-fx__name">{item.name}</h3>
+          <PanelTitle item={item} />
           <FlipBlock
             description={item.description}
             bullets={item.bullets}
