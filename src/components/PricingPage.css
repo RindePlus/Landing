@@ -421,8 +421,48 @@
   color: var(--gh-fg-subtle);
 }
 
+.rp-b2b__aval-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(36px, 7vw, 88px);
+}
+
 .rp-b2b__aval img {
-  height: 68px;
   width: auto;
   max-width: 100%;
+}
+
+/* Alturas distintas para peso óptico parejo: AAAS apila tres líneas,
+   Agroconsultor es un wordmark de una sola línea y a igual altura
+   dominaría la fila. Así las dos marcas terminan de ancho similar. */
+.rp-b2b__aval-aaas {
+  height: 62px;
+}
+
+.rp-b2b__aval-agro {
+  height: 49px;
+}
+
+/* En oscuro el wordmark navy de Agroconsultor se pierde sobre la
+   superficie: las dos marcas pasan a blanco, mismo tratamiento que
+   los logos del carrusel. */
+[data-rp-theme='dark'] .rp-b2b__aval img {
+  filter: grayscale(1) brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+@media (max-width: 480px) {
+  .rp-b2b__aval-logos {
+    gap: 28px;
+  }
+
+  .rp-b2b__aval-aaas {
+    height: 52px;
+  }
+
+  .rp-b2b__aval-agro {
+    height: 41px;
+  }
 }

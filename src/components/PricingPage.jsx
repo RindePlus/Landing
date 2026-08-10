@@ -15,6 +15,7 @@ import PricingTiers from './PricingTiers';
 import { useRpTheme } from '../hooks/useRpTheme';
 import { FUNCIONALIDADES, LOTES_POR_CUIT, buildWhatsAppUrl } from '../data/pricing';
 import aaasLogo from '../assets/aaas-logo.png';
+import agroconsultorLogo from '../assets/related companies/agroconsultor.png';
 import './pricing.css';
 import './pricing-gh.css';
 import './PricingPage.css';
@@ -282,7 +283,18 @@ const PricingPage = ({ onOpenWhatsApp, onGoToHome, onGoToPlatforms }) => {
 
             <div className="rp-b2b__aval">
               <span className="rp-b2b__aval-label">Con la asesoría de</span>
-              <img src={aaasLogo} alt="Agro Assistance Service" />
+              <div className="rp-b2b__aval-logos">
+                <img
+                  className="rp-b2b__aval-aaas"
+                  src={aaasLogo}
+                  alt="Agro Assistance Service"
+                />
+                <img
+                  className="rp-b2b__aval-agro"
+                  src={agroconsultorLogo}
+                  alt="Agroconsultor"
+                />
+              </div>
             </div>
           </div>
         </section>
