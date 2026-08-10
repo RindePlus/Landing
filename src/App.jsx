@@ -1,30 +1,40 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import HomePage from './components/HomePage';
 import PlatformSelectorPage from './components/PlatformSelectorPage';
-import PricingLandingPage from './components/PricingLandingPage';
-import PricingProductoresPage from './components/PricingProductoresPage';
-import PricingEmpresasPage from './components/PricingEmpresasPage';
-import PricingAapresidPage from './components/PricingAapresidPage';
+import PricingPage from './components/PricingPage';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import { WHATSAPP_URL } from './data/social';
 import './App.css';
 
-const KNOWN_ROUTES = [
-  '/pricing/productores',
-  '/pricing/empresas',
-  '/pricing/Aapresid',
-  '/pricing',
-  '/plataformas',
-];
+const KNOWN_ROUTES = ['/pricing', '/plataformas'];
+
+// Rutas retiradas al unificar el pricing en un solo modelo B2B. Los links
+// viejos que sigan circulando aterrizan en el pricing actual.
+const LEGACY_REDIRECTS = {
+  '/pricing/empresas': '/pricing',
+  '/pricing/productores': '/pricing',
+  '/pricing/aapresid': '/pricing',
+};
 
 function resolvePath(pathname) {
   const clean = pathname.replace(/\/+$/, '') || '/';
-  // Case-insensitive match so older shared links (e.g. /pricing/aapresid)
-  // keep resolving to the canonical route.
+  const legacy = LEGACY_REDIRECTS[clean.toLowerCase()];
+  if (legacy) return legacy;
+  // Case-insensitive match so older shared links keep resolving to the
+  // canonical route.
   const match = KNOWN_ROUTES.find(
     (route) => route.toLowerCase() === clean.toLowerCase(),
   );
   return match || '/';
+}
+
+// Deja la barra de direcciones en la ruta canónica cuando el pathname
+// entrante era un alias, una ruta legacy o algo inexistente.
+function normalizeUrl(resolved) {
+  if (window.location.pathname !== resolved) {
+    window.history.replaceState({}, '', resolved);
+  }
+  return resolved;
 }
 
 function App() {
@@ -40,7 +50,7 @@ function App() {
         return resolved;
       }
     }
-    return resolvePath(window.location.pathname);
+    return normalizeUrl(resolvePath(window.location.pathname));
   });
   const popupRef = useRef(null);
 
@@ -53,7 +63,7 @@ function App() {
 
   useEffect(() => {
     const handlePopState = () => {
-      setRoute(resolvePath(window.location.pathname));
+      setRoute(normalizeUrl(resolvePath(window.location.pathname)));
       window.scrollTo({ top: 0, behavior: 'auto' });
     };
     window.addEventListener('popstate', handlePopState);
@@ -126,39 +136,9 @@ function App() {
         );
       case '/pricing':
         return (
-          <PricingLandingPage
+          <PricingPage
             onOpenWhatsApp={() => setShowWhatsappPopup(true)}
             onGoToHome={() => navigate('/')}
-            onGoToEmpresas={() => navigate('/pricing/empresas')}
-            onGoToProductores={() => navigate('/pricing/productores')}
-            onGoToAapresid={() => navigate('/pricing/Aapresid')}
-            onGoToPlatforms={() => navigate('/plataformas')}
-          />
-        );
-      case '/pricing/productores':
-        return (
-          <PricingProductoresPage
-            onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-            onGoToHome={() => navigate('/')}
-            onGoToPricing={() => navigate('/pricing')}
-            onGoToPlatforms={() => navigate('/plataformas')}
-          />
-        );
-      case '/pricing/empresas':
-        return (
-          <PricingEmpresasPage
-            onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-            onGoToHome={() => navigate('/')}
-            onGoToPricing={() => navigate('/pricing')}
-            onGoToPlatforms={() => navigate('/plataformas')}
-          />
-        );
-      case '/pricing/Aapresid':
-        return (
-          <PricingAapresidPage
-            onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-            onGoToHome={() => navigate('/')}
-            onGoToPricing={() => navigate('/pricing')}
             onGoToPlatforms={() => navigate('/plataformas')}
           />
         );

@@ -4,8 +4,7 @@
    brings the gh header/footer skins, canvas background and fonts).
    Overrides the light-only primitives from pricing.css with
    --gh-* tokens so pricing follows the home aesthetic, dark mode
-   included. Used by /pricing, /pricing/Aapresid, /pricing/empresas
-   and /pricing/productores.
+   included. Used by /pricing (single B2B model).
    ============================================================ */
 
 /* Shell — clearance for the fixed gh header */
@@ -20,7 +19,7 @@
 }
 
 /* Principle columns: the gh-token skin for .rp-principle now lives in
-   HomePage.css under `.rp-home` (covers the home and the Aapresid page). */
+   HomePage.css under `.rp-home` (covers the home and the pricing page). */
 
 /* ---- Check bullets ---- */
 .rp-pricing .rp-check {

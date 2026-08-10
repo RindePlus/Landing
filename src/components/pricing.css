@@ -1,7 +1,6 @@
 /* ============================================================
    Shared pricing + modules design system (vanilla CSS)
-   Used by PricingLandingPage, PricingProductoresPage,
-   PricingEmpresasPage and ModulesSection.
+   Used by PricingPage and ModulesSection.
    ============================================================ */
 
 :root {

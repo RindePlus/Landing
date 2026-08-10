@@ -1,124 +1,39 @@
-export const PLAN_PRODUCTOR = {
-  id: 'productor-plus',
-  nombre: 'Premium',
-  tagline: 'Todo incluido · Con acompañamiento agronómico',
-  precioAnual: 720,
-  precioMensualEq: 60,
-  usdPorHaCampana: 3,
-  incluye: [
-    'Análisis de Campaña',
-    'Brechas Estándar',
-    'Brechas Inteligentes',
-    'Vig IA BioEstrés: Mitigación de Estrés y Cultivo de Servicio',
-    'Vig IA Herbicidas',
-    'Pronóstico Climático',
-    'Todos tus lotes y hectáreas, sin tope',
-    'Soporte técnico de la plataforma',
-    'Acompañamiento agronómico',
-  ],
-};
+// Modelo único B2B: un solo plan con todos los módulos, y el precio
+// definido por la cantidad de CUITs contratados.
 
-export const PLANES_EMPRESAS = [
-  {
-    id: 'standard',
-    nombre: 'Standard',
-    tagline: 'Puerta de entrada al ecosistema',
-    descripcion:
-      'Los módulos base para que cada socio analice su campaña y sus brechas desde el primer día.',
-    precioAnual: 360,
-    precioMensualEq: 30,
-    modulos: [
-      'Análisis de Campaña',
-      'Brechas Estándar',
-      'Pronóstico Climático',
-      'Actualizaciones futuras (parcial)',
-    ],
-    destacado: false,
-  },
-  {
-    id: 'full',
-    nombre: 'Full',
-    tagline: 'Solución productiva completa',
-    descripcion:
-      'Todo lo del Standard más la capa analítica avanzada y las próximas actualizaciones productivas.',
-    precioAnual: 720,
-    precioMensualEq: 60,
-    modulos: [
-      'Análisis de Campaña',
-      'Brechas Estándar',
-      'Brechas Inteligentes',
-      'Vig IA (BioEstrés y Herbicidas)',
-      'Pronóstico Climático',
-      'Todas las actualizaciones productivas',
-    ],
-    destacado: true,
-  },
+export const CUITS_MINIMOS = 20;
+export const LOTES_POR_CUIT = 20;
+
+// Lo que accede cada CUIT. Sin nombre de plan: es uno solo.
+// Ocho ítems: en desktop caen en dos filas de cuatro, con los tres Vig IA
+// juntos en la segunda.
+export const FUNCIONALIDADES = [
+  'Análisis de Campaña',
+  'Brechas Estándar',
+  'Brechas Inteligentes',
+  'Pronóstico Climático',
+  'Simulador de Margen Bruto',
+  'Vig IA BioEstrés',
+  'Vig IA Cultivo de Servicio',
+  'Vig IA Herbicidas',
 ];
 
-export const Aapresid_MIN_SOCIOS = 15;
-export const Aapresid_PROMO_VALIDA_HASTA = 'Junio 2026';
+const TARIFA_BASE = 750;
 
-export const PLANES_Aapresid = [
+// Tres tramos cerrados. El ahorro se deriva de la tarifa base para que no
+// pueda quedar desfasado.
+export const TRAMOS_CUITS = [
   {
-    id: 'Aapresid-standard',
-    nombre: 'Standard',
-    tagline: 'Puerta de entrada al ecosistema',
-    descripcion:
-      'Los módulos base para que cada socio de la regional analice su campaña y sus brechas desde el primer día.',
-    precioAnualLista: 360,
-    precioAnual: 280,
-    precioMensualEq: 23,
-    ahorroAnual: 80,
-    modulos: [
-      'Análisis de Campaña',
-      'Brechas Estándar',
-      'Pronóstico Climático',
-      'Actualizaciones futuras (parcial)',
-    ],
-    destacado: false,
+    id: 'base',
+    label: `Desde ${CUITS_MINIMOS} CUITs`,
+    precioPorCuit: TARIFA_BASE,
   },
-  {
-    id: 'Aapresid-full',
-    nombre: 'Full',
-    tagline: 'Solución productiva completa',
-    descripcion:
-      'Todo lo del Standard más la capa analítica avanzada y las próximas actualizaciones productivas.',
-    precioAnualLista: 720,
-    precioAnual: 560,
-    precioMensualEq: 46,
-    ahorroAnual: 160,
-    modulos: [
-      'Análisis de Campaña',
-      'Brechas Estándar',
-      'Brechas Inteligentes',
-      'Vig IA (BioEstrés y Herbicidas)',
-      'Pronóstico Climático',
-      'Todas las actualizaciones productivas',
-    ],
-    destacado: true,
-  },
-];
-
-export function calcularProductor(hectareas) {
-  const ha = Math.max(0, Number.isFinite(hectareas) ? hectareas : 0);
-  const suscripcion = PLAN_PRODUCTOR.precioAnual;
-  const asesoramiento = ha * PLAN_PRODUCTOR.usdPorHaCampana;
-  return { suscripcion, asesoramiento, total: suscripcion + asesoramiento };
-}
-
-export function calcularEmpresas(plan, cantidad) {
-  const c = Math.max(1, Number.isFinite(cantidad) ? cantidad : 1);
-  return {
-    porEmpresaAnual: plan.precioAnual,
-    totalAnual: plan.precioAnual * c,
-  };
-}
-
-export function formatUSD(n) {
-  return new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 }).format(
-    Math.round(n),
-  );
-}
+  { id: 'p50', label: 'Pack 50 CUITs', precioPorCuit: 700 },
+  { id: 'p100', label: 'Pack 100 CUITs', precioPorCuit: 600 },
+].map((t) => ({
+  ...t,
+  ahorroPct: Math.round(((TARIFA_BASE - t.precioPorCuit) / TARIFA_BASE) * 100),
+}));
 
 const WHATSAPP_NUMBER = '5493564593446';
 

@@ -1,0 +1,428 @@
+/* ============================================================
+   PricingPage — /pricing (modelo B2B único, GitHub skin)
+   Tokens --gh-*; las primitivas compartidas vienen re-skinneadas
+   desde pricing-gh.css bajo el scope .rp-pricing.
+   ============================================================ */
+
+/* ============================================================
+   Incluido en la licencia — lista horizontal bajo el cuadro de
+   precios. Deliberadamente distinta a las columnas de El retorno:
+   una fila por ítem, ícono · título · descripción, a todo el ancho.
+   ============================================================ */
+.rp-b2b__included {
+  list-style: none;
+  padding: 0;
+  margin: clamp(36px, 4.5vw, 48px) 0 clamp(32px, 4vw, 44px);
+  border-top: 1px solid var(--gh-border-muted);
+}
+
+.rp-b2b__included-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px 14px;
+  align-items: start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--gh-border-muted);
+}
+
+/* Desktop: el título ocupa una columna fija y la descripción el resto,
+   así las tres filas leen como una tabla de definiciones. */
+@media (min-width: 860px) {
+  .rp-b2b__included-item {
+    grid-template-columns: 28px minmax(0, 19rem) minmax(0, 1fr);
+    gap: 0 28px;
+    padding: 22px 0;
+  }
+}
+
+.rp-b2b__included-icon {
+  display: inline-flex;
+  font-size: 21px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.rp-acc-blue .rp-b2b__included-icon { color: var(--gh-accent); }
+.rp-acc-emerald .rp-b2b__included-icon { color: var(--gh-detail-green); }
+.rp-acc-amber .rp-b2b__included-icon { color: var(--gh-detail-yellow-strong); }
+
+.rp-b2b__included-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--gh-fg);
+  margin: 0;
+}
+
+.rp-b2b__included-copy {
+  grid-column: 2;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--gh-fg-muted);
+  margin: 0;
+}
+
+@media (min-width: 860px) {
+  .rp-b2b__included-copy {
+    grid-column: 3;
+    grid-row: 1;
+    margin-top: 1px;
+  }
+}
+
+/* Las columnas de El retorno sí comparten la grilla del cuadro de
+   precios: sin gap caen en los tercios exactos, y el padding lateral
+   de 1px compensa el borde del cuadro. */
+.rp-b2b__retorno-grid {
+  gap: 0;
+  padding: 0 1px;
+}
+
+.rp-b2b__retorno-grid .rp-principle__body {
+  padding: 28px clamp(24px, 3vw, 32px);
+}
+
+/* ============================================================
+   Expectations — numbered editorial list (home benefits style)
+   ============================================================ */
+.rp-b2b__expect {
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
+.rp-b2b__expect-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.rp-b2b__expect-header .rp-h2 { margin-bottom: 12px; }
+
+.rp-b2b__expect-header p {
+  font-size: 0.95rem;
+  color: var(--gh-fg-muted);
+  max-width: 42rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.rp-b2b__expect-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 1000px;
+}
+
+@media (min-width: 768px) {
+  .rp-b2b__expect-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 48px;
+  }
+}
+
+.rp-b2b__expect-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--gh-border-muted);
+}
+
+.rp-b2b__expect-item:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  .rp-b2b__expect-item:nth-last-child(2) {
+    border-bottom: none;
+  }
+}
+
+.rp-b2b__expect-num {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--gh-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rp-b2b__expect-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gh-fg);
+  margin: 0 0 4px;
+}
+
+.rp-b2b__expect-desc {
+  font-size: 0.92rem;
+  color: var(--gh-fg-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================================
+   El retorno — apertura de la página: una declaración y un número.
+   Instala el porqué antes de mostrar el precio.
+   ============================================================ */
+.rp-b2b__retorno {
+  text-align: center;
+  padding: clamp(8px, 2vw, 20px) 0 0;
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
+.rp-b2b__retorno-header .rp-h2 {
+  margin-bottom: 16px;
+}
+
+.rp-b2b__retorno-header p {
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--gh-fg-muted);
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+/* El número ES el título: no hay dato suelto ni bloque aparte, el 3×
+   vive dentro del titular y crece sobre la línea base del texto. */
+.rp-b2b__retorno-title {
+  max-width: 24ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
+.rp-b2b__retorno-figure {
+  display: inline-block;
+  font-size: 1.55em;
+  line-height: 0.85;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+  /* Compensa el descuelgue óptico del número grande sobre la línea */
+  transform: translateY(0.06em);
+}
+
+/* El × en acento: la única pieza de color de la sección */
+.rp-b2b__retorno-figure-x {
+  font-size: 0.62em;
+  color: var(--gh-accent);
+  margin-left: 0.02em;
+}
+
+.rp-b2b__retorno-header p strong {
+  font-weight: 600;
+  color: var(--gh-fg);
+}
+
+/* El remate baja siempre a su propia línea y en mayúsculas: cierra el
+   párrafo como afirmación, no como final de oración corrida. */
+.rp-b2b__retorno-punch {
+  display: block;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-size: 0.92em;
+}
+
+/* Los tres cambios concretos que producen ese número.
+   Mismas columnas con hairlines que la fila de principios. */
+.rp-b2b__retorno-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: clamp(40px, 5vw, 64px);
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .rp-b2b__retorno-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Lo transversal a las tres: una línea escaneable, no otro párrafo.
+   Sin regla superior: el grid ya trae hairlines verticales y una
+   horizontal lo haría leer como pie de tabla. */
+.rp-b2b__retorno-tail {
+  margin: clamp(28px, 3.5vw, 40px) auto 0;
+  max-width: 46rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--gh-fg-muted);
+  text-align: center;
+}
+
+/* ============================================================
+   Plan único + calculadora
+   ============================================================ */
+.rp-b2b__pricing {
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
+/* Título principal de la página: vive acá, no en un hero aparte */
+.rp-b2b__pricing-header {
+  text-align: center;
+  margin-bottom: clamp(40px, 5vw, 56px);
+}
+
+.rp-b2b__pricing-header .rp-home__section-title { margin: 0 0 16px; }
+
+.rp-b2b__pricing-header .rp-home__section-subtitle {
+  max-width: 44rem;
+}
+
+/* Lo incluido: checklist a lo ancho, sin card, arriba de los precios.
+   Cuatro columnas en desktop: ocho módulos = dos filas parejas. */
+.rp-b2b__incluye {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px 28px;
+}
+
+@media (min-width: 560px) {
+  .rp-b2b__incluye {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .rp-b2b__incluye {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px 24px;
+  }
+}
+
+.rp-b2b__incluye li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--gh-fg);
+}
+
+/* El check acompaña el nuevo cuerpo de texto */
+.rp-b2b__incluye .rp-check {
+  width: 22px;
+  height: 22px;
+  font-size: 11px;
+  margin-top: 1px;
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.rp-b2b__faq {
+  margin-top: 16px;
+}
+
+/* A todo el ancho de la sección, alineada con el bloque "¿Sos productor?" */
+.rp-b2b__faq .rp-faq {
+  max-width: none;
+}
+
+@media (min-width: 768px) {
+  .rp-b2b__faq .rp-faq__question {
+    padding: 20px 4px;
+  }
+}
+
+.rp-b2b__faq-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.rp-b2b__faq-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.4vw, 1.85rem);
+  font-weight: 800;
+  color: var(--gh-fg);
+  margin: 0;
+}
+
+/* ============================================================
+   Cierre — ¿Sos productor? + aval AAAS
+   ============================================================ */
+.rp-b2b__productor {
+  margin-top: 72px;
+  padding: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 32px)
+    clamp(20px, 2.5vw, 28px);
+  text-align: center;
+  background: var(--gh-surface);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  box-shadow: var(--gh-shadow-card);
+}
+
+.rp-b2b__productor-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--gh-fg);
+  margin: 0 0 10px;
+}
+
+.rp-b2b__productor-copy {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--gh-fg-muted);
+  max-width: 34rem;
+  margin: 0 auto 24px;
+}
+
+.rp-b2b__productor-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: #1da851;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.rp-b2b__productor-cta:hover {
+  background: #178f45;
+}
+
+.rp-b2b__productor-cta svg {
+  font-size: 1.15rem;
+}
+
+/* Aval institucional */
+.rp-b2b__aval {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--gh-border-muted);
+}
+
+.rp-b2b__aval-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gh-fg-subtle);
+}
+
+.rp-b2b__aval img {
+  height: 68px;
+  width: auto;
+  max-width: 100%;
+}

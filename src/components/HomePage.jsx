@@ -37,7 +37,7 @@ const PRINCIPLES = [
     Icon: FaInfinity,
     title: 'Acceso ilimitado',
     copy:
-      'Todos los lotes y hectáreas que necesites, en cada uno de los planes. Sin tope, sin asteriscos, sin letra chica.',
+      'Todos los módulos y usuarios ilimitados en cada cuenta, sin tope de hectáreas ni costo por escala.',
     accent: 'rp-acc-blue',
   },
   {

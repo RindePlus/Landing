@@ -78,12 +78,11 @@
   gap: 20px;
 }
 
+/* Las 4 plataformas secundarias van en 2 columnas × 2 filas
+   (Aapresid — Agroconsultor / Kimzza — Halcón), alineadas con las
+   dos guías de instalación de más abajo. */
 @media (min-width: 640px) {
   .rp-platsel__grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (min-width: 960px) {
-  .rp-platsel__grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* The featured (main) card spans full width on top */

@@ -7,6 +7,7 @@ import { useRpTheme } from '../hooks/useRpTheme';
 import rindeLogo from '../assets/rindeplus-logo-light.png';
 import rindeLogoDark from '../assets/rindeplus-logo-dark.png';
 import logoAapresid from '../assets/botones/L-Aapresid.png';
+import logoAgroconsultor from '../assets/botones/L-Agroconsultor.png';
 import logoHalcon from '../assets/botones/l-Halcon.png';
 import logoKimzza from '../assets/botones/L-Kimzza.png';
 import './HomePage.css';
@@ -23,12 +24,19 @@ const PLATFORMS = [
     href: 'https://app.rindeplus.com/login/rindeplus',
   },
   {
-    id: 'Aapresid',
-    name: 'Aapresid',
-    logo: logoAapresid,
-    logoBg: '#008c35',
-    desc: 'Para socios y ATR de la red Aapresid.',
-    href: 'https://app.rindeplus.com/login/aapresid',
+    id: 'halcon',
+    name: 'Halcón Monitoreo',
+    logo: logoHalcon,
+    logoBg: '#1d7b3f',
+    desc: 'Monitoreo y alertas a campo.',
+    href: 'https://halconmonitoreos.ddns.net/login/?next=/',
+  },
+  {
+    id: 'agroconsultor',
+    name: 'Agroconsultor',
+    logo: logoAgroconsultor,
+    desc: 'Profesionales de la agricultura.',
+    href: 'https://app.rindeplus.com/login/agroconsultor',
   },
   {
     id: 'kimzza',
@@ -38,12 +46,12 @@ const PLATFORMS = [
     href: 'https://kimzza.ddns.net/login/?next=/',
   },
   {
-    id: 'halcon',
-    name: 'Halcón Monitoreo',
-    logo: logoHalcon,
-    logoBg: '#1d7b3f',
-    desc: 'Monitoreo y alertas a campo.',
-    href: 'https://halconmonitoreos.ddns.net/login/?next=/',
+    id: 'Aapresid',
+    name: 'Aapresid',
+    logo: logoAapresid,
+    logoBg: '#008c35',
+    desc: 'Para socios y ATR de la red Aapresid.',
+    href: 'https://app.rindeplus.com/login/aapresid',
   },
 ];
 
