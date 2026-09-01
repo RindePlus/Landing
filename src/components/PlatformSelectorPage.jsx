@@ -10,6 +10,7 @@ import logoAapresid from '../assets/botones/L-Aapresid.png';
 import logoAgroconsultor from '../assets/botones/L-Agroconsultor.png';
 import logoHalcon from '../assets/botones/l-Halcon.png';
 import logoKimzza from '../assets/botones/L-Kimzza.png';
+import logoSpeedAgro from '../assets/botones/L-SpeedAgro.png';
 import './HomePage.css';
 import './PlatformSelectorPage.css';
 
@@ -46,10 +47,20 @@ const PLATFORMS = [
     href: 'https://kimzza.ddns.net/login/?next=/',
   },
   {
-    id: 'Aapresid',
+    id: 'speedagro',
+    name: 'SpeedAgro',
+    logo: logoSpeedAgro,
+    logoBg: '#196a3a',
+    logoZoom: true,
+    desc: 'Para clientes de SpeedAgro.',
+    href: 'https://app.rindeplus.com/login/speedagro',
+  },
+  {
+    id: 'aapresid',
     name: 'Aapresid',
     logo: logoAapresid,
     logoBg: '#008c35',
+    wide: true,
     desc: 'Para socios y ATR de la red Aapresid.',
     href: 'https://app.rindeplus.com/login/aapresid',
   },
@@ -57,14 +68,14 @@ const PLATFORMS = [
 
 const PlatformCard = ({ platform }) => (
   <a
-    className={`rp-platsel__card ${platform.featured ? 'rp-platsel__card--featured' : ''}`}
+    className={`rp-platsel__card ${platform.featured ? 'rp-platsel__card--featured' : ''} ${platform.wide ? 'rp-platsel__card--wide' : ''}`}
     href={platform.href}
     target="_blank"
     rel="noopener noreferrer"
   >
     <div className="rp-platsel__card-top">
       <div
-        className={`rp-platsel__logo ${platform.wideLogo ? 'rp-platsel__logo--wide' : ''}`}
+        className={`rp-platsel__logo ${platform.wideLogo ? 'rp-platsel__logo--wide' : ''} ${platform.logoZoom ? 'rp-platsel__logo--zoom' : ''}`}
         style={platform.logoBg ? { background: platform.logoBg } : undefined}
       >
         <img src={platform.logo} alt={platform.name} loading="lazy" />

@@ -79,14 +79,16 @@
 }
 
 /* Las 4 plataformas secundarias van en 2 columnas × 2 filas
-   (Aapresid — Agroconsultor / Kimzza — Halcón), alineadas con las
-   dos guías de instalación de más abajo. */
+   (Halcón — Agroconsultor / Kimzza — SpeedAgro), alineadas con las
+   dos guías de instalación de más abajo. Aapresid cierra abajo
+   ocupando el ancho de las dos columnas. */
 @media (min-width: 640px) {
   .rp-platsel__grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* The featured (main) card spans full width on top */
-.rp-platsel__card--featured {
+/* Featured (main) card on top and wide cards span both columns */
+.rp-platsel__card--featured,
+.rp-platsel__card--wide {
   grid-column: 1 / -1;
 }
 
@@ -121,6 +123,7 @@
 .rp-platsel__grid--visible .rp-platsel__card:nth-child(3) { transition-delay: 0.1s; }
 .rp-platsel__grid--visible .rp-platsel__card:nth-child(4) { transition-delay: 0.15s; }
 .rp-platsel__grid--visible .rp-platsel__card:nth-child(5) { transition-delay: 0.2s; }
+.rp-platsel__grid--visible .rp-platsel__card:nth-child(6) { transition-delay: 0.25s; }
 
 .rp-platsel__card:hover {
   border-color: var(--gh-border-strong);
@@ -152,6 +155,15 @@
   width: 40px;
   height: 40px;
   object-fit: contain;
+}
+
+/* Logos with the background baked into the artwork (SpeedAgro) can
+   zoom past the 40px area — the box bg matches, so no visible seam */
+.rp-platsel__logo--zoom img {
+  width: 66px;
+  height: 66px;
+  max-width: none;
+  flex-shrink: 0;
 }
 
 /* Featured (Rinde Plus) logo — bare, no box, larger */
