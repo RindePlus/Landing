@@ -89,7 +89,7 @@ const pt = {
         tag: 'Planejar',
         name: 'O teto de cada talhão, ambiente por ambiente',
         description:
-          'Quatro produtividades por talhão e por ambiente: base, potencial, adubada e colhida. O potencial vem do solo de referência do talhão, da análise de solo própria quando existe e do balanço hídrico da safra.',
+          'Produtividade base, potencial, adubada e colhida, por talhão e por ambiente. O potencial vem do solo de referência do talhão, da análise de solo própria quando existe e do balanço hídrico da safra.',
         bullets: [
           'Solo de referência do GeoINTA, IDECOR e SoilGrids, ajustado com a análise própria',
           'Balanço hídrico: chuva efetiva, água disponível e irrigação prevista',

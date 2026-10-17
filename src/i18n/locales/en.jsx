@@ -89,7 +89,7 @@ const en = {
         tag: 'Plan',
         name: 'The ceiling of every field, zone by zone',
         description:
-          'Four yields per field and per management zone: base, potential, fertilized and harvested. The potential comes from the field’s reference soil, from its own soil test when there is one, and from the season’s water balance.',
+          'Base, potential, fertilized and harvested yield, per field and per management zone. The potential comes from the field’s reference soil, from its own soil test when there is one, and from the season’s water balance.',
         bullets: [
           'Reference soil from GeoINTA, IDECOR and SoilGrids, adjusted with the field’s own soil test',
           'Water balance: effective rainfall, plant-available water and planned irrigation',

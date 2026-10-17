@@ -90,7 +90,7 @@ const es = {
         tag: 'Planificar',
         name: 'El techo de cada lote, ambiente por ambiente',
         description:
-          'Cuatro rindes por lote y por ambiente: base, potencial, fertilizando y cosechado. El potencial sale del suelo de referencia del lote, del análisis de suelo propio cuando lo hay y del balance hídrico de la campaña.',
+          'Rinde base, potencial, fertilizando y cosechado, por lote y por ambiente. El potencial sale del suelo de referencia del lote, del análisis de suelo propio cuando lo hay y del balance hídrico de la campaña.',
         bullets: [
           'Suelo de referencia de GeoINTA, IDECOR y SoilGrids, ajustado con el análisis propio',
           'Balance hídrico: lluvia efectiva, agua útil y riego previsto',
