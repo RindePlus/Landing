@@ -1,14 +1,14 @@
 import { LuShare } from 'react-icons/lu';
 
 // Português do Brasil. Mesma estrutura e mesmas afirmações de es.jsx: só o
-// que a plataforma faz hoje. "Lote" → talhão, "ambiente" → ambiente de
-// manejo, "campaña" → safra. Tom neutro, sem perguntas nos títulos.
+// que a plataforma faz hoje. 'Lote' → talhão, 'ambiente' → ambiente de
+// manejo, 'campaña' → safra. Tom neutro, sem perguntas nos títulos.
 
 const pt = {
   meta: {
     title: 'Rinde Plus · Critério agronômico para cada talhão',
     description:
-      'Inteligência agronômica: a Rinde Plus integra o clima, o solo, os ambientes e o histórico de cada talhão e transforma tudo em decisões. Para produtores e agrônomos.',
+      'Inteligência agronômica: a Rinde Plus integra o clima, o solo, os ambientes e o histórico de cada talhão e transforma tudo em decisões.',
   },
 
   whatsapp: {
@@ -24,7 +24,7 @@ const pt = {
     openMenu: 'Abrir menu',
     nav: {
       home: 'Início',
-      campaign: 'A safra',
+      campaign: 'O que faz',
       why: 'Por que Rinde Plus',
     },
     themeDark: 'Modo escuro',
@@ -46,11 +46,11 @@ const pt = {
         A Rinde Plus é <strong>inteligência agronômica</strong>: integra o
         clima, o solo, os ambientes e o histórico de cada talhão e transforma
         tudo em <strong>decisões</strong> sobre o que fazer, quando e se vale a
-        pena. Para produtores e agrônomos.
+        pena.
       </>
     ),
     ctaTalk: 'Vamos falar dos seus talhões',
-    ctaCampaign: 'Ver a safra',
+    ctaCampaign: 'Ver o que faz',
     mapAria: 'Talhão desenhado com três ambientes, linhas de plantio e curvas de nível',
   },
 
@@ -59,21 +59,12 @@ const pt = {
   },
 
   fx: {
-    title: 'Uma decisão por vez, talhão por talhão',
-    subtitle: (
-      <>
-        Em cada talhão, quanto pode produzir, quanto produziu e por que não
-        chegou lá. Cinco momentos da safra; em cada um, <strong>Ver a
-        diferença</strong> mostra o que muda.
-      </>
-    ),
+    title: 'O que a Rinde Plus faz',
+    subtitle:
+      'Uma só ferramenta que acompanha cada talhão durante toda a safra, do planejamento ao fechamento.',
     next: 'Próximo',
     nextAria: 'Ver o próximo momento',
     goTo: (name) => `Ir para ${name}`,
-    more: 'Ver a diferença',
-    today: 'Como se decide hoje',
-    withRp: 'Com a Rinde Plus',
-    back: 'Voltar',
     charts: {
       zones: ['Alto', 'Médio', 'Baixo'],
       potentialCaption: 'Produtividade base e potencial por ambiente',
@@ -87,83 +78,58 @@ const pt = {
     panels: {
       planificar: {
         tag: 'Planejar',
-        name: 'O teto de cada talhão, ambiente por ambiente',
+        name: 'A produtividade que cada talhão pode alcançar',
         description:
-          'Produtividade base, potencial, adubada e colhida, por talhão e por ambiente. O potencial vem do solo de referência do talhão, da análise de solo própria quando existe e do balanço hídrico da safra.',
+          'Produtividade base, potencial, adubada e colhida, por talhão e por ambiente. O potencial vem do solo, da análise de solo própria e do balanço hídrico da safra.',
         bullets: [
-          'Solo de referência do GeoINTA, IDECOR e SoilGrids, ajustado com a análise própria',
-          'Balanço hídrico: chuva efetiva, água disponível e irrigação prevista',
-          'Com irrigação: quanto é preciso para chegar à produtividade-alvo, com teto pela capacidade de campo',
+          'Solo de referência (GeoINTA, IDECOR, SoilGrids) ajustado com a análise própria',
+          'Irrigação necessária para chegar à produtividade-alvo',
           'Cultivares do registro oficial do INASE (Argentina)',
         ],
-        problem:
-          'O planejamento parte da produtividade típica da região. Sem um teto por talhão, não dá para saber quanto se pode melhorar nem onde vale investir.',
-        gain:
-          'Cada talhão tem seu teto e sua lacuna à vista, e a meta da safra sai do talhão, não da média.',
       },
       preparar: {
         tag: 'Preparar o talhão',
-        name: 'A água do perfil e o resíduo de herbicidas, antes de plantar',
+        name: 'A água do perfil e o resíduo de herbicidas',
         description:
-          'O consumo de água da planta de cobertura frente a um pousio, e o resíduo de cada princípio ativo conforme chuvas, irrigação e data de aplicação, incluindo as aplicações da safra anterior.',
+          'O consumo de água da planta de cobertura comparado a um pousio, e o resíduo de cada herbicida conforme chuvas, irrigação e data de aplicação.',
         bullets: [
-          'Consumo de água da planta de cobertura comparado a um pousio',
-          'Resíduo de cada herbicida conforme chuvas, irrigação e data de aplicação',
           'Alerta de risco alto de fitotoxicidade para a próxima cultura',
-          'Análise de solo por talhão (química, água disponível, textura, densidade) e plano de correção, inclusive para solos sódicos',
+          'Inclui as aplicações da safra anterior',
+          'Análise de solo e plano de correção',
         ],
-        problem:
-          'A dessecação é decidida no olho e o resíduo não se vê. Dessecar tarde deixa a próxima cultura sem água; um resíduo alto custa produtividade desde a emergência.',
-        gain:
-          'O momento de dessecação que preserva a água do perfil, e o risco de fitotoxicidade de cada talhão à vista antes de plantar.',
       },
       fertilizar: {
         tag: 'Adubar',
-        name: 'Quanto adubar e se a dose se paga',
+        name: 'A dose que se paga',
         description:
-          'Simulação por produto e dose, com o balanço de nutrientes do talhão e a curva de resposta da produtividade. Com os preços cadastrados no talhão, a dose de máxima eficiência econômica e a margem que ela deixa. Às vezes a melhor decisão é não aplicar.',
+          'Simulação por produto e dose com o balanço de nutrientes, a curva de resposta e os preços cadastrados no talhão.',
         bullets: [
-          'Simulador por produto e dose, com balanço de nutrientes',
-          'Curva de resposta e dose de máxima eficiência econômica',
-          'Produtividade adubada contra a base, sem passar do potencial',
+          'Dose de máxima eficiência econômica',
+          'Produtividade adubada, sem passar do potencial',
           'Margem bruta por talhão e por ambiente',
         ],
-        problem:
-          'Repete-se a dose do ano passado ou a típica da região, sem saber se naquele talhão, e com estes preços, a aplicação se paga.',
-        gain:
-          'A dose, ou a decisão de não aplicar, com a conta do talhão à vista: quanto produz a mais e quanta margem deixa.',
       },
       acompanar: {
         tag: 'Acompanhar a cultura',
-        name: 'O que vem em cada talhão e quando vale agir',
+        name: 'Avisos do que vem em cada talhão',
         description:
-          'Clima de cada talhão, 15 dias para trás e 15 para a frente, e monitoramento a campo: vistorias com catálogos de plantas daninhas, pragas e doenças, com o dano por espécie e a recomendação de produto, que passa ao plano de aplicações e à margem.',
+          'Clima por talhão, 15 dias para trás e 15 para a frente, e monitoramento a campo com catálogos de plantas daninhas, pragas e doenças.',
         bullets: [
-          'Previsão por talhão, com alertas de estresse térmico, déficit de pressão de vapor e risco de doenças fúngicas',
-          'Monitoramento a campo com catálogos curados de plantas daninhas, pragas e doenças',
-          'Aviso quando um talhão está há tempo sem vistoria ou há uma decisão pendente',
+          'Alertas de estresse térmico, déficit de pressão de vapor e doenças fúngicas',
+          'Recomendação de produto que passa ao plano de aplicações',
           'Avisos diários pelo WhatsApp, com o seu consentimento, que podem ser respondidos',
         ],
-        problem:
-          'O estresse aparece no campo quando a produtividade já foi perdida, a previsão regional não diz o que acontece em cada talhão e o que se vê na vistoria fica num caderno.',
-        gain:
-          'O aviso chega com tempo para agir, e o que se vê na vistoria vira uma aplicação com seu custo na margem.',
       },
       cerrar: {
         tag: 'Fechar e aprender',
-        name: 'Onde se perdeu produtividade e quanto dá para recuperar',
+        name: 'Onde se perdeu produtividade',
         description:
-          'No fechamento, talhão por talhão, o que podia produzir contra o que foi colhido, e o planejado contra o realizado: o plano fica congelado ao aplicar.',
+          'O que cada talhão podia produzir contra o que foi colhido, e o planejado contra o realizado, em produtividade e em margem.',
         bullets: [
-          'Produtividade base, potencial, adubada e colhida',
-          'Planejado contra realizado, em produtividade e em margem',
-          'Mapa de análise que cruza talhões, ambientes e safras em adubação, aplicações e monitoramento',
+          'Lacuna de produtividade por talhão e por ambiente',
+          'Mapa de análise entre talhões, ambientes e safras',
           'Visão por empresa',
         ],
-        problem:
-          'A safra fecha com a produtividade colhida e pouco mais. Os dados ficam em planilhas soltas e a próxima é decidida do mesmo jeito.',
-        gain:
-          'Cada safra deixa uma lição por talhão, e a próxima começa com o que se aprendeu.',
       },
     },
   },
@@ -204,50 +170,10 @@ const pt = {
     ],
   },
 
-  audiences: {
-    title: 'Para produtores e agrônomos',
-    subtitle: 'Um mesmo sistema, na mesma língua, para decidir sobre cada talhão.',
-    groups: [
-      {
-        id: 'productor',
-        title: 'Produtores',
-        lead: 'Quanto cada talhão pode produzir, por que não chegou lá, o que vale fazer, quando e se se paga.',
-        items: [
-          { t: 'O que fazer e quando', d: 'Uma recomendação para cada talhão, no momento certo.' },
-          { t: 'Se a aplicação se paga', d: 'A conta do talhão antes de aplicar; às vezes vale não fazer nada.' },
-          { t: 'Avisos diários', d: 'Alertas de clima, doenças e fitotoxicidade pelo WhatsApp, que podem ser respondidos.' },
-        ],
-      },
-      {
-        id: 'agronomo',
-        title: 'Agrônomos',
-        lead: 'A análise já montada; o tempo, para decidir.',
-        items: [
-          { t: 'A análise já integrada', d: 'Clima, solo, ambientes, monitoramento e histórico de cada talhão num só lugar.' },
-          { t: 'Mais talhões, mesmo rigor', d: 'Mapa de análise e visão por empresa para acompanhar muitos talhões ao mesmo tempo.' },
-          { t: 'Vistorias com critério', d: 'Monitoramento com catálogos curados e uma recomendação que passa ao plano de aplicações.' },
-        ],
-      },
-    ],
-  },
-
-  principles: [
-    {
-      title: 'Chega pela sua organização',
-      copy: 'Cooperativas, cerealistas, empresas de sementes, revendas de insumos e consultorias dão acesso à sua rede.',
-    },
-    {
-      title: 'Um só sistema',
-      copy: 'Clima, solo, ambientes e histórico de cada talhão, num mesmo lugar.',
-    },
-    {
-      title: 'Nossa visão',
-      copy: 'Que cada talhão seja decidido com critério agronômico, não só os de quem pode pagar uma equipe técnica.',
-    },
-  ],
-
   cta: {
     title: 'Vamos falar dos seus talhões.',
+    vision:
+      'Nossa visão: que cada talhão seja decidido com critério agronômico, não só os de quem pode pagar uma equipe técnica.',
     copy: 'Poucas linhas sobre a operação bastam para marcar uma conversa. Sem formulários longos: quem responde é a própria equipe da Rinde Plus.',
     button: 'Escrever pelo WhatsApp',
     hint: 'Resposta em menos de 24 h',

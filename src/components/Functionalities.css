@@ -1,7 +1,7 @@
 /* ============================================================
    Functionalities — secciones fusionadas (sin cards) con scroll
-   horizontal "pinneado" (scroll-jack). El flip vive SOLO en el
-   bloque del párrafo; título/tag/gráfico quedan fijos.
+   horizontal "pinneado" (scroll-jack). Cada panel: momento, título,
+   descripción y viñetas, con su gráfico al lado en desktop.
    Fallback nativo (swipe) en mobile y prefers-reduced-motion.
    ============================================================ */
 
@@ -242,7 +242,6 @@
    under the counter) and the chart stays high. */
 @media (min-width: 768px) {
   .rp-fx__panel-inner { align-items: start; }
-  .rp-fx__desc { min-height: 4lh; } /* equal desc height → first bullets line up */
 }
 
 /* ---- Text column (tag + name fijos, anclados arriba-izquierda) ---- */
@@ -286,43 +285,7 @@
   line-height: 1.1;
 }
 
-/* ---- Flip block (SOLO el párrafo) ---- */
-.rp-fx__flip {
-  position: relative;
-  height: clamp(310px, 36vh, 320px); /* botón a ~35px de las viñetas; el reverso más largo entra */
-  perspective: 1200px;
-}
-
-.rp-fx__flip-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.rp-fx__flip.is-flipped .rp-fx__flip-inner { transform: rotateY(180deg); }
-
-.rp-fx__flip-face {
-  position: absolute;
-  inset: 0;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.rp-fx__flip-face--back { transform: rotateY(180deg); justify-content: flex-start; }
-
-/* El frente queda en el flujo para que el flip crezca con él (cuatro viñetas
-   no entran en un alto fijo); el reverso, más corto, se le superpone. */
-.rp-fx__flip-face--front { position: relative; min-height: 100%; }
-.rp-fx__flip-face--front .rp-fx__bullets { margin-bottom: 24px; }
-
-.rp-fx__flip:not(.is-flipped) .rp-fx__flip-face--back { pointer-events: none; }
-.rp-fx__flip.is-flipped .rp-fx__flip-face--front { pointer-events: none; }
-
-/* front */
+/* ---- Body: descripción + viñetas ---- */
 .rp-fx__desc {
   font-size: clamp(1rem, 1.25vw, 1.2rem);
   color: var(--gh-fg-muted);
@@ -347,72 +310,6 @@
   color: var(--gh-fg);
   line-height: 1.45;
 }
-
-.rp-fx__more {
-  align-self: flex-start;
-  margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
-  border-radius: var(--gh-radius-btn, 10px);
-  background: var(--gh-canvas); /* se lee encima del campo */
-  color: var(--gh-fg);
-  border: 1px solid var(--gh-border-strong);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.rp-fx__more:hover { background: var(--gh-surface-2); border-color: var(--gh-fg-muted); }
-.rp-fx__more svg { width: 16px; height: 16px; }
-
-/* back — problema/mejora planos (sin caja) */
-.rp-fx__detail { margin-bottom: 34px; }
-
-/* Subtítulos (sin icono, mayúscula como antes, tamaño intermedio) */
-.rp-fx__detail-label {
-  display: block;
-  font-family: var(--font-heading);
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.rp-fx__detail-text {
-  font-size: clamp(0.95rem, 1.1vw, 1.02rem);
-  line-height: 1.55;
-  color: var(--gh-fg-muted);
-  margin: 0;
-}
-
-.rp-fx__detail--problem .rp-fx__detail-ico { background: #fdf0c3; color: #9a6700; }
-.rp-fx__detail--problem .rp-fx__detail-label { color: #9a6700; }
-.rp-fx__detail--gain .rp-fx__detail-ico { background: #b4f0c2; color: #036f2a; }
-.rp-fx__detail--gain .rp-fx__detail-label { color: #036f2a; }
-
-.rp-fx__back-btn {
-  align-self: flex-start;
-  margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 16px;
-  border-radius: var(--gh-radius-btn, 10px);
-  background: var(--gh-canvas);
-  color: var(--gh-fg-muted);
-  border: 1px solid var(--gh-border);
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-
-.rp-fx__back-btn:hover { background: var(--gh-surface-2); border-color: var(--gh-border-strong); color: var(--gh-fg); }
-.rp-fx__back-btn svg { width: 15px; height: 15px; }
 
 /* ---- Chart column (pelado, sin recuadro) ---- */
 .rp-fx__visual {
@@ -469,11 +366,8 @@
 }
 
 
-/* Desktop: títulos de una o dos líneas → reservar dos para que el flip
-   arranque a la misma altura en todos los paneles. */
 @media (min-width: 768px) {
-  .rp-fx__text .rp-fx__name { min-height: 2lh; margin-bottom: 18px; }
-  .rp-fx__flip { height: auto; }
+  .rp-fx__text .rp-fx__name { margin-bottom: 18px; }
   .rp-fx__desc { font-size: clamp(1rem, 1.1vw, 1.1rem); line-height: 1.6; margin-bottom: 20px; }
   .rp-fx__bullets { gap: 10px; }
   .rp-fx__bullets li { font-size: 0.97rem; }
@@ -490,14 +384,7 @@
   .rp-fx__desc { font-size: 0.98rem; line-height: 1.55; margin-bottom: 16px; }
   .rp-fx__bullets { gap: 8px; }
   .rp-fx__bullets li { font-size: 0.93rem; line-height: 1.4; }
-  .rp-fx__flip-face--front .rp-fx__bullets { margin-bottom: 18px; }
 }
-
-/* ---- Dark overrides ---- */
-[data-rp-theme="dark"] .rp-fx__detail--problem .rp-fx__detail-ico { background: #362d13; color: #e3b341; }
-[data-rp-theme="dark"] .rp-fx__detail--problem .rp-fx__detail-label { color: #e3b341; }
-[data-rp-theme="dark"] .rp-fx__detail--gain .rp-fx__detail-ico { background: #143d2a; color: #3fb950; }
-[data-rp-theme="dark"] .rp-fx__detail--gain .rp-fx__detail-label { color: #3fb950; }
 
 /* ============================================================
    FALLBACK — native horizontal swipe (mobile)
@@ -555,8 +442,7 @@
   .rp-fx__panel:first-child,
   .rp-fx__panel:last-child { padding-left: 24px; padding-right: 24px; }
 
-  /* Flex column so the text/flip can stretch to fill the (equal) panel height
-     and pin the button to the bottom. */
+  /* Single text column on mobile. */
   .rp-fx__panel-inner {
     display: flex;
     flex-direction: column;
@@ -572,31 +458,18 @@
   .rp-fx__visual { display: none; }
 
   /* Title top-anchored, no desktop reserve gap; generous air below it. */
-  .rp-fx__text > .rp-fx__flip { margin-top: 0; }
   .rp-fx__name { margin-bottom: 28px; }
   .rp-fx__desc { font-size: 1.02rem; line-height: 1.72; margin: 0 0 32px; }
   /* More air title→párrafo and párrafo→bullets. */
-  .rp-fx__text .rp-fx__name { margin-bottom: 44px; }
-  .rp-fx__text .rp-fx__desc { margin-bottom: 46px; }
+  .rp-fx__text .rp-fx__name { margin-bottom: 20px; }
+  .rp-fx__text .rp-fx__desc { margin-bottom: 28px; }
   .rp-fx__bullets { gap: 17px; }
   .rp-fx__bullets li { font-size: 1.02rem; line-height: 1.5; }
 
-  /* Keep the real 3D flip: the block fills the panel so its bottom-anchored
-     button lands at the same Y on every panel (aligned "Más información"). */
-  /* The front face is in flow, so the flip grows with it; the floor keeps
-     short panels from collapsing, and flex:1 stretches every flip to the
-     tallest panel so all buttons pin to the same bottom line. */
-  .rp-fx__flip { flex: 1 1 auto; height: auto; min-height: 460px; }
-  /* auto → pin the button to the bottom of the (equal-height) flip so it lands
-     on the same line on every panel. The leftover space above it is the air. */
-  .rp-fx__more, .rp-fx__back-btn { margin-top: auto; }
-  /* "Más información" (back) — more air título→problema and problema→mejora. */
-  .rp-fx__flip-face--back { padding-top: 20px; }
-  .rp-fx__detail { margin-bottom: 40px; }
 }
 
 /* ============================================================
-   FALLBACK — prefers-reduced-motion: no scroll-jack, no flip anim
+   FALLBACK — prefers-reduced-motion: no scroll-jack
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   .rp-fx__head { opacity: 1; transform: none; transition: none; }
@@ -620,5 +493,4 @@
   /* match the narrower panel slices so the field doesn't extend the
      scrollable area with empty space */
   .rp-fx__field { width: calc(var(--fx-count, 5) * min(92vw, 900px)); }
-  .rp-fx__flip-inner { transition: none; }
 }

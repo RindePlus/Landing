@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { FaAndroid, FaApple, FaChevronLeft, FaChevronRight, FaHandshake, FaLayerGroup, FaSeedling, FaWhatsapp } from 'react-icons/fa';
+import { FaAndroid, FaApple, FaChevronLeft, FaChevronRight, FaWhatsapp } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
@@ -28,13 +28,6 @@ const BENEFIT_PHOTOS = [
   { id: 'analisis', src: girasolTormenta, srcSm: girasolTormentaSm, w: 1100, pos: '50% 70%' },
   { id: 'cuando', src: sojaAtardecer, srcSm: sojaAtardecerSm, w: 1100, pos: '50% 60%' },
   { id: 'independiente', src: cosechaSoja, srcSm: cosechaSojaSm, w: 1100, pos: '60% 55%' },
-];
-
-// Íconos y acentos de los principios, en el orden de dict.principles.
-const PRINCIPLE_STYLES = [
-  { Icon: FaHandshake, accent: 'rp-acc-blue' },
-  { Icon: FaLayerGroup, accent: 'rp-acc-emerald' },
-  { Icon: FaSeedling, accent: 'rp-acc-amber' },
 ];
 
 /* ---------------- Subcomponents ---------------- */
@@ -209,60 +202,6 @@ const BenefitsSection = () => {
   );
 };
 
-const AntesDeEmpezarSection = () => {
-  const { dict } = useI18n();
-  const t = dict.audiences;
-  return (
-    <section className="rp-home__section" id="empezar">
-      <Reveal className="rp-home__section-header">
-        <h2 className="rp-home__section-title">{t.title}</h2>
-        <p className="rp-home__section-subtitle">{t.subtitle}</p>
-      </Reveal>
-
-      <div className="rp-home__empezar-grid">
-        {t.groups.map((a, i) => (
-          <Reveal key={a.id} delay={i + 1} className="rp-home__empezar-reveal">
-            <div className="rp-home__empezar-card">
-              <h3 className="rp-home__empezar-title">{a.title}</h3>
-              <p className="rp-home__acc-lead">{a.lead}</p>
-              <ul className="rp-home__empezar-list">
-                {a.items.map((item) => (
-                  <li key={item.t}>
-                    <span className="rp-home__empezar-dot" aria-hidden="true" />
-                    <div className="rp-home__acc-item-text">
-                      <strong>{item.t}</strong>
-                      <span>{item.d}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <Reveal delay={3}>
-        <div className="rp-home__principles">
-          {dict.principles.map((p, i) => {
-            const { Icon: IconComp, accent } = PRINCIPLE_STYLES[i];
-            return (
-              <article key={accent} className={`rp-principle ${accent}`}>
-                <div className="rp-principle__body">
-                  <div className="rp-principle__icon">
-                    <IconComp />
-                  </div>
-                  <h3 className="rp-principle__title">{p.title}</h3>
-                  <p className="rp-principle__copy">{p.copy}</p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </Reveal>
-    </section>
-  );
-};
-
 const TrustedSection = () => (
   <section className="rp-home__trusted" id="clientes">
     <Reveal className="rp-home__trusted-carousel">
@@ -280,7 +219,11 @@ const FinalCta = () => {
       <Reveal>
         <div className="rp-home__cta-inner">
           <h2 className="rp-home__cta-title">{t.title}</h2>
-          <p className="rp-home__cta-copy">{t.copy}</p>
+          <p className="rp-home__cta-copy">
+            {t.vision}
+            <br />
+            {t.copy}
+          </p>
           <a
             href={whatsappUrl(dict.whatsapp.message)}
             target="_blank"
@@ -391,8 +334,6 @@ const HomePage = ({ onOpenWhatsApp }) => {
         <Functionalities />
 
         <BenefitsSection />
-
-        <AntesDeEmpezarSection />
 
         <FinalCta />
 

@@ -5,8 +5,6 @@ import {
   LuCloudSun,
   LuSprout,
   LuFlaskConical,
-  LuPlus,
-  LuArrowLeft,
   LuArrowRight,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
@@ -267,60 +265,6 @@ const PanelTitle = ({ item, index }) => (
   </>
 );
 
-/* ── Reusable flip block (only the paragraph flips) ── */
-
-const FlipBlock = ({ description, bullets, problem, gain }) => {
-  const t = useI18n().dict.fx;
-  const [flipped, setFlipped] = useState(false);
-
-  return (
-    <div className={`rp-fx__flip ${flipped ? 'is-flipped' : ''}`}>
-      <div className="rp-fx__flip-inner">
-        {/* FRONT — description + bullets */}
-        <div className="rp-fx__flip-face rp-fx__flip-face--front" aria-hidden={flipped}>
-          <p className="rp-fx__desc">{description}</p>
-          <ul className="rp-fx__bullets">
-            {bullets.map((b) => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
-          <button
-            type="button"
-            className="rp-fx__more"
-            aria-expanded={flipped}
-            tabIndex={flipped ? -1 : 0}
-            onClick={() => setFlipped(true)}
-          >
-            <LuPlus />
-            {t.more}
-          </button>
-        </div>
-
-        {/* BACK — problema + mejora */}
-        <div className="rp-fx__flip-face rp-fx__flip-face--back" aria-hidden={!flipped}>
-          <div className="rp-fx__detail rp-fx__detail--problem">
-            <span className="rp-fx__detail-label">{t.today}</span>
-            <p className="rp-fx__detail-text">{problem}</p>
-          </div>
-          <div className="rp-fx__detail rp-fx__detail--gain">
-            <span className="rp-fx__detail-label">{t.withRp}</span>
-            <p className="rp-fx__detail-text">{gain}</p>
-          </div>
-          <button
-            type="button"
-            className="rp-fx__back-btn"
-            tabIndex={flipped ? 0 : -1}
-            onClick={() => setFlipped(false)}
-          >
-            <LuArrowLeft />
-            {t.back}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 /* ── Panel ── */
 
 const FunctionalityPanel = ({ item, index }) => {
@@ -333,13 +277,12 @@ const FunctionalityPanel = ({ item, index }) => {
       <div className="rp-fx__panel-inner">
         <div className="rp-fx__text">
           <PanelTitle item={text} index={index} />
-          <FlipBlock
-            key={text.name}
-            description={text.description}
-            bullets={text.bullets}
-            problem={text.problem}
-            gain={text.gain}
-          />
+          <p className="rp-fx__desc">{text.description}</p>
+          <ul className="rp-fx__bullets">
+            {text.bullets.map((b) => (
+              <li key={b}>{b}</li>
+            ))}
+          </ul>
         </div>
 
         <div className="rp-fx__visual">

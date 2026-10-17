@@ -9,7 +9,7 @@ const es = {
   meta: {
     title: 'Rinde Plus · Criterio agronómico para cada lote',
     description:
-      'Inteligencia agronómica: Rinde Plus integra el clima, el suelo, los ambientes y la historia de cada lote y lo convierte en decisiones. Para productores y agrónomos.',
+      'Inteligencia agronómica: Rinde Plus integra el clima, el suelo, los ambientes y la historia de cada lote y lo convierte en decisiones.',
   },
 
   whatsapp: {
@@ -25,7 +25,7 @@ const es = {
     openMenu: 'Abrir menú',
     nav: {
       home: 'Inicio',
-      campaign: 'La campaña',
+      campaign: 'Qué hace',
       why: 'Por qué Rinde Plus',
     },
     themeDark: 'Modo oscuro',
@@ -47,11 +47,11 @@ const es = {
         Rinde Plus es <strong>inteligencia agronómica</strong>: integra el
         clima, el suelo, los ambientes y la historia de cada lote y lo
         convierte en <strong>decisiones</strong> sobre qué hacer, cuándo y si
-        conviene. Para productores y agrónomos.
+        conviene.
       </>
     ),
     ctaTalk: 'Hablemos de tus lotes',
-    ctaCampaign: 'Ver la campaña',
+    ctaCampaign: 'Ver qué hace',
     mapAria: 'Lote dibujado con tres ambientes, surcos de siembra y curvas de nivel',
   },
 
@@ -60,21 +60,12 @@ const es = {
   },
 
   fx: {
-    title: 'Una decisión a la vez, lote por lote',
-    subtitle: (
-      <>
-        En cada lote, cuánto puede rendir, cuánto rindió y por qué no llegó.
-        Cinco momentos de la campaña; en cada uno, <strong>Ver la
-        diferencia</strong> muestra qué cambia.
-      </>
-    ),
+    title: 'Qué hace Rinde Plus',
+    subtitle:
+      'Una sola herramienta que acompaña cada lote durante toda la campaña, del plan al cierre.',
     next: 'Siguiente',
     nextAria: 'Ver el siguiente momento',
     goTo: (name) => `Ir a ${name}`,
-    more: 'Ver la diferencia',
-    today: 'Cómo se decide hoy',
-    withRp: 'Con Rinde Plus',
-    back: 'Volver',
     charts: {
       zones: ['Alto', 'Medio', 'Bajo'],
       potentialCaption: 'Rinde base y potencial por ambiente',
@@ -88,83 +79,58 @@ const es = {
     panels: {
       planificar: {
         tag: 'Planificar',
-        name: 'El techo de cada lote, ambiente por ambiente',
+        name: 'El rinde que puede dar cada lote',
         description:
-          'Rinde base, potencial, fertilizando y cosechado, por lote y por ambiente. El potencial sale del suelo de referencia del lote, del análisis de suelo propio cuando lo hay y del balance hídrico de la campaña.',
+          'Rinde base, potencial, fertilizando y cosechado, por lote y por ambiente. El potencial sale del suelo, del análisis propio y del balance hídrico de la campaña.',
         bullets: [
-          'Suelo de referencia de GeoINTA, IDECOR y SoilGrids, ajustado con el análisis propio',
-          'Balance hídrico: lluvia efectiva, agua útil y riego previsto',
-          'Con riego: cuánto hace falta para llegar al rinde objetivo, con techo por capacidad de campo',
-          'Variedades del padrón oficial de cultivares del INASE',
+          'Suelo de referencia (GeoINTA, IDECOR, SoilGrids) ajustado con el análisis propio',
+          'Riego necesario para llegar al rinde objetivo',
+          'Variedades del padrón oficial del INASE',
         ],
-        problem:
-          'Se planifica con el rinde típico de la zona. Sin un techo por lote, no se sabe cuánto se puede mejorar ni dónde conviene invertir.',
-        gain:
-          'Cada lote tiene su techo y su brecha a la vista, y la meta de la campaña sale del lote, no del promedio.',
       },
       preparar: {
         tag: 'Preparar el lote',
-        name: 'El agua del perfil y el residuo de herbicidas, antes de sembrar',
+        name: 'El agua del perfil y el residuo de herbicidas',
         description:
-          'El consumo de agua del cultivo de servicio frente a un barbecho, y el residuo de cada principio activo según lluvias, riego y fecha de aplicación, incluidas las aplicaciones de la campaña anterior.',
+          'El consumo de agua del cultivo de servicio contra un barbecho, y el residuo de cada herbicida según lluvias, riego y fecha de aplicación.',
         bullets: [
-          'Consumo de agua del cultivo de servicio contra un barbecho',
-          'Residuo de cada herbicida según lluvias, riego y fecha de aplicación',
           'Alerta de riesgo alto de fitotoxicidad para el cultivo que viene',
-          'Análisis de suelo por lote (química, agua útil, textura, densidad aparente) y plan de enmiendas, incluido el sódico',
+          'Incluye las aplicaciones de la campaña anterior',
+          'Análisis de suelo y plan de enmiendas',
         ],
-        problem:
-          'El secado se define a ojo y el residuo no se ve. Un secado tarde deja al cultivo siguiente sin agua; un residuo alto cuesta rinde desde la emergencia.',
-        gain:
-          'El momento de secado que cuida el agua del perfil, y el riesgo de fitotoxicidad de cada lote a la vista antes de sembrar.',
       },
       fertilizar: {
         tag: 'Fertilizar',
-        name: 'Cuánto fertilizar y si la dosis se paga',
+        name: 'La dosis que se paga',
         description:
-          'Simulación por producto y dosis, con el balance de nutrientes del lote y la curva de respuesta del rinde. Con los precios cargados en el lote, la dosis óptima económica y el margen que deja. A veces la mejor decisión es no aplicar.',
+          'Simulación por producto y dosis con el balance de nutrientes, la curva de respuesta y los precios cargados en el lote.',
         bullets: [
-          'Simulador por producto y dosis, con balance de nutrientes',
-          'Curva de respuesta y dosis óptima económica',
-          'Rinde fertilizando contra rinde base, sin pasar el potencial',
+          'Dosis óptima económica',
+          'Rinde fertilizando, sin pasar el potencial',
           'Margen bruto por lote y por ambiente',
         ],
-        problem:
-          'Se repite la dosis del año pasado o la típica de la zona, sin saber si en ese lote, y con estos precios, la aplicación se paga.',
-        gain:
-          'La dosis, o la decisión de no aplicar, con la cuenta del lote a la vista: cuánto rinde de más y cuánto margen deja.',
       },
       acompanar: {
         tag: 'Acompañar el cultivo',
-        name: 'Lo que viene en cada lote y cuándo conviene actuar',
+        name: 'Avisos de lo que viene en cada lote',
         description:
-          'Clima de cada lote, 15 días hacia atrás y 15 hacia adelante, y monitoreo a campo: recorridas contra catálogos de malezas, plagas y enfermedades, con el daño por especie y la recomendación de producto, que pasa al plan de aplicaciones y al margen.',
+          'Clima por lote, 15 días atrás y 15 adelante, y monitoreo a campo con catálogos de malezas, plagas y enfermedades.',
         bullets: [
-          'Pronóstico por lote, con alertas de estrés térmico, déficit de presión de vapor y riesgo de enfermedades fúngicas',
-          'Monitoreo a campo con catálogos curados de malezas, plagas y enfermedades',
-          'Aviso cuando un lote lleva tiempo sin recorrer o hay una decisión abierta',
+          'Alertas de estrés térmico, déficit de presión de vapor y enfermedades fúngicas',
+          'Recomendación de producto que pasa al plan de aplicaciones',
           'Avisos diarios por WhatsApp, con tu consentimiento, que se pueden responder',
         ],
-        problem:
-          'El estrés se ve a campo cuando el rinde ya se perdió, el pronóstico regional no dice qué pasa en cada lote y lo que se ve en la recorrida queda en una libreta.',
-        gain:
-          'El aviso llega con tiempo para actuar, y lo que se ve en la recorrida se convierte en una aplicación con su costo en el margen.',
       },
       cerrar: {
         tag: 'Cerrar y aprender',
-        name: 'Dónde se perdió rinde y cuánto se puede recuperar',
+        name: 'Dónde se perdió rinde',
         description:
-          'Al cierre, lote por lote, lo que podía rendir contra lo que se cosechó, y el plan contra lo realizado: el plan queda congelado al aplicar.',
+          'Lo que podía rendir cada lote contra lo cosechado, y el plan contra lo realizado, en rinde y en margen.',
         bullets: [
-          'Rinde base, potencial, fertilizando y cosechado',
-          'Plan contra realizado, en rinde y en margen',
-          'Mapa de análisis que cruza lotes, ambientes y campañas en fertilización, aplicaciones y monitoreo',
+          'Brecha de rendimiento por lote y por ambiente',
+          'Mapa de análisis entre lotes, ambientes y campañas',
           'Vista por empresa',
         ],
-        problem:
-          'La campaña se cierra con el rinde cosechado y poco más. Los datos quedan en planillas sueltas y la siguiente se decide igual.',
-        gain:
-          'Cada campaña deja una lección por lote, y la siguiente arranca con lo aprendido.',
       },
     },
   },
@@ -205,50 +171,10 @@ const es = {
     ],
   },
 
-  audiences: {
-    title: 'Para productores y agrónomos',
-    subtitle: 'Un mismo sistema, en el mismo idioma, para decidir sobre cada lote.',
-    groups: [
-      {
-        id: 'productor',
-        title: 'Productores',
-        lead: 'Cuánto puede rendir cada lote, por qué no llegó, qué conviene hacer, cuándo y si paga.',
-        items: [
-          { t: 'Qué hacer y cuándo', d: 'Una recomendación para cada lote, en el momento justo.' },
-          { t: 'Si la aplicación paga', d: 'La cuenta del lote antes de aplicar; a veces conviene no hacer nada.' },
-          { t: 'Avisos diarios', d: 'Alertas de clima, enfermedades y fitotoxicidad por WhatsApp, que se pueden responder.' },
-        ],
-      },
-      {
-        id: 'agronomo',
-        title: 'Agrónomos',
-        lead: 'El análisis ya armado; el tiempo, para decidir.',
-        items: [
-          { t: 'El análisis ya integrado', d: 'Clima, suelo, ambientes, monitoreo e historia de cada lote en un solo lugar.' },
-          { t: 'Más lotes, mismo rigor', d: 'Mapa de análisis y vista por empresa para seguir muchos lotes a la vez.' },
-          { t: 'Recorridas con criterio', d: 'Monitoreo con catálogos curados y una recomendación que pasa al plan de aplicaciones.' },
-        ],
-      },
-    ],
-  },
-
-  principles: [
-    {
-      title: 'Llega por tu organización',
-      copy: 'Cooperativas, acopios, semilleras, empresas de insumos y asesorías dan acceso a su red.',
-    },
-    {
-      title: 'Un solo sistema',
-      copy: 'Clima, suelo, ambientes e historia de cada lote, en un mismo lugar.',
-    },
-    {
-      title: 'Nuestra visión',
-      copy: 'Que cada lote se decida con criterio agronómico, no solo los de quien puede pagarse un equipo técnico.',
-    },
-  ],
-
   cta: {
     title: 'Hablemos de tus lotes.',
+    vision:
+      'Nuestra visión: que cada lote se decida con criterio agronómico, no solo los de quien puede pagarse un equipo técnico.',
     copy: 'Unas líneas sobre la operación alcanzan para coordinar una llamada. Sin formularios largos: responde directo el equipo de Rinde Plus.',
     button: 'Escribir por WhatsApp',
     hint: 'Respuesta en menos de 24 h',
