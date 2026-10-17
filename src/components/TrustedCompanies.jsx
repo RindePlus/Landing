@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useI18n } from '../i18n/I18nContext';
 import altinaLogo from '../assets/related companies/altina.png';
 import chiaraviglioLogo from '../assets/related companies/chiaraviglio.png';
 import promeLogo from '../assets/related companies/prome.png';
@@ -17,6 +18,7 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './TrustedCompanies.css';
 
 const TrustedCompanies = () => {
+  const t = useI18n().dict.trusted;
   const carouselRef = useRef(null);
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
@@ -122,7 +124,7 @@ const TrustedCompanies = () => {
   return (
     <section className="trusted-companies-section" ref={ref}>
       <div className={`trusted-companies-container fade-in-up ${isVisible ? 'visible' : ''}`}>
-        <h2 className="trusted-companies-title">Confían en nosotros</h2>
+        <h2 className="trusted-companies-title">{t.title}</h2>
 
         <div className="carousel-wrapper">
           <div className="carousel-track" ref={carouselRef}>

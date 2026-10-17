@@ -314,6 +314,11 @@
 
 .rp-fx__flip-face--back { transform: rotateY(180deg); justify-content: flex-start; }
 
+/* El frente queda en el flujo para que el flip crezca con él (cuatro viñetas
+   no entran en un alto fijo); el reverso, más corto, se le superpone. */
+.rp-fx__flip-face--front { position: relative; min-height: 100%; }
+.rp-fx__flip-face--front .rp-fx__bullets { margin-bottom: 24px; }
+
 .rp-fx__flip:not(.is-flipped) .rp-fx__flip-face--back { pointer-events: none; }
 .rp-fx__flip.is-flipped .rp-fx__flip-face--front { pointer-events: none; }
 
@@ -437,8 +442,8 @@
 .rp-fx__panel .fx-stop-1 { stop-color: var(--fx-c1); }
 .rp-fx__panel .fx-stop-2 { stop-color: var(--fx-c2); }
 
-/* Franjas del semáforo de siembra (Vig IA Herbicidas) — tokens gh que ya
-   flipean en dark; opacidad baja para que queden como lavados de fondo. */
+/* Franjas de riesgo de fitotoxicidad (carry-over de herbicidas) — tokens gh
+   que ya flipean en dark; opacidad baja para que queden como lavados de fondo. */
 .rp-fx__panel .fx-band-risk { fill: var(--gh-danger); opacity: 0.1; }
 .rp-fx__panel .fx-band-warn { fill: var(--gh-detail-yellow-strong); opacity: 0.12; }
 .rp-fx__panel .fx-band-safe { fill: var(--gh-detail-green); opacity: 0.16; }
@@ -464,62 +469,28 @@
 }
 
 
-/* ---- Merged "Brechas de rendimiento" — dos secciones de texto, sin gráfico ---- */
-.rp-fx__panel-inner--dual {
-  display: block;
-  height: 100%;
-  padding-top: clamp(12px, 3vh, 44px);
-}
-
-/* desktop: let the dual panel size to content so it centers like the rest
-   (declared after the base rule so it wins the source-order tie) */
+/* Desktop: títulos de una o dos líneas → reservar dos para que el flip
+   arranque a la misma altura en todos los paneles. */
 @media (min-width: 768px) {
-  .rp-fx__panel-inner--dual { height: auto; }
+  .rp-fx__text .rp-fx__name { min-height: 2lh; margin-bottom: 18px; }
+  .rp-fx__flip { height: auto; }
+  .rp-fx__desc { font-size: clamp(1rem, 1.1vw, 1.1rem); line-height: 1.6; margin-bottom: 20px; }
+  .rp-fx__bullets { gap: 10px; }
+  .rp-fx__bullets li { font-size: 0.97rem; }
+  .rp-fx__field { height: clamp(120px, 22vh, 240px); }
 }
 
-.rp-fx__dual-head { margin-bottom: clamp(12px, 2vh, 20px); }
-
-.rp-fx__dual-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(48px, 9vw, 150px);
-  align-items: start;
-}
-
-.rp-fx__dual-section { min-width: 0; }
-
-/* Segmented switch — hidden on desktop (both brechas show side by side);
-   becomes the mobile control that toggles between the two. */
-.rp-fx__seg { display: none; }
-
-.rp-fx__subtag {
-  display: inline-block;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--fx-c1);
-  margin-bottom: 6px;
-}
-
-.rp-fx__subname {
-  font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--gh-fg);
-  margin: 0 0 20px;
-  line-height: 1.15;
-}
-
-/* Non-Brechas panels: reserve the vertical space that Brechas uses for its
-   intermediate subtitle, so descriptions, bullets and buttons align across
-   every functionality (all flip blocks share the same height → the
-   bottom-anchored buttons line up). */
-.rp-fx__text > .rp-fx__flip { margin-top: calc(clamp(12px, 2vh, 20px) + 15px); }
-
-/* Desktop: preguntas de una o dos líneas → reservar dos para que el flip
-   arranque a la misma altura en todos los paneles estándar */
-@media (min-width: 768px) {
-  .rp-fx__text .rp-fx__name { min-height: 2lh; }
+/* Laptops bajas (≤ 820px de alto): el panel más largo tiene que entrar con
+   su botón sobre el pie del viewport. */
+@media (min-width: 768px) and (max-height: 820px) {
+  .rp-fx__text { padding-top: 0; }
+  .rp-fx__moment { margin-bottom: 8px; }
+  .rp-fx__moment-num { font-size: 1.8rem; }
+  .rp-fx__text .rp-fx__name { font-size: clamp(1.6rem, 2.5vw, 2.05rem); margin-bottom: 14px; }
+  .rp-fx__desc { font-size: 0.98rem; line-height: 1.55; margin-bottom: 16px; }
+  .rp-fx__bullets { gap: 8px; }
+  .rp-fx__bullets li { font-size: 0.93rem; line-height: 1.4; }
+  .rp-fx__flip-face--front .rp-fx__bullets { margin-bottom: 18px; }
 }
 
 /* ---- Dark overrides ---- */
@@ -604,8 +575,7 @@
   .rp-fx__text > .rp-fx__flip { margin-top: 0; }
   .rp-fx__name { margin-bottom: 28px; }
   .rp-fx__desc { font-size: 1.02rem; line-height: 1.72; margin: 0 0 32px; }
-  /* Standard panels only (`.rp-fx__text` doesn't exist in the dual Brechas
-     panel) — more air title→párrafo and párrafo→bullets. */
+  /* More air title→párrafo and párrafo→bullets. */
   .rp-fx__text .rp-fx__name { margin-bottom: 44px; }
   .rp-fx__text .rp-fx__desc { margin-bottom: 46px; }
   .rp-fx__bullets { gap: 17px; }
@@ -624,51 +594,7 @@
   /* "Más información" (back) — more air título→problema and problema→mejora. */
   .rp-fx__flip-face--back { padding-top: 20px; }
   .rp-fx__detail { margin-bottom: 40px; }
-
-  /* ---- Brechas as a segmented switch ---- */
-  .rp-fx__panel-inner--dual { display: flex; flex-direction: column; padding-top: 0; }
-  .rp-fx__dual-head { margin-bottom: 0; }
-  .rp-fx__seg {
-    display: flex;
-    width: 100%;
-    gap: 5px;
-    margin: 6px 0 30px;
-    padding: 5px;
-    background: var(--gh-surface-2);
-    border: 1px solid var(--gh-border);
-    border-radius: 999px;
-  }
-  .rp-fx__seg-btn {
-    flex: 1;
-    border: 0;
-    background: transparent;
-    color: var(--gh-fg-muted);
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 12px 8px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-  .rp-fx__seg-btn.is-active {
-    background: var(--gh-accent-emphasis);
-    color: var(--gh-accent-fg);
-    box-shadow: var(--gh-shadow-sm);
-  }
-  .rp-fx__dual-grid {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    align-items: stretch; /* override base `start`, else the column collapses to content width */
-    grid-template-columns: none;
-    gap: 0;
-  }
-  .rp-fx__dual-section { display: none; }
-  .rp-fx__dual-section.is-active { display: flex; flex-direction: column; flex: 1; align-items: stretch; }
-  /* the switch already labels the section — drop the redundant subname */
-  .rp-fx__panel--dual .rp-fx__subname { display: none; }
-  .rp-fx__panel--dual .rp-fx__subtag { margin-bottom: 14px; }
+}
 }
 
 /* ============================================================

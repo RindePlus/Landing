@@ -313,6 +313,54 @@ img.logo-image:hover {
   color: var(--gh-accent);
 }
 
+/* Language switch (ES / EN / PT): compact segmented control in the header
+   on desktop, a row inside the drawer on mobile. */
+.rp-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--gh-border, #d0d7de);
+  border-radius: var(--gh-radius-btn, 10px);
+}
+
+.rp-lang__btn {
+  min-width: 32px;
+  height: 28px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--gh-fg-muted, #656d76);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.rp-lang__btn:hover { color: var(--gh-fg, #1f2328); }
+
+.rp-lang__btn[aria-pressed='true'] {
+  background: var(--gh-surface-2, #f6f8fa);
+  color: var(--gh-accent, #0969da);
+}
+
+.header-nav__lang {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 24px 4px;
+}
+
+@media (max-width: 767px) {
+  .rp-lang--header { display: none; }
+  .header-nav__lang { display: flex; }
+  .rp-lang--drawer .rp-lang__btn { min-width: 40px; height: 32px; font-size: 13px; }
+}
+
 /* Login button — the landing's only way into the platform (LOGIN_URL) */
 .header-platform-btn {
   display: inline-flex;

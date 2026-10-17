@@ -1,9 +1,11 @@
 import { LuMail, LuMapPin } from 'react-icons/lu';
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import { INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../data/social';
+import { useI18n } from '../i18n/I18nContext';
 import './Footer.css';
 
 const Footer = ({ onOpenWhatsApp }) => {
+  const t = useI18n().dict.footer;
   const openEmail = () => {
     window.location.href = 'mailto:inforindeplus@gmail.com';
   };
@@ -28,13 +30,13 @@ const Footer = ({ onOpenWhatsApp }) => {
               type="button"
               className="rp-footer__contact-item"
               onClick={openEmail}
-              aria-label="Enviar email a inforindeplus@gmail.com"
+              aria-label={t.emailAria}
             >
               <span className="rp-footer__contact-icon rp-footer__contact-icon--blue">
                 <LuMail />
               </span>
               <span className="rp-footer__contact-text">
-                <span className="rp-footer__contact-label">Email</span>
+                <span className="rp-footer__contact-label">{t.email}</span>
                 <span className="rp-footer__contact-value">
                   inforindeplus@gmail.com
                 </span>
@@ -46,13 +48,13 @@ const Footer = ({ onOpenWhatsApp }) => {
               type="button"
               className="rp-footer__contact-item"
               onClick={openInstagram}
-              aria-label="Abrir Instagram de Rinde Plus"
+              aria-label={t.instagramAria}
             >
               <span className="rp-footer__contact-icon rp-footer__contact-icon--instagram">
                 <FaInstagram />
               </span>
               <span className="rp-footer__contact-text">
-                <span className="rp-footer__contact-label">Instagram</span>
+                <span className="rp-footer__contact-label">{t.instagram}</span>
                 <span className="rp-footer__contact-value">
                   {INSTAGRAM_HANDLE}
                 </span>
@@ -64,13 +66,13 @@ const Footer = ({ onOpenWhatsApp }) => {
               type="button"
               className="rp-footer__contact-item"
               onClick={onOpenWhatsApp}
-              aria-label="Abrir chat de WhatsApp"
+              aria-label={t.whatsappAria}
             >
               <span className="rp-footer__contact-icon rp-footer__contact-icon--whatsapp">
                 <FaWhatsapp />
               </span>
               <span className="rp-footer__contact-text">
-                <span className="rp-footer__contact-label">WhatsApp</span>
+                <span className="rp-footer__contact-label">{t.whatsapp}</span>
                 <span className="rp-footer__contact-value">
                   +54 9 3564 59-3446
                 </span>
@@ -82,13 +84,13 @@ const Footer = ({ onOpenWhatsApp }) => {
               type="button"
               className="rp-footer__contact-item"
               onClick={openGoogleMaps}
-              aria-label="Ver ubicación en Google Maps"
+              aria-label={t.officeAria}
             >
               <span className="rp-footer__contact-icon rp-footer__contact-icon--amber">
                 <LuMapPin />
               </span>
               <span className="rp-footer__contact-text">
-                <span className="rp-footer__contact-label">Oficina</span>
+                <span className="rp-footer__contact-label">{t.office}</span>
                 <span className="rp-footer__contact-value">
                   Concejal Lorusso 762 · Alta Gracia
                 </span>
@@ -101,11 +103,11 @@ const Footer = ({ onOpenWhatsApp }) => {
 
         <div className="rp-footer__bottom">
           <p className="rp-footer__copyright">
-            © 2026 <strong>Rinde Plus</strong>. Todos los derechos reservados.
+            © 2026 <strong>Rinde Plus</strong>. {t.rights}
           </p>
           <span className="rp-footer__made">
             <span className="rp-footer__made-dot" />
-            Hecho con datos y criterio agronómico
+            {t.made}
           </span>
         </div>
       </div>

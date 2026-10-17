@@ -10,6 +10,7 @@ import {
   LuArrowRight,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { useI18n } from '../i18n/I18nContext';
 import './Functionalities.css';
 
 /* ── Mini chart SVGs ──
@@ -22,7 +23,9 @@ import './Functionalities.css';
    El área sobre la línea punteada es lo que la dosis agrega al rinde base;
    el punto marca la dosis óptima económica, antes del techo, donde el
    último kilo todavía se paga. */
-const ChartRespuestaDosis = () => (
+const ChartRespuestaDosis = () => {
+  const t = useI18n().dict.fx.charts;
+  return (
   <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
     <defs>
       <linearGradient id="fxDoseFill" x1="0" y1="0" x2="0" y2="1">
@@ -38,25 +41,27 @@ const ChartRespuestaDosis = () => (
     <path className="fx-s1" d="M20 96 C 60 52, 104 36, 150 33 C 162 32.5, 176 33.5, 186 35" strokeWidth="2.5" strokeLinecap="round" />
     <line className="fx-s2" x1="118" y1="37.5" x2="118" y2="96" strokeWidth="1.5" strokeDasharray="3 3" />
     <circle className="fx-dot fx-s2" cx="118" cy="37.5" r="3.5" strokeWidth="2" />
-    <text className="fx-caption" x="100" y="125" textAnchor="middle">Dosis óptima económica</text>
+    <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.doseCaption}</text>
   </svg>
-);
+  );
+};
 
 /* Los cuatro rindes del cierre (Cerrar y aprender). La brecha es el tramo
    del potencial que no se cosechó. Sin cifras: muestra la relación. */
 const ChartCuatroRindes = () => {
+  const t = useI18n().dict.fx.charts;
   const rows = [
-    { label: 'Potencial', w: 112, o: 0.3 },
-    { label: 'Fertilizando', w: 92, o: 0.55 },
-    { label: 'Cosechado', w: 76, o: 1 },
-    { label: 'Base', w: 58, o: 0.55, neutral: true },
-  ];
+    { w: 112, o: 0.3 },
+    { w: 92, o: 0.55 },
+    { w: 76, o: 1 },
+    { w: 58, o: 0.55, neutral: true },
+  ].map((r, i) => ({ ...r, label: t.fourYields[i] }));
   const x0 = 82;
   const cosechado = x0 + rows[2].w;
   return (
     <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
       {rows.map((r, i) => (
-        <g key={r.label}>
+        <g key={r.w}>
           <text className="fx-label" x={x0 - 8} y={20 + i * 25} textAnchor="end">{r.label}</text>
           <rect
             className={r.neutral ? 'fx-f-neutral' : 'fx-f1'}
@@ -71,12 +76,14 @@ const ChartCuatroRindes = () => {
       ))}
       <rect className="fx-band-risk fx-band-risk--strong" x={cosechado} y="8" width={x0 + rows[0].w - cosechado} height="16" rx="3" />
       <line className="fx-s2" x1={cosechado} y1="4" x2={cosechado} y2="74" strokeWidth="1.5" strokeDasharray="3 3" />
-      <text className="fx-caption" x="100" y="125" textAnchor="middle">Brecha de rendimiento</text>
+      <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.gapCaption}</text>
     </svg>
   );
 };
 
-const ChartAreaForecast = () => (
+const ChartAreaForecast = () => {
+  const t = useI18n().dict.fx.charts;
+  return (
   <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
     <defs>
       <linearGradient id="fxPastFill" x1="0" y1="0" x2="0" y2="1">
@@ -93,16 +100,20 @@ const ChartAreaForecast = () => (
     <line className="fx-grid" x1="96" y1="20" x2="96" y2="100" strokeWidth="1" strokeDasharray="4 3" />
     <path className="fx-s2" d="M96 45 L124 35 L152 50 L180 28" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 4" />
     <path d="M96 45 L124 35 L152 50 L180 28 V100 H96 Z" fill="url(#fxFutureFill)" />
-    <text className="fx-label" x="100" y="14">Hoy</text>
-    <text className="fx-caption" x="100" y="125" textAnchor="middle">15 días atrás, 15 adelante</text>
+    <text className="fx-label" x="100" y="14">{t.today}</text>
+    <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.forecastCaption}</text>
   </svg>
-);
+  );
+};
 
-/* Ventana de siembra (Preparar el lote): el residuo decae y cruza el
-   semáforo rojo/amarillo/verde; la línea punteada vertical marca la fecha
-   de siembra segura. Las franjas usan los tokens --gh-danger /
-   --gh-detail-yellow-strong / --gh-detail-green (fx-band-*). */
-const ChartVentanaSiembra = () => (
+/* Carry-over de herbicidas (Preparar el lote): el residuo decae con lluvias
+   y riego y cruza las franjas de riesgo de fitotoxicidad alto/medio/bajo; la
+   línea punteada marca cuándo el riesgo pasa a bajo para el cultivo que
+   viene. Las franjas usan los tokens --gh-danger / --gh-detail-yellow-strong
+   / --gh-detail-green (fx-band-*). */
+const ChartResiduoHerbicida = () => {
+  const t = useI18n().dict.fx.charts;
+  return (
   <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
     <rect className="fx-band-risk" x="16" y="16" width="62" height="86" />
     <rect className="fx-band-warn" x="78" y="16" width="46" height="86" />
@@ -112,9 +123,39 @@ const ChartVentanaSiembra = () => (
     <path className="fx-s1" d="M20 24 C 44 28, 62 40, 82 58 C 102 76, 130 90, 182 96" strokeWidth="2.5" strokeLinecap="round" />
     <line className="fx-s2" x1="138" y1="24" x2="138" y2="102" strokeWidth="1.5" strokeDasharray="3 3" />
     <circle className="fx-dot fx-s2" cx="138" cy="90" r="3.5" strokeWidth="2" />
-    <text className="fx-caption" x="100" y="125" textAnchor="middle">Fecha de siembra segura</text>
+    <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.residueCaption}</text>
   </svg>
-);
+  );
+};
+
+/* Rinde base y potencial por ambiente (Planificar): tres ambientes del lote,
+   cada uno con su base (neutra) y su potencial. Sin cifras: muestra que el
+   techo cambia de un ambiente a otro. */
+const ChartPotencialAmbientes = () => {
+  const t = useI18n().dict.fx.charts;
+  const zones = [
+    { base: 44, pot: 74 },
+    { base: 38, pot: 58 },
+    { base: 28, pot: 40 },
+  ];
+  const floor = 100;
+  return (
+    <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
+      <line className="fx-grid" x1="16" y1={floor} x2="186" y2={floor} strokeWidth="0.8" />
+      {zones.map((z, i) => {
+        const x = 26 + i * 56;
+        return (
+          <g key={x}>
+            <rect className="fx-f-neutral" x={x} y={floor - z.base} width="18" height={z.base} rx="3" opacity="0.55" />
+            <rect className="fx-f1" x={x + 22} y={floor - z.pot} width="18" height={z.pot} rx="3" />
+            <text className="fx-label" x={x + 20} y={floor + 11} textAnchor="middle">{t.zones[i]}</text>
+          </g>
+        );
+      })}
+      <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.potentialCaption}</text>
+    </svg>
+  );
+};
 
 /* ── Campo continuo — paisaje de lomas que abarca el ancho COMPLETO del
    track (los 5 paneles), anclado abajo. Como vive adentro de .rp-fx__track,
@@ -202,128 +243,14 @@ const FxField = () => (
 
 /* ── Data ── */
 
+// Íconos, gráficos y paletas de los cinco momentos; los textos salen de
+// dict.fx.panels[id].
 const FUNCTIONALITIES = [
-  {
-    id: 'planificar',
-    Icon: LuTarget,
-    palette: 'blue',
-    tag: 'Planificar',
-    name: '¿Hasta dónde puede rendir cada lote?',
-    dual: true,
-    segLabel: 'Cómo se calcula',
-    sections: [
-      {
-        id: 'primera-campana',
-        tab: 'Primera campaña',
-        subtag: 'Referencias',
-        subname: 'Desde la primera campaña',
-        description:
-          'El rinde potencial de tu zona y cultivo según referencias científicas y ensayos regionales. El punto de partida para diagnosticar cada lote.',
-        bullets: [
-          'Rinde base y potencial por lote y por ambiente',
-          'Ajustado a tu cultivo y zona',
-          'Diagnóstico desde la primera campaña',
-        ],
-        problem:
-          'Se planifica con el rinde típico de la zona. Sin un techo por lote, no sabes cuánto puedes mejorar ni dónde conviene invertir.',
-        gain:
-          'Cada lote tiene su techo y su brecha a la vista, y la meta de la campaña sale del lote, no del promedio.',
-      },
-      {
-        id: 'modelos-zona',
-        tab: 'Modelos de tu zona',
-        subtag: 'Machine learning',
-        subname: 'Con modelos de tu zona',
-        description:
-          'Brechas calculadas con modelos entrenados con datos de tu zona, que se ajustan campaña a campaña y captan lo que las referencias no ven.',
-        bullets: [
-          'Modelos entrenados con datos reales de tu zona',
-          'Se ajustan campaña a campaña',
-          'Cruzan clima, suelo y manejo',
-        ],
-        problem:
-          'Las referencias generales no captan cómo se combinan el clima, el suelo y el manejo de tu lote.',
-        gain:
-          'Entiendes la brecha real de cada ambiente y afinas las decisiones campaña tras campaña.',
-      },
-    ],
-  },
-  {
-    id: 'preparar',
-    Icon: LuFlaskConical,
-    Chart: ChartVentanaSiembra,
-    palette: 'green',
-    tag: 'Preparar el lote',
-    name: '¿Cuándo secar y cuándo es seguro sembrar?',
-    description:
-      'Sigues cuánta agua consume el cultivo de servicio frente a un barbecho y cuánto residuo de herbicida queda en el suelo, para llegar a la siembra con el lote listo.',
-    bullets: [
-      'Consumo de agua del cultivo de servicio contra un barbecho',
-      'Residuo del herbicida según lluvias, riego y aplicación',
-      'Semáforo de siembra segura para cada lote',
-    ],
-    problem:
-      'El secado se define a ojo y el residuo no se ve. Si te pasas, el cultivo de servicio se toma el agua del que viene; si siembras antes de tiempo, el daño por herbicida cuesta rinde desde el primer día.',
-    gain:
-      'Eliges el momento de secado que cuida el agua del perfil y conoces la fecha de siembra segura de cada lote antes de decidir.',
-  },
-  {
-    id: 'fertilizar',
-    Icon: LuSprout,
-    Chart: ChartRespuestaDosis,
-    palette: 'amber',
-    tag: 'Fertilizar',
-    name: '¿La fertilización paga en este lote?',
-    description:
-      'Ves cómo responde el rinde a cada dosis y cuánto margen deja con los precios de hoy. A veces la mejor decisión es no aplicar.',
-    bullets: [
-      'Curva de respuesta del rinde a la dosis',
-      'Rinde fertilizando contra rinde base',
-      'Simulación del margen bruto de cada lote',
-    ],
-    problem:
-      'Se repite la dosis del año pasado o la típica de la zona, sin saber si en ese lote, y con estos precios, la aplicación se paga.',
-    gain:
-      'Decides la dosis, o no aplicar, con la cuenta del lote a la vista: cuánto rinde de más y cuánto margen deja.',
-  },
-  {
-    id: 'acompanar',
-    Icon: LuCloudSun,
-    Chart: ChartAreaForecast,
-    palette: 'teal',
-    tag: 'Acompañar el cultivo',
-    name: '¿Qué viene y cuándo conviene actuar?',
-    description:
-      'Clima de cada lote, 15 días hacia atrás y 15 hacia adelante, con estrés térmico, déficit de presión de vapor y balance hídrico. Si algo pone en riesgo el rinde o el margen, te avisamos.',
-    bullets: [
-      'Pronóstico por lote, no por región',
-      'Alertas de estrés hídrico y térmico, y de riesgo de enfermedades',
-      'Avisos por WhatsApp, con tu consentimiento',
-    ],
-    problem:
-      'El estrés se ve a campo cuando el rinde ya se perdió, y los pronósticos regionales no dicen qué pasa en tu lote.',
-    gain:
-      'Te enteras antes y tienes margen para actuar en el momento justo.',
-  },
-  {
-    id: 'cerrar',
-    Icon: LuLayoutDashboard,
-    Chart: ChartCuatroRindes,
-    palette: 'blue',
-    tag: 'Cerrar y aprender',
-    name: '¿Por qué no llegó al potencial?',
-    description:
-      'Al cierre comparas, lote por lote, lo que podía rendir con lo que se cosechó. La brecha muestra dónde se perdió rinde y cuánto se puede recuperar.',
-    bullets: [
-      'Rinde base, potencial, fertilizando y cosechado',
-      'Dónde se perdió rinde y por qué',
-      'Comparación entre lotes, ambientes y campañas',
-    ],
-    problem:
-      'La campaña se cierra con el rinde cosechado y poco más. Los datos quedan en planillas sueltas y la siguiente se decide igual.',
-    gain:
-      'Cada campaña deja una lección por lote, y la siguiente arranca con lo aprendido.',
-  },
+  { id: 'planificar', Icon: LuTarget, Chart: ChartPotencialAmbientes, palette: 'blue' },
+  { id: 'preparar', Icon: LuFlaskConical, Chart: ChartResiduoHerbicida, palette: 'green' },
+  { id: 'fertilizar', Icon: LuSprout, Chart: ChartRespuestaDosis, palette: 'amber' },
+  { id: 'acompanar', Icon: LuCloudSun, Chart: ChartAreaForecast, palette: 'teal' },
+  { id: 'cerrar', Icon: LuLayoutDashboard, Chart: ChartCuatroRindes, palette: 'blue' },
 ];
 
 const COUNT = FUNCTIONALITIES.length;
@@ -343,6 +270,7 @@ const PanelTitle = ({ item, index }) => (
 /* ── Reusable flip block (only the paragraph flips) ── */
 
 const FlipBlock = ({ description, bullets, problem, gain }) => {
+  const t = useI18n().dict.fx;
   const [flipped, setFlipped] = useState(false);
 
   return (
@@ -364,18 +292,18 @@ const FlipBlock = ({ description, bullets, problem, gain }) => {
             onClick={() => setFlipped(true)}
           >
             <LuPlus />
-            Ver la diferencia
+            {t.more}
           </button>
         </div>
 
         {/* BACK — problema + mejora */}
         <div className="rp-fx__flip-face rp-fx__flip-face--back" aria-hidden={!flipped}>
           <div className="rp-fx__detail rp-fx__detail--problem">
-            <span className="rp-fx__detail-label">Cómo se decide hoy</span>
+            <span className="rp-fx__detail-label">{t.today}</span>
             <p className="rp-fx__detail-text">{problem}</p>
           </div>
           <div className="rp-fx__detail rp-fx__detail--gain">
-            <span className="rp-fx__detail-label">Con Rinde Plus</span>
+            <span className="rp-fx__detail-label">{t.withRp}</span>
             <p className="rp-fx__detail-text">{gain}</p>
           </div>
           <button
@@ -385,7 +313,7 @@ const FlipBlock = ({ description, bullets, problem, gain }) => {
             onClick={() => setFlipped(false)}
           >
             <LuArrowLeft />
-            Volver
+            {t.back}
           </button>
         </div>
       </div>
@@ -393,75 +321,24 @@ const FlipBlock = ({ description, bullets, problem, gain }) => {
   );
 };
 
-/* ── Dual panel (Planificar) — two sections side by side on
-   desktop, a segmented switch (one at a time) on mobile ── */
-
-const DualPanel = ({ item, index }) => {
-  const [activeSec, setActiveSec] = useState(0);
-
-  return (
-    <article className={`rp-fx__panel rp-fx__panel--dual rp-fx__panel--${item.palette}`}>
-      <div className="rp-fx__panel-inner rp-fx__panel-inner--dual">
-        <div className="rp-fx__dual-head">
-          <PanelTitle item={item} index={index} />
-          {/* mobile-only switch between the two sections */}
-          <div className="rp-fx__seg" role="tablist" aria-label={item.segLabel || item.name}>
-            {item.sections.map((s, i) => (
-              <button
-                key={s.id}
-                type="button"
-                role="tab"
-                aria-selected={i === activeSec}
-                className={`rp-fx__seg-btn ${i === activeSec ? 'is-active' : ''}`}
-                onClick={() => setActiveSec(i)}
-              >
-                {s.tab}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="rp-fx__dual-grid">
-          {item.sections.map((s, i) => (
-            <div
-              key={s.id}
-              className={`rp-fx__dual-section ${i === activeSec ? 'is-active' : ''}`}
-            >
-              <span className="rp-fx__subtag">{s.subtag}</span>
-              <h4 className="rp-fx__subname">{s.subname}</h4>
-              <FlipBlock
-                description={s.description}
-                bullets={s.bullets}
-                problem={s.problem}
-                gain={s.gain}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </article>
-  );
-};
-
 /* ── Panel ── */
 
 const FunctionalityPanel = ({ item, index }) => {
   const { Chart, palette } = item;
+  const text = useI18n().dict.fx.panels[item.id];
 
-  // Two-section panel (Planificar)
-  if (item.dual) return <DualPanel item={item} index={index} />;
-
-  // Standard — text column + chart
+  // Text column + chart
   return (
     <article className={`rp-fx__panel${palette ? ` rp-fx__panel--${palette}` : ''}`}>
       <div className="rp-fx__panel-inner">
         <div className="rp-fx__text">
-          <PanelTitle item={item} index={index} />
+          <PanelTitle item={text} index={index} />
           <FlipBlock
-            description={item.description}
-            bullets={item.bullets}
-            problem={item.problem}
-            gain={item.gain}
+            key={text.name}
+            description={text.description}
+            bullets={text.bullets}
+            problem={text.problem}
+            gain={text.gain}
           />
         </div>
 
@@ -476,6 +353,7 @@ const FunctionalityPanel = ({ item, index }) => {
 /* ── Section (pinned horizontal scroll) ── */
 
 const Functionalities = () => {
+  const t = useI18n().dict.fx;
   const [headRef, headVisible] = useIntersectionObserver({ threshold: 0.2, triggerOnce: true });
   const wrapperRef = useRef(null);
   const trackRef = useRef(null);
@@ -572,14 +450,8 @@ const Functionalities = () => {
   return (
     <section id="funcionalidades" className="rp-fx-section">
       <div ref={headRef} className={`rp-fx__head ${headVisible ? 'is-visible' : ''}`}>
-        <h2 className="rp-fx__title">
-          Una decisión a la vez, lote por lote
-        </h2>
-        <p className="rp-fx__subtitle">
-          En cada lote sabes cuánto puede rendir, cuánto rindió y por qué no
-          llegó. Desliza para recorrer los cinco momentos de la campaña y toca{' '}
-          <strong>“Ver la diferencia”</strong> en cada uno.
-        </p>
+        <h2 className="rp-fx__title">{t.title}</h2>
+        <p className="rp-fx__subtitle">{t.subtitle}</p>
       </div>
 
       <div className="rp-fx" ref={wrapperRef}>
@@ -596,7 +468,7 @@ const Functionalities = () => {
                   key={it.id}
                   type="button"
                   className={`rp-fx__dot ${i === active ? 'is-active' : ''}`}
-                  aria-label={`Ir a ${it.name}`}
+                  aria-label={t.goTo(t.panels[it.id].name)}
                   aria-current={i === active}
                   onClick={() => goTo(i)}
                 />
@@ -606,9 +478,9 @@ const Functionalities = () => {
               type="button"
               className="rp-fx__hint"
               onClick={() => goTo((active + 1) % COUNT)}
-              aria-label="Ver el siguiente momento"
+              aria-label={t.nextAria}
             >
-              Desliza <LuArrowRight />
+              {t.next} <LuArrowRight />
             </button>
           </div>
 

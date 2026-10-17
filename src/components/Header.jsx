@@ -3,6 +3,8 @@ import { LuSun, LuMoon, LuLogIn } from 'react-icons/lu';
 import rindeplusLogo from '../assets/rindeplus-logo-light.png';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
 import { LOGIN_URL } from '../data/links';
+import { useI18n } from '../i18n/I18nContext';
+import { LOCALES, LOCALE_LABELS } from '../i18n/config';
 import './Header.css';
 
 const Header = ({
@@ -11,6 +13,8 @@ const Header = ({
   theme,
   onToggleTheme,
 }) => {
+  const { locale, setLocale, dict } = useI18n();
+  const t = dict.header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef(null);
 
@@ -41,6 +45,26 @@ const Header = ({
     }, 50);
   };
 
+  // ES / EN / PT — same control in the header (desktop) and the drawer (mobile).
+  const languageSwitch = (extraClass) => (
+    <div className={`rp-lang ${extraClass}`} role="group" aria-label={t.language}>
+      {LOCALES.map((code) => (
+        <button
+          key={code}
+          type="button"
+          className="rp-lang__btn"
+          lang={code}
+          aria-pressed={code === locale}
+          aria-label={LOCALE_LABELS[code]}
+          title={LOCALE_LABELS[code]}
+          onClick={() => setLocale(code)}
+        >
+          {code.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <header
       ref={headerRef}
@@ -53,7 +77,7 @@ const Header = ({
             type="button"
             className={`hamburger-button ${isMenuOpen ? 'open' : ''}`}
             onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label="Abrir menú"
+            aria-label={t.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="header-menu"
           >
@@ -79,14 +103,14 @@ const Header = ({
             {onToggleTheme && (
               <div className="header-nav__theme">
                 <span className="header-nav__theme-label">
-                  {theme === 'dark' ? 'Modo oscuro' : 'Modo claro'}
+                  {theme === 'dark' ? t.themeDark : t.themeLight}
                 </span>
                 <button
                   type="button"
                   className="rp-theme-switch"
                   role="switch"
                   aria-checked={theme === 'dark'}
-                  aria-label="Cambiar entre modo claro y oscuro"
+                  aria-label={t.themeSwitchAria}
                   onClick={onToggleTheme}
                 >
                   <span className="rp-theme-switch__icon rp-theme-switch__icon--sun">
@@ -100,10 +124,15 @@ const Header = ({
               </div>
             )}
 
+            <div className="header-nav__lang">
+              <span className="header-nav__theme-label">{t.language}</span>
+              {languageSwitch('rp-lang--drawer')}
+            </div>
+
             {/* Login inside the drawer too (mobile only): on narrow screens the
                 header button collapses to its icon. */}
             <a className="header-nav__login" href={LOGIN_URL}>
-              <span>Ingresar a la plataforma</span>
+              <span>{t.loginLong}</span>
               <LuLogIn />
             </a>
           </nav>
@@ -112,7 +141,7 @@ const Header = ({
         {/* CENTER — logo */}
         <img
           src={theme === 'dark' ? rindeplusLogoDark : rindeplusLogo}
-          alt="RindePlus Logo"
+          alt={t.logoAlt}
           className="logo-image"
           onClick={onLogoClick}
           style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
@@ -120,20 +149,22 @@ const Header = ({
 
         {/* RIGHT — actions */}
         <div className="header-actions">
+          {languageSwitch('rp-lang--header')}
+
           {onToggleTheme && (
             <button
               type="button"
               className="header-theme-toggle"
               onClick={onToggleTheme}
-              aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
-              title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+              aria-label={theme === 'dark' ? t.toLight : t.toDark}
+              title={theme === 'dark' ? t.themeLight : t.themeDark}
             >
               {theme === 'dark' ? <LuSun /> : <LuMoon />}
             </button>
           )}
 
-          <a className="header-platform-btn" href={LOGIN_URL} aria-label="Ingresar a la plataforma">
-            <span>Ingresar</span>
+          <a className="header-platform-btn" href={LOGIN_URL} aria-label={t.loginLong}>
+            <span>{t.login}</span>
             <LuLogIn />
           </a>
         </div>

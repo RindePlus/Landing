@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import HomePage from './components/HomePage';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
-import { WHATSAPP_URL } from './data/social';
+import { whatsappUrl } from './data/social';
+import { useI18n } from './i18n/I18nContext';
 import './App.css';
 
 // La landing es una sola página. Cualquier otra ruta (las viejas de planes
@@ -22,6 +23,8 @@ function normalizeToHome() {
 normalizeToHome();
 
 function App() {
+  const { dict } = useI18n();
+  const t = dict.whatsapp;
   const [showWhatsappPopup, setShowWhatsappPopup] = useState(false);
   const popupRef = useRef(null);
 
@@ -41,8 +44,6 @@ function App() {
     };
   }, [showWhatsappPopup]);
 
-  const whatsappUrl = WHATSAPP_URL;
-
   const whatsappElements = (
     <>
       {showWhatsappPopup && (
@@ -55,7 +56,7 @@ function App() {
         <button
           className="wa-widget__fab"
           onClick={() => setShowWhatsappPopup((v) => !v)}
-          aria-label="WhatsApp"
+          aria-label={t.fabLabel}
         >
           <FaWhatsapp className="wa-widget__fab-icon wa-widget__fab-icon--wa" />
           <FaTimes className="wa-widget__fab-icon wa-widget__fab-icon--close" />
@@ -63,17 +64,17 @@ function App() {
 
         <div className="wa-widget__panel">
           <p className="wa-widget__greeting">
-            Hola <span role="img" aria-label="saludo">👋</span>
+            {t.hello} <span role="img" aria-label={t.helloAria}>👋</span>
             <br />
-            ¿En qué podemos ayudarte?
+            {t.question}
           </p>
           <a
-            href={whatsappUrl}
+            href={whatsappUrl(t.message)}
             target="_blank"
             rel="noopener noreferrer"
             className="wa-widget__send"
           >
-            Escríbenos por WhatsApp
+            {t.cta}
           </a>
         </div>
       </div>
