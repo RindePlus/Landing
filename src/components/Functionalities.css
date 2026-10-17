@@ -583,10 +583,9 @@
 
   /* Keep the real 3D flip: the block fills the panel so its bottom-anchored
      button lands at the same Y on every panel (aligned "Más información"). */
-  /* min-height ≥ tallest face content (measured ~524px): the faces are
-     absolutely positioned so they don't grow the flip — without this floor the
-     button overflows on text-heavy panels. flex:1 then stretches every flip to
-     the tallest panel so all buttons pin to the same bottom line. */
+  /* The front face is in flow, so the flip grows with it; the floor keeps
+     short panels from collapsing, and flex:1 stretches every flip to the
+     tallest panel so all buttons pin to the same bottom line. */
   .rp-fx__flip { flex: 1 1 auto; height: auto; min-height: 460px; }
   /* auto → pin the button to the bottom of the (equal-height) flip so it lands
      on the same line on every panel. The leftover space above it is the air. */
@@ -594,7 +593,6 @@
   /* "Más información" (back) — more air título→problema and problema→mejora. */
   .rp-fx__flip-face--back { padding-top: 20px; }
   .rp-fx__detail { margin-bottom: 40px; }
-}
 }
 
 /* ============================================================
