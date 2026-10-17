@@ -175,7 +175,7 @@ const PlatformSelectorPage = ({ onOpenWhatsApp, onGoToHome }) => {
       <main className="rp-platsel__main">
         <section className="rp-platsel__hero">
           <h1 className="rp-platsel__title">
-            Elegí tu <span className="rp-platsel__title-accent">plataforma</span>
+            Elegí tu plataforma
           </h1>
           <p className="rp-platsel__subtitle">
             Ingresá a la plataforma que corresponde a tu cuenta.
@@ -201,8 +201,7 @@ const PlatformSelectorPage = ({ onOpenWhatsApp, onGoToHome }) => {
         <section className="rp-platsel__install">
           <div className="rp-platsel__install-header">
             <h2 className="rp-platsel__install-title">
-              Instalá la plataforma{' '}
-              <span className="rp-platsel__title-accent">en tu celular</span>
+              Instalá la plataforma en tu celular
             </h2>
             <p className="rp-platsel__subtitle">
               Podés agregar la plataforma como una app en la pantalla de inicio

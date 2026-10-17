@@ -396,7 +396,8 @@
   margin-top: auto;
   padding: 12px 20px;
   border-radius: 14px;
-  background: #25d366;
+  /* verde WhatsApp oscurecido: blanco sobre #25d366 da 2:1; así pasa AA */
+  background: #117a41;
   color: #fff;
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -406,7 +407,7 @@
 }
 
 .wa-widget__send:hover {
-  background: #1ebe5d;
+  background: #0d6636;
 }
 
 @media (max-width: 600px) {

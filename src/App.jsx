@@ -118,7 +118,7 @@ function App() {
             rel="noopener noreferrer"
             className="wa-widget__send"
           >
-            Escribinos por WhatsApp
+            Escríbenos por WhatsApp
           </a>
         </div>
       </div>

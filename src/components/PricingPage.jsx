@@ -130,8 +130,6 @@ const PricingPage = ({ onOpenWhatsApp, onGoToHome, onGoToPlatforms }) => {
         <section className="rp-container">
           <div className="rp-b2b__retorno rp-fade-in rp-d-1">
             <div className="rp-b2b__retorno-header">
-              <div className="rp-num-eyebrow">El retorno</div>
-
               <h2 className="rp-h2 rp-b2b__retorno-title">
                 Hasta{' '}
                 <span className="rp-h2 rp-b2b__retorno-figure">
@@ -178,10 +176,8 @@ const PricingPage = ({ onOpenWhatsApp, onGoToHome, onGoToPlatforms }) => {
 
           <div className="rp-b2b__pricing">
             <div className="rp-b2b__pricing-header">
-              <div className="rp-num-eyebrow">Precios</div>
               <h1 className="rp-home__section-title">
-                Precios para{' '}
-                <span className="rp-home__section-title-accent">Empresas</span>
+                Precios para Empresas
               </h1>
               <p className="rp-home__section-subtitle">
                 Un único plan con todos los módulos y usuarios ilimitados. Pagás
@@ -232,7 +228,6 @@ const PricingPage = ({ onOpenWhatsApp, onGoToHome, onGoToPlatforms }) => {
 
           <div className="rp-b2b__expect">
             <div className="rp-b2b__expect-header">
-              <div className="rp-num-eyebrow">El modelo</div>
               <h2 className="rp-h2">Qué esperamos de tu organización</h2>
               <p>
                 Rinde Plus te da la herramienta. Tu organización aporta la

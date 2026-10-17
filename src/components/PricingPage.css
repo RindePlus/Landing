@@ -207,10 +207,8 @@
   transform: translateY(0.06em);
 }
 
-/* El × en acento: la única pieza de color de la sección */
 .rp-b2b__retorno-figure-x {
   font-size: 0.62em;
-  color: var(--gh-accent);
   margin-left: 0.02em;
 }
 

@@ -34,6 +34,9 @@
   --gh-accent-hover: #0860ca;
   --gh-accent-soft: #ddf4ff;
   --gh-accent-fg: #ffffff;
+  /* fondo de botones rellenos: el blanco encima tiene que pasar AA */
+  --gh-accent-emphasis: #0969da;
+  --gh-accent-emphasis-hover: #0860ca;
   --gh-brand-blue: #025db8;
   --gh-detail-green: #018c34;
   --gh-detail-green-soft: #dafbe1;
@@ -66,6 +69,8 @@
   --gh-accent-hover: #58a6ff;
   --gh-accent-soft: #121d2f;
   --gh-accent-fg: #ffffff;
+  --gh-accent-emphasis: #1f6feb; /* blanco 4.6:1 (#4493f8 daba 3.1:1) */
+  --gh-accent-emphasis-hover: #1158c7;
   --gh-brand-blue: #4493f8;
   --gh-detail-green: #3fb950;
   --gh-detail-green-soft: #12261e;

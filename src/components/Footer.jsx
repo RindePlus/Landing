@@ -22,8 +22,6 @@ const Footer = ({ onOpenWhatsApp }) => {
     <footer className="rp-footer">
       <div className="rp-footer__dots" />
       <div className="rp-footer__inner">
-        <h3 className="rp-footer__column-title">Contacto directo</h3>
-
         <ul className="rp-footer__contact">
           <li>
             <button

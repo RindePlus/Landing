@@ -62,8 +62,6 @@
   margin: 0 0 16px;
 }
 
-.rp-platsel__title-accent { color: var(--gh-accent); }
-
 .rp-platsel__subtitle {
   font-size: clamp(0.98rem, 1.4vw, 1.15rem);
   color: var(--gh-fg-muted);
@@ -223,7 +221,7 @@
   align-self: flex-end;
   padding: 8px 16px;
   border-radius: var(--gh-radius-btn, 10px);
-  background: var(--gh-accent);
+  background: var(--gh-accent-emphasis);
   color: var(--gh-accent-fg);
   font-size: 0.88rem;
   font-weight: 600;
@@ -232,7 +230,7 @@
 }
 
 .rp-platsel__card:hover .rp-platsel__card-cta {
-  background: var(--gh-accent-hover);
+  background: var(--gh-accent-emphasis-hover);
 }
 
 .rp-platsel__card-cta svg {

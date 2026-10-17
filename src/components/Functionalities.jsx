@@ -3,16 +3,13 @@ import {
   LuLayoutDashboard,
   LuTarget,
   LuCloudSun,
-  LuEye,
+  LuSprout,
   LuFlaskConical,
-  LuCheck,
   LuPlus,
   LuArrowLeft,
   LuArrowRight,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import vigiaLogoLight from '../assets/vigia-logo-light.png';
-import vigiaLogoDark from '../assets/vigia-logo-dark.png';
 import './Functionalities.css';
 
 /* ── Mini chart SVGs ──
@@ -21,32 +18,66 @@ import './Functionalities.css';
    light/dark automatically. `var()` doesn't work in SVG presentation
    attributes, hence classes instead of stroke/fill attributes. */
 
-const ChartDashboard = () => (
-  <svg viewBox="0 0 200 120" fill="none" className="rp-fx__chart">
+/* Curva de respuesta (Fertilizar): el rinde sube con la dosis y se aplana.
+   El área sobre la línea punteada es lo que la dosis agrega al rinde base;
+   el punto marca la dosis óptima económica, antes del techo, donde el
+   último kilo todavía se paga. */
+const ChartRespuestaDosis = () => (
+  <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
     <defs>
-      <linearGradient id="fxDashArea" x1="0" y1="0" x2="0" y2="1">
-        <stop className="fx-stop-1" offset="0%" stopOpacity="0.25" />
-        <stop className="fx-stop-1" offset="100%" stopOpacity="0" />
+      <linearGradient id="fxDoseFill" x1="0" y1="0" x2="0" y2="1">
+        <stop className="fx-stop-1" offset="0%" stopOpacity="0.28" />
+        <stop className="fx-stop-1" offset="100%" stopOpacity="0.04" />
       </linearGradient>
     </defs>
-    <line className="fx-grid" x1="20" y1="24" x2="190" y2="24" strokeWidth="0.8" />
-    <line className="fx-grid" x1="20" y1="48" x2="190" y2="48" strokeWidth="0.8" />
-    <line className="fx-grid" x1="20" y1="72" x2="190" y2="72" strokeWidth="0.8" />
-    <line className="fx-grid" x1="20" y1="96" x2="190" y2="96" strokeWidth="0.8" />
-    <path className="fx-s1" d="M20 82 L54 60 L88 68 L122 38 L156 44 L190 22" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M20 82 L54 60 L88 68 L122 38 L156 44 L190 22 V96 H20 Z" fill="url(#fxDashArea)" />
-    <rect className="fx-f2" x="46" y="70" width="16" height="26" rx="3" opacity="0.18" />
-    <rect className="fx-f2" x="80" y="58" width="16" height="38" rx="3" opacity="0.18" />
-    <rect className="fx-f2" x="114" y="50" width="16" height="46" rx="3" opacity="0.18" />
-    <rect className="fx-f2" x="148" y="42" width="16" height="54" rx="3" opacity="0.18" />
-    <circle className="fx-dot fx-s1" cx="54" cy="60" r="3.5" strokeWidth="2" />
-    <circle className="fx-dot fx-s1" cx="122" cy="38" r="3.5" strokeWidth="2" />
-    <circle className="fx-dot fx-s2" cx="190" cy="22" r="3.5" strokeWidth="2" />
+    <path
+      d="M20 96 C 60 52, 104 36, 150 33 C 162 32.5, 176 33.5, 186 35 L186 96 Z"
+      fill="url(#fxDoseFill)"
+    />
+    <line className="fx-grid" x1="20" y1="96" x2="186" y2="96" strokeWidth="1" strokeDasharray="4 3" />
+    <path className="fx-s1" d="M20 96 C 60 52, 104 36, 150 33 C 162 32.5, 176 33.5, 186 35" strokeWidth="2.5" strokeLinecap="round" />
+    <line className="fx-s2" x1="118" y1="37.5" x2="118" y2="96" strokeWidth="1.5" strokeDasharray="3 3" />
+    <circle className="fx-dot fx-s2" cx="118" cy="37.5" r="3.5" strokeWidth="2" />
+    <text className="fx-caption" x="100" y="125" textAnchor="middle">Dosis óptima económica</text>
   </svg>
 );
 
+/* Los cuatro rindes del cierre (Cerrar y aprender). La brecha es el tramo
+   del potencial que no se cosechó. Sin cifras: muestra la relación. */
+const ChartCuatroRindes = () => {
+  const rows = [
+    { label: 'Potencial', w: 112, o: 0.3 },
+    { label: 'Fertilizando', w: 92, o: 0.55 },
+    { label: 'Cosechado', w: 76, o: 1 },
+    { label: 'Base', w: 58, o: 0.55, neutral: true },
+  ];
+  const x0 = 82;
+  const cosechado = x0 + rows[2].w;
+  return (
+    <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
+      {rows.map((r, i) => (
+        <g key={r.label}>
+          <text className="fx-label" x={x0 - 8} y={20 + i * 25} textAnchor="end">{r.label}</text>
+          <rect
+            className={r.neutral ? 'fx-f-neutral' : 'fx-f1'}
+            x={x0}
+            y={8 + i * 25}
+            width={r.w}
+            height="16"
+            rx="3"
+            opacity={r.o}
+          />
+        </g>
+      ))}
+      <rect className="fx-band-risk fx-band-risk--strong" x={cosechado} y="8" width={x0 + rows[0].w - cosechado} height="16" rx="3" />
+      <line className="fx-s2" x1={cosechado} y1="4" x2={cosechado} y2="74" strokeWidth="1.5" strokeDasharray="3 3" />
+      <text className="fx-caption" x="100" y="125" textAnchor="middle">Brecha de rendimiento</text>
+    </svg>
+  );
+};
+
 const ChartAreaForecast = () => (
-  <svg viewBox="0 0 200 120" fill="none" className="rp-fx__chart">
+  <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
     <defs>
       <linearGradient id="fxPastFill" x1="0" y1="0" x2="0" y2="1">
         <stop className="fx-stop-1" offset="0%" stopOpacity="0.3" />
@@ -58,24 +89,16 @@ const ChartAreaForecast = () => (
       </linearGradient>
     </defs>
     <path className="fx-s1" d="M12 80 L40 60 L68 65 L96 45" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M12 80 L40 60 L68 65 L96 45 V110 H12 Z" fill="url(#fxPastFill)" />
-    <line className="fx-grid" x1="96" y1="8" x2="96" y2="110" strokeWidth="1" strokeDasharray="4 3" />
+    <path d="M12 80 L40 60 L68 65 L96 45 V100 H12 Z" fill="url(#fxPastFill)" />
+    <line className="fx-grid" x1="96" y1="20" x2="96" y2="100" strokeWidth="1" strokeDasharray="4 3" />
     <path className="fx-s2" d="M96 45 L124 35 L152 50 L180 28" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 4" />
-    <path d="M96 45 L124 35 L152 50 L180 28 V110 H96 Z" fill="url(#fxFutureFill)" />
+    <path d="M96 45 L124 35 L152 50 L180 28 V100 H96 Z" fill="url(#fxFutureFill)" />
+    <text className="fx-label" x="100" y="14">Hoy</text>
+    <text className="fx-caption" x="100" y="125" textAnchor="middle">15 días atrás, 15 adelante</text>
   </svg>
 );
 
-const ChartGauge = () => (
-  <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
-    <path className="fx-grid" d="M30 100 A70 70 0 0 1 170 100" strokeWidth="12" strokeLinecap="round" fill="none" />
-    <path className="fx-s1" d="M30 100 A70 70 0 0 1 130 34" strokeWidth="12" strokeLinecap="round" fill="none" />
-    <circle className="fx-f2" cx="100" cy="100" r="6" />
-    <line className="fx-s2" x1="100" y1="100" x2="122" y2="44" strokeWidth="2.5" strokeLinecap="round" />
-    <text x="100" y="125" textAnchor="middle" fontSize="11" fontWeight="700" fill="currentColor" fontFamily="var(--font-heading)">Riesgo medio</text>
-  </svg>
-);
-
-/* Ventana de siembra (Vig IA Herbicidas): el residuo decae y cruza el
+/* Ventana de siembra (Preparar el lote): el residuo decae y cruza el
    semáforo rojo/amarillo/verde; la línea punteada vertical marca la fecha
    de siembra segura. Las franjas usan los tokens --gh-danger /
    --gh-detail-yellow-strong / --gh-detail-green (fx-band-*). */
@@ -89,7 +112,7 @@ const ChartVentanaSiembra = () => (
     <path className="fx-s1" d="M20 24 C 44 28, 62 40, 82 58 C 102 76, 130 90, 182 96" strokeWidth="2.5" strokeLinecap="round" />
     <line className="fx-s2" x1="138" y1="24" x2="138" y2="102" strokeWidth="1.5" strokeDasharray="3 3" />
     <circle className="fx-dot fx-s2" cx="138" cy="90" r="3.5" strokeWidth="2" />
-    <text x="100" y="125" textAnchor="middle" fontSize="11" fontWeight="700" fill="currentColor" fontFamily="var(--font-heading)">Fecha de siembra segura</text>
+    <text className="fx-caption" x="100" y="125" textAnchor="middle">Fecha de siembra segura</text>
   </svg>
 );
 
@@ -181,174 +204,141 @@ const FxField = () => (
 
 const FUNCTIONALITIES = [
   {
-    id: 'analisis',
-    Icon: LuLayoutDashboard,
-    Chart: ChartDashboard,
-    palette: 'blue',
-    tag: 'Dashboard',
-    name: 'Análisis de Campaña',
-    description:
-      'Todo tu historial productivo, todos tus lotes y todas tus variables en un solo lugar. Compará campañas, cruzá variables y entendé qué pasó en cada ambiente y por qué — sin planillas sueltas ni fuentes desconectadas.',
-    bullets: [
-      'Análisis de datos históricos de tu campo',
-      'Monitoreo de clima y variables de tu zona',
-      'Visualización de rendimientos y tendencias',
-      'Comparación entre lotes, campos y campañas',
-    ],
-    problem:
-      'Los datos de clima, suelo, ambientes e históricos viven en fuentes distintas y desconectadas de la decisión, y ordenarlos a mano te consume horas cada campaña.',
-    gain:
-      'Dejás de armar planillas: todo queda integrado y comparable en minutos, no en días, con la historia completa de cada lote siempre a mano.',
-  },
-  {
-    id: 'brechas',
+    id: 'planificar',
     Icon: LuTarget,
-    tag: 'Diagnóstico',
-    name: 'Brechas de rendimiento',
+    palette: 'blue',
+    tag: 'Planificar',
+    name: '¿Hasta dónde puede rendir cada lote?',
     dual: true,
-    segLabel: 'Tipo de brecha',
+    segLabel: 'Cómo se calcula',
     sections: [
       {
-        id: 'estandar',
-        tab: 'Estándar',
-        subtag: 'Bibliografía',
-        subname: 'Brechas Estándar',
+        id: 'primera-campana',
+        tab: 'Primera campaña',
+        subtag: 'Referencias',
+        subname: 'Desde la primera campaña',
         description:
-          'El rendimiento potencial de tu zona y cultivo según bibliografía científica, ensayos regionales y referencias técnicas. El punto de partida para diagnosticar cada lote.',
+          'El rinde potencial de tu zona y cultivo según referencias científicas y ensayos regionales. El punto de partida para diagnosticar cada lote.',
         bullets: [
-          'Basado en referencias científicas y ensayos regionales',
-          'Ajustado a tu cultivo y zona agroecológica',
-          'Diagnóstico inmediato desde la primera campaña',
+          'Rinde base y potencial por lote y por ambiente',
+          'Ajustado a tu cultivo y zona',
+          'Diagnóstico desde la primera campaña',
         ],
         problem:
-          'Sabés que hay una brecha, pero no cuánta ni por qué: a nivel país es del 41% en trigo y maíz, y del 31% en soja, y sin un número concreto no hay plan.',
+          'Se planifica con el rinde típico de la zona. Sin un techo por lote, no sabes cuánto puedes mejorar ni dónde conviene invertir.',
         gain:
-          'Un diagnóstico inmediato desde la primera campaña, sin mover una sola variable, y una meta clara hacia dónde apuntar cada lote.',
+          'Cada lote tiene su techo y su brecha a la vista, y la meta de la campaña sale del lote, no del promedio.',
       },
       {
-        id: 'inteligentes',
-        tab: 'Inteligentes',
-        subtag: 'Machine Learning',
-        subname: 'Brechas Inteligentes',
+        id: 'modelos-zona',
+        tab: 'Modelos de tu zona',
+        subtag: 'Machine learning',
+        subname: 'Con modelos de tu zona',
         description:
-          'Brechas calculadas con modelos de Machine Learning entrenados con datos históricos de tu zona. Se ajustan campaña a campaña y capturan lo que la bibliografía no ve.',
+          'Brechas calculadas con modelos entrenados con datos de tu zona, que se ajustan campaña a campaña y captan lo que las referencias no ven.',
         bullets: [
           'Modelos entrenados con datos reales de tu zona',
-          'Se ajustan campaña a campaña automáticamente',
-          'Capturan sinergismos clima × suelo × manejo',
+          'Se ajustan campaña a campaña',
+          'Cruzan clima, suelo y manejo',
         ],
         problem:
-          'La bibliografía tradicional no captura los sinergismos entre clima, suelo y manejo de TU lote, y por eso subestima o infla la brecha real.',
+          'Las referencias generales no captan cómo se combinan el clima, el suelo y el manejo de tu lote.',
         gain:
-          'Precisión que mejora con el tiempo: entendés la brecha real de cada ambiente y afinás las decisiones campaña tras campaña.',
+          'Entiendes la brecha real de cada ambiente y afinas las decisiones campaña tras campaña.',
       },
     ],
   },
   {
-    id: 'pronostico',
-    Icon: LuCloudSun,
-    Chart: ChartAreaForecast,
-    palette: 'teal',
-    tag: 'Clima',
-    name: 'Pronóstico Climático',
-    description:
-      'Pronóstico de alta precisión por lote — 15 días hacia atrás y 15 hacia adelante — que conjuga estaciones meteorológicas y satélites. Visibilidad real de lo que pasó y de lo que viene, por lote y no por región.',
-    bullets: [
-      '15 días hacia atrás y 15 hacia adelante, por lote',
-      'Integra estaciones meteorológicas y satélites',
-      'Análisis de estrés integrado a la previsión',
-      'Datos por lote, no promedios de región',
-    ],
-    problem:
-      'Los pronósticos por región no alcanzan para decidir a nivel de lote: llegan tarde o no representan lo que realmente pasa en tu campo.',
-    gain:
-      'Anticipás ventanas críticas y planificás labores con datos de TU lote, no de la región, para no perder los días que marcan la diferencia.',
-  },
-  {
-    id: 'vigia',
-    Icon: LuEye,
-    tag: 'Inteligencia predictiva',
-    name: 'Vig IA BioEstrés',
-    logoSuffix: 'BioEstrés',
-    dual: true,
-    segLabel: 'Tipo de análisis',
-    sections: [
-      {
-        id: 'mitigacion',
-        tab: 'Mitigación',
-        subtag: 'Estrés hídrico y térmico',
-        subname: 'Mitigación de Estrés',
-        description:
-          'Monitoreá y anticipá el estrés hídrico y térmico antes de que se manifieste. Inteligencia Artificial e Inteligencia Agronómica combinadas para alertas tempranas y manejo preventivo con bioinsumos.',
-        bullets: [
-          'Monitoreo de temperatura, humedad y DPV',
-          'Proyección climática con IA y balance hídrico',
-          'Alertas tempranas de estrés hídrico y térmico',
-        ],
-        problem:
-          'El cultivo muestra el estrés cuando ya perdiste rinde: para cuando lo ves a campo, reaccionás tarde y el daño ya está hecho.',
-        gain:
-          'Recibís alertas tempranas para actuar de forma preventiva, proteger el rendimiento y aplicar los bioinsumos en el momento justo.',
-      },
-      {
-        id: 'cultivo-servicio',
-        tab: 'Cultivo de Servicio',
-        subtag: 'Momento de secado',
-        subname: 'Cultivo de Servicio',
-        description:
-          'Seguí cuánta agua consume tu cultivo de servicio comparado contra un barbecho y definí el momento óptimo de secado con datos, cuidando el agua del cultivo que viene.',
-        bullets: [
-          'Consumo de agua del cultivo de servicio vs. barbecho',
-          'Balance hídrico continuo del lote',
-          'Definición del momento óptimo de secado',
-        ],
-        problem:
-          'El secado se define a ojo: si te pasás, el cultivo de servicio consume el agua del cultivo siguiente; si te apurás, perdés cobertura y servicios.',
-        gain:
-          'Sabés cuánta agua está consumiendo frente a un barbecho y elegís el momento de secado que protege la recarga del perfil.',
-      },
-    ],
-  },
-  {
-    id: 'herbicidas',
+    id: 'preparar',
     Icon: LuFlaskConical,
     Chart: ChartVentanaSiembra,
     palette: 'green',
-    tag: 'Residualidad',
-    name: 'Vig IA Herbicidas',
-    logoSuffix: 'Herbicidas',
+    tag: 'Preparar el lote',
+    name: '¿Cuándo secar y cuándo es seguro sembrar?',
     description:
-      'Modelá el carry-over de herbicidas residuales y su fitotoxicidad sobre el cultivo que sigue. Riesgo por aplicación según tu suelo, las lluvias y el riego, y la fecha de siembra segura para cada lote.',
+      'Sigues cuánta agua consume el cultivo de servicio frente a un barbecho y cuánto residuo de herbicida queda en el suelo, para llegar a la siembra con el lote listo.',
     bullets: [
-      'Riesgo de carry-over (RCO) por aplicación, actualizado a hoy',
-      'Ventana de siembra segura con semáforo verde, amarillo y rojo',
-      'Residuo en suelo según lluvias, riego y calidad de aplicación',
-      'Alertas de fitotoxicidad antes de sembrar',
+      'Consumo de agua del cultivo de servicio contra un barbecho',
+      'Residuo del herbicida según lluvias, riego y aplicación',
+      'Semáforo de siembra segura para cada lote',
     ],
     problem:
-      'La residualidad no se ve: sembrás sobre un lote con carry-over y la fitotoxicidad te cuesta rinde desde el día uno, cuando ya no hay vuelta atrás.',
+      'El secado se define a ojo y el residuo no se ve. Si te pasas, el cultivo de servicio se toma el agua del que viene; si siembras antes de tiempo, el daño por herbicida cuesta rinde desde el primer día.',
     gain:
-      'Conocés el riesgo de cada aplicación y la fecha de siembra segura por lote antes de decidir, con el semáforo a la vista para elegir cultivo y fecha.',
+      'Eliges el momento de secado que cuida el agua del perfil y conoces la fecha de siembra segura de cada lote antes de decidir.',
+  },
+  {
+    id: 'fertilizar',
+    Icon: LuSprout,
+    Chart: ChartRespuestaDosis,
+    palette: 'amber',
+    tag: 'Fertilizar',
+    name: '¿La fertilización paga en este lote?',
+    description:
+      'Ves cómo responde el rinde a cada dosis y cuánto margen deja con los precios de hoy. A veces la mejor decisión es no aplicar.',
+    bullets: [
+      'Curva de respuesta del rinde a la dosis',
+      'Rinde fertilizando contra rinde base',
+      'Simulación del margen bruto de cada lote',
+    ],
+    problem:
+      'Se repite la dosis del año pasado o la típica de la zona, sin saber si en ese lote, y con estos precios, la aplicación se paga.',
+    gain:
+      'Decides la dosis, o no aplicar, con la cuenta del lote a la vista: cuánto rinde de más y cuánto margen deja.',
+  },
+  {
+    id: 'acompanar',
+    Icon: LuCloudSun,
+    Chart: ChartAreaForecast,
+    palette: 'teal',
+    tag: 'Acompañar el cultivo',
+    name: '¿Qué viene y cuándo conviene actuar?',
+    description:
+      'Clima de cada lote, 15 días hacia atrás y 15 hacia adelante, con estrés térmico, déficit de presión de vapor y balance hídrico. Si algo pone en riesgo el rinde o el margen, te avisamos.',
+    bullets: [
+      'Pronóstico por lote, no por región',
+      'Alertas de estrés hídrico y térmico, y de riesgo de enfermedades',
+      'Avisos por WhatsApp, con tu consentimiento',
+    ],
+    problem:
+      'El estrés se ve a campo cuando el rinde ya se perdió, y los pronósticos regionales no dicen qué pasa en tu lote.',
+    gain:
+      'Te enteras antes y tienes margen para actuar en el momento justo.',
+  },
+  {
+    id: 'cerrar',
+    Icon: LuLayoutDashboard,
+    Chart: ChartCuatroRindes,
+    palette: 'blue',
+    tag: 'Cerrar y aprender',
+    name: '¿Por qué no llegó al potencial?',
+    description:
+      'Al cierre comparas, lote por lote, lo que podía rendir con lo que se cosechó. La brecha muestra dónde se perdió rinde y cuánto se puede recuperar.',
+    bullets: [
+      'Rinde base, potencial, fertilizando y cosechado',
+      'Dónde se perdió rinde y por qué',
+      'Comparación entre lotes, ambientes y campañas',
+    ],
+    problem:
+      'La campaña se cierra con el rinde cosechado y poco más. Los datos quedan en planillas sueltas y la siguiente se decide igual.',
+    gain:
+      'Cada campaña deja una lección por lote, y la siguiente arranca con lo aprendido.',
   },
 ];
 
 const COUNT = FUNCTIONALITIES.length;
 
-/* ── Panel title — los paneles Vig IA (logoSuffix) reemplazan el texto
-   "Vig IA" por el wordmark de la marca; el sufijo (BioEstrés / Herbicidas)
-   sigue siendo texto. Dos <img> intercambiadas por CSS según data-rp-theme:
-   acá no llega el tema por props y así el swap queda gratis. ── */
+/* ── Panel title — número y nombre del momento sobre la pregunta ── */
 
-const PanelTitle = ({ item }) =>
-  item.logoSuffix ? (
-    <h3 className="rp-fx__name rp-fx__name--logo">
-      <img src={vigiaLogoLight} alt="Vig IA" className="rp-fx__vigia rp-fx__vigia--light" />
-      <img src={vigiaLogoDark} alt="" aria-hidden="true" className="rp-fx__vigia rp-fx__vigia--dark" />
-      <span>{item.logoSuffix}</span>
-    </h3>
-  ) : (
+const PanelTitle = ({ item, index }) => (
+  <>
+    <p className="rp-fx__moment">
+      <span className="rp-fx__moment-num">{String(index + 1).padStart(2, '0')}</span>
+      {item.tag}
+    </p>
     <h3 className="rp-fx__name">{item.name}</h3>
-  );
+  </>
+);
 
 /* ── Reusable flip block (only the paragraph flips) ── */
 
@@ -363,10 +353,7 @@ const FlipBlock = ({ description, bullets, problem, gain }) => {
           <p className="rp-fx__desc">{description}</p>
           <ul className="rp-fx__bullets">
             {bullets.map((b) => (
-              <li key={b}>
-                <span className="rp-fx__check"><LuCheck /></span>
-                {b}
-              </li>
+              <li key={b}>{b}</li>
             ))}
           </ul>
           <button
@@ -377,18 +364,18 @@ const FlipBlock = ({ description, bullets, problem, gain }) => {
             onClick={() => setFlipped(true)}
           >
             <LuPlus />
-            Más información
+            Ver la diferencia
           </button>
         </div>
 
         {/* BACK — problema + mejora */}
         <div className="rp-fx__flip-face rp-fx__flip-face--back" aria-hidden={!flipped}>
           <div className="rp-fx__detail rp-fx__detail--problem">
-            <span className="rp-fx__detail-label">El problema que resuelve</span>
+            <span className="rp-fx__detail-label">Cómo se decide hoy</span>
             <p className="rp-fx__detail-text">{problem}</p>
           </div>
           <div className="rp-fx__detail rp-fx__detail--gain">
-            <span className="rp-fx__detail-label">La mejora real</span>
+            <span className="rp-fx__detail-label">Con Rinde Plus</span>
             <p className="rp-fx__detail-text">{gain}</p>
           </div>
           <button
@@ -406,17 +393,17 @@ const FlipBlock = ({ description, bullets, problem, gain }) => {
   );
 };
 
-/* ── Dual panel (Brechas, Vig IA BioEstrés) — two sections side by side on
+/* ── Dual panel (Planificar) — two sections side by side on
    desktop, a segmented switch (one at a time) on mobile ── */
 
-const DualPanel = ({ item }) => {
+const DualPanel = ({ item, index }) => {
   const [activeSec, setActiveSec] = useState(0);
 
   return (
-    <article className="rp-fx__panel rp-fx__panel--dual">
+    <article className={`rp-fx__panel rp-fx__panel--dual rp-fx__panel--${item.palette}`}>
       <div className="rp-fx__panel-inner rp-fx__panel-inner--dual">
         <div className="rp-fx__dual-head">
-          <PanelTitle item={item} />
+          <PanelTitle item={item} index={index} />
           {/* mobile-only switch between the two sections */}
           <div className="rp-fx__seg" role="tablist" aria-label={item.segLabel || item.name}>
             {item.sections.map((s, i) => (
@@ -458,18 +445,18 @@ const DualPanel = ({ item }) => {
 
 /* ── Panel ── */
 
-const FunctionalityPanel = ({ item }) => {
+const FunctionalityPanel = ({ item, index }) => {
   const { Chart, palette } = item;
 
-  // Two-section panels (Brechas, Vig IA BioEstrés)
-  if (item.dual) return <DualPanel item={item} />;
+  // Two-section panel (Planificar)
+  if (item.dual) return <DualPanel item={item} index={index} />;
 
   // Standard — text column + chart
   return (
     <article className={`rp-fx__panel${palette ? ` rp-fx__panel--${palette}` : ''}`}>
       <div className="rp-fx__panel-inner">
         <div className="rp-fx__text">
-          <PanelTitle item={item} />
+          <PanelTitle item={item} index={index} />
           <FlipBlock
             description={item.description}
             bullets={item.bullets}
@@ -585,15 +572,13 @@ const Functionalities = () => {
   return (
     <section id="funcionalidades" className="rp-fx-section">
       <div ref={headRef} className={`rp-fx__head ${headVisible ? 'is-visible' : ''}`}>
-        <div className="rp-num-eyebrow rp-fx__eyebrow">Funcionalidades</div>
         <h2 className="rp-fx__title">
-          Funcionalidades que{' '}
-          <span className="rp-fx__title-accent">trabajan por tu campaña</span>
+          Una decisión a la vez, lote por lote
         </h2>
         <p className="rp-fx__subtitle">
-          Deslizá para recorrerlas. En cada una, tocá{' '}
-          <strong>“Más información”</strong> para ver qué problema resuelve y la
-          mejora que genera.
+          En cada lote sabes cuánto puede rendir, cuánto rindió y por qué no
+          llegó. Desliza para recorrer los cinco momentos de la campaña y toca{' '}
+          <strong>“Ver la diferencia”</strong> en cada uno.
         </p>
       </div>
 
@@ -621,17 +606,17 @@ const Functionalities = () => {
               type="button"
               className="rp-fx__hint"
               onClick={() => goTo((active + 1) % COUNT)}
-              aria-label="Ver la siguiente funcionalidad"
+              aria-label="Ver el siguiente momento"
             >
-              Deslizá <LuArrowRight />
+              Desliza <LuArrowRight />
             </button>
           </div>
 
           {/* FxField va al final: goTo/onTrackScroll indexan track.children,
               así los paneles conservan los índices 0..COUNT-1 */}
           <div className="rp-fx__track" ref={trackRef}>
-            {FUNCTIONALITIES.map((it) => (
-              <FunctionalityPanel key={it.id} item={it} />
+            {FUNCTIONALITIES.map((it, i) => (
+              <FunctionalityPanel key={it.id} item={it} index={i} />
             ))}
             <FxField />
           </div>
