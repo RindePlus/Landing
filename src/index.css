@@ -18,6 +18,20 @@
   --radius-md: 12px;
   --radius-lg: 24px;
 
+  /* Legacy palette still read by the base Header/Footer/App rules */
+  --rp-gold-50: #fffdf5;
+  --rp-gold-400: #f2cd00;
+  --rp-gold-500: #e5bd13;
+  --rp-gold-600: #d4a017;
+  --rp-gray-50: #f9fafb;
+  --rp-gray-200: #e5e7eb;
+  --rp-gray-400: #9ca3af;
+  --rp-gray-500: #6b7280;
+  --rp-gray-700: #374151;
+  --rp-gray-900: #111827;
+  --rp-blue-300: #93c5fd;
+  --rp-blue-600: #2563eb;
+
   /* ============================================================
      GitHub-style design tokens (used by the home / .rp-home)
      ============================================================ */

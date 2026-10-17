@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 /**
- * Theme state for the GitHub-skinned routes (home + pricing + plataformas).
+ * Theme state for the GitHub-skinned home.
  *
  * System-first: with no explicit user choice the theme mirrors the OS
  * preference — live, following OS changes while browsing. Only pressing
@@ -45,7 +45,7 @@ export function useRpTheme() {
       const next = t === 'dark' ? 'light' : 'dark';
       try {
         localStorage.setItem('rp-theme', next);
-      } catch (e) {
+      } catch {
         /* localStorage unavailable — ignore */
       }
       return next;

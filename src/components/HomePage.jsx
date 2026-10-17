@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { FaChevronLeft, FaChevronRight, FaHandshake, FaLayerGroup, FaSeedling, FaWhatsapp } from 'react-icons/fa';
+import { FaAndroid, FaApple, FaChevronLeft, FaChevronRight, FaHandshake, FaLayerGroup, FaSeedling, FaWhatsapp } from 'react-icons/fa';
+import { LuShare } from 'react-icons/lu';
 import Header from './Header';
 import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
@@ -17,7 +18,6 @@ import girasolTormenta from '../assets/campo/girasol-tormenta.webp';
 import girasolTormentaSm from '../assets/campo/girasol-tormenta-1100.webp';
 import cosechaSoja from '../assets/campo/cosecha-soja.webp';
 import cosechaSojaSm from '../assets/campo/cosecha-soja-1100.webp';
-import './pricing.css';
 import './HomePage.css';
 
 /* ---------------- Data ---------------- */
@@ -117,7 +117,11 @@ const AUDIENCES = [
 
 /* ---------------- Subcomponents ---------------- */
 
-const HeroSection = ({ onGoToPricing }) => (
+const scrollToCampaign = () => {
+  document.getElementById('funcionalidades')?.scrollIntoView({ behavior: 'smooth' });
+};
+
+const HeroSection = () => (
   <section className="rp-home__hero" id="top">
     <div className="rp-home__bg" aria-hidden="true"><LotesMosaic /></div>
     <div className="rp-home__hero-inner">
@@ -147,9 +151,9 @@ const HeroSection = ({ onGoToPricing }) => (
           <button
             type="button"
             className="rp-home__hero-btn rp-home__hero-btn--ghost"
-            onClick={onGoToPricing}
+            onClick={scrollToCampaign}
           >
-            Ver planes y precios
+            Ver la campaña
           </button>
         </div>
       </div>
@@ -283,7 +287,7 @@ const BenefitsSection = () => {
   );
 };
 
-const AntesDeEmpezarSection = ({ onGoToPricing }) => (
+const AntesDeEmpezarSection = () => (
   <section className="rp-home__section" id="empezar">
     <Reveal className="rp-home__section-header">
       <h2 className="rp-home__section-title">
@@ -315,16 +319,6 @@ const AntesDeEmpezarSection = ({ onGoToPricing }) => (
         </Reveal>
       ))}
     </div>
-
-    <Reveal delay={3} className="rp-home__empezar-footer">
-      <button
-        type="button"
-        className="rp-home__empezar-cta"
-        onClick={onGoToPricing}
-      >
-        Ver planes y precios
-      </button>
-    </Reveal>
 
     <Reveal delay={4}>
       <div className="rp-home__principles">
@@ -382,6 +376,74 @@ const FinalCta = () => (
   </section>
 );
 
+// Guía para instalar la plataforma como app (PWA). No es otra puerta de
+// ingreso: el único acceso sigue siendo el botón del header.
+const INSTALL_GUIDES = [
+  {
+    id: 'ios',
+    name: 'iPhone',
+    icon: <FaApple />,
+    steps: [
+      <>Abrir <strong>app.rindeplus.com</strong> en <strong>Safari</strong>.</>,
+      (
+        <>
+          Tocar <strong>Compartir</strong>{' '}
+          <LuShare className="rp-install__inline-icon" aria-hidden="true" />{' '}
+          (el cuadrado con la flecha hacia arriba).
+        </>
+      ),
+      <>Elegir <strong>Agregar a pantalla de inicio</strong> y confirmar con <strong>Agregar</strong>.</>,
+    ],
+  },
+  {
+    id: 'android',
+    name: 'Android',
+    icon: <FaAndroid />,
+    steps: [
+      <>Abrir <strong>app.rindeplus.com</strong> en <strong>Chrome</strong>.</>,
+      <>Tocar el menú <strong>⋮</strong> (arriba a la derecha).</>,
+      (
+        <>
+          Elegir <strong>Instalar app</strong> (o <strong>Agregar a la pantalla
+          principal</strong>, según la versión) y confirmar.
+        </>
+      ),
+    ],
+  },
+];
+
+const InstallAppSection = () => (
+  <section className="rp-install" id="instalar">
+    <Reveal className="rp-install__header">
+      <h2 className="rp-install__title">La plataforma, como app en el celular</h2>
+      <p className="rp-install__subtitle">
+        Se agrega a la pantalla de inicio en tres pasos, sin pasar por ninguna tienda.
+      </p>
+    </Reveal>
+
+    <div className="rp-install__grid">
+      {INSTALL_GUIDES.map(({ id, name, icon, steps }, i) => (
+        <Reveal key={id} delay={i + 1}>
+          <article className={`rp-install__card rp-install__card--${id}`}>
+            <div className="rp-install__top">
+              <span className="rp-install__icon">{icon}</span>
+              <h3 className="rp-install__name">{name}</h3>
+            </div>
+            <ol className="rp-install__steps">
+              {steps.map((step, n) => (
+                <li key={n}>
+                  <span className="rp-install__num">{n + 1}</span>
+                  <div className="rp-install__step-text">{step}</div>
+                </li>
+              ))}
+            </ol>
+          </article>
+        </Reveal>
+      ))}
+    </div>
+  </section>
+);
+
 const PhotoCredits = () => (
   <p className="rp-home__credits">
     Imágenes: Pampa húmeda vista por satélite, INPE (
@@ -398,26 +460,23 @@ const PhotoCredits = () => (
 
 /* ---------------- Main component ---------------- */
 
-const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing }) => {
+const HomePage = ({ onOpenWhatsApp }) => {
   const { theme, toggleTheme } = useRpTheme();
 
   return (
     <div className="rp-home">
       <Header
-        onOpenWhatsApp={onOpenWhatsApp}
         theme={theme}
         onToggleTheme={toggleTheme}
-        onGoToPlatforms={onGoToPlatforms}
         menuItems={[
           { label: 'Inicio', id: 'top' },
           { label: 'La campaña', id: 'funcionalidades' },
           { label: 'Por qué Rinde Plus', id: 'beneficios' },
-          { label: 'Precios', id: 'precios', action: onGoToPricing },
         ]}
       />
 
       <main>
-        <HeroSection onGoToPricing={onGoToPricing} />
+        <HeroSection />
 
         <TrustedSection />
 
@@ -425,9 +484,11 @@ const HomePage = ({ onOpenWhatsApp, onGoToPlatforms, onGoToPricing }) => {
 
         <BenefitsSection />
 
-        <AntesDeEmpezarSection onGoToPricing={onGoToPricing} />
+        <AntesDeEmpezarSection />
 
         <FinalCta />
+
+        <InstallAppSection />
 
         <PhotoCredits />
       </main>

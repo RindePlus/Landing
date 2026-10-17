@@ -2,18 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { LuSun, LuMoon, LuLogIn } from 'react-icons/lu';
 import rindeplusLogo from '../assets/rindeplus-logo-light.png';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
+import { LOGIN_URL } from '../data/links';
 import './Header.css';
 
 const Header = ({
-  onOpenWhatsApp,
   onLogoClick,
-  showMenu = true,
-  menuItems,
+  menuItems = [],
   theme,
   onToggleTheme,
-  onGoToPlatforms,
-  onBack,
-  backLabel = 'Volver',
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef(null);
@@ -30,21 +26,6 @@ const Header = ({
     return () => document.removeEventListener('pointerdown', handlePointerDown);
   }, [isMenuOpen]);
 
-  const scrollToContact = () => {
-    const contactSection = document.querySelector('#contacto-form');
-    if (!contactSection) return;
-    setIsMenuOpen(false);
-    setTimeout(() => {
-      const header = document.querySelector('.header');
-      const headerOffset = header ? header.offsetHeight : 0;
-      const elementTop = contactSection.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: Math.max(0, elementTop - headerOffset + 250),
-        behavior: 'smooth'
-      });
-    }, 50);
-  };
-
   const scrollToSection = (id) => {
     const section = document.querySelector(`#${id}`);
     if (!section) return;
@@ -60,88 +41,72 @@ const Header = ({
     }, 50);
   };
 
-  const items = menuItems || [
-    { label: 'Volver a inicio', id: 'inicio' },
-    { label: 'Características', id: 'caracteristicas' },
-    { label: 'Servicios', id: 'servicios' },
-    { label: 'Plataformas', id: 'plataformas' },
-    { label: 'Contacto', id: 'contacto-form', action: scrollToContact },
-    { label: 'Clientes', id: 'clientes' },
-  ];
-
   return (
     <header
       ref={headerRef}
-      className={`header ${isMenuOpen ? 'header--menu-open' : ''} ${!showMenu ? 'header--no-menu' : ''}`}
+      className={`header ${isMenuOpen ? 'header--menu-open' : ''}`}
     >
       <div className="header-content">
         {/* LEFT — quick access (inline nav on desktop / hamburger + drawer on mobile) */}
         <div className="header-left">
-          {onBack && (
-            <button
-              type="button"
-              className="header-back-btn"
-              onClick={onBack}
-            >
-              {backLabel}
-            </button>
-          )}
+          <button
+            type="button"
+            className={`hamburger-button ${isMenuOpen ? 'open' : ''}`}
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label="Abrir menú"
+            aria-expanded={isMenuOpen}
+            aria-controls="header-menu"
+          >
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
+          </button>
 
-          {showMenu && (
-            <button
-              type="button"
-              className={`hamburger-button ${isMenuOpen ? 'open' : ''}`}
-              onClick={() => setIsMenuOpen((open) => !open)}
-              aria-label="Abrir menú"
-              aria-expanded={isMenuOpen}
-              aria-controls="header-menu"
-            >
-              <span className="hamburger-line" />
-              <span className="hamburger-line" />
-              <span className="hamburger-line" />
-            </button>
-          )}
+          <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className="menu-item"
+                onClick={() => scrollToSection(item.id)}
+              >
+                {item.label}
+              </button>
+            ))}
 
-          {showMenu && (
-            <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">
-              {items.map((item) => (
+            {/* Theme switch — lives in the drawer on mobile; the header keeps
+                the icon toggle on desktop. */}
+            {onToggleTheme && (
+              <div className="header-nav__theme">
+                <span className="header-nav__theme-label">
+                  {theme === 'dark' ? 'Modo oscuro' : 'Modo claro'}
+                </span>
                 <button
-                  key={item.id}
                   type="button"
-                  className="menu-item"
-                  onClick={() => item.action ? item.action() : scrollToSection(item.id)}
+                  className="rp-theme-switch"
+                  role="switch"
+                  aria-checked={theme === 'dark'}
+                  aria-label="Cambiar entre modo claro y oscuro"
+                  onClick={onToggleTheme}
                 >
-                  {item.label}
-                </button>
-              ))}
-
-              {/* Theme switch — lives in the drawer on mobile; the header keeps
-                  the icon toggle on desktop. */}
-              {onToggleTheme && (
-                <div className="header-nav__theme">
-                  <span className="header-nav__theme-label">
-                    {theme === 'dark' ? 'Modo oscuro' : 'Modo claro'}
+                  <span className="rp-theme-switch__icon rp-theme-switch__icon--sun">
+                    <LuSun />
                   </span>
-                  <button
-                    type="button"
-                    className="rp-theme-switch"
-                    role="switch"
-                    aria-checked={theme === 'dark'}
-                    aria-label="Cambiar entre modo claro y oscuro"
-                    onClick={onToggleTheme}
-                  >
-                    <span className="rp-theme-switch__icon rp-theme-switch__icon--sun">
-                      <LuSun />
-                    </span>
-                    <span className="rp-theme-switch__icon rp-theme-switch__icon--moon">
-                      <LuMoon />
-                    </span>
-                    <span className="rp-theme-switch__knob" />
-                  </button>
-                </div>
-              )}
-            </nav>
-          )}
+                  <span className="rp-theme-switch__icon rp-theme-switch__icon--moon">
+                    <LuMoon />
+                  </span>
+                  <span className="rp-theme-switch__knob" />
+                </button>
+              </div>
+            )}
+
+            {/* Login inside the drawer too (mobile only): on narrow screens the
+                header button collapses to its icon. */}
+            <a className="header-nav__login" href={LOGIN_URL}>
+              <span>Ingresar a la plataforma</span>
+              <LuLogIn />
+            </a>
+          </nav>
         </div>
 
         {/* CENTER — logo */}
@@ -167,16 +132,10 @@ const Header = ({
             </button>
           )}
 
-          {onGoToPlatforms && (
-            <button
-              type="button"
-              className="header-platform-btn"
-              onClick={onGoToPlatforms}
-            >
-              <span>Ingresar</span>
-              <LuLogIn />
-            </button>
-          )}
+          <a className="header-platform-btn" href={LOGIN_URL} aria-label="Ingresar a la plataforma">
+            <span>Ingresar</span>
+            <LuLogIn />
+          </a>
         </div>
       </div>
     </header>

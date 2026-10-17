@@ -211,31 +211,6 @@ img.logo-image:hover {
   transform: translateY(-50%) scaleX(1);
 }
 
-/* Back button — rendered when the page passes onBack (pricing routes).
-   Styled like the inline nav items (no border), only the arrow sets it apart. */
-.header-back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  flex-shrink: 0;
-  border-radius: var(--gh-radius-btn, 10px);
-  background: transparent;
-  border: none;
-  color: var(--gh-fg-muted, #656d76);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.header-back-btn:hover {
-  background: var(--gh-surface-2, #f6f8fa);
-  color: var(--gh-fg, #1f2328);
-}
-
-
 /* Theme toggle — only rendered on the home (GitHub icon button) */
 .header-theme-toggle {
   display: flex;
@@ -263,10 +238,9 @@ img.logo-image:hover {
 }
 
 /* Theme control placement: icon toggle in the header on desktop, sun/moon
-   switch inside the drawer on mobile. Menu-less headers (pricing routes)
-   have no drawer, so the icon toggle stays visible at every width. */
+   switch inside the drawer on mobile. */
 @media (max-width: 767px) {
-  .header:not(.header--no-menu) .header-theme-toggle { display: none; }
+  .header-theme-toggle { display: none; }
 }
 
 /* Drawer footer row holding the theme switch — only inside the mobile drawer. */
@@ -339,7 +313,7 @@ img.logo-image:hover {
   color: var(--gh-accent);
 }
 
-/* Platform / login button — renders only when onGoToPlatforms is passed */
+/* Login button — the landing's only way into the platform (LOGIN_URL) */
 .header-platform-btn {
   display: inline-flex;
   align-items: center;
@@ -359,6 +333,29 @@ img.logo-image:hover {
 
 .header-platform-btn:hover {
   background: var(--gh-accent-emphasis-hover, #0860ca);
+}
+
+.header-platform-btn,
+.header-nav__login { text-decoration: none; }
+
+/* Drawer row with the login link — only inside the mobile drawer. */
+.header-nav__login {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 24px 6px;
+  height: 42px;
+  border-radius: var(--gh-radius-btn, 10px);
+  background: var(--gh-accent-emphasis, #0969da);
+  color: var(--gh-accent-fg, #fff);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+}
+.header-nav__login svg { width: 17px; height: 17px; }
+@media (max-width: 767px) {
+  .header-nav__login { display: flex; }
 }
 
 .header-platform-btn svg { width: 16px; height: 16px; flex-shrink: 0; }

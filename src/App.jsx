@@ -1,74 +1,29 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import HomePage from './components/HomePage';
-import PlatformSelectorPage from './components/PlatformSelectorPage';
-import PricingPage from './components/PricingPage';
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import { WHATSAPP_URL } from './data/social';
 import './App.css';
 
-const KNOWN_ROUTES = ['/pricing', '/plataformas'];
-
-// Rutas retiradas al unificar el pricing en un solo modelo B2B. Los links
-// viejos que sigan circulando aterrizan en el pricing actual.
-const LEGACY_REDIRECTS = {
-  '/pricing/empresas': '/pricing',
-  '/pricing/productores': '/pricing',
-  '/pricing/aapresid': '/pricing',
-};
-
-function resolvePath(pathname) {
-  const clean = pathname.replace(/\/+$/, '') || '/';
-  const legacy = LEGACY_REDIRECTS[clean.toLowerCase()];
-  if (legacy) return legacy;
-  // Case-insensitive match so older shared links keep resolving to the
-  // canonical route.
-  const match = KNOWN_ROUTES.find(
-    (route) => route.toLowerCase() === clean.toLowerCase(),
-  );
-  return match || '/';
-}
-
-// Deja la barra de direcciones en la ruta canónica cuando el pathname
-// entrante era un alias, una ruta legacy o algo inexistente.
-function normalizeUrl(resolved) {
-  if (window.location.pathname !== resolved) {
-    window.history.replaceState({}, '', resolved);
+// La landing es una sola página. Cualquier otra ruta (las viejas de planes
+// y de selección de plataforma, o una inventada) se normaliza a "/" para que
+// los links que siguen circulando no caigan en una página rota. En GitHub
+// Pages esas rutas llegan por 404.html, que deja el path original en
+// sessionStorage; se conservan query y hash.
+function normalizeToHome() {
+  const redirect = sessionStorage.getItem('redirect');
+  if (redirect) sessionStorage.removeItem('redirect');
+  const url = new URL(redirect || window.location.href, window.location.origin);
+  const target = `/${url.search}${url.hash}`;
+  if (window.location.pathname !== '/' || redirect) {
+    window.history.replaceState({}, '', target);
   }
-  return resolved;
 }
+
+normalizeToHome();
 
 function App() {
   const [showWhatsappPopup, setShowWhatsappPopup] = useState(false);
-  const [route, setRoute] = useState(() => {
-    const redirect = sessionStorage.getItem('redirect');
-    if (redirect) {
-      sessionStorage.removeItem('redirect');
-      const url = new URL(redirect, window.location.origin);
-      const resolved = resolvePath(url.pathname);
-      if (resolved !== '/') {
-        window.history.replaceState({}, '', resolved);
-        return resolved;
-      }
-    }
-    return normalizeUrl(resolvePath(window.location.pathname));
-  });
   const popupRef = useRef(null);
-
-  const navigate = useCallback((path) => {
-    window.history.pushState({}, '', path);
-    setRoute(path);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setShowWhatsappPopup(false);
-  }, []);
-
-  useEffect(() => {
-    const handlePopState = () => {
-      setRoute(normalizeUrl(resolvePath(window.location.pathname)));
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
 
   useEffect(() => {
     if (!showWhatsappPopup) return;
@@ -125,37 +80,9 @@ function App() {
     </>
   );
 
-  const renderPage = () => {
-    switch (route) {
-      case '/plataformas':
-        return (
-          <PlatformSelectorPage
-            onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-            onGoToHome={() => navigate('/')}
-          />
-        );
-      case '/pricing':
-        return (
-          <PricingPage
-            onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-            onGoToHome={() => navigate('/')}
-            onGoToPlatforms={() => navigate('/plataformas')}
-          />
-        );
-      default:
-        return (
-          <HomePage
-            onOpenWhatsApp={() => setShowWhatsappPopup(true)}
-            onGoToPlatforms={() => navigate('/plataformas')}
-            onGoToPricing={() => navigate('/pricing')}
-          />
-        );
-    }
-  };
-
   return (
     <div className="App">
-      {renderPage()}
+      <HomePage onOpenWhatsApp={() => setShowWhatsappPopup(true)} />
       {whatsappElements}
     </div>
   );

@@ -240,17 +240,6 @@
 /* Desactivar background-attachment: fixed en mobile para mejor rendimiento */
 /* Removed background-attachment: scroll override to keep parallax-like effect */
 
-.vigia-main {
-  padding-top: 0;
-  background: #f3f7f0;
-}
-
-@media (max-width: 768px) {
-  .vigia-main {
-    padding-top: 0;
-  }
-}
-
 /* ============================================================
    WhatsApp widget — FAB that morphs into panel
    ============================================================ */
