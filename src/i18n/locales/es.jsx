@@ -25,6 +25,7 @@ const es = {
     openMenu: 'Abrir menú',
     nav: {
       home: 'Inicio',
+      impact: 'Impacto',
       campaign: 'Qué hace',
       why: 'Por qué Rinde Plus',
     },
@@ -57,6 +58,84 @@ const es = {
 
   trusted: {
     title: 'Confían en nosotros',
+  },
+
+  // Sección Impacto. Los números llegan ya formateados en `d` (ver
+  // ImpactSection.jsx); acá solo va el texto. "Campaña" es el año agrícola;
+  // cada lote en un año es un "ciclo productivo".
+  impacto: {
+    title: 'Más grano y más carbono en el suelo',
+    subtitle: (d) => `Números de la campaña ${d.campana} en los lotes que sigue Rinde Plus.`,
+    indicadores: {
+      hectareas: (d) => `monitoreadas en la última campaña (${d.campana})`,
+      grano: () => 'de grano extra por el manejo de brechas',
+      carbono: () => 'de CO₂ extra que queda en el suelo',
+      suelo: () => 'análisis de suelo interpretados',
+    },
+    pista: 'Los indicadores con flecha abren el detalle por cultivo',
+    cerrar: 'Cerrar detalle',
+    info: (titulo) => `Cómo se calcula: ${titulo}`,
+    cultivos: { maiz: 'Maíz', soja: 'Soja', trigo: 'Trigo', girasol: 'Girasol', otros: 'Otros cultivos' },
+    total: 'Total',
+    tablas: {
+      grano: {
+        titulo: (d) => `Grano extra por cultivo, campaña ${d.campana}`,
+        columnas: ['Cultivo', 'Hectáreas', 'Rinde promedio (kg/ha)', 'kg/ha extra', 'Total'],
+        nota: (d) =>
+          `El ${d.pct} del rinde de cada cultivo, dentro del rango del ${d.pctBajo} al ${d.pctAlto} que Rinde Plus estima que aporta el manejo de brechas. Con el ${d.pctBajo} serían unas ${d.granoBajo} t; con el ${d.pctAlto}, unas ${d.granoAlto} t.`,
+      },
+      carbono: {
+        titulo: (d) => `Carbono extra por cultivo (t CO₂), campaña ${d.campana}`,
+        columnas: ['Cultivo', 'Fijado', 'Vuelve al suelo', 'Queda estable'],
+        nota: (d) =>
+          `Es el carbono extra del grano extra. El grano se cosecha y su carbono vuelve a la atmósfera; lo que queda es el del rastrojo y las raíces, y las raíces aportan el más estable. Equivale a neutralizar las emisiones de unos ${d.autos} autos por año.`,
+      },
+    },
+    pie: {
+      linea: (d) => `+${d.historia} ha de datos productivos en ${d.campanas} campañas (${d.desde} a ${d.hasta})`,
+      fuente: (d) => `Datos de la base de Rinde Plus al ${d.fecha}. El botón ⓘ de cada número explica cómo se calcula.`,
+    },
+    modal: {
+      cerrar: 'Cerrar',
+      bloques: { mide: 'Qué mide', calcula: 'Cómo se calcula', compone: 'Cómo se compone', cuenta: 'A tener en cuenta' },
+      hectareas: {
+        titulo: (d) => `Hectáreas monitoreadas en la última campaña (${d.campana})`,
+        mide: () => 'La superficie que Rinde Plus monitoreó en la última campaña completa.',
+        columnas: ['Cultivo', 'Hectáreas', '%'],
+        cuenta: () => 'A la superficie sin cultivo cargado se le asignó la misma proporción de cultivos que al resto.',
+      },
+      grano: {
+        titulo: () => 'Grano extra por el manejo de brechas',
+        mide: () =>
+          'El grano que se suma en maíz, soja, trigo y girasol por decidir con el análisis de brechas de Rinde Plus.',
+        calcula: (d) =>
+          `Para cada cultivo: hectáreas de ${d.campana} × rinde promedio registrado × ${d.pct}. Rinde Plus estima que entre el ${d.pctBajo} y el ${d.pctAlto} del rinde de los lotes con manejo de brechas se debe a ese manejo; acá se usa un ${d.pct}, en la parte baja del rango. Con el ${d.pctBajo} serían unas ${d.granoBajo} t; con el ${d.pctAlto}, unas ${d.granoAlto} t.`,
+        cuenta: (d) =>
+          `Es una estimación sobre el rinde promedio de cada cultivo, no una medición lote por lote. A la superficie sin cultivo cargado (${d.sinCultivoPct}) se le asignó la misma proporción de cultivos que al resto. Entran maíz, soja, trigo y girasol (el ${d.cultivosPct} de la superficie); no entran arroz ni los cultivos menores.`,
+      },
+      carbono: {
+        titulo: () => 'CO₂ extra en el suelo',
+        mide: () => 'El carbono extra que deja en el suelo ese grano extra, a través del rastrojo y las raíces.',
+        calcula: () =>
+          'Grano extra de cada cultivo × coeficientes de carbono por tonelada. Para maíz, soja y trigo son los mismos que usa VigIA, tomados de su informe técnico; los de girasol se calcularon con el mismo método, con su índice de cosecha. El número destacado es la columna «Queda estable».',
+        cuenta: () =>
+          'Es una estimación por coeficientes, no una medición de carbono en el suelo de cada lote, y no constituye un certificado de bonos de carbono.',
+      },
+      suelo: {
+        titulo: () => 'Análisis de suelo interpretados',
+        mide: (d) =>
+          `Cuántos ambientes de ${d.campana} tienen un análisis de suelo cargado (fósforo, materia orgánica, pH y demás) que la plataforma interpreta para el diagnóstico y la fertilización.`,
+        calcula: (d) => `Se cuentan los ambientes con al menos uno de esos valores (${d.sueloTotal}).`,
+      },
+      historia: {
+        titulo: () => 'Historia de datos',
+        mide: () => 'La superficie con datos productivos acumulada en la base.',
+        calcula: (d) =>
+          `Cada vez que un lote tiene datos en una campaña se suma su superficie. Son ${d.historiaHa} ha en ${d.ciclos} ciclos productivos de ${d.lotes} lotes de ${d.empresas} empresas, entre ${d.desde} y ${d.hasta}. La campaña en curso, ${d.enCurso}, no se cuenta.`,
+        cuenta: (d) =>
+          `Un lote con datos en 10 campañas cuenta 10 veces; contado una sola vez por lote, la superficie es de unas ${d.haUnicas} ha.`,
+      },
+    },
   },
 
   fx: {

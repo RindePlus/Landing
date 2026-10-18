@@ -1,0 +1,460 @@
+/* ============================================================
+   Impacto — cuatro indicadores grandes y centrados, sin caja. Grano y
+   carbono abren su tabla en un panel debajo (de a uno), con una flecha al
+   indicador de origen; al cambiar de tabla el contenido se desliza como un
+   carrusel. Cada número tiene un ⓘ que abre un <dialog> con el cálculo.
+   Diseño portado de la landing de VigIA, con los tokens --gh-* de la home.
+   ============================================================ */
+
+.rp-impacto {
+  --imp-grano: #1a7f37;
+  --imp-carbono: #0d9488;
+  --imp-dur: 0.45s;
+  --imp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 104px) 24px clamp(48px, 7vw, 88px);
+  scroll-margin-top: 80px;
+  /* el contenido que se desliza entre tablas no genera scroll lateral */
+  overflow-x: clip;
+}
+
+[data-rp-theme='dark'] .rp-impacto {
+  --imp-grano: #3fb950;
+  --imp-carbono: #2dd4bf;
+}
+
+/* ---- Encabezado ---- */
+.rp-impact__head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.rp-impact__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--gh-fg);
+  margin: 0 0 18px;
+  text-wrap: balance;
+}
+
+.rp-impact__subtitle {
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.6;
+  color: var(--gh-fg-muted);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* ---- Indicadores ---- */
+.rp-impact__box { position: relative; }
+
+.rp-impact__inds {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: clamp(36px, 5vw, 56px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rp-impact__cell {
+  position: relative;
+  display: flex;
+}
+
+.rp-impact__ind {
+  --tono: var(--gh-fg);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 8px;
+  border: 0;
+  border-radius: var(--gh-radius-card, 10px);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+}
+
+.rp-impact__ind strong {
+  color: var(--gh-fg);
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: color var(--imp-dur) var(--imp-ease);
+}
+
+.rp-impact__ind strong small {
+  margin-left: 4px;
+  font-size: 0.5em;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.rp-impact__ind > span {
+  max-width: 200px;
+  color: var(--gh-fg-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+/* Los que abren tabla: sin fondo; al pasar o activos, el número toma el
+   color de su dato (grano verde, carbono turquesa). */
+.rp-impact__ind--grano { --tono: var(--imp-grano); }
+.rp-impact__ind--carbono { --tono: var(--imp-carbono); }
+
+.rp-impact__ind--boton { cursor: pointer; }
+
+.rp-impact__ind--boton:hover strong,
+.rp-impact__ind--boton.is-active strong { color: var(--tono); }
+
+.rp-impact__ind--boton:focus-visible {
+  outline: 2px solid var(--tono);
+  outline-offset: 2px;
+}
+
+.rp-impact__caret {
+  margin-top: auto;
+  width: 18px;
+  height: 18px;
+  color: var(--gh-fg-subtle);
+  transition: transform var(--imp-dur) var(--imp-ease), color var(--imp-dur) var(--imp-ease);
+}
+
+.rp-impact__ind--boton:hover .rp-impact__caret { color: var(--tono); transform: translateY(2px); }
+.rp-impact__ind--boton.is-active .rp-impact__caret { color: var(--tono); transform: rotate(180deg); }
+
+/* ⓘ — aparte del botón del indicador (hermano, no anidado): arriba a la
+   derecha de la celda. */
+.rp-impact__info {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gh-fg-subtle);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.rp-impact__info svg { width: 17px; height: 17px; }
+.rp-impact__info:hover { background: var(--gh-surface-2); color: var(--gh-fg); }
+
+.rp-impact__info:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: 1px;
+}
+
+.rp-impact__info--inline {
+  position: static;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* Aviso de una sola vez, debajo de los indicadores que se despliegan (los
+   del medio). Absoluto, para no mover nada al desaparecer. */
+.rp-impact__pista {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin: 4px 0 0;
+  color: var(--gh-fg-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 6px);
+  transition: opacity var(--imp-dur) var(--imp-ease), transform var(--imp-dur) var(--imp-ease);
+}
+
+.rp-impact__pista.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---- Panel: se despliega (alto de 0 a su contenido) ---- */
+.rp-impact__panel {
+  --tono: var(--imp-grano);
+  --flecha-x: 50%;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows var(--imp-dur) var(--imp-ease), opacity var(--imp-dur) var(--imp-ease);
+}
+
+.rp-impact__panel[data-tono='carbono'] { --tono: var(--imp-carbono); }
+
+.rp-impact__panel.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.rp-impact__panel-inner {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  margin-top: 16px;
+  padding-top: 10px;
+}
+
+.rp-impact__panel.is-open .rp-impact__panel-inner { overflow: visible; }
+
+/* Flecha: un rombo en el borde de arriba del panel, bajo el indicador. */
+.rp-impact__flecha {
+  position: absolute;
+  top: 3px;
+  left: var(--flecha-x);
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  border-top: 2px solid var(--tono);
+  border-left: 2px solid var(--tono);
+  background: var(--gh-surface);
+  transform: translateX(-50%) rotate(45deg);
+  transition: left var(--imp-dur) var(--imp-ease), border-color var(--imp-dur) var(--imp-ease);
+}
+
+/* El recuadro queda fijo; adentro las tablas comparten la celda como un
+   carrusel: la activa al centro y las otras fuera de cuadro a su lado. */
+.rp-impact__items {
+  display: grid;
+  overflow: hidden;
+  padding: 28px;
+  border: 1px solid var(--gh-border);
+  border-top: 2px solid var(--tono);
+  border-radius: var(--gh-radius-card, 10px);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+  transition: border-top-color var(--imp-dur) var(--imp-ease);
+}
+
+.rp-impact__item {
+  grid-area: 1 / 1;
+  min-width: 0;
+  transition: transform var(--imp-dur) var(--imp-ease), visibility 0s linear var(--imp-dur);
+}
+
+.rp-impact__item[data-pos='antes'] { transform: translateX(calc(-100% - 28px)); visibility: hidden; }
+.rp-impact__item[data-pos='despues'] { transform: translateX(calc(100% + 28px)); visibility: hidden; }
+
+.rp-impact__item[data-pos='activo'] {
+  transform: none;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Recién abierto: sin deslizamiento (solo se despliega el panel). */
+.rp-impact__panel.is-instant .rp-impact__item,
+.rp-impact__panel.is-instant .rp-impact__items,
+.rp-impact__panel.is-instant .rp-impact__flecha { transition: none; }
+
+/* Cada tabla con su color: no cambia mientras sale. */
+.rp-impact__item--grano { --tono: var(--imp-grano); }
+.rp-impact__item--carbono { --tono: var(--imp-carbono); }
+
+.rp-impact__item-head,
+.rp-impact__modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.rp-impact__item-head h3 {
+  margin: 0;
+  color: var(--tono);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.rp-impact__cerrar {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gh-fg-muted);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.rp-impact__cerrar svg { width: 18px; height: 18px; }
+.rp-impact__cerrar:hover { background: var(--gh-surface-2); color: var(--gh-fg); }
+.rp-impact__cerrar:focus-visible { outline: 2px solid var(--gh-accent); outline-offset: 1px; }
+
+.rp-impact__nota {
+  margin: 16px 0 0;
+  color: var(--gh-fg-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* ---- Tabla por cultivo (panel y modal de hectáreas) ---- */
+.rp-impact__tabla {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.rp-impact__tabla table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+.rp-impact__tabla th,
+.rp-impact__tabla td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--gh-border-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.rp-impact__tabla th:first-child { padding-left: 0; text-align: left; }
+.rp-impact__tabla th:last-child,
+.rp-impact__tabla td:last-child { padding-right: 0; }
+
+.rp-impact__tabla thead th {
+  color: var(--gh-fg-subtle);
+  font-weight: 600;
+}
+
+.rp-impact__tabla tbody th { color: var(--gh-fg); font-weight: 600; }
+.rp-impact__tabla td { color: var(--gh-fg-muted); }
+
+.rp-impact__total th,
+.rp-impact__total td {
+  border-bottom: 0;
+  color: var(--gh-fg);
+  font-weight: 700;
+}
+
+.rp-impact__item .rp-impact__total td:last-child { color: var(--tono); }
+
+/* ---- Pie: historia destacada pero secundaria + fuente ---- */
+.rp-impact__pie {
+  margin-top: clamp(40px, 6vw, 64px);
+  text-align: center;
+}
+
+.rp-impact__pie-linea {
+  margin: 0;
+  color: var(--gh-fg);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.rp-impact__fuente {
+  margin: 8px 0 0;
+  color: var(--gh-fg-subtle);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* ---- Modal de cálculo ---- */
+.rp-impact__modal {
+  /* el reset global (* { margin: 0 }) le saca el centrado nativo */
+  margin: auto;
+  width: min(620px, calc(100vw - 32px));
+  max-width: none; /* el UA limita el dialog modal a 100% - 2em */
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card, 10px);
+  background: var(--gh-surface);
+  color: var(--gh-fg);
+  box-shadow: var(--gh-shadow-overlay);
+  overflow: hidden;
+}
+
+.rp-impact__modal::backdrop { background: rgba(1, 4, 9, 0.5); }
+
+.rp-impact__modal-body {
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 24px 28px 28px;
+}
+
+.rp-impact__modal-head h3 {
+  margin: 2px 0 0;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  line-height: 1.3;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.rp-impact__modal-body h4 {
+  margin: 20px 0 6px;
+  color: var(--gh-fg);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.rp-impact__modal-body p {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* La página de fondo no scrollea con el modal abierto. */
+html.rp-modal-open { overflow: hidden; }
+
+/* ---- Responsive ---- */
+@media (max-width: 860px) {
+  .rp-impact__inds { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
+}
+
+@media (max-width: 480px) {
+  .rp-impacto { padding-left: 16px; padding-right: 16px; }
+  .rp-impact__inds { gap: 12px; }
+  .rp-impact__ind strong { font-size: 1.85rem; }
+  .rp-impact__items { padding: 22px 14px; }
+  /* cinco columnas en 360px: encabezados en dos líneas y letra más chica */
+  .rp-impact__tabla table { font-size: 0.8rem; }
+  .rp-impact__tabla th,
+  .rp-impact__tabla td { padding: 8px 5px; }
+  .rp-impact__tabla thead th { white-space: normal; vertical-align: bottom; line-height: 1.25; }
+  .rp-impact__pista { white-space: normal; width: 100%; text-align: center; }
+  .rp-impact__modal { width: calc(100vw - 16px); max-height: calc(100dvh - 24px); }
+  .rp-impact__modal-body { max-height: calc(100dvh - 24px); padding: 20px 18px 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-impact__panel,
+  .rp-impact__flecha,
+  .rp-impact__items,
+  .rp-impact__item,
+  .rp-impact__pista,
+  .rp-impact__ind strong,
+  .rp-impact__caret { transition: none; }
+}

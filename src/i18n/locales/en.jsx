@@ -24,6 +24,7 @@ const en = {
     openMenu: 'Open menu',
     nav: {
       home: 'Home',
+      impact: 'Impact',
       campaign: 'What it does',
       why: 'Why Rinde Plus',
     },
@@ -56,6 +57,84 @@ const en = {
 
   trusted: {
     title: 'Trusted by',
+  },
+
+  // Impact section. Numbers arrive already formatted in `d` (see
+  // ImpactSection.jsx). "Season" is the crop year; each field in a year is a
+  // "production cycle".
+  impacto: {
+    title: 'More grain and more carbon in the soil',
+    subtitle: (d) => `Figures from the ${d.campana} season across the fields Rinde Plus follows.`,
+    indicadores: {
+      hectareas: (d) => `monitored in the latest season (${d.campana})`,
+      grano: () => 'of extra grain from yield gap management',
+      carbono: () => 'of extra CO₂ that stays in the soil',
+      suelo: () => 'soil tests interpreted',
+    },
+    pista: 'Figures with an arrow open the breakdown by crop',
+    cerrar: 'Close breakdown',
+    info: (titulo) => `How it is calculated: ${titulo}`,
+    cultivos: { maiz: 'Corn', soja: 'Soybean', trigo: 'Wheat', girasol: 'Sunflower', otros: 'Other crops' },
+    total: 'Total',
+    tablas: {
+      grano: {
+        titulo: (d) => `Extra grain by crop, ${d.campana} season`,
+        columnas: ['Crop', 'Hectares', 'Average yield (kg/ha)', 'Extra kg/ha', 'Total'],
+        nota: (d) =>
+          `${d.pct} of each crop’s yield, within the ${d.pctBajo} to ${d.pctAlto} range Rinde Plus estimates comes from yield gap management. At ${d.pctBajo} it would be about ${d.granoBajo} t; at ${d.pctAlto}, about ${d.granoAlto} t.`,
+      },
+      carbono: {
+        titulo: (d) => `Extra carbon by crop (t CO₂), ${d.campana} season`,
+        columnas: ['Crop', 'Fixed', 'Returns to soil', 'Stays stable'],
+        nota: (d) =>
+          `This is the extra carbon from the extra grain. Grain is harvested and its carbon returns to the atmosphere; what stays is the carbon in stubble and roots, and roots contribute the most stable part. It is equivalent to offsetting the emissions of about ${d.autos} cars a year.`,
+      },
+    },
+    pie: {
+      linea: (d) => `+${d.historia} ha of production data over ${d.campanas} seasons (${d.desde} to ${d.hasta})`,
+      fuente: (d) => `Data from the Rinde Plus database as of ${d.fecha}. The ⓘ button on each figure explains how it is calculated.`,
+    },
+    modal: {
+      cerrar: 'Close',
+      bloques: { mide: 'What it measures', calcula: 'How it is calculated', compone: 'Breakdown', cuenta: 'Keep in mind' },
+      hectareas: {
+        titulo: (d) => `Hectares monitored in the latest season (${d.campana})`,
+        mide: () => 'The area Rinde Plus monitored in the latest complete season.',
+        columnas: ['Crop', 'Hectares', '%'],
+        cuenta: () => 'Area with no crop recorded was assigned the same crop mix as the rest.',
+      },
+      grano: {
+        titulo: () => 'Extra grain from yield gap management',
+        mide: () =>
+          'The grain added in corn, soybean, wheat and sunflower by deciding with Rinde Plus yield gap analysis.',
+        calcula: (d) =>
+          `For each crop: ${d.campana} hectares × recorded average yield × ${d.pct}. Rinde Plus estimates that between ${d.pctBajo} and ${d.pctAlto} of the yield of fields under yield gap management comes from that management; ${d.pct} is used here, at the low end of the range. At ${d.pctBajo} it would be about ${d.granoBajo} t; at ${d.pctAlto}, about ${d.granoAlto} t.`,
+        cuenta: (d) =>
+          `It is an estimate on each crop’s average yield, not a field-by-field measurement. Area with no crop recorded (${d.sinCultivoPct}) was assigned the same crop mix as the rest. Corn, soybean, wheat and sunflower are included (${d.cultivosPct} of the area); rice and minor crops are not.`,
+      },
+      carbono: {
+        titulo: () => 'Extra CO₂ in the soil',
+        mide: () => 'The extra carbon that extra grain leaves in the soil, through stubble and roots.',
+        calcula: () =>
+          'Extra grain of each crop × carbon coefficients per tonne. For corn, soybean and wheat they are the same ones VigIA uses, taken from its technical report; sunflower’s were calculated with the same method, using its harvest index. The highlighted figure is the “Stays stable” column.',
+        cuenta: () =>
+          'It is an estimate based on coefficients, not a measurement of soil carbon in each field, and it is not a carbon credit certificate.',
+      },
+      suelo: {
+        titulo: () => 'Soil tests interpreted',
+        mide: (d) =>
+          `How many ${d.campana} management zones have a soil test on record (phosphorus, organic matter, pH and more) that the platform interprets for diagnosis and fertilization.`,
+        calcula: (d) => `Zones with at least one of those values are counted (${d.sueloTotal}).`,
+      },
+      historia: {
+        titulo: () => 'Data history',
+        mide: () => 'The area with production data accumulated in the database.',
+        calcula: (d) =>
+          `Each time a field has data in a season, its area is added. That is ${d.historiaHa} ha across ${d.ciclos} production cycles on ${d.lotes} fields from ${d.empresas} companies, between ${d.desde} and ${d.hasta}. The current season, ${d.enCurso}, is not counted.`,
+        cuenta: (d) =>
+          `A field with data in 10 seasons counts 10 times; counting each field once, the area is about ${d.haUnicas} ha.`,
+      },
+    },
   },
 
   fx: {

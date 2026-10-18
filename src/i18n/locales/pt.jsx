@@ -24,6 +24,7 @@ const pt = {
     openMenu: 'Abrir menu',
     nav: {
       home: 'Início',
+      impact: 'Impacto',
       campaign: 'O que faz',
       why: 'Por que Rinde Plus',
     },
@@ -56,6 +57,84 @@ const pt = {
 
   trusted: {
     title: 'Confiam em nós',
+  },
+
+  // Seção Impacto. Os números chegam já formatados em `d` (ver
+  // ImpactSection.jsx). "Safra" é o ano agrícola; cada talhão num ano é um
+  // "ciclo produtivo".
+  impacto: {
+    title: 'Mais grão e mais carbono no solo',
+    subtitle: (d) => `Números da safra ${d.campana} nos talhões que a Rinde Plus acompanha.`,
+    indicadores: {
+      hectareas: (d) => `monitorados na última safra (${d.campana})`,
+      grano: () => 'de grão extra pelo manejo de lacunas',
+      carbono: () => 'de CO₂ extra que fica no solo',
+      suelo: () => 'análises de solo interpretadas',
+    },
+    pista: 'Os indicadores com seta abrem o detalhe por cultura',
+    cerrar: 'Fechar detalhe',
+    info: (titulo) => `Como se calcula: ${titulo}`,
+    cultivos: { maiz: 'Milho', soja: 'Soja', trigo: 'Trigo', girasol: 'Girassol', otros: 'Outras culturas' },
+    total: 'Total',
+    tablas: {
+      grano: {
+        titulo: (d) => `Grão extra por cultura, safra ${d.campana}`,
+        columnas: ['Cultura', 'Hectares', 'Produtividade média (kg/ha)', 'kg/ha extra', 'Total'],
+        nota: (d) =>
+          `${d.pct} da produtividade de cada cultura, dentro da faixa de ${d.pctBajo} a ${d.pctAlto} que a Rinde Plus estima que o manejo de lacunas aporta. Com ${d.pctBajo} seriam cerca de ${d.granoBajo} t; com ${d.pctAlto}, cerca de ${d.granoAlto} t.`,
+      },
+      carbono: {
+        titulo: (d) => `Carbono extra por cultura (t CO₂), safra ${d.campana}`,
+        columnas: ['Cultura', 'Fixado', 'Volta ao solo', 'Fica estável'],
+        nota: (d) =>
+          `É o carbono extra do grão extra. O grão é colhido e seu carbono volta à atmosfera; o que fica é o da palhada e das raízes, e as raízes aportam a parte mais estável. Equivale a neutralizar as emissões de cerca de ${d.autos} carros por ano.`,
+      },
+    },
+    pie: {
+      linea: (d) => `+${d.historia} ha de dados produtivos em ${d.campanas} safras (${d.desde} a ${d.hasta})`,
+      fuente: (d) => `Dados da base da Rinde Plus em ${d.fecha}. O botão ⓘ de cada número explica como se calcula.`,
+    },
+    modal: {
+      cerrar: 'Fechar',
+      bloques: { mide: 'O que mede', calcula: 'Como se calcula', compone: 'Composição', cuenta: 'Para levar em conta' },
+      hectareas: {
+        titulo: (d) => `Hectares monitorados na última safra (${d.campana})`,
+        mide: () => 'A área que a Rinde Plus monitorou na última safra completa.',
+        columnas: ['Cultura', 'Hectares', '%'],
+        cuenta: () => 'À área sem cultura cadastrada foi atribuída a mesma proporção de culturas que ao restante.',
+      },
+      grano: {
+        titulo: () => 'Grão extra pelo manejo de lacunas',
+        mide: () =>
+          'O grão que se soma em milho, soja, trigo e girassol ao decidir com a análise de lacunas da Rinde Plus.',
+        calcula: (d) =>
+          `Para cada cultura: hectares de ${d.campana} × produtividade média registrada × ${d.pct}. A Rinde Plus estima que entre ${d.pctBajo} e ${d.pctAlto} da produtividade dos talhões com manejo de lacunas se deve a esse manejo; aqui se usa ${d.pct}, na parte baixa da faixa. Com ${d.pctBajo} seriam cerca de ${d.granoBajo} t; com ${d.pctAlto}, cerca de ${d.granoAlto} t.`,
+        cuenta: (d) =>
+          `É uma estimativa sobre a produtividade média de cada cultura, não uma medição talhão por talhão. À área sem cultura cadastrada (${d.sinCultivoPct}) foi atribuída a mesma proporção de culturas que ao restante. Entram milho, soja, trigo e girassol (${d.cultivosPct} da área); arroz e culturas menores ficam de fora.`,
+      },
+      carbono: {
+        titulo: () => 'CO₂ extra no solo',
+        mide: () => 'O carbono extra que esse grão extra deixa no solo, pela palhada e pelas raízes.',
+        calcula: () =>
+          'Grão extra de cada cultura × coeficientes de carbono por tonelada. Para milho, soja e trigo são os mesmos que a VigIA usa, tirados do seu relatório técnico; os do girassol foram calculados com o mesmo método, com seu índice de colheita. O número em destaque é a coluna «Fica estável».',
+        cuenta: () =>
+          'É uma estimativa por coeficientes, não uma medição de carbono no solo de cada talhão, e não constitui um certificado de créditos de carbono.',
+      },
+      suelo: {
+        titulo: () => 'Análises de solo interpretadas',
+        mide: (d) =>
+          `Quantos ambientes de ${d.campana} têm uma análise de solo cadastrada (fósforo, matéria orgânica, pH e outros) que a plataforma interpreta para o diagnóstico e a adubação.`,
+        calcula: (d) => `Contam-se os ambientes com pelo menos um desses valores (${d.sueloTotal}).`,
+      },
+      historia: {
+        titulo: () => 'Histórico de dados',
+        mide: () => 'A área com dados produtivos acumulada na base.',
+        calcula: (d) =>
+          `Cada vez que um talhão tem dados numa safra, sua área é somada. São ${d.historiaHa} ha em ${d.ciclos} ciclos produtivos de ${d.lotes} talhões de ${d.empresas} empresas, entre ${d.desde} e ${d.hasta}. A safra em curso, ${d.enCurso}, não é contada.`,
+        cuenta: (d) =>
+          `Um talhão com dados em 10 safras conta 10 vezes; contando cada talhão uma só vez, a área é de cerca de ${d.haUnicas} ha.`,
+      },
+    },
   },
 
   fx: {

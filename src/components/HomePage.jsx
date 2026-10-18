@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
 import Functionalities from './Functionalities';
+import ImpactSection from './ImpactSection';
 import Reveal from './Reveal';
 import LoteMap from './LoteMap';
 import LotesMosaic from './LotesMosaic';
@@ -321,6 +322,7 @@ const HomePage = ({ onOpenWhatsApp }) => {
         onToggleTheme={toggleTheme}
         menuItems={[
           { label: nav.home, id: 'top' },
+          { label: nav.impact, id: 'impacto' },
           { label: nav.campaign, id: 'funcionalidades' },
           { label: nav.why, id: 'beneficios' },
         ]}
@@ -330,6 +332,8 @@ const HomePage = ({ onOpenWhatsApp }) => {
         <HeroSection />
 
         <TrustedSection />
+
+        <ImpactSection />
 
         <Functionalities />
 
