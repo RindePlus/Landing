@@ -1,0 +1,408 @@
+---
+// Página de prueba, fuera de los buscadores y sin enlaces desde el sitio:
+// muestra todas las escenas del lote del hero a la vez, en bucle, con qué
+// representa cada una, el texto de su notificación en los tres idiomas y
+// de dónde sale en «Qué hace». Sirve para revisarlas sin esperar a que
+// salgan al azar. Lo mismo, en texto: doc/ANIMACION_LOTE.md.
+import LoteMap from '../components/LoteMap.jsx';
+import { DICTIONARIES } from '../i18n/I18nContext.jsx';
+import '../index.css';
+import '../components/HomePage.css';
+
+const avisos = {
+  es: DICTIONARIES.es.hero.avisos,
+  en: DICTIONARIES.en.hero.avisos,
+  pt: DICTIONARIES.pt.hero.avisos,
+};
+
+interface Escena {
+  escena?: string;
+  clima?: string;
+  viento?: boolean;
+  /** La clave en hero.avisos (null = sin notificación). */
+  aviso: Exclude<keyof typeof avisos.es, 'marca' | 'ahora'> | null;
+  momento: string;
+  lote: string;
+  significa: string;
+  respaldo: string;
+  duda?: string;
+}
+
+const ESCENAS: Escena[] = [
+  {
+    escena: 'planificar',
+    aviso: 'planificar',
+    momento: 'Planificar',
+    lote: 'Los bordes de los tres ambientes (alto, medio y bajo) se dibujan uno por uno y cada ambiente se ilumina.',
+    significa: 'Rinde Plus trabaja el lote por ambientes y calcula el rinde potencial de cada uno.',
+    respaldo: 'Planificar: «Rinde base, potencial, fertilizando y cosechado, por lote y por ambiente».',
+  },
+  {
+    escena: 'preparar',
+    aviso: 'preparar',
+    momento: 'Preparar el lote',
+    lote: 'Aparecen nueve puntos de muestreo de suelo en grilla, cada uno con una onda.',
+    significa: 'El análisis de suelo del lote se carga y la plataforma lo interpreta.',
+    respaldo: 'Preparar el lote: «Análisis de suelo y plan de enmiendas».',
+  },
+  {
+    escena: 'fertilizar',
+    aviso: 'fertilizar',
+    momento: 'Fertilizar',
+    lote: 'Un mapa de prescripción en celdas se carga de a columnas, como pasadas: azul más oscuro, más dosis. Más dosis en el ambiente alto, menos en los bajos.',
+    significa: 'La dosis que conviene aplicar en cada ambiente, según su rinde esperado y los precios.',
+    respaldo: 'Fertilizar: «Dosis óptima económica» y «Margen bruto por lote y por ambiente».',
+    duda: 'Las celdas se parecen a un archivo de prescripción para la fertilizadora (dosis variable). Si la plataforma no exporta prescripciones, conviene mostrar sólo la dosis por ambiente.',
+  },
+  {
+    escena: 'acompanar',
+    clima: 'sequia',
+    aviso: 'sequia',
+    momento: 'Acompañar el cultivo · sequía',
+    lote: 'El terreno se pone anaranjado, empezando por el ambiente bajo.',
+    significa: 'Falta agua: la plataforma calcula cuánto riego hace falta para llegar al rinde objetivo.',
+    respaldo: 'Planificar: «Riego necesario para llegar al rinde objetivo».',
+  },
+  {
+    escena: 'acompanar',
+    clima: 'calor',
+    aviso: 'calor',
+    momento: 'Acompañar el cultivo · calor',
+    lote: 'Un sol fuerte en una esquina, el lote más cálido y el aire que reverbera.',
+    significa: 'Se vienen días de calor que pueden estresar al cultivo.',
+    respaldo: 'Acompañar el cultivo: «Alertas de estrés térmico, déficit de presión de vapor y enfermedades fúngicas».',
+  },
+  {
+    escena: 'acompanar',
+    clima: 'lluvia',
+    aviso: 'lluvia',
+    momento: 'Acompañar el cultivo · lluvia',
+    lote: 'Cruza una llovizna y después el verde se aviva.',
+    significa: 'Después de la lluvia sube el riesgo de enfermedades fúngicas.',
+    respaldo: 'Acompañar el cultivo: «Alertas de estrés térmico, déficit de presión de vapor y enfermedades fúngicas».',
+  },
+  {
+    escena: 'cerrar',
+    aviso: 'cerrar',
+    momento: 'Cerrar y aprender',
+    lote: 'La cosechadora pasa en franjas, ida y vuelta, y deja el mapa de rinde en bloques, como los datos del monitor de rinde.',
+    significa: 'Lo que rindió cada ambiente contra lo que podía rendir: dónde se perdió rinde.',
+    respaldo: 'Cerrar y aprender: «Brecha de rendimiento por lote y por ambiente».',
+  },
+  {
+    viento: true,
+    aviso: null,
+    momento: 'Viento (ambiente)',
+    lote: 'Tres ráfagas finas cruzan el lote, escalonadas.',
+    significa: 'Sólo ambiente, entre escena y escena: no tiene análisis ni respuesta.',
+    respaldo: 'Sin notificación.',
+  },
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>Animaciones del lote · Rinde Plus</title>
+    <script is:inline>
+      (function () {
+        var theme = null;
+        try { theme = localStorage.getItem('rp-theme'); } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-rp-theme', theme);
+      })();
+    </script>
+  </head>
+  <body class="rp-home">
+    <main class="anim">
+      <header class="anim__cabecera">
+        <div>
+          <p class="anim__marca">Rinde Plus · página de prueba</p>
+          <h1 class="anim__titulo">Animaciones del lote del hero</h1>
+          <p class="anim__intro">
+            En la home las escenas salen de a una y al azar. Acá están todas a la vez, en bucle, con lo que
+            representa cada una y el texto de su notificación. Esta página no está enlazada desde el sitio ni
+            aparece en buscadores.
+          </p>
+        </div>
+        <div class="anim__acciones">
+          <button type="button" class="anim__boton" data-tema>Cambiar a modo oscuro</button>
+          <button type="button" class="anim__boton" data-repetir-todas>Repetir todas</button>
+        </div>
+      </header>
+
+      <section class="anim__reglas" aria-labelledby="reglas">
+        <h2 id="reglas" class="anim__subtitulo">Qué representa el conjunto</h2>
+        <ul>
+          <li><strong>El lote es uno entre muchos:</strong> uno de los potreros del mosaico de fondo, con su mapa de ambientes (rojo bajo, verde alto).</li>
+          <li><strong>Las escenas recorren la campaña, del plan al cierre</strong>, con los mismos cinco momentos de «Qué hace». El ciclo completo muestra que Rinde Plus acompaña el lote toda la campaña.</li>
+          <li><strong>Cada escena tiene tres tiempos:</strong> la condición (lo que pasa en el lote, 0–2,2 s), el análisis (un barrido azul, 2,2–3,3 s) y la respuesta (la notificación de Rinde Plus, 5,5 s a la vista).</li>
+          <li><strong>El clima no es lo central:</strong> sequía, calor y lluvia son variantes de un solo momento, Acompañar el cultivo, para no parecer una app de alertas climáticas.</li>
+          <li><strong>Sólo se responde con lo que la plataforma hace hoy:</strong> cada notificación sale de una función que ya está en «Qué hace».</li>
+          <li>Las líneas onduladas del lote son <strong>curvas de nivel</strong> (relieve), no viento.</li>
+        </ul>
+      </section>
+
+      <ol class="anim__grilla">
+        {ESCENAS.map((e) => (
+          <li class="anim__tarjeta">
+            <div
+              class="anim__escena"
+              data-escena-prueba={e.escena ?? ''}
+              data-clima-prueba={e.clima ?? ''}
+              data-viento-prueba={e.viento ? '' : undefined}
+            >
+              <LoteMap aria={`Escena: ${e.momento}`} avisos={avisos.es} />
+            </div>
+            <div class="anim__texto">
+              <div class="anim__tarjeta-cabecera">
+                <h2 class="anim__subtitulo">{e.momento}</h2>
+                <button type="button" class="anim__boton anim__boton--chico" data-repetir>Repetir</button>
+              </div>
+              <dl>
+                <dt>En el lote</dt>
+                <dd>{e.lote}</dd>
+                <dt>Qué significa</dt>
+                <dd>{e.significa}</dd>
+                <dt>Notificación</dt>
+                <dd>
+                  {e.aviso ? (
+                    <ul class="anim__avisos">
+                      <li><span>ES</span>{avisos.es[e.aviso]}</li>
+                      <li><span>EN</span>{avisos.en[e.aviso]}</li>
+                      <li><span>PT</span>{avisos.pt[e.aviso]}</li>
+                    </ul>
+                  ) : (
+                    'Ninguna.'
+                  )}
+                </dd>
+                <dt>Respaldo en «Qué hace»</dt>
+                <dd>{e.respaldo}</dd>
+                {e.duda && (
+                  <>
+                    <dt class="anim__duda-titulo">A confirmar</dt>
+                    <dd class="anim__duda">{e.duda}</dd>
+                  </>
+                )}
+              </dl>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </main>
+
+    <script>
+      // Cada tarjeta corre su escena en bucle, con los mismos tiempos que la
+      // home (src/scripts/escenasLote.js): 10,3 s de escena y una pausa.
+      const ESCENA_MS = 10300;
+      const VIENTO_MS = 3400;
+      const PAUSA_MS = 1800;
+
+      const reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const tarjetas = [...document.querySelectorAll<HTMLElement>('.anim__escena')];
+
+      const arrancar = (caja: HTMLElement) => {
+        const figura = caja.querySelector<HTMLElement>('.rp-lote');
+        if (!figura) return;
+        window.clearTimeout(Number(caja.dataset.timer));
+        delete figura.dataset.escena;
+        delete figura.dataset.clima;
+        delete figura.dataset.viento;
+        void figura.offsetWidth; // reinicia las animaciones CSS
+        const viento = caja.dataset.vientoPrueba !== undefined;
+        if (viento) figura.dataset.viento = '';
+        else {
+          if (caja.dataset.climaPrueba) figura.dataset.clima = caja.dataset.climaPrueba;
+          figura.dataset.escena = caja.dataset.escenaPrueba;
+        }
+        const dura = viento ? VIENTO_MS : ESCENA_MS;
+        caja.dataset.timer = String(
+          window.setTimeout(() => {
+            delete figura.dataset.escena;
+            delete figura.dataset.clima;
+            delete figura.dataset.viento;
+            caja.dataset.timer = String(window.setTimeout(() => arrancar(caja), PAUSA_MS));
+          }, dura),
+        );
+      };
+
+      // Espera a que termine el dibujo de entrada del lote.
+      if (!reducido) window.setTimeout(() => tarjetas.forEach(arrancar), 1800);
+
+      document.querySelectorAll<HTMLElement>('[data-repetir]').forEach((boton) => {
+        boton.addEventListener('click', () => {
+          const caja = boton.closest('.anim__tarjeta')?.querySelector<HTMLElement>('.anim__escena');
+          if (caja) arrancar(caja);
+        });
+      });
+
+      document.querySelector('[data-repetir-todas]')?.addEventListener('click', () => tarjetas.forEach(arrancar));
+
+      const botonTema = document.querySelector<HTMLButtonElement>('[data-tema]');
+      const pintarBoton = () => {
+        const oscuro = document.documentElement.dataset.rpTheme === 'dark';
+        if (botonTema) botonTema.textContent = oscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+      };
+      pintarBoton();
+      botonTema?.addEventListener('click', () => {
+        const nuevo = document.documentElement.dataset.rpTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.rpTheme = nuevo;
+        try {
+          localStorage.setItem('rp-theme', nuevo);
+        } catch {
+          /* sin almacenamiento: el tema dura hasta recargar */
+        }
+        pintarBoton();
+      });
+    </script>
+
+    <style>
+      .anim {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: var(--space-400) clamp(16px, 3vw, 40px) var(--space-800);
+        color: var(--gh-fg);
+        font-family: var(--font-body);
+      }
+
+      .anim__cabecera {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        justify-content: space-between;
+        gap: var(--space-200);
+        margin-bottom: var(--space-300);
+      }
+
+      .anim__marca {
+        margin: 0 0 var(--space-50);
+        color: var(--gh-fg-muted);
+        font-size: var(--text-sm);
+      }
+
+      .anim__titulo {
+        margin: 0 0 var(--space-100);
+        font-size: var(--text-3xl, 2rem);
+        line-height: 1.15;
+      }
+
+      .anim__intro {
+        max-width: 64ch;
+        margin: 0;
+        color: var(--gh-fg-muted);
+      }
+
+      .anim__acciones {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-100);
+      }
+
+      .anim__boton {
+        padding: var(--space-75) var(--space-200);
+        border: 1px solid var(--gh-border);
+        border-radius: 999px;
+        background: var(--gh-surface);
+        color: var(--gh-fg);
+        font: inherit;
+        font-size: var(--text-sm);
+        cursor: pointer;
+      }
+
+      .anim__boton:hover { border-color: var(--gh-fg-muted); }
+      .anim__boton--chico { padding: var(--space-25) var(--space-150); }
+
+      .anim__reglas {
+        margin-bottom: var(--space-400);
+        padding: var(--space-200) var(--space-300);
+        border-radius: var(--gh-radius-card);
+        background: var(--gh-surface);
+      }
+
+      .anim__reglas ul {
+        display: grid;
+        gap: var(--space-75);
+        margin: var(--space-100) 0 0;
+        padding-left: 1.2em;
+        color: var(--gh-fg-muted);
+      }
+
+      .anim__reglas strong { color: var(--gh-fg); }
+
+      .anim__subtitulo {
+        margin: 0;
+        font-size: var(--text-lg, 1.125rem);
+        line-height: 1.3;
+      }
+
+      .anim__grilla {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+        gap: var(--space-300);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .anim__tarjeta {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        overflow: hidden;
+        border-radius: var(--gh-radius-card);
+        background: var(--gh-surface);
+      }
+
+      /* Margen para la notificación, que sobresale del lote a la izquierda. */
+      .anim__escena { padding: var(--space-200) var(--space-200) var(--space-100) var(--space-400); }
+
+      .anim__texto { padding: var(--space-100) var(--space-200) var(--space-200); }
+
+      .anim__tarjeta-cabecera {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-100);
+        margin-bottom: var(--space-100);
+      }
+
+      .anim__texto dl { margin: 0; font-size: var(--text-sm); }
+
+      .anim__texto dt {
+        margin-top: var(--space-100);
+        color: var(--gh-fg-muted);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .anim__texto dd { margin: var(--space-25) 0 0; }
+
+      .anim__avisos {
+        display: grid;
+        gap: var(--space-25);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .anim__avisos span {
+        display: inline-block;
+        width: 2.4em;
+        color: var(--gh-fg-muted);
+        font-family: var(--font-mono, monospace);
+        font-size: var(--text-xs);
+      }
+
+      .anim__duda-titulo { color: #a15c00 !important; }
+      .anim__duda { color: var(--gh-fg-muted); }
+      [data-rp-theme='dark'] .anim__duda-titulo { color: #f0b45a !important; }
+    </style>
+  </body>
+</html>

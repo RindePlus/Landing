@@ -14,7 +14,7 @@ const ESCENAS = ['planificar', 'preparar', 'fertilizar', 'acompanar', 'cerrar'];
 // Acompañar muestra una condición de clima al azar.
 const CLIMAS = ['sequia', 'calor', 'lluvia'];
 
-const PRIMERA_MS = 3200; // después del dibujo de entrada del lote
+const PRIMERA_MS = 4600; // después de la entrada del lote (borde, suelo y NDVI)
 const ESCENA_MS = 10300; // --esc-dur (10 s) y un respiro
 const CALMA_MS = 5500; // lote quieto entre escenas
 const VIENTO_MS = 3400; // tres ráfagas escalonadas de 2,6 s

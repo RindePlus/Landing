@@ -18,6 +18,9 @@ import biozelenLogo from '../assets/related companies/biozelen.png';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './TrustedCompanies.css';
 
+// Tamaño general de los logos (sobre las alturas `h` de cada uno).
+const ESCALA = 1.12;
+
 const TrustedCompanies = () => {
   const t = useI18n().dict.trusted;
   const carouselRef = useRef(null);
@@ -28,7 +31,8 @@ const TrustedCompanies = () => {
   // instead of revealing colors.
   // `h` → rendered height in px. Assets are trimmed to their artwork, so
   // these values equalise the *visual area* of each logo (taller for
-  // stacked/square marks, shorter for wide wordmarks).
+  // stacked/square marks, shorter for wide wordmarks). ESCALA agranda todos
+  // por igual sin perder esa proporción entre ellos.
   const companies = [
     { id: 0, logo: altinaLogo, name: 'Altina', h: 41 },
     { id: 1, logo: chiaraviglioLogo, name: 'Chiaraviglio Hnos', h: 46 },
@@ -137,7 +141,7 @@ const TrustedCompanies = () => {
                 <img
                   src={urlDe(company.logo)}
                   alt={company.name}
-                  style={company.h ? { height: `${company.h}px` } : undefined}
+                  style={company.h ? { height: `${Math.round(company.h * ESCALA)}px` } : undefined}
                 />
               </div>
             ))}

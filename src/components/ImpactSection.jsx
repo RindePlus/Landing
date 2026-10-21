@@ -1,18 +1,12 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { LuChevronDown, LuInfo, LuX } from 'react-icons/lu';
+import { LuChevronDown, LuX } from 'react-icons/lu';
 import Reveal from './Reveal';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
 import {
-  ANALISIS_SUELO,
   CIFRAS,
-  HA_CULTIVOS,
-  HA_SIN_CULTIVO,
-  HA_TOTAL,
   HISTORIA,
   IMPACTO_CAMPANA,
-  IMPACTO_FECHA_CORTE,
   AUTOS_EQUIVALENTES,
-  CO2_ESTABLE,
   PORCENTAJE_BRECHAS,
   RANGO_BRECHAS,
   filasImpacto,
@@ -25,7 +19,8 @@ import './ImpactSection.css';
 const NUM_LOCALE = { es: 'es-AR', en: 'en-US', pt: 'pt-BR' };
 
 // Fila de indicadores. Los que tienen `tabla` abren su detalle en el panel
-// de abajo; todos tienen además un ⓘ que abre el modal de cálculo.
+// de abajo. (Los ⓘ con el cálculo de cada número se sacaron: sus textos
+// están en doc/IMPACTO_INFO.md.)
 const INDICADORES = [
   { id: 'hectareas', prefijo: '+', unidad: 'ha' },
   { id: 'grano', prefijo: '+', unidad: 't', tabla: true },
@@ -75,36 +70,19 @@ const ImpactSection = () => {
     const numLocale = NUM_LOCALE[locale] || 'es-AR';
     const fmt = formateador(numLocale);
     const pct = formateadorPct(numLocale);
-    const fecha = new Intl.DateTimeFormat(numLocale, {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      timeZone: 'UTC',
-    }).format(new Date(`${IMPACTO_FECHA_CORTE}T00:00:00Z`));
     return {
       d: {
         campana: IMPACTO_CAMPANA,
-        fecha,
         pct: pct(PORCENTAJE_BRECHAS),
         pctBajo: pct(RANGO_BRECHAS[0]),
         pctAlto: pct(RANGO_BRECHAS[1]),
         granoBajo: fmt(CIFRAS.granoRango[0]),
         granoAlto: fmt(CIFRAS.granoRango[1]),
         autos: fmt(AUTOS_EQUIVALENTES),
-        sinCultivoPct: pct(HA_SIN_CULTIVO / HA_TOTAL),
-        cultivosPct: pct(HA_CULTIVOS / HA_TOTAL),
-        sueloTotal: fmt(ANALISIS_SUELO),
         historia: fmt(CIFRAS.historia),
-        historiaHa: fmt(HISTORIA.hectareas),
-        ciclos: fmt(HISTORIA.ciclos),
-        lotes: fmt(HISTORIA.lotes),
-        empresas: fmt(HISTORIA.empresas),
         campanas: HISTORIA.campanas,
         desde: HISTORIA.desde,
         hasta: HISTORIA.hasta,
-        enCurso: HISTORIA.enCurso,
-        haUnicas: fmt(HISTORIA.hectareasUnicas),
-        co2Estable: fmt(CO2_ESTABLE),
       },
       filas: filasImpacto(fmt, pct, t.cultivos, t.total),
       valores: Object.fromEntries(INDICADORES.map((i) => [i.id, `${i.prefijo}${fmt(CIFRAS[i.id])}`])),
@@ -121,8 +99,8 @@ const ImpactSection = () => {
   const [pista, setPista] = useState(false);
   const pistaTimer = useRef(0);
   const listaRef = useRef(null);
-  const seccionRef = useRef(null);
-  const habiaTabla = useRef(false);
+  // Dónde estaban los indicadores en pantalla antes de abrir o cerrar.
+  const anclaTop = useRef(null);
 
   const cancelarPista = () => {
     window.clearTimeout(pistaTimer.current);
@@ -140,6 +118,7 @@ const ImpactSection = () => {
 
   const alternar = (id) => {
     cancelarPista();
+    anclaTop.current = listaRef.current?.getBoundingClientRect().top ?? null;
     if (abierto === id) {
       setAbierto(null);
       return;
@@ -161,28 +140,47 @@ const ImpactSection = () => {
     }
   }, [abierto, instant]);
 
-  // Al abrir la primera tabla o al cerrar la última, el título se pliega o
-  // vuelve: la sección se alinea arriba (debajo del header) para que
-  // indicadores, tabla y pie queden enteros a la vista. Sólo en pantallas
-  // horizontales donde entra; en celular la sección sigue el scroll normal.
+  // Al abrir la primera tabla o cerrar la última, el título se pliega o
+  // vuelve. La vista no se mueve: mientras dura el pliegue se compensa el
+  // scroll para que los indicadores queden donde estaban en pantalla (sin
+  // esto, subían de golpe bajo el mouse). Si la persona scrollea, se suelta.
   useEffect(() => {
-    const hayTabla = abierto !== null;
-    if (hayTabla === habiaTabla.current) return;
-    habiaTabla.current = hayTabla;
-    const seccion = seccionRef.current;
-    if (!seccion) return;
-    const entra = window.matchMedia('(min-width: 900px) and (min-height: 560px) and (orientation: landscape)');
-    if (!entra.matches) return;
-    const suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    seccion.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+    const destino = anclaTop.current;
+    anclaTop.current = null;
+    const lista = listaRef.current;
+    if (destino == null || !lista) return undefined;
+    const raiz = document.documentElement;
+    raiz.setAttribute('data-scroll-quieto', '');
+    const fin = performance.now() + 1100; // --imp-despliegue y un margen
+    let raf = 0;
+    const soltar = () => {
+      window.cancelAnimationFrame(raf);
+      window.removeEventListener('wheel', soltar);
+      window.removeEventListener('touchstart', soltar);
+      window.removeEventListener('keydown', soltar);
+      // Un cuadro más, para que el header vea el último scroll compensado.
+      window.requestAnimationFrame(() => raiz.removeAttribute('data-scroll-quieto'));
+    };
+    const paso = () => {
+      const diferencia = lista.getBoundingClientRect().top - destino;
+      if (Math.abs(diferencia) >= 0.5) window.scrollBy({ top: diferencia, behavior: 'instant' });
+      if (performance.now() < fin) raf = window.requestAnimationFrame(paso);
+      else soltar();
+    };
+    window.addEventListener('wheel', soltar, { passive: true });
+    window.addEventListener('touchstart', soltar, { passive: true });
+    window.addEventListener('keydown', soltar);
+    paso();
+    return soltar;
   }, [abierto]);
 
   useEffect(() => {
     if (!abierto) return undefined;
     const onResize = () => ubicarFlecha(abierto);
-    // Escape cierra el panel, salvo que el Escape sea del modal.
+    // Escape cierra el panel.
     const onKey = (e) => {
-      if (e.key !== 'Escape' || document.querySelector('dialog[open]')) return;
+      if (e.key !== 'Escape') return;
+      anclaTop.current = listaRef.current?.getBoundingClientRect().top ?? null;
       const origen = botonesRef.current[abierto];
       setAbierto(null);
       origen?.focus();
@@ -217,6 +215,7 @@ const ImpactSection = () => {
   }, []);
 
   const cerrarPanel = () => {
+    anclaTop.current = listaRef.current?.getBoundingClientRect().top ?? null;
     const origen = botonesRef.current[abierto];
     setAbierto(null);
     origen?.focus();
@@ -229,41 +228,8 @@ const ImpactSection = () => {
     return i < v ? 'antes' : i > v ? 'despues' : 'activo';
   };
 
-  /* ---- Modal de cálculo (dialog nativo) ---- */
-
-  const [modal, setModal] = useState(null);
-  const dialogRef = useRef(null);
-  const abridorRef = useRef(null);
-
-  const abrirModal = (id, e) => {
-    abridorRef.current = e.currentTarget;
-    setModal(id);
-  };
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!modal || !dialog || dialog.open) return;
-    dialog.showModal();
-    // La página de fondo no scrollea mientras el modal está abierto.
-    document.documentElement.classList.add('rp-modal-open');
-  }, [modal]);
-
-  const onDialogClose = () => {
-    document.documentElement.classList.remove('rp-modal-open');
-    setModal(null);
-    abridorRef.current?.focus();
-  };
-
-  // Clic en el backdrop: el dialog no tiene padding propio, así que un clic
-  // con target en el dialog mismo cae fuera del contenido.
-  const onDialogClick = (e) => {
-    if (e.target === e.currentTarget) dialogRef.current?.close();
-  };
-
-  const m = modal ? t.modal[modal] : null;
-
   return (
-    <section className={`rp-impacto${abierto ? ' is-tabla' : ''}`} id="impacto" ref={seccionRef}>
+    <section className={`rp-impacto${abierto ? ' is-tabla' : ''}`} id="impacto">
       {/* Con una tabla abierta (.is-tabla) el título se pliega y los
           indicadores suben: indicadores, tabla y pie entran en la pantalla
           sin bajar la vista. La bajada queda. Como en VigIA. */}
@@ -305,15 +271,6 @@ const ImpactSection = () => {
                 ) : (
                   <div className="rp-impact__ind">{contenido}</div>
                 )}
-                <button
-                  type="button"
-                  className="rp-impact__info"
-                  aria-label={t.info(t.modal[ind.id].titulo(d))}
-                  title={t.info(t.modal[ind.id].titulo(d))}
-                  onClick={(e) => abrirModal(ind.id, e)}
-                >
-                  <LuInfo aria-hidden="true" />
-                </button>
               </li>
             );
           })}
@@ -364,64 +321,9 @@ const ImpactSection = () => {
       </div>
 
       <div className="rp-impact__pie">
-        <p className="rp-impact__pie-linea">
-          {t.pie.linea(d)}
-          <button
-            type="button"
-            className="rp-impact__info rp-impact__info--inline"
-            aria-label={t.info(t.modal.historia.titulo(d))}
-            title={t.info(t.modal.historia.titulo(d))}
-            onClick={(e) => abrirModal('historia', e)}
-          >
-            <LuInfo aria-hidden="true" />
-          </button>
-        </p>
-        <p className="rp-impact__fuente">{t.pie.fuente(d)}</p>
+        <p className="rp-impact__pie-linea">{t.pie.linea(d)}</p>
       </div>
 
-      <dialog
-        ref={dialogRef}
-        className="rp-impact__modal"
-        aria-labelledby="rp-impact-modal-title"
-        onClose={onDialogClose}
-        onClick={onDialogClick}
-      >
-        {m && (
-          <div className="rp-impact__modal-body">
-            <div className="rp-impact__modal-head">
-              <h3 id="rp-impact-modal-title">{m.titulo(d)}</h3>
-              <button
-                type="button"
-                className="rp-impact__cerrar"
-                aria-label={t.modal.cerrar}
-                onClick={() => dialogRef.current?.close()}
-              >
-                <LuX aria-hidden="true" />
-              </button>
-            </div>
-            <h4>{t.modal.bloques.mide}</h4>
-            <p>{m.mide(d)}</p>
-            {modal === 'hectareas' && (
-              <>
-                <h4>{t.modal.bloques.compone}</h4>
-                <Tabla columnas={m.columnas} filas={filas.hectareas} />
-              </>
-            )}
-            {m.calcula && (
-              <>
-                <h4>{t.modal.bloques.calcula}</h4>
-                <p>{m.calcula(d)}</p>
-              </>
-            )}
-            {m.cuenta && (
-              <>
-                <h4>{t.modal.bloques.cuenta}</h4>
-                <p>{m.cuenta(d)}</p>
-              </>
-            )}
-          </div>
-        )}
-      </dialog>
     </section>
   );
 };

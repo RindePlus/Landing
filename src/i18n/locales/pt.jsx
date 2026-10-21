@@ -25,8 +25,8 @@ const pt = {
     nav: {
       home: 'Início',
       impact: 'Impacto',
-      campaign: 'O que faz',
-      why: 'Por que Rinde Plus',
+      campaign: 'Plataforma',
+      why: 'Vantagens',
     },
     themeDark: 'Modo escuro',
     themeLight: 'Modo claro',
@@ -85,7 +85,6 @@ const pt = {
     },
     pista: 'Os indicadores com seta abrem o detalhe por cultura',
     cerrar: 'Fechar detalhe',
-    info: (titulo) => `Como se calcula: ${titulo}`,
     cultivos: { maiz: 'Milho', soja: 'Soja', trigo: 'Trigo', girasol: 'Girassol', otros: 'Outras culturas' },
     total: 'Total',
     tablas: {
@@ -104,48 +103,6 @@ const pt = {
     },
     pie: {
       linea: (d) => `+${d.historia} ha de dados produtivos em ${d.campanas} safras (${d.desde} a ${d.hasta})`,
-      fuente: (d) => `Dados da base da Rinde Plus em ${d.fecha}. O botão ⓘ de cada número explica como se calcula.`,
-    },
-    modal: {
-      cerrar: 'Fechar',
-      bloques: { mide: 'O que mede', calcula: 'Como se calcula', compone: 'Composição', cuenta: 'Para levar em conta' },
-      hectareas: {
-        titulo: (d) => `Hectares monitorados na última safra (${d.campana})`,
-        mide: () => 'A área que a Rinde Plus monitorou na última safra completa.',
-        columnas: ['Cultura', 'Hectares', '%'],
-        cuenta: () => 'À área sem cultura cadastrada foi atribuída a mesma proporção de culturas que ao restante.',
-      },
-      grano: {
-        titulo: () => 'Grão extra pelo manejo de lacunas',
-        mide: () =>
-          'O grão que se soma em milho, soja, trigo e girassol ao decidir com a análise de lacunas da Rinde Plus.',
-        calcula: (d) =>
-          `Para cada cultura: hectares de ${d.campana} × produtividade média registrada × ${d.pct}. A Rinde Plus estima que entre ${d.pctBajo} e ${d.pctAlto} da produtividade dos talhões com manejo de lacunas se deve a esse manejo; aqui se usa ${d.pct}, na parte baixa da faixa. Com ${d.pctBajo} seriam cerca de ${d.granoBajo} t; com ${d.pctAlto}, cerca de ${d.granoAlto} t.`,
-        cuenta: (d) =>
-          `É uma estimativa sobre a produtividade média de cada cultura, não uma medição talhão por talhão. À área sem cultura cadastrada (${d.sinCultivoPct}) foi atribuída a mesma proporção de culturas que ao restante. Entram milho, soja, trigo e girassol (${d.cultivosPct} da área); arroz e culturas menores ficam de fora.`,
-      },
-      carbono: {
-        titulo: () => 'CO₂ extra no solo',
-        mide: () => 'O carbono extra que esse grão extra deixa no solo, pela palhada e pelas raízes.',
-        calcula: () =>
-          'Grão extra de cada cultura × coeficientes de carbono por tonelada. Para milho, soja e trigo são os mesmos que a VigIA usa, tirados do seu relatório técnico; os do girassol foram calculados com o mesmo método, com seu índice de colheita. O número em destaque é a coluna «Fica estável».',
-        cuenta: () =>
-          'É uma estimativa por coeficientes, não uma medição de carbono no solo de cada talhão, e não constitui um certificado de créditos de carbono.',
-      },
-      suelo: {
-        titulo: () => 'Análises de solo interpretadas',
-        mide: (d) =>
-          `Quantos ambientes de ${d.campana} têm uma análise de solo cadastrada (fósforo, matéria orgânica, pH e outros) que a plataforma interpreta para o diagnóstico e a adubação.`,
-        calcula: (d) => `Contam-se os ambientes com pelo menos um desses valores (${d.sueloTotal}).`,
-      },
-      historia: {
-        titulo: () => 'Histórico de dados',
-        mide: () => 'A área com dados produtivos acumulada na base.',
-        calcula: (d) =>
-          `Cada vez que um talhão tem dados numa safra, sua área é somada. São ${d.historiaHa} ha em ${d.ciclos} ciclos produtivos de ${d.lotes} talhões de ${d.empresas} empresas, entre ${d.desde} e ${d.hasta}. A safra em curso, ${d.enCurso}, não é contada.`,
-        cuenta: (d) =>
-          `Um talhão com dados em 10 safras conta 10 vezes; contando cada talhão uma só vez, a área é de cerca de ${d.haUnicas} ha.`,
-      },
     },
   },
 
@@ -236,27 +193,23 @@ const pt = {
     items: [
       {
         title: 'O seu talhão, não a média',
-        copy: 'Cada decisão parte do clima, do solo e do histórico do talhão, não do que é típico da região.',
-        detail:
-          'Cada talhão, desenhado sobre imagem de satélite com seus ambientes, cruza clima, solo e histórico produtivo. Dois talhões vizinhos podem pedir decisões diferentes.',
+        copy: 'Cada decisão parte do clima, do solo e do histórico daquele talhão, não do que é típico da região.',
+        detail: 'Desenhado sobre imagem de satélite com seus ambientes. Dois talhões vizinhos podem pedir decisões diferentes.',
       },
       {
-        title: 'A análise já está feita',
-        copy: 'Sem cruzar clima, produtividade e solo à mão em planilhas: o tempo fica para decidir.',
-        detail:
-          'Clima, solo, ambientes, monitoramento e histórico de cada talhão, num mesmo lugar. Mais talhões, sem perder profundidade.',
+        title: 'Mais talhões, sem perder detalhe',
+        copy: 'Clima, solo, ambientes, monitoramento e histórico já cruzados num só lugar, sem montar planilhas.',
+        detail: 'O tempo que ia em juntar dados fica para percorrer o campo e decidir.',
       },
       {
         title: 'O que fazer e quando',
-        copy: 'Mais que o talhão num mapa: o que vale fazer e em que momento.',
-        detail:
-          'Uma recomendação para cada talhão, com alertas de clima, doenças e fitotoxicidade e avisos diários pelo WhatsApp.',
+        copy: 'Não só ver o talhão num mapa: saber o que vale fazer e em que momento.',
+        detail: 'Alertas de clima, doenças e fitotoxicidade, e um aviso diário pelo WhatsApp que pode ser respondido.',
       },
       {
         title: 'Independente',
-        copy: 'A Rinde Plus não vende insumos: às vezes a melhor decisão é não aplicar.',
-        detail:
-          'Antes de aplicar, a conta do talhão à vista: se a aplicação se paga, vale; se não, às vezes o melhor é não fazer nada.',
+        copy: 'A Rinde Plus não vende insumos: às\u00a0vezes a melhor decisão é não aplicar.',
+        detail: 'Antes de aplicar, a simulação com os preços do talhão mostra se a dose se paga.',
       },
     ],
   },
@@ -307,7 +260,7 @@ const pt = {
     lead: 'Fotos',
     via: 'via Wikimedia Commons',
     photos: [
-      'Pampa úmido visto por satélite, INPE',
+      'Talhões do pampa vistos do avião, Murray Foubister',
       'Plantação de soja na Argentina, Alfonso',
       'Girassol do pampa, Emilio Küffer',
       'Colheita de soja, Clasonsf',

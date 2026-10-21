@@ -25,8 +25,8 @@ const en = {
     nav: {
       home: 'Home',
       impact: 'Impact',
-      campaign: 'What it does',
-      why: 'Why Rinde Plus',
+      campaign: 'Platform',
+      why: 'Benefits',
     },
     themeDark: 'Dark mode',
     themeLight: 'Light mode',
@@ -85,7 +85,6 @@ const en = {
     },
     pista: 'Figures with an arrow open the breakdown by crop',
     cerrar: 'Close breakdown',
-    info: (titulo) => `How it is calculated: ${titulo}`,
     cultivos: { maiz: 'Corn', soja: 'Soybean', trigo: 'Wheat', girasol: 'Sunflower', otros: 'Other crops' },
     total: 'Total',
     tablas: {
@@ -104,48 +103,6 @@ const en = {
     },
     pie: {
       linea: (d) => `+${d.historia} ha of production data over ${d.campanas} seasons (${d.desde} to ${d.hasta})`,
-      fuente: (d) => `Data from the Rinde Plus database as of ${d.fecha}. The ⓘ button on each figure explains how it is calculated.`,
-    },
-    modal: {
-      cerrar: 'Close',
-      bloques: { mide: 'What it measures', calcula: 'How it is calculated', compone: 'Breakdown', cuenta: 'Keep in mind' },
-      hectareas: {
-        titulo: (d) => `Hectares monitored in the latest season (${d.campana})`,
-        mide: () => 'The area Rinde Plus monitored in the latest complete season.',
-        columnas: ['Crop', 'Hectares', '%'],
-        cuenta: () => 'Area with no crop recorded was assigned the same crop mix as the rest.',
-      },
-      grano: {
-        titulo: () => 'Extra grain from yield gap management',
-        mide: () =>
-          'The grain added in corn, soybean, wheat and sunflower by deciding with Rinde Plus yield gap analysis.',
-        calcula: (d) =>
-          `For each crop: ${d.campana} hectares × recorded average yield × ${d.pct}. Rinde Plus estimates that between ${d.pctBajo} and ${d.pctAlto} of the yield of fields under yield gap management comes from that management; ${d.pct} is used here, at the low end of the range. At ${d.pctBajo} it would be about ${d.granoBajo} t; at ${d.pctAlto}, about ${d.granoAlto} t.`,
-        cuenta: (d) =>
-          `It is an estimate on each crop’s average yield, not a field-by-field measurement. Area with no crop recorded (${d.sinCultivoPct}) was assigned the same crop mix as the rest. Corn, soybean, wheat and sunflower are included (${d.cultivosPct} of the area); rice and minor crops are not.`,
-      },
-      carbono: {
-        titulo: () => 'Extra CO₂ in the soil',
-        mide: () => 'The extra carbon that extra grain leaves in the soil, through stubble and roots.',
-        calcula: () =>
-          'Extra grain of each crop × carbon coefficients per tonne. For corn, soybean and wheat they are the same ones VigIA uses, taken from its technical report; sunflower’s were calculated with the same method, using its harvest index. The highlighted figure is the “Stays stable” column.',
-        cuenta: () =>
-          'It is an estimate based on coefficients, not a measurement of soil carbon in each field, and it is not a carbon credit certificate.',
-      },
-      suelo: {
-        titulo: () => 'Soil tests interpreted',
-        mide: (d) =>
-          `How many ${d.campana} management zones have a soil test on record (phosphorus, organic matter, pH and more) that the platform interprets for diagnosis and fertilization.`,
-        calcula: (d) => `Zones with at least one of those values are counted (${d.sueloTotal}).`,
-      },
-      historia: {
-        titulo: () => 'Data history',
-        mide: () => 'The area with production data accumulated in the database.',
-        calcula: (d) =>
-          `Each time a field has data in a season, its area is added. That is ${d.historiaHa} ha across ${d.ciclos} production cycles on ${d.lotes} fields from ${d.empresas} companies, between ${d.desde} and ${d.hasta}. The current season, ${d.enCurso}, is not counted.`,
-        cuenta: (d) =>
-          `A field with data in 10 seasons counts 10 times; counting each field once, the area is about ${d.haUnicas} ha.`,
-      },
     },
   },
 
@@ -236,27 +193,23 @@ const en = {
     items: [
       {
         title: 'Your field, not the average',
-        copy: 'Every decision starts from the field’s weather, soil and history, not from what is typical for the area.',
-        detail:
-          'Each field, drawn on satellite imagery with its management zones, combines weather, soil and yield history. Two neighboring fields can call for different decisions.',
+        copy: 'Every decision starts from that field’s weather, soil and history, not from what is typical for the area.',
+        detail: 'Drawn on satellite imagery with its management zones. Two neighboring fields can call for different decisions.',
       },
       {
-        title: 'The analysis is already done',
-        copy: 'No more crossing weather, yields and soil by hand in spreadsheets: the time goes to deciding.',
-        detail:
-          'Weather, soil, zones, scouting and history of every field, in one place. More fields, without losing depth.',
+        title: 'More fields, no less detail',
+        copy: 'Weather, soil, zones, scouting and history already combined in one place, with no spreadsheets to build.',
+        detail: 'The time that went into gathering data goes back to walking the fields and deciding.',
       },
       {
         title: 'What to do and when',
-        copy: 'More than a field on a map: what is worth doing and when.',
-        detail:
-          'A recommendation for every field, with weather, disease and crop injury alerts and daily WhatsApp notices.',
+        copy: 'Not just seeing the field on a map: knowing what is worth doing and when.',
+        detail: 'Weather, disease and crop injury alerts, and a daily WhatsApp notice you can reply to.',
       },
       {
         title: 'Independent',
         copy: 'Rinde Plus does not sell inputs: sometimes the best decision is not to apply.',
-        detail:
-          'Before applying, the field’s numbers in view: if the application pays, it is worth it; if not, sometimes the best move is to do nothing.',
+        detail: 'Before applying, a simulation with the field’s prices shows whether the rate pays off.',
       },
     ],
   },
@@ -307,7 +260,7 @@ const en = {
     lead: 'Photos',
     via: 'via Wikimedia Commons',
     photos: [
-      'Argentina’s Wet Pampa seen from space, INPE',
+      'Pampas fields from the air, Murray Foubister',
       'Soybean field in Argentina, Alfonso',
       'Pampas sunflower, Emilio Küffer',
       'Soybean harvest, Clasonsf',

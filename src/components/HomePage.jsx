@@ -6,8 +6,8 @@ import LoteMap from './LoteMap';
 import { whatsappUrl } from '../data/social';
 import { urlDe } from '../data/imagen';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
-import pampaSat from '../assets/campo/pampa-satelital.webp';
-import pampaSatSm from '../assets/campo/pampa-satelital-960.webp';
+import pampaAvion from '../assets/campo/pampa-avion.webp';
+import pampaAvionSm from '../assets/campo/pampa-avion-1100.webp';
 import sojaAtardecer from '../assets/campo/soja-atardecer.webp';
 import sojaAtardecerSm from '../assets/campo/soja-atardecer-1100.webp';
 import girasolTormenta from '../assets/campo/girasol-tormenta.webp';
@@ -20,9 +20,9 @@ import './HomePage.css';
 
 // Fotos del slider "Por qué Rinde Plus", en el orden de dict.benefits.items.
 const BENEFIT_PHOTOS = [
-  { id: 'lote', src: pampaSat, srcSm: pampaSatSm, w: 960, pos: '35% 45%' },
-  { id: 'analisis', src: girasolTormenta, srcSm: girasolTormentaSm, w: 1100, pos: '50% 70%' },
-  { id: 'cuando', src: sojaAtardecer, srcSm: sojaAtardecerSm, w: 1100, pos: '50% 60%' },
+  { id: 'lote', src: pampaAvion, srcSm: pampaAvionSm, w: 1100, pos: '50% 50%' },
+  { id: 'detalle', src: sojaAtardecer, srcSm: sojaAtardecerSm, w: 1100, pos: '50% 60%' },
+  { id: 'cuando', src: girasolTormenta, srcSm: girasolTormentaSm, w: 1100, pos: '50% 70%' },
   { id: 'independiente', src: cosechaSoja, srcSm: cosechaSojaSm, w: 1100, pos: '60% 55%' },
 ];
 
@@ -71,7 +71,7 @@ const HeroSection = () => {
 // (Wikimedia Commons, CC BY-SA; créditos al pie del footer). Avanza solo
 // con la sección en pantalla y la pestaña visible; con reduced-motion no
 // avanza solo. Flechas, barras, teclado y deslizar para moverse.
-const SLIDE_MS = 7000;
+const SLIDE_MS = 15000;
 
 const BenefitsSection = () => {
   const t = useI18n().dict.benefits;
@@ -148,6 +148,8 @@ const BenefitsSection = () => {
         aria-label={t.aria}
         onKeyDown={onKeyDown}
       >
+        {/* Rótulo de la sección: sin él, quien llega bajando no sabe qué es. */}
+        <h2 className="rp-benefit-slider__rotulo">{t.aria}</h2>
         <ol className="rp-benefit-slider__stage">
           {t.items.map((b, i) => (
             <li

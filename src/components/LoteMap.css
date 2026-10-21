@@ -224,44 +224,40 @@
   14%, 100% { opacity: 0; transform: scale(1.6); }
 }
 
-/* ---- Fertilizar: mapa de prescripción, un azul por ambiente ----
-   Azules casi opacos, como un mapa de prescripción de verdad: sobre el
-   verde y el naranja, un azul translúcido ensuciaba el lote. */
-.rp-esc__dosis { opacity: 0; }
+/* ---- Fertilizar: mapa de prescripción en celdas ----
+   Celdas sobre un fondo claro, como una prescripción de dosis variable:
+   una grilla con tres azules (más oscuro, más dosis) en vez de un lavado
+   celeste parejo. Se cargan de a columnas, como pasadas. */
+.rp-esc__celdas-fondo { fill: #ffffff; opacity: 0; }
+[data-rp-theme='dark'] .rp-esc__celdas-fondo { fill: #1f1f1f; }
 
-/* Más oscuro, más dosis. */
-.rp-esc__dosis--1 { --k: 0; fill: #c3d6f7; }
-.rp-esc__dosis--2 { --k: 1; fill: #7ea6ec; }
-.rp-esc__dosis--3 { --k: 2; fill: #2f62cf; }
+.rp-lote[data-escena='fertilizar'] .rp-esc__celdas-fondo {
+  animation: rp-esc-celdas-fondo 6s ease-out 0.2s both;
+}
 
-.rp-esc__gota-dosis {
-  fill: #ffffff;
-  stroke: #1d4aa8;
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
+@keyframes rp-esc-celdas-fondo {
+  0% { opacity: 0; }
+  6%, 100% { opacity: 0.9; }
+}
+
+.rp-esc__celda {
   opacity: 0;
   transform-box: fill-box;
-  transform-origin: center bottom;
+  transform-origin: center;
 }
 
-.rp-lote[data-escena='fertilizar'] .rp-esc__dosis {
-  animation: rp-esc-dosis 6s ease-out both;
-  animation-delay: calc(0.3s + var(--k) * 0.6s);
+.rp-esc__celda--1 { fill: #c3d6f7; }
+.rp-esc__celda--2 { fill: #7ea6ec; }
+.rp-esc__celda--3 { fill: #2f62cf; }
+
+.rp-lote[data-escena='fertilizar'] .rp-esc__celda {
+  animation: rp-esc-celda 6s var(--ease-fluid) both;
+  animation-delay: calc(0.2s + var(--c) * 0.12s);
 }
 
-.rp-lote[data-escena='fertilizar'] .rp-esc__gota-dosis {
-  animation: rp-esc-gota-dosis 6s var(--ease-fluid) both;
-  animation-delay: calc(0.3s + var(--k) * 0.6s);
-}
-
-@keyframes rp-esc-dosis {
-  0% { opacity: 0; }
-  10%, 100% { opacity: 0.88; }
-}
-
-@keyframes rp-esc-gota-dosis {
-  0% { opacity: 0; transform: translateY(-18px) scale(0.6); }
-  8%, 100% { opacity: 1; transform: none; }
+@keyframes rp-esc-celda {
+  0% { opacity: 0; transform: scale(0.5); }
+  6%, 100% { opacity: 1; transform: none; }
 }
 
 /* ---- Acompañar, sequía: el terreno se pone anaranjado ---- */
@@ -342,7 +338,7 @@
 
 /* ---- Acompañar, lluvia: cruza una llovizna y el verde se aviva ---- */
 .rp-esc__nublado { fill: #5d6b78; opacity: 0; }
-.rp-esc__verdor { fill: var(--rp-zone-high); opacity: 0; }
+.rp-esc__verdor { fill: var(--rp-mapa-high2); opacity: 0; }
 
 .rp-esc__gota {
   stroke: #ffffff;
@@ -384,16 +380,20 @@
 }
 
 /* ---- Cerrar: la cosechadora pasa y deja el mapa de rinde ---- */
-/* Colores de mapa de rinde: verde (alto), amarillo (medio), naranja
-   (bajo). Iguales en los dos temas: es un mapa, como los ambientes. */
-.rp-lote__rinde--high { fill: #2e7d32; }
-.rp-lote__rinde--mid { fill: #c7d455; }
+/* Colores de mapa de rinde, de rojo (bajo) a verde (alto), más saturados
+   que los del mapa de ambientes para que se note que es otro mapa: el de
+   la cosecha, en bloques como los datos del monitor de rinde. Iguales en
+   los dos temas. */
+.rp-lote__rinde--low2 { fill: #c8412f; }
 .rp-lote__rinde--low { fill: #e0782f; }
+.rp-lote__rinde--mid { fill: #e2cc3e; }
+.rp-lote__rinde--high { fill: #8cc152; }
+.rp-lote__rinde--high2 { fill: #2e7d32; }
 
 /* Cada pasada descubre su franja del mapa (clip-path, así el mapa no se
    estira) con una línea fina, como el rastro de la cosechadora. */
 .rp-esc__pasada {
-  opacity: 0.88;
+  opacity: 0.95;
   stroke: rgba(255, 255, 255, 0.35);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;

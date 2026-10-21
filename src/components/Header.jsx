@@ -10,12 +10,12 @@ import { conIdioma, useI18n } from '../i18n/I18nContext';
 import { HOME_PATH, LOCALES, LOCALE_LABELS } from '../i18n/config';
 import './Header.css';
 
-// Header con la estética de la landing de VigIA: logo a la izquierda, menú
+// Header con la estética de la landing de VigIA: menú a la izquierda, logo
 // al centro y acciones a la derecha. Arriba de todo es transparente; al
 // bajar toma un fondo translúcido con una línea fina, se oculta al seguir
-// bajando y vuelve con un gesto corto hacia arriba.
+// bajando y vuelve al subir un tramo sostenido (no con un toque sin querer).
 const HIDE_DISTANCE = 120;
-const SHOW_DISTANCE = 8;
+const SHOW_DISTANCE = 120;
 const TOP_ZONE = 160;
 
 // Selector de idioma: cada opción es un enlace a la home en el otro idioma.
@@ -97,8 +97,8 @@ const Header = () => {
 
   // Ocultar al bajar / mostrar al subir, fondo al bajar, sección activa y
   // alto del header (--alto-header, para scroll-margin-top en index.css).
-  // Para ocultarse exige un recorrido hacia abajo sostenido; para volver
-  // basta un gesto corto hacia arriba.
+  // Tanto para ocultarse como para volver exige un recorrido sostenido en
+  // esa dirección: un scroll corto sin querer no lo mueve.
   useEffect(() => {
     let lastY = window.scrollY;
     let anchorY = lastY; // donde empezó el tramo actual en una misma dirección
@@ -109,15 +109,16 @@ const Header = () => {
       .map((item) => ({ id: item.id, el: document.getElementById(item.id) }))
       .filter((s) => s.el);
 
-    // Activa: la última sección cuyo borde superior ya pasó el 35 % de la
-    // ventana.
+    // Activa: la sección del menú que cruza el 35 % de la ventana (si se
+    // superponen, la de más abajo, que es la que va entrando). En las que no
+    // están en el menú (contacto, app, footer) no se marca ninguna.
     const seccionActiva = () => {
       const linea = window.innerHeight * 0.35;
-      let activa = null;
-      for (const s of secciones) {
-        if (s.el.getBoundingClientRect().top <= linea) activa = s.id;
-      }
-      return activa;
+      const activa = secciones.findLast((s) => {
+        const r = s.el.getBoundingClientRect();
+        return r.top <= linea && r.bottom > linea;
+      });
+      return activa ? activa.id : null;
     };
 
     const update = () => {
@@ -132,6 +133,17 @@ const Header = () => {
         }),
       );
       setActiveId(seccionActiva());
+
+      // Scroll que hace la página sola (data-scroll-quieto en <html>, por
+      // ejemplo Impacto al plegar el título): el header no se muestra ni se
+      // oculta; el tramo se mide de nuevo desde donde termina.
+      if (document.documentElement.hasAttribute('data-scroll-quieto')) {
+        direction = 0;
+        anchorY = y;
+        lastY = y;
+        ticking = false;
+        return;
+      }
 
       const nextDirection = Math.sign(y - lastY);
       if (nextDirection !== 0 && nextDirection !== direction) {

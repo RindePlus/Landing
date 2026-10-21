@@ -70,7 +70,12 @@ const lang = idiomaDe(Astro.currentLocale);
     })();
   </script>
   <ImpactSection client:visible lang={lang} />
-  <Functionalities client:visible lang={lang} />
+  <!-- client:load y no client:visible: al hidratarse, el carrusel fijo
+       calcula su alto (el tramo de scroll de los paneles) y empuja todo lo
+       que viene después. Si se hidrata a mitad de un scroll o de un salto
+       del menú, la página cambia de alto en el medio y se llega a otro lado
+       (y "Por qué Rinde Plus" queda fuera de pantalla sin activarse). -->
+  <Functionalities client:load lang={lang} />
   <Benefits client:visible lang={lang} />
   <CtaFinal lang={lang} />
   <InstallApp lang={lang} />

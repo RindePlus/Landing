@@ -60,11 +60,13 @@
 
 .rp-fx__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.9rem, 4vw, 3rem);
+  /* Mismo tamaño que el de «Hablemos de tus lotes»; azul marino de la marca
+     (en oscuro, --rp-marino pasa a crema). */
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.08;
-  color: var(--gh-fg);
+  color: var(--rp-marino);
   margin: 0 0 28px;
   text-wrap: balance;
 }

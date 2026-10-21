@@ -1,8 +1,10 @@
 import { LOTE_HERO } from './LotesMosaic';
+import { AMB_ALTO, AMB_BAJO, AMB_MEDIO, BORDES, MAPA, NIVELES, nivelEn } from '../data/loteMapa';
 import './LoteMap.css';
 
-/* Lote de ejemplo del hero: un potrero con tres ambientes (colores de mapa
-   de rinde), surcos de siembra y curvas de nivel.
+/* Lote de ejemplo del hero: un potrero con su mapa de ambientes (manchas de
+   rojo a verde, en src/data/loteMapa.js), surcos de siembra y curvas de
+   nivel.
    Es uno de los potreros del fondo (LOTE_HERO, en LotesMosaic.jsx): se
    dibuja en sus mismas coordenadas, así el script de HomeView.astro puede
    correr el fondo para que coincidan.
@@ -14,7 +16,7 @@ import './LoteMap.css';
    cuál corre (data-escena / data-clima en la figura) y LoteMap.css la
    anima. Qué representa cada una: doc/ANIMACION_LOTE.md.
 
-   Colores en HomePage.css y LoteMap.css (tokens --rp-zone-* y demás) para
+   Colores en HomePage.css y LoteMap.css (tokens --rp-mapa-* y demás) para
    que flipeen en dark; `var()` no funciona en atributos de presentación
    SVG. */
 
@@ -25,19 +27,6 @@ const VIEWBOX = `${bbox.x - PAD} ${bbox.y - PAD} ${bbox.w + PAD * 2} ${bbox.h + 
 // Los ambientes, las curvas y las escenas están dibujados en un lienzo de
 // 520 × 430: se estiran sobre la caja del lote.
 const LIENZO = `translate(${bbox.x} ${bbox.y}) scale(${bbox.w / 520} ${bbox.h / 430})`;
-
-// Ambientes en el lienzo de 520 × 430.
-const AMB_ALTO = 'M170 0 C 214 86, 316 128, 410 146 C 462 156, 502 190, 540 214 V0 Z';
-const AMB_BAJO = 'M0 236 C 84 218, 156 262, 194 326 C 216 364, 228 398, 236 440 H0 Z';
-const AMB_BAJO_2 = 'M316 262 C 334 232, 392 228, 414 252 C 432 274, 404 300, 366 302 C 332 304, 302 286, 316 262 Z';
-// El ambiente medio es el resto: el lienzo menos los otros (evenodd).
-const AMB_MEDIO = `M-20 -20 H560 V460 H-20 Z ${AMB_ALTO} ${AMB_BAJO} ${AMB_BAJO_2}`;
-// Los bordes entre ambientes, para dibujarlos de a uno (Planificar).
-const BORDES = [
-  'M170 0 C 214 86, 316 128, 410 146 C 462 156, 502 190, 540 214',
-  'M0 236 C 84 218, 156 262, 194 326 C 216 364, 228 398, 236 440',
-  AMB_BAJO_2,
-];
 
 // Puntos de muestreo de suelo (Preparar): una grilla de 3 × 3.
 const MUESTRAS = [110, 260, 410].flatMap((x, c) =>
@@ -59,18 +48,38 @@ const GOTAS = Array.from({ length: 28 }, (_, i) => ({
   i,
 }));
 
-// Fertilizar: una gota en el centro de cada ambiente.
-const GOTA = 'M0 -15 C 6 -7, 10 -1, 10 4 A 10 10 0 0 1 -10 4 C -10 -1, -6 -7, 0 -15 Z';
-const GOTAS_DOSIS = [
-  { x: 430, y: 62, k: 0 }, // alto
-  { x: 290, y: 200, k: 1 }, // medio
-  { x: 84, y: 352, k: 2 }, // bajo
-  { x: 366, y: 268, k: 2 }, // bajo, la mancha
-];
+// Fertilizar: mapa de prescripción en celdas, como las de dosis variable
+// que se cargan en la fertilizadora. Más dosis donde el ambiente rinde más
+// (la dosis óptima económica sube con el rinde esperado). Las celdas se
+// cargan de a columnas, como pasadas.
+const CELDA = 40;
+const DOSIS = { low2: 1, low: 1, mid: 1, high: 2, high2: 3 };
+const CELDAS = Array.from({ length: 11 }, (_, f) =>
+  Array.from({ length: 13 }, (_, c) => ({
+    x: c * CELDA,
+    y: f * CELDA,
+    c,
+    dosis: DOSIS[nivelEn(c * CELDA + CELDA / 2, f * CELDA + CELDA / 2)],
+  })),
+).flat();
 
 // Pasadas de la cosechadora (Cerrar): diez franjas, una dirección cada una.
 const PASADA_ALTO = 43;
 const PASADAS = Array.from({ length: 10 }, (_, i) => ({ y: i * PASADA_ALTO, i }));
+// El mapa de rinde que deja la cosecha: bloques por pasada, como los datos
+// del monitor de rinde. Sigue al mapa de ambientes, con algo de ruido (un
+// bloque cada tanto rinde un nivel más o menos), como en uno de verdad.
+const BLOQUE = 26;
+const azarRinde = rng(97);
+const BLOQUES = PASADAS.flatMap(({ y }) =>
+  Array.from({ length: 20 }, (_, c) => {
+    const base = NIVELES.indexOf(nivelEn(c * BLOQUE + BLOQUE / 2, y + PASADA_ALTO / 2));
+    const r = azarRinde();
+    const salto = r < 0.1 ? 1 : r > 0.92 ? -1 : 0;
+    const nivel = NIVELES[Math.min(NIVELES.length - 1, Math.max(0, base + salto))];
+    return { x: c * BLOQUE, y, nivel };
+  }),
+);
 
 // Ráfagas de viento: trazos que cruzan el lote.
 const RAFAGAS = [
@@ -110,26 +119,50 @@ const LoteMap = ({ aria, avisos }) => (
           <stop offset="0.7" className="rp-lote__barrido-centro" />
           <stop offset="1" className="rp-lote__barrido-borde" />
         </linearGradient>
-        {/* Cerrar: el mapa de rinde que deja la cosecha. Sigue a los
-            ambientes (alto, medio, bajo), con los colores de un mapa de
-            rinde; cada pasada lo descubre en su franja. */}
+        {/* Suaviza apenas los bordes de las franjas del mapa de ambientes */}
+        <filter id="rpMapaFundido" x="-5%" y="-5%" width="110%" height="110%">
+          <feGaussianBlur stdDeviation="2.5" />
+        </filter>
+        {/* Entrada: el mapa NDVI se revela detrás del barrido, con un borde
+            suave. La máscara es una franja blanca→negra que se corre de
+            izquierda a derecha (LoteMap.css, rp-lote-revelar), al mismo paso
+            que el barrido de entrada. */}
+        <linearGradient id="rpNdviBorde" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0.44" stopColor="#ffffff" />
+          <stop offset="0.56" stopColor="#000000" />
+        </linearGradient>
+        <mask id="rpNdviMascara" maskUnits="userSpaceOnUse" x="-40" y="-40" width="600" height="510">
+          <rect className="rp-lote__revelado" x="-665" y="-40" width="1240" height="510" fill="url(#rpNdviBorde)" />
+        </mask>
+        {/* Cerrar: el mapa de rinde que deja la cosecha; cada pasada lo
+            descubre en su franja. */}
         <pattern id="rpRindeMapa" x="0" y="0" width="520" height="430" patternUnits="userSpaceOnUse">
-          <rect className="rp-lote__rinde--mid" x="0" y="0" width="520" height="430" />
-          <path className="rp-lote__rinde--high" d={AMB_ALTO} />
-          <path className="rp-lote__rinde--low" d={AMB_BAJO} />
-          <path className="rp-lote__rinde--low" d={AMB_BAJO_2} />
-          <ellipse className="rp-lote__rinde--high" cx="210" cy="150" rx="70" ry="26" opacity="0.6" />
-          <ellipse className="rp-lote__rinde--low" cx="420" cy="380" rx="60" ry="22" opacity="0.6" />
+          {BLOQUES.map((b) => (
+            <rect
+              key={`${b.x}-${b.y}`}
+              className={`rp-lote__rinde--${b.nivel}`}
+              x={b.x}
+              y={b.y}
+              width={BLOQUE - 1}
+              height={PASADA_ALTO - 1}
+            />
+          ))}
         </pattern>
       </defs>
 
       <g clipPath="url(#rpLoteClip)">
         <g transform={LIENZO}>
-          {/* ambiente medio de base; alto y bajo por encima */}
-          <rect className="rp-lote__zone rp-lote__zone--mid" x="0" y="0" width="520" height="430" />
-          <path className="rp-lote__zone rp-lote__zone--high" d={AMB_ALTO} />
-          <path className="rp-lote__zone rp-lote__zone--low" d={AMB_BAJO} />
-          <path className="rp-lote__zone rp-lote__zone--low" d={AMB_BAJO_2} />
+          {/* suelo pelado: lo que se ve antes de que el barrido revele el NDVI */}
+          <rect className="rp-lote__suelo" x="-40" y="-40" width="600" height="510" />
+          {/* mapa de ambientes (NDVI): alto de base y las franjas encima */}
+          <g mask="url(#rpNdviMascara)">
+            <g className="rp-lote__mapa" filter="url(#rpMapaFundido)">
+              <rect className="rp-lote__mapa--high" x="-40" y="-40" width="600" height="510" />
+              {MAPA.map(([nivel, d], i) => (
+                <path key={i} className={`rp-lote__mapa--${nivel}`} d={d} />
+              ))}
+            </g>
+          </g>
         </g>
         <rect x={bbox.x} y={bbox.y} width={bbox.w} height={bbox.h} fill="url(#rpLoteRows)" />
 
@@ -139,13 +172,16 @@ const LoteMap = ({ aria, avisos }) => (
           <path className="rp-lote__contour" d="M20 290 C 110 262, 200 318, 300 300 C 380 286, 450 312, 520 300" />
           <path className="rp-lote__contour" d="M60 120 C 160 104, 250 150, 360 124 C 420 110, 470 124, 520 116" />
 
+          {/* Entrada: el barrido que revela el NDVI, una sola vez */}
+          <rect className="rp-lote__escaneo" x="-90" y="-20" width="90" height="470" fill="url(#rpLoteBarrido)" />
+
           {/* ---- Escenas (ocultas hasta que el script las active) ---- */}
 
           {/* Planificar: los ambientes se marcan uno por uno */}
           <g className="rp-esc rp-esc--planificar">
             <path className="rp-esc__ambiente rp-esc__ambiente--1" d={AMB_ALTO} />
             <path className="rp-esc__ambiente rp-esc__ambiente--2" d={AMB_MEDIO} fillRule="evenodd" />
-            <path className="rp-esc__ambiente rp-esc__ambiente--3" d={`${AMB_BAJO} ${AMB_BAJO_2}`} />
+            <path className="rp-esc__ambiente rp-esc__ambiente--3" d={AMB_BAJO} />
             {BORDES.map((d, i) => (
               <path key={i} className={`rp-esc__borde rp-esc__borde--${i + 1}`} d={d} pathLength="1" />
             ))}
@@ -161,24 +197,30 @@ const LoteMap = ({ aria, avisos }) => (
             ))}
           </g>
 
-          {/* Fertilizar: mapa de prescripción. Cada ambiente se tiñe de
-              azul (más oscuro, más dosis) y recibe su
-              gota. */}
+          {/* Fertilizar: mapa de prescripción en celdas (más oscuro, más
+              dosis), que se carga de a columnas */}
           <g className="rp-esc rp-esc--fertilizar">
-            <path className="rp-esc__dosis rp-esc__dosis--1" d={AMB_ALTO} />
-            <path className="rp-esc__dosis rp-esc__dosis--2" d={AMB_MEDIO} fillRule="evenodd" />
-            <path className="rp-esc__dosis rp-esc__dosis--3" d={`${AMB_BAJO} ${AMB_BAJO_2}`} />
-            {GOTAS_DOSIS.map((g) => (
-              <g key={`${g.x}-${g.y}`} transform={`translate(${g.x} ${g.y})`}>
-                <path className="rp-esc__gota-dosis" style={{ '--k': g.k }} d={GOTA} />
-              </g>
+            {/* fondo claro para la grilla: entre celda y celda una línea
+                neutra, no los colores del mapa */}
+            <rect className="rp-esc__celdas-fondo" x="-20" y="-20" width="560" height="470" />
+            {CELDAS.map((c) => (
+              <rect
+                key={`${c.x}-${c.y}`}
+                className={`rp-esc__celda rp-esc__celda--${c.dosis}`}
+                style={{ '--c': c.c }}
+                x={c.x + 1.5}
+                y={c.y + 1.5}
+                width={CELDA - 3}
+                height={CELDA - 3}
+                rx="2"
+              />
             ))}
           </g>
 
           {/* Acompañar, sequía: el terreno se pone anaranjado, empezando
               por el ambiente bajo */}
           <g className="rp-esc rp-esc--sequia">
-            <path className="rp-esc__seco rp-esc__seco--bajo" d={`${AMB_BAJO} ${AMB_BAJO_2}`} />
+            <path className="rp-esc__seco rp-esc__seco--bajo" d={AMB_BAJO} />
             <rect className="rp-esc__seco rp-esc__seco--todo" x="-20" y="-20" width="560" height="470" />
           </g>
 

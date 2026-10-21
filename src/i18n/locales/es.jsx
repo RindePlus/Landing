@@ -26,8 +26,8 @@ const es = {
     nav: {
       home: 'Inicio',
       impact: 'Impacto',
-      campaign: 'Qué hace',
-      why: 'Por qué Rinde Plus',
+      campaign: 'Plataforma',
+      why: 'Ventajas',
     },
     themeDark: 'Modo oscuro',
     themeLight: 'Modo claro',
@@ -87,7 +87,6 @@ const es = {
     },
     pista: 'Los indicadores con flecha abren el detalle por cultivo',
     cerrar: 'Cerrar detalle',
-    info: (titulo) => `Cómo se calcula: ${titulo}`,
     cultivos: { maiz: 'Maíz', soja: 'Soja', trigo: 'Trigo', girasol: 'Girasol', otros: 'Otros cultivos' },
     total: 'Total',
     tablas: {
@@ -106,48 +105,6 @@ const es = {
     },
     pie: {
       linea: (d) => `+${d.historia} ha de datos productivos en ${d.campanas} campañas (${d.desde} a ${d.hasta})`,
-      fuente: (d) => `Datos de la base de Rinde Plus al ${d.fecha}. El botón ⓘ de cada número explica cómo se calcula.`,
-    },
-    modal: {
-      cerrar: 'Cerrar',
-      bloques: { mide: 'Qué mide', calcula: 'Cómo se calcula', compone: 'Cómo se compone', cuenta: 'A tener en cuenta' },
-      hectareas: {
-        titulo: (d) => `Hectáreas monitoreadas en la última campaña (${d.campana})`,
-        mide: () => 'La superficie que Rinde Plus monitoreó en la última campaña completa.',
-        columnas: ['Cultivo', 'Hectáreas', '%'],
-        cuenta: () => 'A la superficie sin cultivo cargado se le asignó la misma proporción de cultivos que al resto.',
-      },
-      grano: {
-        titulo: () => 'Grano extra por el manejo de brechas',
-        mide: () =>
-          'El grano que se suma en maíz, soja, trigo y girasol por decidir con el análisis de brechas de Rinde Plus.',
-        calcula: (d) =>
-          `Para cada cultivo: hectáreas de ${d.campana} × rinde promedio registrado × ${d.pct}. Rinde Plus estima que entre el ${d.pctBajo} y el ${d.pctAlto} del rinde de los lotes con manejo de brechas se debe a ese manejo; acá se usa un ${d.pct}, en la parte baja del rango. Con el ${d.pctBajo} serían unas ${d.granoBajo} t; con el ${d.pctAlto}, unas ${d.granoAlto} t.`,
-        cuenta: (d) =>
-          `Es una estimación sobre el rinde promedio de cada cultivo, no una medición lote por lote. A la superficie sin cultivo cargado (${d.sinCultivoPct}) se le asignó la misma proporción de cultivos que al resto. Entran maíz, soja, trigo y girasol (el ${d.cultivosPct} de la superficie); no entran arroz ni los cultivos menores.`,
-      },
-      carbono: {
-        titulo: () => 'CO₂ extra en el suelo',
-        mide: () => 'El carbono extra que deja en el suelo ese grano extra, a través del rastrojo y las raíces.',
-        calcula: () =>
-          'Grano extra de cada cultivo × coeficientes de carbono por tonelada. Para maíz, soja y trigo son los mismos que usa VigIA, tomados de su informe técnico; los de girasol se calcularon con el mismo método, con su índice de cosecha. El número destacado es la columna «Queda estable».',
-        cuenta: () =>
-          'Es una estimación por coeficientes, no una medición de carbono en el suelo de cada lote, y no constituye un certificado de bonos de carbono.',
-      },
-      suelo: {
-        titulo: () => 'Análisis de suelo interpretados',
-        mide: (d) =>
-          `Cuántos ambientes de ${d.campana} tienen un análisis de suelo cargado (fósforo, materia orgánica, pH y demás) que la plataforma interpreta para el diagnóstico y la fertilización.`,
-        calcula: (d) => `Se cuentan los ambientes con al menos uno de esos valores (${d.sueloTotal}).`,
-      },
-      historia: {
-        titulo: () => 'Historia de datos',
-        mide: () => 'La superficie con datos productivos acumulada en la base.',
-        calcula: (d) =>
-          `Cada vez que un lote tiene datos en una campaña se suma su superficie. Son ${d.historiaHa} ha en ${d.ciclos} ciclos productivos de ${d.lotes} lotes de ${d.empresas} empresas, entre ${d.desde} y ${d.hasta}. La campaña en curso, ${d.enCurso}, no se cuenta.`,
-        cuenta: (d) =>
-          `Un lote con datos en 10 campañas cuenta 10 veces; contado una sola vez por lote, la superficie es de unas ${d.haUnicas} ha.`,
-      },
     },
   },
 
@@ -238,27 +195,24 @@ const es = {
     items: [
       {
         title: 'Tu lote, no el promedio',
-        copy: 'Cada decisión parte del clima, el suelo y la historia del lote, no de lo típico de la zona.',
-        detail:
-          'Cada lote, dibujado sobre imagen satelital con sus ambientes, cruza clima, suelo e historia productiva. Dos lotes vecinos pueden pedir decisiones distintas.',
+        copy: 'Cada decisión parte del clima, el suelo y la historia de ese lote, no de lo típico de la zona.',
+        detail: 'Dibujado sobre imagen satelital con sus ambientes. Dos lotes vecinos pueden pedir decisiones distintas.',
       },
       {
-        title: 'El análisis ya está hecho',
-        copy: 'Sin cruzar clima, rindes y suelo a mano en planillas: el tiempo queda para decidir.',
-        detail:
-          'Clima, suelo, ambientes, monitoreo e historia de cada lote, en un mismo lugar. Más lotes, sin perder profundidad.',
+        title: 'Más lotes, sin perder detalle',
+        copy: 'Clima, suelo, ambientes, monitoreo e historia ya cruzados en un solo lugar, sin armar planillas.',
+        detail: 'El tiempo que se iba en juntar datos queda para recorrer el campo y decidir.',
       },
       {
         title: 'Qué hacer y cuándo',
-        copy: 'Más que el lote en un mapa: qué conviene hacer y en qué momento.',
+        copy: 'No solo ver el lote en un mapa: saber qué conviene hacer y en qué momento.',
         detail:
-          'Una recomendación para cada lote, con alertas de clima, enfermedades y fitotoxicidad y avisos diarios por WhatsApp.',
+          'Alertas de clima, enfermedades y fitotoxicidad, y un aviso diario por WhatsApp que se puede responder.',
       },
       {
         title: 'Independiente',
-        copy: 'Rinde Plus no vende insumos: a veces la mejor decisión es no aplicar.',
-        detail:
-          'Antes de aplicar, la cuenta del lote a la vista: si la aplicación paga, conviene; si no, a veces lo mejor es no hacer nada.',
+        copy: 'Rinde Plus no vende insumos: a\u00a0veces la mejor decisión es no aplicar.',
+        detail: 'Antes de aplicar, la simulación con los precios del lote muestra si la dosis se paga.',
       },
     ],
   },
@@ -309,7 +263,7 @@ const es = {
     lead: 'Fotos',
     via: 'vía Wikimedia Commons',
     photos: [
-      'Pampa húmeda vista por satélite, INPE',
+      'Lotes de la pampa desde el avión, Murray Foubister',
       'Sembrado de soja en Argentina, Alfonso',
       'Girasol pampeano, Emilio Küffer',
       'Cosecha de soja, Clasonsf',
