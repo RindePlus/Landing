@@ -1,0 +1,1 @@
+var e=e=>typeof e==`string`?e:e.src;export{e as t};
