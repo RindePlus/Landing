@@ -1,107 +1,191 @@
-:root {
-  --primary: #2ecc71;
-  /* More vibrant emerald green */
-  --primary-dark: #27ae60;
-  --secondary: #0c2a1c;
-  /* Darker forest green/black for contrast */
-  --accent: #3498db;
-  --bg-main: #f0f4f8;
-  /* Slightly more blue tint for bg */
-  --bg-card: #ffffff;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --radius-md: 12px;
-  --radius-lg: 24px;
+/* Fuentes alojadas en el sitio (public/fonts/, licencia OFL), las mismas de
+   la landing de VigIA: IBM Plex Sans para títulos y texto, Chivo Mono para
+   cifras. Variables (un archivo cubre todos los pesos) y sólo con los juegos
+   latin y latin-ext. El navegador baja cada archivo sólo si la página usa
+   algún carácter de su rango; IBM Plex Sans latin se precarga en index.html. */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Chivo Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/chivo-mono-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Chivo Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/chivo-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
-  /* Legacy palette still read by the base Header/Footer/App rules */
-  --rp-gold-50: #fffdf5;
-  --rp-gold-400: #f2cd00;
-  --rp-gold-500: #e5bd13;
-  --rp-gold-600: #d4a017;
-  --rp-gray-50: #f9fafb;
-  --rp-gray-200: #e5e7eb;
-  --rp-gray-400: #9ca3af;
-  --rp-gray-500: #6b7280;
-  --rp-gray-700: #374151;
-  --rp-gray-900: #111827;
-  --rp-blue-300: #93c5fd;
-  --rp-blue-600: #2563eb;
+:root {
+  /* Alias que todavía leen los títulos y algunas reglas base. */
+  --secondary: var(--gh-fg);
+  --text-main: var(--gh-fg);
+  --bg-main: var(--gh-canvas);
+  --radius-md: var(--gh-radius-card);
+
+  --font-heading: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-data: 'Chivo Mono', ui-monospace, 'SFMono-Regular', monospace;
 
   /* ============================================================
-     GitHub-style design tokens (used by the home / .rp-home)
+     Paleta (la de VigIA, con la marca de Rinde Plus): fondo piedra,
+     tinta azul casi negra y la marca en azul y amarillo, los colores
+     del logo. Los nombres --gh-* quedan por compatibilidad.
      ============================================================ */
-  --gh-canvas: #f6f8fa;
-  --gh-surface: #ffffff;
-  --gh-surface-2: #f6f8fa;
-  --gh-border: #d0d7de;
-  --gh-border-muted: #d8dee4;
-  --gh-border-strong: #afb8c1;
-  --gh-fg: #1f2328;
-  --gh-fg-muted: #656d76;
-  --gh-fg-subtle: #8b949e;
-  --gh-accent: #0969da;
-  --gh-accent-hover: #0860ca;
-  --gh-accent-soft: #ddf4ff;
-  --gh-accent-fg: #ffffff;
-  /* fondo de botones rellenos: el blanco encima tiene que pasar AA */
-  --gh-accent-emphasis: #0969da;
-  --gh-accent-emphasis-hover: #0860ca;
-  --gh-brand-blue: #025db8;
-  --gh-detail-green: #018c34;
-  --gh-detail-green-soft: #dafbe1;
-  --gh-detail-yellow: #ffd100;
-  --gh-detail-yellow-strong: #bf8700;
-  --gh-detail-yellow-soft: #fff8c5;
-  --gh-detail-pink: #bf3989;
-  --gh-danger: #cf222e;
+  --gh-canvas: #f3f2ee;
+  --gh-surface: #fbfaf8;
+  --gh-surface-2: #e9e7e1;
+  --gh-border: #d8d5cd;
+  --gh-border-muted: #e4e1da;
+  --gh-border-strong: #b1ada3;
+  --gh-fg: #161b24;
+  /* Grises firmes (8:1 y 6,2:1 sobre el fondo): se leen también al sol. */
+  --gh-fg-muted: #424956;
+  --gh-fg-subtle: #525a68;
+  /* Acento de interacción (enlaces, foco, hover): el azul del logo, un
+     punto más oscuro para que pase AA como texto chico. */
+  --gh-accent: #1a56cc;
+  --gh-accent-hover: #1647a8;
+  --gh-accent-soft: #e2e8f4;
+  --gh-accent-fg: #fbfaf8;
+  /* Botón principal: tinta sobre papel, como en VigIA. */
+  --gh-accent-emphasis: var(--gh-fg);
+  --gh-accent-emphasis-hover: #2b3342;
+  /* Colores con significado agronómico (no son de marca). */
+  --gh-detail-green: #3b6e25;       /* cultivo a salvo, grano */
+  --gh-detail-green-soft: #e3ecdc;
+  --gh-detail-yellow-strong: #8a5300; /* alerta, umbral */
+  --gh-danger: #b3261e;             /* pérdida */
   --gh-radius: 6px;
-  --gh-radius-btn: 10px; /* interactive buttons (header, hero, CTAs) */
-  --gh-radius-card: 10px; /* cards share the button curve for a unified look */
-  --gh-shadow-sm: 0 1px 0 rgba(31, 35, 40, 0.04);
-  --gh-shadow-card: 0 1px 3px rgba(31, 35, 40, 0.12), 0 1px 2px rgba(31, 35, 40, 0.06);
-  --gh-shadow-overlay: 0 8px 24px rgba(31, 35, 40, 0.12);
+  --gh-radius-btn: 8px;
+  --gh-radius-card: 12px;
+  --gh-shadow-sm: 0 1px 0 rgba(22, 27, 36, 0.04);
+  --gh-shadow-card: 0 1px 3px rgba(22, 27, 36, 0.1), 0 1px 2px rgba(22, 27, 36, 0.05);
+  --gh-shadow-overlay: 0 8px 24px rgba(22, 27, 36, 0.12);
+
+  /* ============================================================
+     Marca Rinde Plus
+     ============================================================ */
+  /* Azul marino: el lugar del verde bosque de VigIA (footer, bandas). */
+  --rp-marino: #0f2747;
+  --rp-marino-bg: #0f2747;
+  /* Los dos colores del logo. El amarillo no pasa como texto sobre el
+     fondo claro: va en trazos, puntos y sobre el marino. */
+  --rp-azul: #1a62e2;
+  --rp-amarillo: #f2cd00;
+  /* Textos y líneas sobre la banda marino, en los dos temas. Secundarios
+     teñidos de azul, no grises neutros. Todos pasan AA. */
+  --rp-on-marino-fg: #ece8df;
+  --rp-on-marino-muted: #b8c6e0;
+  --rp-on-marino-subtle: #9fb1d3;
+  --rp-on-marino-accent: var(--rp-amarillo);
+  --rp-on-marino-line: rgba(236, 232, 223, 0.18);
+  --rp-on-marino-line-strong: rgba(236, 232, 223, 0.34);
+  /* Otros colores con significado: agua y carbono en el suelo. */
+  --rp-agua: #2a6f73;
+  --rp-carbono: #7a4b26;
+  /* WhatsApp: texto oscuro sobre su verde (el blanco no llega a 3:1). */
+  --rp-whatsapp: #25d366;
+  --rp-whatsapp-hover: #1da851;
+  --rp-whatsapp-fg: #0b2e13;
+
+  /* ============================================================
+     Escalas (las de VigIA, de la skill landing-page-design)
+     ============================================================ */
+  --text-xs: 0.75rem;   --leading-xs: 1rem;
+  --text-sm: 0.875rem;  --leading-sm: 1.25rem;
+  --text-base: 1rem;    --leading-base: 1.5rem;
+  --text-lg: 1.125rem;  --leading-lg: 1.75rem;
+  --text-xl: 1.25rem;   --leading-xl: 1.75rem;
+  --text-2xl: 1.5rem;   --leading-2xl: 2rem;
+  --text-3xl: 1.875rem; --leading-3xl: 2.25rem;
+  --text-4xl: 2.25rem;  --leading-4xl: 2.5rem;
+  --text-5xl: 3rem;     --leading-5xl: 1;
+  --text-6xl: 3.75rem;  --leading-6xl: 1;
+
+  --space-25: 2px;
+  --space-50: 4px;
+  --space-75: 8px;
+  --space-100: 12px;
+  --space-200: 16px;
+  --space-300: 24px;
+  --space-400: 32px;
+  --space-500: 40px;
+  --space-600: 48px;
+  --space-700: 64px;
+  --space-800: 80px;
+  --space-900: 96px;
+  --page-gutter: var(--space-300);
+
+  /* Movimiento: curva con masa (arranca rápido y asienta lento). */
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-fast: 200ms;
+  --dur-base: 400ms;
+  --dur-slow: 700ms;
 }
 
-/* GitHub dark mode — activated only on the home (HomePage sets/removes
-   data-rp-theme on <html>; it is cleaned up when leaving the route). */
+/* Modo oscuro: index.html fija data-rp-theme en <html> antes del primer
+   paint (sin flash) y useRpTheme lo actualiza al usar el toggle. */
 [data-rp-theme="dark"] {
-  --gh-canvas: #0d1117;
-  --gh-surface: #161b22;
-  --gh-surface-2: #21262d;
-  --gh-border: #30363d;
-  --gh-border-muted: #21262d;
-  --gh-border-strong: #6e7681;
-  --gh-fg: #e6edf3;
-  --gh-fg-muted: #8b949e;
-  --gh-fg-subtle: #6e7681;
-  --gh-accent: #4493f8;
-  --gh-accent-hover: #58a6ff;
-  --gh-accent-soft: #121d2f;
-  --gh-accent-fg: #ffffff;
-  --gh-accent-emphasis: #1f6feb; /* blanco 4.6:1 (#4493f8 daba 3.1:1) */
-  --gh-accent-emphasis-hover: #1158c7;
-  --gh-brand-blue: #4493f8;
-  --gh-detail-green: #3fb950;
-  --gh-detail-green-soft: #12261e;
-  --gh-detail-yellow: #e3b341;
-  --gh-detail-yellow-strong: #e3b341;
-  --gh-detail-yellow-soft: #2e2a13;
-  --gh-detail-pink: #db61a2;
-  --gh-danger: #f85149;
+  --gh-canvas: #181818;
+  --gh-surface: #1f1f1f;
+  --gh-surface-2: #272727;
+  --gh-border: #313131;
+  --gh-border-muted: #272727;
+  --gh-border-strong: #6b675f;
+  --gh-fg: #ece8df;
+  --gh-fg-muted: #aaa69c;
+  --gh-fg-subtle: #97938a;
+  --gh-accent: #8fb0ef;
+  --gh-accent-hover: #a9c3f4;
+  --gh-accent-soft: #1a2233;
+  --gh-accent-fg: #131209;
+  --gh-accent-emphasis: var(--gh-fg);
+  --gh-accent-emphasis-hover: #d6d1c6;
+  --gh-detail-green: #93c46b;
+  --gh-detail-green-soft: #1d2a16;
+  --gh-detail-yellow-strong: #e0a84a;
+  --gh-danger: #ff8a7a;
   --gh-shadow-sm: 0 0 0 1px rgba(0, 0, 0, 0.2);
-  --gh-shadow-card: 0 1px 3px rgba(1, 4, 9, 0.5);
-  --gh-shadow-overlay: 0 8px 24px rgba(1, 4, 9, 0.7);
+  --gh-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --gh-shadow-overlay: 0 8px 24px rgba(0, 0, 0, 0.7);
+
+  /* En oscuro el marino como texto pasa a blanco cálido; como fondo,
+     un azul muy oscuro. */
+  --rp-marino: #ece8df;
+  --rp-marino-bg: #0f1a2e;
+  --rp-azul: #5890f0;
+  --rp-agua: #6fbfbf;
+  --rp-carbono: #d6a06c;
 }
 
-/* Canvas + overscroll background follow the home dark theme */
 [data-rp-theme="dark"] body {
-  background-color: #0d1117;
-  color: #e6edf3;
+  background-color: var(--gh-canvas);
+  color: var(--gh-fg);
+}
+
+@media (max-width: 680px) {
+  :root { --page-gutter: var(--space-200); }
 }
 
 * {
@@ -112,6 +196,8 @@
 
 html {
   scroll-behavior: smooth;
+  accent-color: var(--gh-accent);
+  caret-color: var(--gh-accent);
 }
 
 html,
@@ -125,7 +211,8 @@ body {
 
 body {
   font-family: var(--font-body);
-  line-height: 1.6;
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
   color: var(--text-main);
   background-color: var(--bg-main);
   -webkit-font-smoothing: antialiased;
@@ -139,8 +226,20 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--secondary);
+  text-wrap: pretty;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+/* Las anclas del menú dejan cada sección justo debajo del header
+   (Header.jsx mide su alto en --alto-header). */
+section[id] {
+  scroll-margin-top: var(--alto-header, 80px);
 }
 
 /* Base Animation Utilities */
@@ -174,13 +273,6 @@ h6 {
   overflow-x: clip; /* `clip` not `hidden` — keep `position: sticky` working */
 }
 
-/* Mejoras para dispositivos móviles */
-/* Removed font-size reduction for mobile to keep text readable */
-@media (max-width: 768px) {
-  /* optional: specific tweaks if needed, but keeping 16px base is better */
-}
-
-
 /* Prevenir zoom en inputs en iOS */
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
 
@@ -208,8 +300,13 @@ img {
 }
 
 :focus-visible {
-  outline: 2px solid var(--gh-accent, #0969da);
+  outline: 2px solid var(--gh-accent);
   outline-offset: 2px;
+}
+
+::selection {
+  background: var(--gh-accent-soft);
+  color: var(--gh-fg);
 }
 
 @media (prefers-reduced-motion: reduce) {

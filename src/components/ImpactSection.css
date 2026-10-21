@@ -7,8 +7,9 @@
    ============================================================ */
 
 .rp-impacto {
-  --imp-grano: #1a7f37;
-  --imp-carbono: #0d9488;
+  /* Grano en verde campo (el cultivo), carbono en tierra (el suelo). */
+  --imp-grano: var(--gh-detail-green);
+  --imp-carbono: var(--rp-carbono);
   --imp-dur: 0.45s;
   --imp-ease: cubic-bezier(0.22, 1, 0.36, 1);
   max-width: 1000px;
@@ -17,11 +18,6 @@
   scroll-margin-top: 80px;
   /* el contenido que se desliza entre tablas no genera scroll lateral */
   overflow-x: clip;
-}
-
-[data-rp-theme='dark'] .rp-impacto {
-  --imp-grano: #3fb950;
-  --imp-carbono: #2dd4bf;
 }
 
 /* ---- Encabezado ---- */
@@ -34,7 +30,7 @@
 .rp-impact__title {
   font-family: var(--font-heading);
   font-size: clamp(1.9rem, 4vw, 3rem);
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.08;
   color: var(--gh-fg);
@@ -85,14 +81,19 @@
 
 .rp-impact__ind strong {
   color: var(--gh-fg);
-  font-family: var(--font-heading);
+  /* Cifras en la tipografía de datos (Chivo Mono), como en VigIA. */
+  font-family: var(--font-data);
   font-size: clamp(2rem, 3.6vw, 2.9rem);
   line-height: 1.1;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-weight: 500;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   transition: color var(--imp-dur) var(--imp-ease);
+}
+
+.rp-impact__sep {
+  font-family: var(--font-body);
 }
 
 .rp-impact__ind strong small {
@@ -393,7 +394,7 @@
   overflow: hidden;
 }
 
-.rp-impact__modal::backdrop { background: rgba(1, 4, 9, 0.5); }
+.rp-impact__modal::backdrop { background: rgba(22, 27, 36, 0.5); }
 
 .rp-impact__modal-body {
   max-height: calc(100dvh - 48px);

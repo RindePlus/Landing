@@ -1,7 +1,7 @@
 /* ============================================================
-   Header
-   Base rules = current look for all routes (hamburger + drawer).
-   `.rp-home .header ...` = GitHub skin + inline desktop nav (home only).
+   Header — estética de la landing de VigIA.
+   Escritorio: logo | menú | acciones. Celular: ☰ | logo centrado |
+   idioma + ingresar, con el menú en un drawer.
    ============================================================ */
 
 .header {
@@ -10,57 +10,67 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   font-family: var(--font-body);
-  color: var(--secondary);
+  color: var(--gh-fg);
+  /* Arriba de todo: transparente y sin línea, fundido con el hero. */
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  /* Ocultar/mostrar al hacer scroll: curva de desaceleración larga para que
+     el header se deslice en lugar de desaparecer de golpe. */
+  transform: translateY(0);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color var(--dur-base) var(--ease-fluid),
+    border-color var(--dur-base) var(--ease-fluid);
+  will-change: transform;
 }
 
-.header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(212, 160, 23, 0.6) 30%,
-    rgba(212, 160, 23, 0.6) 70%,
-    transparent 100%
-  );
-  pointer-events: none;
+.header--hidden {
+  transform: translateY(-100%);
+}
+
+/* Al bajar (o con el menú de celular abierto): vidrio esmerilado con una
+   línea fina. Se intuye lo que pasa por debajo, pero no se llega a leer. */
+.header--scrolled,
+.header--menu-open {
+  background-color: color-mix(in srgb, var(--gh-surface) 66%, transparent);
+  backdrop-filter: blur(28px) saturate(160%);
+  border-bottom-color: var(--gh-border);
+}
+
+/* Sobre la banda marino (footer) el translúcido dejaba pasar demasiado azul:
+   ahí el fondo es casi opaco. */
+.header--scrolled.header--sobre-oscuro {
+  background-color: color-mix(in srgb, var(--gh-surface) 94%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header { transition: none; }
 }
 
 .header-content {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: auto 1fr auto; /* logo | menú | acciones */
   align-items: center;
-  gap: 12px;
-  padding: 14px 36px 18px;
+  gap: var(--space-500);
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 10px var(--page-gutter);
 }
 
-/* LEFT zone — quick access (nav / hamburger) */
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.header-logo {
+  display: inline-flex;
   justify-self: start;
-  min-width: 0;
 }
 
 img.logo-image {
   display: block;
-  height: 50px;
+  height: 46px;
   width: auto;
   max-width: none;
   flex-shrink: 0;
-  justify-self: center;
-  transition: transform 0.3s ease;
+  transition: transform var(--dur-base) var(--ease-fluid);
 }
 
 img.logo-image:hover {
@@ -68,47 +78,230 @@ img.logo-image:hover {
 }
 
 .header-actions {
+  grid-column: 3;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-75);
   flex-shrink: 0;
   justify-self: end;
 }
 
-.hamburger-button {
+/* ---- Botones chicos de las acciones (tema, idioma) ---- */
+.header-theme-toggle,
+.header-lang__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  border-radius: var(--gh-radius-btn);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--gh-fg-muted);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-fluid),
+    border-color var(--dur-fast) var(--ease-fluid),
+    color var(--dur-fast) var(--ease-fluid),
+    transform var(--dur-base) var(--ease-fluid);
+}
+
+.header-theme-toggle { width: 34px; }
+
+.header-theme-toggle:hover,
+.header-lang__btn:hover,
+.header-lang__btn[aria-expanded='true'] {
+  background: var(--gh-surface-2);
+  border-color: var(--gh-border);
+  color: var(--gh-fg);
+}
+
+.header-theme-toggle:active,
+.header-lang__btn:active,
+.header-platform-btn:active {
+  transform: scale(0.98);
+}
+
+.header-theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- Selector de idioma ---- */
+.header-lang {
+  position: relative;
+}
+
+.header-lang__btn {
+  gap: var(--space-25);
+  padding-inline: var(--space-75);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 600;
+}
+
+.header-lang__caret {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--dur-base) var(--ease-fluid);
+}
+
+.header-lang__btn[aria-expanded='true'] .header-lang__caret {
+  transform: rotate(180deg);
+}
+
+.header-lang__menu {
+  position: absolute;
+  top: calc(100% + var(--space-75));
+  right: 0;
+  z-index: 10;
+  min-width: 168px;
+  padding: var(--space-50);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-overlay);
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transform-origin: top right;
+  transition:
+    opacity var(--dur-fast) var(--ease-fluid),
+    transform var(--dur-fast) var(--ease-fluid),
+    visibility 0s linear var(--dur-fast);
+}
+
+.header-lang__menu--open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity var(--dur-fast) var(--ease-fluid),
+    transform var(--dur-fast) var(--ease-fluid);
+}
+
+.header-lang__option {
   display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  width: 100%;
+  padding: var(--space-75) var(--space-100);
+  border: 0;
+  border-radius: var(--gh-radius-btn);
+  background: transparent;
+  color: var(--gh-fg);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-fluid);
+}
+
+.header-lang__option:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: -2px;
+}
+
+.header-lang__option:hover {
+  background: var(--gh-surface-2);
+}
+
+.header-lang__code {
+  width: 22px;
+  color: var(--gh-fg-muted);
+  font-weight: 600;
+}
+
+.header-lang__check {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  color: var(--gh-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-lang__menu,
+  .header-lang__menu--open,
+  .header-lang__caret { transition: none; }
+}
+
+/* ---- Ingresar: la única puerta a la plataforma (LOGIN_URL) ----
+   Botón principal de VigIA: tinta sobre papel. */
+.header-platform-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-75);
+  height: 34px;
+  margin-left: var(--space-50);
+  padding: 0 var(--space-200);
+  border-radius: var(--gh-radius-btn);
+  background: var(--gh-accent-emphasis);
+  color: var(--gh-accent-fg);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) var(--ease-fluid),
+    transform var(--dur-base) var(--ease-fluid);
+}
+
+.header-platform-btn:hover {
+  background: var(--gh-accent-emphasis-hover);
+}
+
+.header-platform-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--dur-base) var(--ease-fluid);
+}
+
+.header-platform-btn:hover svg { transform: translateX(2px); }
+
+@media (max-width: 480px) {
+  .header-platform-btn { width: 34px; padding: 0; justify-content: center; margin-left: 0; }
+  .header-platform-btn span { display: none; } /* sólo el ícono */
+}
+
+/* ---- Hamburguesa (sólo celular) ---- */
+.hamburger-button {
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 6px;
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   padding: 0;
-  margin: 0;
+  border-radius: var(--gh-radius);
+  border: 1px solid transparent;
   background: transparent;
-  border: none;
-  border-radius: 50%;
   cursor: pointer;
-  flex-shrink: 0;
-  transition: background-color 0.3s ease;
+  transition:
+    background var(--dur-fast) var(--ease-fluid),
+    border-color var(--dur-fast) var(--ease-fluid);
 }
 
 .hamburger-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--gh-surface-2);
+  border-color: var(--gh-border);
 }
 
 .hamburger-line {
   display: block;
-  width: 24px;
+  width: 18px;
   height: 2px;
-  background-color: var(--rp-blue-600, #2563eb);
+  background-color: var(--gh-fg-muted);
   border-radius: 2px;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+  transition: all var(--dur-base) var(--ease-fluid);
   transform-origin: center;
 }
 
 .hamburger-button.open .hamburger-line {
-  background-color: var(--rp-gold-400, #f2cd00);
+  background-color: var(--gh-accent);
 }
 
 .hamburger-button.open .hamburger-line:nth-child(1) {
@@ -124,147 +317,208 @@ img.logo-image:hover {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* ---- Nav drawer (default for all routes / all widths) ---- */
-.header-nav {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  background-color: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  padding: 0 12px;
-  transition:
-    max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s ease,
-    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.header-nav--open {
-  max-height: 600px;
-  opacity: 1;
-  padding: 20px 12px 16px;
-}
-
+/* ---- Menú ---- */
 .menu-item {
-  width: 100%;
-  background: transparent;
-  border: none;
-  text-align: left;
-  padding: 14px 24px;
-  color: var(--secondary);
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: 14px;
   position: relative;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease,
-    background-color 0.2s ease,
-    color 0.2s ease,
-    padding-left 0.2s ease;
-}
-
-.header-nav--open .menu-item {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.header-nav--open .menu-item:nth-child(1) { transition-delay: 0.05s; }
-.header-nav--open .menu-item:nth-child(2) { transition-delay: 0.08s; }
-.header-nav--open .menu-item:nth-child(3) { transition-delay: 0.11s; }
-.header-nav--open .menu-item:nth-child(4) { transition-delay: 0.14s; }
-.header-nav--open .menu-item:nth-child(5) { transition-delay: 0.17s; }
-.header-nav--open .menu-item:nth-child(6) { transition-delay: 0.20s; }
-
-.menu-item:hover {
-  background-color: rgba(29, 78, 216, 0.06);
-  color: var(--rp-blue-600);
-  padding-left: 30px;
-}
-
-.menu-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%) scaleX(0);
-  width: 4px;
-  height: 20px;
-  background: var(--rp-blue-600);
-  border-radius: 0 4px 4px 0;
-  transition: transform 0.3s ease;
-  transform-origin: left;
-}
-
-.menu-item:hover::before {
-  transform: translateY(-50%) scaleX(1);
-}
-
-/* Theme toggle — only rendered on the home (GitHub icon button) */
-.header-theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: var(--gh-radius-btn, 10px);
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--gh-fg-muted, #656d76);
+  color: var(--gh-fg-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: var(--gh-radius-btn);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.header-theme-toggle:hover {
-  background: var(--gh-surface-2, #f6f8fa);
-  border-color: var(--gh-border, #d0d7de);
-  color: var(--gh-fg, #1f2328);
+/* Escritorio: menú en línea. La sección actual lleva una línea amarilla
+   (el amarillo del logo) debajo del enlace, que crece desde el centro. */
+@media (min-width: 768px) {
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-50);
+    justify-self: start;
+  }
+
+  .menu-item {
+    padding: var(--space-75) var(--space-100);
+    transition:
+      background var(--dur-fast) var(--ease-fluid),
+      color var(--dur-fast) var(--ease-fluid);
+  }
+
+  .menu-item:hover {
+    background: var(--gh-surface-2);
+    color: var(--gh-fg);
+  }
+
+  .menu-item::after {
+    content: '';
+    position: absolute;
+    left: var(--space-100);
+    right: var(--space-100);
+    bottom: 2px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--rp-amarillo);
+    transform: scaleX(0);
+    transition: transform var(--dur-base) var(--ease-fluid);
+  }
+
+  .menu-item--active {
+    color: var(--gh-fg);
+  }
+
+  .menu-item--active::after {
+    transform: scaleX(1);
+  }
+
+  .header-nav__theme,
+  .header-nav__login { display: none; }
 }
 
-.header-theme-toggle svg {
-  width: 18px;
-  height: 18px;
+/* Con poco ancho, el menú necesita el aire entre columnas. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header-content { gap: var(--space-200); }
+  .menu-item { padding-inline: var(--space-75); font-size: var(--text-sm); }
 }
 
-/* Theme control placement: icon toggle in the header on desktop, sun/moon
-   switch inside the drawer on mobile. */
+/* ---- Celular: ☰ | logo centrado | acciones, con drawer ---- */
 @media (max-width: 767px) {
+  .header-content {
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-100);
+    padding: 11px 14px;
+  }
+
+  .hamburger-button {
+    display: flex;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+  }
+
+  .header-logo {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+  }
+
+  .header-actions {
+    grid-column: 3;
+    grid-row: 1;
+    gap: var(--space-50);
+  }
+
+  img.logo-image { height: 40px; }
+
+  /* El tema va dentro del drawer. */
   .header-theme-toggle { display: none; }
-}
 
-/* Drawer footer row holding the theme switch — only inside the mobile drawer. */
-.header-nav__theme {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  margin-top: 6px;
-  padding: 16px 24px 4px;
-  border-top: 1px solid var(--gh-border);
-}
-@media (max-width: 767px) {
-  .header-nav__theme { display: flex; }
+  .header-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 12px;
+    background-color: var(--gh-surface);
+    border-bottom: 1px solid var(--gh-border);
+    /* Sombra sólo hacia abajo: no se mete sobre la barra del header. */
+    box-shadow: 0 14px 20px -10px rgba(22, 27, 36, 0.2);
+    transition:
+      max-height var(--dur-slow) var(--ease-fluid),
+      opacity var(--dur-base) var(--ease-fluid),
+      padding var(--dur-slow) var(--ease-fluid);
+  }
+
+  [data-rp-theme='dark'] .header-nav {
+    box-shadow: 0 14px 20px -10px rgba(0, 0, 0, 0.6);
+  }
+
+  .header-nav--open {
+    max-height: 600px;
+    opacity: 1;
+    padding: 20px 12px 16px;
+  }
+
+  .menu-item {
+    width: 100%;
+    padding: 14px 24px;
+    color: var(--gh-fg);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--dur-base) var(--ease-fluid),
+      transform var(--dur-base) var(--ease-fluid),
+      background-color var(--dur-base) var(--ease-fluid),
+      color var(--dur-base) var(--ease-fluid);
+  }
+
+  .header-nav--open .menu-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .header-nav--open .menu-item:nth-child(1) { transition-delay: 0.05s; }
+  .header-nav--open .menu-item:nth-child(2) { transition-delay: 0.08s; }
+  .header-nav--open .menu-item:nth-child(3) { transition-delay: 0.11s; }
+  .header-nav--open .menu-item:nth-child(4) { transition-delay: 0.14s; }
+  .header-nav--open .menu-item:nth-child(5) { transition-delay: 0.17s; }
+  .header-nav--open .menu-item:nth-child(6) { transition-delay: 0.20s; }
+
+  .menu-item:hover {
+    background-color: var(--gh-surface-2);
+    color: var(--gh-accent);
+  }
+
+  /* La sección actual, en azul. */
+  .menu-item--active {
+    color: var(--gh-accent);
+    font-weight: 600;
+  }
+
+  .header-nav__theme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 6px;
+    padding: 16px 24px 4px;
+    border-top: 1px solid var(--gh-border);
+  }
+
+  .header-nav__login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-75);
+    margin: var(--space-200) var(--space-300) var(--space-50);
+    height: 44px;
+    border-radius: var(--gh-radius-btn);
+    background: var(--gh-accent-emphasis);
+    color: var(--gh-accent-fg);
+    font-size: var(--text-base);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .header-nav__login svg { width: 18px; height: 18px; }
 }
 
 .header-nav__theme-label {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--gh-fg-muted);
 }
 
-/* Sun/moon switch */
+/* Sun/moon switch (drawer) */
 .rp-theme-switch {
   position: relative;
   display: inline-flex;
@@ -285,7 +539,7 @@ img.logo-image:hover {
   z-index: 2;
   display: inline-flex;
   color: var(--gh-fg-subtle);
-  transition: color 0.2s ease;
+  transition: color var(--dur-base) var(--ease-fluid);
 }
 
 .rp-theme-switch__icon svg { width: 15px; height: 15px; display: block; }
@@ -299,7 +553,7 @@ img.logo-image:hover {
   border-radius: 50%;
   background: var(--gh-canvas);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
-  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform var(--dur-base) var(--ease-fluid);
   z-index: 1;
 }
 
@@ -307,266 +561,19 @@ img.logo-image:hover {
   transform: translateX(30px);
 }
 
-/* highlight the active side */
 .rp-theme-switch[aria-checked='false'] .rp-theme-switch__icon--sun,
 .rp-theme-switch[aria-checked='true'] .rp-theme-switch__icon--moon {
   color: var(--gh-accent);
 }
 
-/* Language switch (ES / EN / PT): compact segmented control in the header
-   on desktop, a row inside the drawer on mobile. */
-.rp-lang {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  padding: 2px;
-  border: 1px solid var(--gh-border, #d0d7de);
-  border-radius: var(--gh-radius-btn, 10px);
+@media (prefers-reduced-motion: reduce) {
+  .menu-item::after { transition: none; }
 }
 
-.rp-lang__btn {
-  min-width: 32px;
-  height: 28px;
-  padding: 0 6px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--gh-fg-muted, #656d76);
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.rp-lang__btn:hover { color: var(--gh-fg, #1f2328); }
-
-.rp-lang__btn[aria-pressed='true'] {
-  background: var(--gh-surface-2, #f6f8fa);
-  color: var(--gh-accent, #0969da);
-}
-
-.header-nav__lang {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 14px 24px 4px;
-}
-
-@media (max-width: 767px) {
-  .rp-lang--header { display: none; }
-  .header-nav__lang { display: flex; }
-  .rp-lang--drawer .rp-lang__btn { min-width: 40px; height: 32px; font-size: 13px; }
-}
-
-/* Login button — the landing's only way into the platform (LOGIN_URL) */
-.header-platform-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  height: 34px;
-  padding: 0 16px;
-  border-radius: var(--gh-radius-btn, 10px);
-  background: var(--gh-accent-emphasis, #0969da);
-  color: var(--gh-accent-fg, #fff);
-  border: 1px solid transparent;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.header-platform-btn:hover {
-  background: var(--gh-accent-emphasis-hover, #0860ca);
-}
-
-.header-platform-btn,
-.header-nav__login { text-decoration: none; }
-
-/* Drawer row with the login link — only inside the mobile drawer. */
-.header-nav__login {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 14px 24px 6px;
-  height: 42px;
-  border-radius: var(--gh-radius-btn, 10px);
-  background: var(--gh-accent-emphasis, #0969da);
-  color: var(--gh-accent-fg, #fff);
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 600;
-}
-.header-nav__login svg { width: 17px; height: 17px; }
-@media (max-width: 767px) {
-  .header-nav__login { display: flex; }
-}
-
-.header-platform-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-@media (max-width: 480px) {
-  .header-platform-btn { padding: 0 10px; }
-  .header-platform-btn span { display: none; } /* icon-only on small screens */
-}
-
-/* ---- Responsive (base) ---- */
-@media (max-width: 1024px) {
-  .header-content {
-    padding: 14px 22px;
-  }
-}
-
-@media (max-width: 768px) {
-  .header-content {
-    padding: 12px 18px;
-  }
-
-  img.logo-image {
-    height: 45px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-content {
-    padding: 12px 14px 14px;
-  }
-
-  img.logo-image {
-    height: 45px;
-  }
-}
-
-/* ============================================================
-   GitHub header skin — HOME ONLY (.rp-home)
-   ============================================================ */
-.rp-home .header {
-  background-color: var(--gh-surface);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: var(--gh-shadow-sm);
-  border-bottom: 1px solid var(--gh-border);
-  color: var(--gh-fg);
-}
-
-.rp-home .header::after {
-  display: none;
-}
-
-/* Drawer open: drop the header's own divider line + shadow so the bar and the
-   menu below it read as one seamless white surface (no grey seam between them). */
-.rp-home .header--menu-open {
-  border-bottom-color: transparent;
-  box-shadow: none;
-}
-
-.rp-home .header-content {
-  padding: 11px 24px;
-}
-
-@media (max-width: 767px) {
-  .rp-home .header-content { padding: 11px 14px; }
-}
-
-.rp-home img.logo-image {
-  height: 46px;
-}
-
-/* hamburger + drawer skin (home mobile) — matches the theme-toggle button:
-   34px rounded square, subtle border on hover. */
-.rp-home .hamburger-button {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--gh-radius, 6px);
-  border: 1px solid transparent;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.rp-home .hamburger-line {
-  width: 18px;
-  background-color: var(--gh-fg-muted);
-}
-
-.rp-home .hamburger-button:hover {
-  background-color: var(--gh-surface-2);
-  border-color: var(--gh-border);
-}
-
-.rp-home .hamburger-button.open .hamburger-line {
-  background-color: var(--gh-accent);
-}
-
-.rp-home .header-nav {
-  background-color: var(--gh-surface);
-  border-bottom: 1px solid var(--gh-border);
-  /* Bottom-only shadow: offset ≥ blur + negative spread keeps it from bleeding
-     up over the header's background (which paints behind this drawer). */
-  box-shadow: 0 14px 20px -10px rgba(31, 35, 40, 0.2);
-}
-
-[data-rp-theme='dark'] .rp-home .header-nav {
-  box-shadow: 0 14px 20px -10px rgba(1, 4, 9, 0.6);
-}
-
-.rp-home .menu-item {
-  color: var(--gh-fg);
-  font-weight: 500;
-  border-radius: var(--gh-radius-btn, 10px);
-}
-
-.rp-home .menu-item:hover {
-  background-color: var(--gh-surface-2);
-  color: var(--gh-accent);
-}
-
-.rp-home .menu-item::before {
-  background: var(--gh-accent);
-}
-
-/* ---- Inline horizontal nav on desktop (home) ---- */
-@media (min-width: 768px) {
-  .rp-home .header-nav {
-    position: static;
-    flex-direction: row;
-    align-items: center;
-    gap: 2px;
-    max-height: none;
-    overflow: visible;
-    opacity: 1;
-    padding: 0;
-    background: transparent;
-    border-bottom: none;
-    box-shadow: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-
-  .rp-home .menu-item {
-    width: auto;
-    opacity: 1;
-    transform: none;
-    padding: 6px 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--gh-fg-muted);
-    border-radius: var(--gh-radius-btn, 10px);
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-
-  .rp-home .menu-item:hover {
-    background: var(--gh-surface-2);
-    color: var(--gh-fg);
-    padding-left: 12px;
-  }
-
-  .rp-home .menu-item::before {
-    display: none;
-  }
-
-  .rp-home .hamburger-button {
-    display: none;
-  }
+/* Desenfoque: en las reglas va sólo backdrop-filter (el minificador deja
+   una sola versión y, si queda la de -webkit-, Chrome no desenfoca). Safari
+   16 y 17 sólo entienden la versión con prefijo: va aparte. */
+@supports not (backdrop-filter: blur(1px)) {
+  .header--scrolled,
+  .header--menu-open { -webkit-backdrop-filter: blur(28px) saturate(160%); }
 }

@@ -7,37 +7,34 @@
 
 .rp-fx-section { scroll-margin-top: 80px; }
 
-/* ---- Section palette — el verde es acento DE SECCIÓN (identidad agro);
-   los elementos interactivos globales siguen con --gh-accent azul.
-   --fx-accent usa #1a7f37 (4.77:1 sobre canvas claro, AA texto chico);
-   #018c34 queda para trazos gruesos de serie, no para texto pequeño. ---- */
+/* ---- Paleta de la sección: el acento es el azul de la marca; cada panel
+   toma un color con significado (azul = la marca, agua, ámbar = alerta,
+   verde campo = el cultivo a salvo). Los tonos -1 pasan AA como texto
+   sobre el fondo; los -2 son para trazos y rellenos. ---- */
 .rp-fx-section {
-  --fx-accent: #1a7f37;
-  /* GitHub green button pair — AA con texto blanco (a diferencia de
-     --gh-detail-green #018c34, que da 4.38:1 y no llega) */
-  --fx-blue-1: #0969da;
-  --fx-blue-2: #0a4d9e;
-  --fx-teal-1: #0d9488;
-  --fx-teal-2: #2dd4bf;
-  --fx-amber-1: #e0850e;
-  --fx-amber-2: #f5b23e;
-  --fx-green-1: #1a7f37;
-  --fx-green-2: #4ac26b;
-  --fx-grid: #e2e8f0;
+  --fx-accent: var(--gh-accent);
+  --fx-blue-1: #1a56cc;
+  --fx-blue-2: #6f97e6;
+  --fx-teal-1: #2a6f73;
+  --fx-teal-2: #6fa7a9;
+  --fx-amber-1: #8a5300;
+  --fx-amber-2: #d39a3a;
+  --fx-green-1: #3b6e25;
+  --fx-green-2: #7fa75f;
+  --fx-grid: var(--gh-border-muted);
   --fx-dot-fill: var(--gh-canvas);
 }
 
 [data-rp-theme="dark"] .rp-fx-section {
-  --fx-accent: #3fb950;
-  --fx-blue-1: #4493f8;
-  --fx-blue-2: #58a6ff;
-  --fx-teal-1: #2dd4bf;
-  --fx-teal-2: #5eead4;
-  --fx-amber-1: #e3b341;
-  --fx-amber-2: #f0c674;
-  --fx-green-1: #3fb950;
-  --fx-green-2: #56d364;
-  --fx-grid: #30363d;
+  --fx-blue-1: #8fb0ef;
+  --fx-blue-2: #5890f0;
+  --fx-teal-1: #6fbfbf;
+  --fx-teal-2: #4a9a9b;
+  --fx-amber-1: #e0a84a;
+  --fx-amber-2: #b98330;
+  --fx-green-1: #93c46b;
+  --fx-green-2: #6e9a4c;
+  --fx-grid: var(--gh-border);
 }
 
 /* Per-panel palette → generic slots the chart classes consume */
@@ -64,7 +61,7 @@
 .rp-fx__title {
   font-family: var(--font-heading);
   font-size: clamp(1.9rem, 4vw, 3rem);
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.08;
   color: var(--gh-fg);
@@ -115,7 +112,7 @@
   min-width: 76px;
 }
 
-.rp-fx__count strong { color: var(--gh-fg); font-weight: 800; font-size: 1.05rem; }
+.rp-fx__count strong { color: var(--gh-fg); font-weight: 600; font-size: 1.05rem; }
 .rp-fx__count-sep { margin: 0 4px; color: var(--gh-fg-subtle); }
 
 .rp-fx__dots { display: flex; align-items: center; gap: 8px; }
@@ -267,7 +264,7 @@
 .rp-fx__moment-num {
   font-family: var(--font-heading);
   font-size: 2.2rem;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--fx-c1);
@@ -278,7 +275,7 @@
   /* la pregunta de decisión: más chica que un título de sección porque
      algunas ocupan dos líneas */
   font-size: clamp(1.7rem, 3vw, 2.5rem);
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.025em;
   color: var(--gh-fg);
   margin: 0 0 22px;

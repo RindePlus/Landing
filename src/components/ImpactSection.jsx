@@ -34,6 +34,14 @@ const INDICADORES = [
 ];
 const TABLAS = INDICADORES.filter((i) => i.tabla).map((i) => i.id);
 
+// En la tipografía de datos (monoespaciada) el punto o la coma de miles
+// ocupa un ancho entero y "110.000" se lee "110 . 000": el separador va en
+// la tipografía del texto, que es angosta (.rp-impact__sep).
+const conSeparadores = (cifra) =>
+  String(cifra).split(/([.,])/).map((parte, i) =>
+    i % 2 ? <span key={i} className="rp-impact__sep">{parte}</span> : parte,
+  );
+
 const Tabla = ({ columnas, filas }) => (
   <div className="rp-impact__tabla">
     <table>
@@ -249,7 +257,7 @@ const ImpactSection = () => {
             const contenido = (
               <>
                 <strong>
-                  {valores[ind.id]}
+                  {conSeparadores(valores[ind.id])}
                   {ind.unidad && <small>{ind.unidad}</small>}
                 </strong>
                 <span>{t.indicadores[ind.id](d)}</span>
