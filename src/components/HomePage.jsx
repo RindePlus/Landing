@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaAndroid, FaApple, FaChevronLeft, FaChevronRight, FaWhatsapp } from 'react-icons/fa';
-import TrustedCompanies from './TrustedCompanies';
+import { PiArrowDown } from 'react-icons/pi';
 import Reveal from './Reveal';
 import LoteMap from './LoteMap';
-import LotesMosaic from './LotesMosaic';
 import { whatsappUrl } from '../data/social';
 import { urlDe } from '../data/imagen';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
@@ -29,47 +28,47 @@ const BENEFIT_PHOTOS = [
 
 /* ---------------- Subcomponents ---------------- */
 
+// Contenido del hero: título, bajada, botones y el lote resaltado. La
+// sección (fondo y carrusel de clientes) la arma HomeView.astro.
 const HeroSection = () => {
   const { dict } = useI18n();
   const t = dict.hero;
   return (
-    <section className="rp-home__hero" id="top">
-      <div className="rp-home__bg" aria-hidden="true"><LotesMosaic /></div>
-      <div className="rp-home__hero-inner">
-        <div className="rp-home__hero-text">
-          <h1 className="rp-home__hero-title rp-fade-in rp-d-1">
-            {t.titleA}
-            <span className="rp-home__hero-title-accent">{t.titleB}</span>
-          </h1>
+    <div className="rp-home__hero-inner">
+      <div className="rp-home__hero-text">
+        <h1 className="rp-home__hero-title rp-fade-in rp-d-1">
+          {t.titleA}
+          <span className="rp-home__hero-title-accent">{t.titleB}</span>
+        </h1>
 
-          <p className="rp-home__hero-subtitle rp-fade-in rp-d-3">{t.subtitle}</p>
+        <p className="rp-home__hero-subtitle rp-fade-in rp-d-3">{t.subtitle}</p>
 
-          <div className="rp-home__hero-ctas rp-fade-in rp-d-4">
-            <a
-              href={whatsappUrl(dict.whatsapp.message)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rp-home__hero-btn rp-home__hero-btn--primary"
-            >
-              <FaWhatsapp aria-hidden="true" />
-              {t.ctaTalk}
-            </a>
-            <a href="#funcionalidades" className="rp-home__hero-btn rp-home__hero-btn--ghost">
-              {t.ctaCampaign}
-            </a>
-          </div>
-        </div>
-
-        <div className="rp-home__hero-visual rp-fade-in rp-d-3">
-          <LoteMap aria={t.mapAria} />
+        <div className="rp-home__hero-ctas rp-fade-in rp-d-4">
+          <a
+            href={whatsappUrl(dict.whatsapp.message)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rp-home__hero-btn rp-home__hero-btn--primary"
+          >
+            <FaWhatsapp aria-hidden="true" />
+            {t.ctaTalk}
+          </a>
+          <a href="#funcionalidades" className="rp-home__hero-btn rp-home__hero-btn--ghost">
+            {t.ctaCampaign}
+            <PiArrowDown aria-hidden="true" />
+          </a>
         </div>
       </div>
-    </section>
+
+      <div className="rp-home__hero-visual rp-fade-in rp-d-3">
+        <LoteMap aria={t.mapAria} avisos={t.avisos} />
+      </div>
+    </div>
   );
 };
 
 // "Por qué Rinde Plus": un punto por vez, cada uno sobre su foto de campo
-// (Wikimedia Commons, CC BY-SA; créditos en <PhotoCredits />). Avanza solo
+// (Wikimedia Commons, CC BY-SA; créditos al pie del footer). Avanza solo
 // con la sección en pantalla y la pestaña visible; con reduced-motion no
 // avanza solo. Flechas, barras, teclado y deslizar para moverse.
 const SLIDE_MS = 7000;
@@ -191,33 +190,25 @@ const BenefitsSection = () => {
   );
 };
 
-const TrustedSection = () => (
-  <section className="rp-home__trusted" id="clientes">
-    <Reveal className="rp-home__trusted-carousel">
-      <TrustedCompanies />
-    </Reveal>
-  </section>
-);
-
 const FinalCta = () => {
   const { dict } = useI18n();
   const t = dict.cta;
   return (
     <section className="rp-home__cta">
-      <div className="rp-home__bg" aria-hidden="true"><LotesMosaic /></div>
-      <Reveal>
-        <div className="rp-home__cta-inner">
+      {/* Panel en dos columnas: a la izquierda el título y la visión; a la
+          derecha qué hacer, con el mismo botón principal del hero. */}
+      <Reveal className="rp-home__cta-panel">
+        <div className="rp-home__cta-texto">
           <h2 className="rp-home__cta-title">{t.title}</h2>
-          <p className="rp-home__cta-copy">
-            {t.vision}
-            <br />
-            {t.copy}
-          </p>
+          <p className="rp-home__cta-vision">{t.vision}</p>
+        </div>
+        <div className="rp-home__cta-accion">
+          <p className="rp-home__cta-copy">{t.copy}</p>
           <a
             href={whatsappUrl(dict.whatsapp.message)}
             target="_blank"
             rel="noopener noreferrer"
-            className="rp-home__cta-btn"
+            className="rp-home__hero-btn rp-home__hero-btn--primary rp-home__cta-btn"
           >
             <FaWhatsapp aria-hidden="true" />
             {t.button}
@@ -240,60 +231,37 @@ const InstallAppSection = () => {
   const t = useI18n().dict.install;
   return (
     <section className="rp-install" id="instalar">
-      <Reveal className="rp-install__header">
-        <h2 className="rp-install__title">{t.title}</h2>
-        <p className="rp-install__subtitle">{t.subtitle}</p>
-      </Reveal>
+      <div className="rp-install__inner">
+        <Reveal className="rp-install__header">
+          <h2 className="rp-install__title">
+            {t.titleA}
+            <span className="rp-install__title-accent">{t.titleB}</span>
+          </h2>
+          <p className="rp-install__subtitle">{t.subtitle}</p>
+        </Reveal>
 
-      <div className="rp-install__grid">
-        {INSTALL_GUIDES.map(({ id, icon }, i) => (
-          <Reveal key={id} delay={i + 1}>
-            <article className={`rp-install__card rp-install__card--${id}`}>
-              <div className="rp-install__top">
-                <span className="rp-install__icon">{icon}</span>
-                <h3 className="rp-install__name">{t[id].name}</h3>
-              </div>
-              <ol className="rp-install__steps">
-                {t[id].steps.map((step, n) => (
-                  <li key={n}>
-                    <span className="rp-install__num">{n + 1}</span>
-                    <div className="rp-install__step-text">{step}</div>
-                  </li>
-                ))}
-              </ol>
-            </article>
-          </Reveal>
-        ))}
+        <div className="rp-install__grid">
+          {INSTALL_GUIDES.map(({ id, icon }, i) => (
+            <Reveal key={id} delay={i + 1}>
+              <article className={`rp-install__card rp-install__card--${id}`}>
+                <div className="rp-install__top">
+                  <span className="rp-install__icon">{icon}</span>
+                  <h3 className="rp-install__name">{t[id].name}</h3>
+                </div>
+                <ol className="rp-install__steps">
+                  {t[id].steps.map((step, n) => (
+                    <li key={n}>
+                      <span className="rp-install__num">{n + 1}</span>
+                      <div className="rp-install__step-text">{step}</div>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
-  );
-};
-
-// Licencias de las fotos, en el orden de dict.credits.photos.
-const PHOTO_LICENSES = [
-  { license: 'CC BY-SA 2.0', href: 'https://commons.wikimedia.org/wiki/File:Argentina%C2%B4s_Wet_Pampa.jpg' },
-  { license: 'CC BY-SA 3.0', href: 'https://commons.wikimedia.org/wiki/File:Sembrado_de_soja_en_argentina.jpg' },
-  { license: 'CC BY-SA 2.0', href: 'https://commons.wikimedia.org/wiki/File:Girasol_pampeano_(44521869145).jpg' },
-  { license: 'CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:CosechaSoja.jpg' },
-];
-
-const PhotoCredits = () => {
-  const t = useI18n().dict.credits;
-  return (
-    <p className="rp-home__credits">
-      {t.lead}:{' '}
-      {t.photos.map((name, i) => (
-        <span key={PHOTO_LICENSES[i].href}>
-          {i > 0 && ' · '}
-          {name} (
-          <a href={PHOTO_LICENSES[i].href} target="_blank" rel="noopener noreferrer">
-            {PHOTO_LICENSES[i].license}
-          </a>
-          )
-        </span>
-      ))}
-      , {t.via}.
-    </p>
   );
 };
 
@@ -304,7 +272,5 @@ const PhotoCredits = () => {
 
 export const Hero = conIdioma(HeroSection);
 export const Benefits = conIdioma(BenefitsSection);
-export const Trusted = conIdioma(TrustedSection);
 export const CtaFinal = conIdioma(FinalCta);
 export const InstallApp = conIdioma(InstallAppSection);
-export const Credits = conIdioma(PhotoCredits);

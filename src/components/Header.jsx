@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { PiSun, PiMoon, PiSignIn, PiCaretDown, PiCheck } from 'react-icons/pi';
+import { PiSun, PiMoon, PiUser, PiCaretDown, PiCheck, PiWhatsappLogo } from 'react-icons/pi';
 import rindeplusLogo from '../assets/rindeplus-logo-light.png';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
 import { LOGIN_URL } from '../data/links';
+import { whatsappUrl } from '../data/social';
 import { urlDe } from '../data/imagen';
 import { useRpTheme } from '../hooks/useRpTheme';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
@@ -213,9 +214,21 @@ const Header = () => {
             </button>
           </div>
 
-          <a className="header-nav__login" href={LOGIN_URL}>
+          {/* En celular, Ingresar y WhatsApp van al pie del menú, con su
+              palabra (el botón flotante de WhatsApp se oculta en celular). */}
+          <a className="header-nav__login" href={LOGIN_URL} onClick={() => setIsMenuOpen(false)}>
+            <PiUser aria-hidden="true" />
             <span>{t.loginLong}</span>
-            <PiSignIn aria-hidden="true" />
+          </a>
+          <a
+            className="header-nav__whatsapp"
+            href={whatsappUrl(dict.whatsapp.message)}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <PiWhatsappLogo aria-hidden="true" />
+            <span>{dict.whatsapp.cta}</span>
           </a>
         </nav>
 
@@ -273,9 +286,9 @@ const Header = () => {
             </ul>
           </div>
 
-          <a className="header-platform-btn" href={LOGIN_URL} aria-label={t.loginLong}>
-            <span>{t.login}</span>
-            <PiSignIn aria-hidden="true" />
+          {/* Ingresar: sólo el ícono de una persona, como en VigIA. */}
+          <a className="header-icon-btn" href={LOGIN_URL} aria-label={t.loginLong} title={t.login}>
+            <PiUser aria-hidden="true" />
           </a>
         </div>
 

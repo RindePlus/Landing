@@ -26,14 +26,54 @@
   padding: 144px 24px 16px;
   min-height: 68vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .rp-home__hero { padding: 178px 40px 20px; min-height: 52vh; }
 }
+
+/* Escritorio: el hero ocupa la pantalla entera (sin asomar la sección
+   siguiente), con el contenido centrado en el alto que queda libre entre
+   el header y el carrusel de clientes. Si no entra, crece. */
+@media (min-width: 1024px) {
+  .rp-home__hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    /* Lugar para el header (fijo, encima). Un valor fijo y no
+       --alto-header: esa medida llega cuando el header hidrata y correría
+       el contenido (y el fondo alineado al lote) unos píxeles. */
+    padding: 72px 40px 0;
+  }
+
+  .rp-home__hero > .rp-home__hero-inner { margin-block: auto; }
+}
+
+/* Carrusel de clientes al pie del hero, a todo el ancho. */
+.rp-home__hero-clientes {
+  position: relative;
+  z-index: 2;
+  width: calc(100% + 48px);
+  margin: 48px -24px 0;
+  padding: var(--space-200) 0 var(--space-300);
+}
+
+@media (min-width: 768px) {
+  .rp-home__hero-clientes { width: calc(100% + 80px); margin-inline: -40px; }
+}
+
+@media (min-width: 1024px) {
+  .rp-home__hero-clientes { margin-top: var(--space-300); }
+}
+
+.rp-home__hero-clientes .trusted-companies-section {
+  padding: 0;
+  background: transparent;
+}
+
+.rp-home__hero-clientes .trusted-companies-title { display: none; }
 
 /* Flat GitHub canvas — no ambient glow */
 .rp-home__hero::before,
@@ -145,21 +185,27 @@
 .rp-home__hero-btn svg { transition: transform 0.2s ease; }
 .rp-home__hero-btn:hover svg { transform: translateX(3px); }
 
-/* ghost — plain, like a header nav item (no fill, no border), blue text;
-   hover fills soft so it reads as a button */
+/* secundario — el botón con borde de VigIA, del mismo alto que el
+   principal. Sobre el mosaico lleva un fondo apenas translúcido para no
+   perderse entre los lotes. La flecha baja un poco al pasar el mouse:
+   lleva a la sección siguiente. */
 .rp-home__hero-btn--ghost {
-  color: var(--gh-accent);
-  background: transparent;
-  border-color: transparent;
+  color: var(--gh-fg);
+  background: color-mix(in srgb, var(--gh-surface) 72%, transparent);
+  border-color: var(--gh-border-strong);
+  padding: 12px 20px;
   box-shadow: none;
   font-weight: 600;
 }
 
 .rp-home__hero-btn--ghost:hover {
-  background: var(--gh-accent-soft);
-  color: var(--gh-accent-hover);
+  background: var(--gh-surface);
+  border-color: var(--gh-fg-subtle);
   transform: none;
 }
+
+.rp-home__hero-btn--ghost svg { width: 16px; height: 16px; }
+.rp-home__hero-btn--ghost:hover svg { transform: translateY(2px); }
 
 /* primary — la acción de la página: hablar con el equipo */
 .rp-home__hero-btn--primary {
@@ -216,47 +262,8 @@
 }
 
 /* Collapse top padding on consecutive sections */
-.rp-home__section + .rp-home__section,
-.rp-home__section + .rp-home__trusted,
-.rp-home__trusted + .rp-home__section {
+.rp-home__section + .rp-home__section {
   padding-top: 0;
-}
-
-/* ============================================================
-   Trusted companies — full-width section
-   ============================================================ */
-.rp-home__trusted {
-  position: relative;
-  width: 100%;
-  padding: 28px 0 32px;
-}
-
-@media (min-width: 768px) {
-  .rp-home__trusted { padding: 36px 0 40px; }
-}
-
-@media (min-width: 1024px) {
-  .rp-home__trusted { padding: 40px 0 48px; }
-}
-
-/* Full-width strip, logos ride directly on the page canvas (no band).
-   Monochrome tint per theme + hover color reveal live in
-   TrustedCompanies.css under the .rp-home scope. */
-.rp-home__trusted-carousel {
-  position: relative;
-  width: 100%;
-  padding: 18px 0;
-  overflow: hidden;
-}
-
-.rp-home__trusted-carousel > :first-child {
-  background: transparent !important;
-  padding: 0 !important;
-}
-
-/* Hide the default TrustedCompanies title — we render our own header above */
-.rp-home__trusted-carousel .trusted-companies-title {
-  display: none;
 }
 
 /* ============================================================
@@ -264,65 +271,71 @@
    ============================================================ */
 .rp-home__cta {
   position: relative;
-  padding: clamp(80px, 10vw, 136px) 24px clamp(96px, 12vw, 160px);
-  text-align: center;
-  overflow: hidden;
+  padding: 0 24px clamp(48px, 6vw, 72px);
 }
 
-.rp-home__cta-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 1120px;
+/* Panel: la misma tarjeta que las de la app (.rp-install__card), sin
+   borde, con la superficie a medias y desenfoque. */
+.rp-home__cta-panel {
+  display: grid;
+  gap: var(--space-400);
+  max-width: 1040px;
   margin: 0 auto;
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: var(--gh-radius-card);
+  background: color-mix(in srgb, var(--gh-surface) 55%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+@media (min-width: 900px) {
+  .rp-home__cta-panel {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: var(--space-700);
+    align-items: center;
+  }
+
+  /* Línea fina entre las dos columnas. */
+  .rp-home__cta-accion {
+    padding-left: var(--space-700);
+    border-left: 1px solid var(--gh-border-muted);
+  }
 }
 
 .rp-home__cta-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
   font-weight: 600;
   line-height: 1.12;
   letter-spacing: -0.025em;
   color: var(--gh-fg);
-  margin: 0 0 16px;
+  margin: 0 0 var(--space-200);
+}
+
+.rp-home__cta-vision {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.rp-home__cta-accion {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-200);
 }
 
 .rp-home__cta-copy {
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-  color: var(--gh-fg-muted);
-  max-width: 42rem; /* wide enough for the copy to sit in two lines on desktop */
-  margin: 28px auto 40px;
-  line-height: 1.6;
-  text-wrap: balance;
+  margin: 0;
+  color: var(--gh-fg);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
 }
-
-/* Botón de WhatsApp — igual en los dos temas: su verde con texto oscuro
-   (el blanco no llega a 3:1). Sin pulso: el movimiento no decora. */
-.rp-home__cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 34px;
-  border-radius: var(--gh-radius-btn);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--rp-whatsapp-fg);
-  background: var(--rp-whatsapp);
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-fluid);
-}
-
-.rp-home__cta-btn:hover {
-  background: var(--rp-whatsapp-hover);
-}
-
-.rp-home__cta-btn svg { width: 18px; height: 18px; }
 
 .rp-home__cta-hint {
-  font-size: 0.85rem;
-  color: var(--gh-fg-muted);
-  margin-top: 16px;
+  margin: 0;
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
 }
 
 /* ============================================================
@@ -360,7 +373,6 @@
   .rp-home__hero { padding-top: 120px; padding-bottom: 64px; }
   .rp-home__section { padding: 64px 20px; }
   .rp-home__hero-marquee { gap: 16px; font-size: 0.66rem; }
-  .rp-home__cta-btn { padding: 14px 18px; }
 }
 
 /* ============================================================
@@ -396,7 +408,14 @@
     text-align: left;
   }
   .rp-home__hero-inner .rp-home__hero-subtitle { margin-left: 0; margin-right: 0; }
-  .rp-home__hero-inner .rp-home__hero-visual { max-width: none; margin: 0; }
+  /* En pantallas bajas el lote se achica con el alto de la ventana, para
+     que el hero entero (con el carrusel) entre sin apretarse. */
+  .rp-home__hero-inner .rp-home__hero-visual {
+    width: min(100%, 58svh);
+    max-width: none;
+    margin: 0;
+    justify-self: center;
+  }
 }
 
 .rp-lote { margin: 0; }
@@ -417,6 +436,8 @@
 
 .rp-lote__contour {
   fill: none;
+  /* el dibujo se estira sobre la caja del lote: el trazo no */
+  vector-effect: non-scaling-stroke;
   stroke: var(--gh-fg);
   stroke-opacity: 0.22;
   stroke-width: 1;
@@ -449,8 +470,8 @@
 }
 
 /* Fondo: mosaico de lotes + velo sobre --gh-canvas para que el texto se
-   lea en claro y oscuro. Hero y cierre ya son position: relative +
-   overflow hidden (no son ancestros del scroll-jack). */
+   lea en claro y oscuro. El hero es position: relative +
+   overflow hidden (no es ancestro del scroll-jack). */
 .rp-home__bg {
   position: absolute;
   inset: 0;
@@ -465,42 +486,38 @@
   height: 100%;
 }
 
+/* Velo sobre el mosaico: donde está el texto el fondo es liso (el de la
+   página) y el campo aparece de a poco hacia el lote resaltado. En celular
+   el texto va arriba y el lote abajo; en escritorio, a los costados. */
 .rp-home__bg::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--gh-canvas) 82%, transparent) 0%,
-    color-mix(in srgb, var(--gh-canvas) 60%, transparent) 55%,
+    var(--gh-canvas) 0%,
+    var(--gh-canvas) 40%,
+    color-mix(in srgb, var(--gh-canvas) 30%, transparent) 56%,
+    color-mix(in srgb, var(--gh-canvas) 30%, transparent) 82%,
     var(--gh-canvas) 100%
   );
 }
 
 @media (min-width: 1024px) {
+  /* El contenido está centrado: los cortes se miden desde el centro, así
+     el texto queda sobre fondo liso en cualquier ancho y el campo se ve
+     entero alrededor del lote. */
   .rp-home__hero .rp-home__bg::after {
     background:
-      linear-gradient(180deg, transparent 70%, var(--gh-canvas) 100%),
+      linear-gradient(180deg, transparent 72%, var(--gh-canvas) 100%),
       linear-gradient(
         90deg,
-        color-mix(in srgb, var(--gh-canvas) 90%, transparent) 0%,
-        color-mix(in srgb, var(--gh-canvas) 72%, transparent) 45%,
-        color-mix(in srgb, var(--gh-canvas) 25%, transparent) 100%
+        var(--gh-canvas) 0%,
+        var(--gh-canvas) calc(50% - 60px),
+        color-mix(in srgb, var(--gh-canvas) 30%, transparent) calc(50% + 110px),
+        color-mix(in srgb, var(--gh-canvas) 15%, transparent) 100%
       );
   }
-}
-
-/* cierre: texto centrado → velo más denso en el centro, y se funde
-   con el canvas hacia arriba */
-.rp-home__cta .rp-home__bg::after {
-  background:
-    linear-gradient(180deg, var(--gh-canvas) 0%, transparent 35%, transparent 80%, var(--gh-canvas) 100%),
-    radial-gradient(
-      ellipse 60% 70% at 50% 50%,
-      color-mix(in srgb, var(--gh-canvas) 92%, transparent) 0%,
-      color-mix(in srgb, var(--gh-canvas) 75%, transparent) 55%,
-      color-mix(in srgb, var(--gh-canvas) 45%, transparent) 100%
-    );
 }
 
 .rp-mosaic__lote { opacity: 0.55; }
@@ -529,7 +546,7 @@
 .rp-home__section--field {
   max-width: none;
   padding: clamp(88px, 11vw, 152px) 24px clamp(80px, 10vw, 136px);
-  margin-bottom: clamp(64px, 8vw, 112px);
+  margin-bottom: clamp(48px, 5vw, 72px);
   overflow: hidden;
   isolation: isolate;
   background: #0f1612;
@@ -739,9 +756,15 @@
    de selección de plataforma.
    ============================================================ */
 .rp-install {
+  position: relative;
+  padding: clamp(24px, 3vw, 32px) 24px clamp(48px, 6vw, 72px);
+}
+
+.rp-install__inner {
+  position: relative;
+  z-index: 1;
   max-width: 960px;
   margin: 0 auto;
-  padding: clamp(56px, 7vw, 88px) 24px clamp(40px, 5vw, 64px);
 }
 
 .rp-install__header {
@@ -750,14 +773,20 @@
   margin: 0 auto 32px;
 }
 
+/* Dos renglones como el título del hero: el segundo, la app, en azul. */
 .rp-install__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--gh-fg);
-  margin: 0 0 10px;
+  margin: 0 0 12px;
+}
+
+.rp-install__title-accent {
+  display: block;
+  color: var(--gh-accent);
 }
 
 .rp-install__subtitle {
@@ -767,22 +796,43 @@
   margin: 0;
 }
 
+/* Las dos tarjetas comparten filas (subgrid): encabezado y cada paso a la
+   misma altura en las dos, aunque un texto ocupe más renglones. */
 .rp-install__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
-  align-items: stretch; /* both cards share the tallest height */
 }
 
 @media (min-width: 768px) {
-  .rp-install__grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .rp-install__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    column-gap: 24px;
+    row-gap: 0;
+  }
+
+  .rp-install__grid > .rp-reveal,
+  .rp-install__card {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+  }
+
+  .rp-install__steps {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+  }
 }
 
+/* Tarjeta de vidrio, como las del equipo en VigIA: la superficie a medias
+   y con desenfoque, sin borde. Sólo backdrop-filter, sin la versión con
+   prefijo (ver Header.css). */
 .rp-install__card {
-  background: var(--gh-surface);
-  border: 1px solid var(--gh-border);
   border-radius: var(--gh-radius-card);
-  box-shadow: var(--gh-shadow-card);
+  background: color-mix(in srgb, var(--gh-surface) 55%, transparent);
+  backdrop-filter: blur(12px);
   padding: 22px;
   /* per-platform accent used by the icon box and step numbers */
   --install-accent: var(--gh-accent);
@@ -813,7 +863,7 @@
 .rp-install__name {
   font-family: var(--font-heading);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--gh-fg);
   margin: 0;
   letter-spacing: -0.015em;
@@ -824,7 +874,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 18px;
+  row-gap: 18px;
 }
 
 .rp-install__steps li {
@@ -841,7 +891,8 @@
   left: 12px;
   top: 26px;
   width: 2px;
-  height: calc(100% - 4px);
+  /* hasta el número siguiente, pasando el espacio entre pasos */
+  height: calc(100% - 4px + 18px);
   background: var(--gh-border);
 }
 
@@ -880,25 +931,6 @@
   vertical-align: -2px;
   color: var(--gh-accent);
 }
-
-/* Créditos de las fotos (CC BY-SA pide autor, licencia y enlace) */
-.rp-home__credits {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 18px 24px;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: var(--gh-fg-muted);
-  text-align: center;
-}
-
-.rp-home__credits a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.rp-home__credits a:hover { color: var(--gh-fg); }
 
 /* ============================================================
    Entrance keyframes

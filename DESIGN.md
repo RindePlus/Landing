@@ -118,6 +118,10 @@ La página se lee como un buen informe agronómico: papel neutro, tinta oscura, 
 - **Footer:** banda marino, logo de la versión oscura (amarillo y azul claro se leen sobre el marino), redes en círculos con borde, cuatro datos de contacto con títulos chicos en mayúsculas e íconos amarillos, y el copyright en un renglón fino.
 - **Tarjetas:** superficie, borde de 1 px, 12 px de radio, sombra mínima.
 
+### Lote del hero (Signature Component)
+- **Qué es:** uno de los potreros del mosaico de fondo, resaltado con sus ambientes y alineado con el fondo (muchas hectáreas, una remarcada).
+- **Escenas:** cada tanto pasa un momento de la campaña (planificar, preparar, fertilizar, acompañar con una condición de clima, cerrar), Rinde Plus lo analiza (un barrido azul) y responde con una notificación. Una por vez, con calma entre medio; el viento cruza en la calma, sin respuesta. Todo en [`doc/ANIMACION_LOTE.md`](doc/ANIMACION_LOTE.md).
+
 ## Do's and Don'ts
 
 ### Do:

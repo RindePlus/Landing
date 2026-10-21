@@ -15,7 +15,7 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: clamp(56px, 8vw, 104px) 24px clamp(48px, 7vw, 88px);
-  scroll-margin-top: 80px;
+  scroll-margin-top: var(--alto-header, 72px);
   /* el contenido que se desliza entre tablas no genera scroll lateral */
   overflow-x: clip;
 }
@@ -44,6 +44,78 @@
   color: var(--gh-fg-muted);
   margin: 0;
   text-wrap: balance;
+}
+
+/* ---- Tabla abierta (.is-tabla): el título se pliega ----
+   En pantallas horizontales donde entra, al abrir una tabla el título se
+   pliega (alto a 0) y los indicadores suben, con menos aire arriba: la
+   bajada, los indicadores, la tabla y el pie (+700.000 ha) quedan a la
+   vista sin bajar. Al cerrar la última tabla, vuelve el título. El script
+   alinea la sección arriba al abrir y al cerrar; sin el anclaje del
+   navegador, que corría el scroll al plegarse el título. */
+.rp-impact__pliegue {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.rp-impact__pliegue > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) and (min-height: 560px) and (orientation: landscape) {
+  .rp-impacto {
+    overflow-anchor: none;
+    transition: padding var(--dur-slow) var(--ease-fluid);
+  }
+
+  .rp-impact__pliegue {
+    transition:
+      grid-template-rows var(--dur-slow) var(--ease-fluid),
+      opacity var(--dur-base) var(--ease-fluid);
+  }
+
+  .rp-impacto .rp-impact__inds,
+  .rp-impacto .rp-impact__pie {
+    transition: margin-top var(--dur-slow) var(--ease-fluid);
+  }
+
+  .rp-impacto.is-tabla {
+    padding-top: var(--space-300);
+    padding-bottom: var(--space-300);
+  }
+
+  .rp-impacto.is-tabla .rp-impact__pliegue {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+
+  .rp-impacto.is-tabla .rp-impact__inds { margin-top: var(--space-200); }
+  .rp-impacto.is-tabla .rp-impact__pie { margin-top: var(--space-300); }
+
+  /* Más compacto con la tabla abierta: indicadores, panel y filas un
+     poco más bajos, para que entre todo en pantallas de poco alto. */
+  .rp-impacto.is-tabla .rp-impact__ind { padding-block: var(--space-75); }
+  .rp-impacto.is-tabla .rp-impact__items { padding: var(--space-200) var(--space-300); }
+  .rp-impacto.is-tabla .rp-impact__tabla th,
+  .rp-impacto.is-tabla .rp-impact__tabla td { padding-block: 6px; }
+}
+
+/* Pantallas bajas (laptops de 768 px o menos de alto): con la tabla
+   abierta, las cifras se achican y el renglón de la fuente se oculta; el
+   +700.000 ha queda a la vista. */
+@media (min-width: 900px) and (min-height: 560px) and (max-height: 800px) and (orientation: landscape) {
+  .rp-impacto.is-tabla { padding-top: var(--space-100); }
+  .rp-impacto.is-tabla .rp-impact__ind strong { font-size: 2rem; }
+  .rp-impacto.is-tabla .rp-impact__fuente { display: none; }
+  .rp-impacto.is-tabla .rp-impact__pie { margin-top: var(--space-200); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-impacto,
+  .rp-impact__pliegue,
+  .rp-impacto .rp-impact__inds,
+  .rp-impacto .rp-impact__pie { transition: none; }
 }
 
 /* ---- Indicadores ---- */

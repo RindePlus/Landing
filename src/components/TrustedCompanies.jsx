@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useI18n } from '../i18n/I18nContext';
+import { conIdioma, useI18n } from '../i18n/I18nContext';
 import { urlDe } from '../data/imagen';
 import altinaLogo from '../assets/related companies/altina.png';
 import chiaraviglioLogo from '../assets/related companies/chiaraviglio.png';
@@ -148,4 +148,4 @@ const TrustedCompanies = () => {
   );
 };
 
-export default TrustedCompanies; 
+export default conIdioma(TrustedCompanies); 

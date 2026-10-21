@@ -53,6 +53,18 @@ const en = {
     ctaTalk: "Let's talk about your fields",
     ctaCampaign: 'See what it does',
     mapAria: 'A field drawn with three management zones, crop rows and contour lines',
+    // Hero field scene notifications (doc/ANIMACION_LOTE.md).
+    avisos: {
+      marca: 'Rinde Plus',
+      ahora: 'now',
+      planificar: 'Potential yield by zone, ready.',
+      preparar: 'Soil test interpreted.',
+      fertilizar: 'Economic optimum rate by zone.',
+      sequia: 'Irrigation needed to reach the target yield.',
+      calor: 'Heat stress alert for the coming days.',
+      lluvia: 'Fungal disease risk after the rain.',
+      cerrar: 'Yield gap by zone, calculated.',
+    },
   },
 
   trusted: {
@@ -253,14 +265,15 @@ const en = {
     title: "Let's talk about your fields.",
     vision:
       'Our vision: every field decided with agronomic judgment, not only those of growers who can afford a technical team.',
-    copy: 'A few lines about the operation are enough to set up a call. No long forms: the Rinde Plus team replies directly.',
+    copy: 'A few lines about your operation are enough to set up a call. No forms: the Rinde Plus team replies directly.',
     button: 'Message us on WhatsApp',
     hint: 'Reply within 24 h',
   },
 
   install: {
-    title: 'The platform as an app on your phone',
-    subtitle: 'Add it to the home screen in three steps, no app store needed.',
+    titleA: 'Rinde Plus on your phone,',
+    titleB: 'just like an app.',
+    subtitle: 'Install it from the browser in three steps, no app store needed.',
     ios: {
       name: 'iPhone',
       steps: [
@@ -269,10 +282,10 @@ const en = {
           <>
             Tap <strong>Share</strong>{' '}
             <LuShare className="rp-install__inline-icon" aria-hidden="true" />{' '}
-            (the square with the arrow pointing up).
+            (the square with the arrow).
           </>
         ),
-        <>Choose <strong>Add to Home Screen</strong> and confirm with <strong>Add</strong>.</>,
+        <>Choose <strong>Add to Home Screen</strong> and confirm.</>,
       ],
     },
     android: {
@@ -283,7 +296,7 @@ const en = {
         (
           <>
             Choose <strong>Install app</strong> (or <strong>Add to Home
-            screen</strong>, depending on the version) and confirm.
+            screen</strong>) and confirm.
           </>
         ),
       ],
@@ -291,7 +304,7 @@ const en = {
   },
 
   credits: {
-    lead: 'Images',
+    lead: 'Photos',
     via: 'via Wikimedia Commons',
     photos: [
       'Argentina’s Wet Pampa seen from space, INPE',

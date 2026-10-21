@@ -4,7 +4,9 @@
 // compilar, sin JS en el cliente; las que tienen estado se hidratan como
 // islas cuando llegan a la pantalla.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Hero, Trusted, Benefits, CtaFinal, InstallApp, Credits } from '../components/HomePage.jsx';
+import { Hero, Benefits, CtaFinal, InstallApp } from '../components/HomePage.jsx';
+import Clientes from '../components/TrustedCompanies.jsx';
+import { CampoHero } from '../components/LotesMosaic.jsx';
 import ImpactSection from '../components/ImpactSection.jsx';
 import Functionalities from '../components/Functionalities.jsx';
 import { idiomaDe } from '../i18n/config';
@@ -13,12 +15,68 @@ const lang = idiomaDe(Astro.currentLocale);
 ---
 
 <BaseLayout>
-  <Hero lang={lang} />
-  <Trusted client:visible lang={lang} />
+  <!-- Hero: en escritorio ocupa la pantalla entera, con el carrusel de
+       clientes al pie (confianza a primera vista). -->
+  <section class="rp-home__hero" id="top">
+    <div class="rp-home__bg" aria-hidden="true"><CampoHero /></div>
+    <Hero lang={lang} />
+    <div class="rp-home__hero-clientes">
+      <Clientes client:load lang={lang} />
+    </div>
+  </section>
+  <!-- El lote resaltado del hero es uno de los potreros del fondo: se corre
+       el viewBox del fondo para que ese potrero quede justo debajo del
+       dibujo, a la misma escala. Inline y pegado al hero: corre antes del
+       primer paint, así el fondo ya aparece en su lugar y no se acomoda
+       después. Mide con offsetLeft/offsetTop, que no cuentan la subida de
+       entrada del dibujo (.rp-fade-in); se recalcula si cambia el tamaño
+       del hero o de su contenido (fuentes, ventana). Sin JS el fondo queda
+       recortado al centro. -->
+  <script is:inline>
+    (function () {
+      var hero = document.querySelector('.rp-home__hero');
+      var fondo = hero && hero.querySelector('.rp-mosaic--hero');
+      var lote = hero && hero.querySelector('.rp-lote__map');
+      var visual = lote && lote.closest('.rp-home__hero-visual');
+      if (!fondo || !visual) return;
+      // El viewBox de LoteMap es la caja del potrero (con un margen) en las
+      // coordenadas del fondo.
+      var caja = lote.viewBox.baseVal;
+      var alinear = function () {
+        var x = 0;
+        var y = 0;
+        for (var el = visual; el && el !== hero; el = el.offsetParent) {
+          x += el.offsetLeft;
+          y += el.offsetTop;
+        }
+        var ancho = visual.offsetWidth;
+        if (!ancho || !hero.offsetWidth) return;
+        var escala = ancho / caja.width;
+        fondo.setAttribute('viewBox', [
+          caja.x - x / escala,
+          caja.y - y / escala,
+          hero.offsetWidth / escala,
+          hero.offsetHeight / escala,
+        ].join(' '));
+      };
+      alinear();
+      if ('ResizeObserver' in window) {
+        var observer = new ResizeObserver(alinear);
+        observer.observe(hero);
+        observer.observe(visual);
+        var inner = visual.closest('.rp-home__hero-inner');
+        if (inner) observer.observe(inner);
+      }
+    })();
+  </script>
   <ImpactSection client:visible lang={lang} />
   <Functionalities client:visible lang={lang} />
   <Benefits client:visible lang={lang} />
   <CtaFinal lang={lang} />
   <InstallApp lang={lang} />
-  <Credits lang={lang} />
 </BaseLayout>
+
+<!-- Escenas del lote del hero (doc/ANIMACION_LOTE.md). -->
+<script>
+  import '../scripts/escenasLote.js';
+</script>

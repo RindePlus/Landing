@@ -53,6 +53,18 @@ const pt = {
     ctaTalk: 'Vamos falar dos seus talhões',
     ctaCampaign: 'Ver o que faz',
     mapAria: 'Talhão desenhado com três ambientes, linhas de plantio e curvas de nível',
+    // Notificações das cenas do talhão do hero (doc/ANIMACION_LOTE.md).
+    avisos: {
+      marca: 'Rinde Plus',
+      ahora: 'agora',
+      planificar: 'Produtividade potencial por ambiente, pronta.',
+      preparar: 'Análise de solo interpretada.',
+      fertilizar: 'Dose de máxima eficiência econômica por ambiente.',
+      sequia: 'Irrigação necessária para atingir a produtividade-alvo.',
+      calor: 'Alerta de estresse térmico para os próximos dias.',
+      lluvia: 'Risco de doenças fúngicas depois da chuva.',
+      cerrar: 'Lacuna de produtividade por ambiente, calculada.',
+    },
   },
 
   trusted: {
@@ -253,14 +265,15 @@ const pt = {
     title: 'Vamos falar dos seus talhões.',
     vision:
       'Nossa visão: que cada talhão seja decidido com critério agronômico, não só os de quem pode pagar uma equipe técnica.',
-    copy: 'Poucas linhas sobre a operação bastam para marcar uma conversa. Sem formulários longos: quem responde é a própria equipe da Rinde Plus.',
+    copy: 'Poucas linhas sobre a operação bastam para marcar uma conversa. Sem formulários: quem responde é a própria equipe da Rinde Plus.',
     button: 'Escrever pelo WhatsApp',
     hint: 'Resposta em menos de 24 h',
   },
 
   install: {
-    title: 'A plataforma como app no celular',
-    subtitle: 'Adicione à tela inicial em três passos, sem passar por nenhuma loja.',
+    titleA: 'A Rinde Plus no celular,',
+    titleB: 'como um app.',
+    subtitle: 'Instale pelo navegador em três passos, sem passar por nenhuma loja.',
     ios: {
       name: 'iPhone',
       steps: [
@@ -269,10 +282,10 @@ const pt = {
           <>
             Tocar em <strong>Compartilhar</strong>{' '}
             <LuShare className="rp-install__inline-icon" aria-hidden="true" />{' '}
-            (o quadrado com a seta para cima).
+            (o quadrado com a seta).
           </>
         ),
-        <>Escolher <strong>Adicionar à Tela de Início</strong> e confirmar em <strong>Adicionar</strong>.</>,
+        <>Escolher <strong>Adicionar à Tela de Início</strong> e confirmar.</>,
       ],
     },
     android: {
@@ -283,7 +296,7 @@ const pt = {
         (
           <>
             Escolher <strong>Instalar app</strong> (ou <strong>Adicionar à tela
-            inicial</strong>, conforme a versão) e confirmar.
+            inicial</strong>) e confirmar.
           </>
         ),
       ],
@@ -291,7 +304,7 @@ const pt = {
   },
 
   credits: {
-    lead: 'Imagens',
+    lead: 'Fotos',
     via: 'via Wikimedia Commons',
     photos: [
       'Pampa úmido visto por satélite, INPE',

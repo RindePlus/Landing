@@ -54,6 +54,19 @@ const es = {
     ctaTalk: 'Hablemos de tus lotes',
     ctaCampaign: 'Ver qué hace',
     mapAria: 'Lote dibujado con tres ambientes, surcos de siembra y curvas de nivel',
+    // Notificaciones de las escenas del lote del hero (doc/ANIMACION_LOTE.md):
+    // una por momento de la campaña; Acompañar tiene una por clima.
+    avisos: {
+      marca: 'Rinde Plus',
+      ahora: 'ahora',
+      planificar: 'Rinde potencial por ambiente, listo.',
+      preparar: 'Análisis de suelo interpretado.',
+      fertilizar: 'Dosis óptima económica por ambiente.',
+      sequia: 'Riego necesario para llegar al rinde objetivo.',
+      calor: 'Alerta de estrés térmico para los próximos días.',
+      lluvia: 'Riesgo de enfermedades fúngicas después de la lluvia.',
+      cerrar: 'Brecha de rinde por ambiente, calculada.',
+    },
   },
 
   trusted: {
@@ -254,14 +267,15 @@ const es = {
     title: 'Hablemos de tus lotes.',
     vision:
       'Nuestra visión: que cada lote se decida con criterio agronómico, no solo los de quien puede pagarse un equipo técnico.',
-    copy: 'Unas líneas sobre la operación alcanzan para coordinar una llamada. Sin formularios largos: responde directo el equipo de Rinde Plus.',
+    copy: 'Unas líneas sobre la operación alcanzan para coordinar una llamada. Sin formularios: responde directo el equipo de Rinde Plus.',
     button: 'Escribir por WhatsApp',
     hint: 'Respuesta en menos de 24 h',
   },
 
   install: {
-    title: 'La plataforma, como app en el celular',
-    subtitle: 'Se agrega a la pantalla de inicio en tres pasos, sin pasar por ninguna tienda.',
+    titleA: 'Rinde Plus en el celular,',
+    titleB: 'como una app.',
+    subtitle: 'Se instala desde el navegador en tres pasos, sin pasar por ninguna tienda.',
     ios: {
       name: 'iPhone',
       steps: [
@@ -270,10 +284,10 @@ const es = {
           <>
             Tocar <strong>Compartir</strong>{' '}
             <LuShare className="rp-install__inline-icon" aria-hidden="true" />{' '}
-            (el cuadrado con la flecha hacia arriba).
+            (el cuadrado con la flecha).
           </>
         ),
-        <>Elegir <strong>Agregar a pantalla de inicio</strong> y confirmar con <strong>Agregar</strong>.</>,
+        <>Elegir <strong>Agregar a pantalla de inicio</strong> y confirmar.</>,
       ],
     },
     android: {
@@ -283,8 +297,8 @@ const es = {
         <>Tocar el menú <strong>⋮</strong> (arriba a la derecha).</>,
         (
           <>
-            Elegir <strong>Instalar app</strong> (o <strong>Agregar a la
-            pantalla principal</strong>, según la versión) y confirmar.
+            Elegir <strong>Instalar app</strong> (o <strong>Agregar a
+            pantalla principal</strong>) y confirmar.
           </>
         ),
       ],
@@ -292,7 +306,7 @@ const es = {
   },
 
   credits: {
-    lead: 'Imágenes',
+    lead: 'Fotos',
     via: 'vía Wikimedia Commons',
     photos: [
       'Pampa húmeda vista por satélite, INPE',

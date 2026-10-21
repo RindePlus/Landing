@@ -121,6 +121,8 @@ const ImpactSection = () => {
   const [pista, setPista] = useState(false);
   const pistaTimer = useRef(0);
   const listaRef = useRef(null);
+  const seccionRef = useRef(null);
+  const habiaTabla = useRef(false);
 
   const cancelarPista = () => {
     window.clearTimeout(pistaTimer.current);
@@ -158,6 +160,22 @@ const ImpactSection = () => {
       setInstant(false);
     }
   }, [abierto, instant]);
+
+  // Al abrir la primera tabla o al cerrar la última, el título se pliega o
+  // vuelve: la sección se alinea arriba (debajo del header) para que
+  // indicadores, tabla y pie queden enteros a la vista. Sólo en pantallas
+  // horizontales donde entra; en celular la sección sigue el scroll normal.
+  useEffect(() => {
+    const hayTabla = abierto !== null;
+    if (hayTabla === habiaTabla.current) return;
+    habiaTabla.current = hayTabla;
+    const seccion = seccionRef.current;
+    if (!seccion) return;
+    const entra = window.matchMedia('(min-width: 900px) and (min-height: 560px) and (orientation: landscape)');
+    if (!entra.matches) return;
+    const suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    seccion.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+  }, [abierto]);
 
   useEffect(() => {
     if (!abierto) return undefined;
@@ -245,9 +263,16 @@ const ImpactSection = () => {
   const m = modal ? t.modal[modal] : null;
 
   return (
-    <section className="rp-impacto" id="impacto">
+    <section className={`rp-impacto${abierto ? ' is-tabla' : ''}`} id="impacto" ref={seccionRef}>
+      {/* Con una tabla abierta (.is-tabla) el título se pliega y los
+          indicadores suben: indicadores, tabla y pie entran en la pantalla
+          sin bajar la vista. La bajada queda. Como en VigIA. */}
       <Reveal className="rp-impact__head">
-        <h2 className="rp-impact__title">{t.title}</h2>
+        <div className="rp-impact__pliegue">
+          <div>
+            <h2 className="rp-impact__title">{t.title}</h2>
+          </div>
+        </div>
         <p className="rp-impact__subtitle">{t.subtitle(d)}</p>
       </Reveal>
 

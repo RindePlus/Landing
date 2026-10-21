@@ -1,0 +1,453 @@
+/* ============================================================
+   Escenas del lote del hero (LoteMap.jsx). Qué representa cada una y
+   cómo cambiarlas: doc/ANIMACION_LOTE.md.
+
+   src/scripts/escenasLote.js pone en la figura:
+   - data-escena="planificar|preparar|fertilizar|acompanar|cerrar"
+     (y data-clima="sequia|calor|lluvia" con acompanar) durante 10 s;
+   - data-viento durante una ráfaga, en la calma entre escenas.
+   Cada escena dura --esc-dur y sigue la misma línea de tiempo:
+     0 – 2,2 s   la condición: lo que pasa en el lote
+     2,2 – 3,3 s el análisis: un barrido azul recorre el lote
+     3,3 – 9,5 s la respuesta: la notificación de Rinde Plus, con el lote
+                 en su estado final (5,5 s a la vista, para leerla)
+     8,8 – 9,6 s todo se desvanece y el lote vuelve a quedar quieto
+   Sólo opacidad y transform (y el trazo de las líneas), una vez por
+   escena. Con prefers-reduced-motion no corre nada.
+   ============================================================ */
+
+.rp-lote {
+  position: relative;
+  --esc-dur: 10s;
+}
+
+/* Todas las capas arrancan ocultas. */
+.rp-esc,
+.rp-esc__barrido,
+.rp-lote__aviso {
+  opacity: 0;
+}
+
+/* ---- Envolvente: la escena activa aparece y se va ---- */
+.rp-lote[data-escena='planificar'] .rp-esc--planificar,
+.rp-lote[data-escena='preparar'] .rp-esc--preparar,
+.rp-lote[data-escena='fertilizar'] .rp-esc--fertilizar,
+.rp-lote[data-escena='acompanar'][data-clima='sequia'] .rp-esc--sequia,
+.rp-lote[data-escena='acompanar'][data-clima='calor'] .rp-esc--calor,
+.rp-lote[data-escena='acompanar'][data-clima='lluvia'] .rp-esc--lluvia,
+.rp-lote[data-escena='cerrar'] .rp-esc--cerrar {
+  animation: rp-esc-envolvente var(--esc-dur) linear both;
+}
+
+@keyframes rp-esc-envolvente {
+  0% { opacity: 0; }
+  4% { opacity: 1; }
+  88% { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}
+
+/* ---- Análisis: el barrido, igual en todas las escenas ---- */
+.rp-lote__barrido-borde { stop-color: var(--rp-azul); stop-opacity: 0; }
+.rp-lote__barrido-centro { stop-color: var(--rp-azul); stop-opacity: 0.28; }
+
+.rp-lote[data-escena] .rp-esc__barrido {
+  animation: rp-esc-barrido var(--esc-dur) linear both;
+}
+
+@keyframes rp-esc-barrido {
+  0%, 22% { opacity: 0; transform: translateX(0); }
+  23.5% { opacity: 1; }
+  33% { opacity: 1; transform: translateX(640px); }
+  34.5%, 100% { opacity: 0; transform: translateX(640px); }
+}
+
+/* ---- Respuesta: la notificación de Rinde Plus ---- */
+.rp-lote__avisos {
+  position: absolute;
+  left: -6%;
+  bottom: 6%;
+  pointer-events: none;
+}
+
+.rp-lote__aviso {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: grid;
+  gap: var(--space-25);
+  width: max-content;
+  max-width: 280px;
+  padding: var(--space-100) var(--space-200) var(--space-100) var(--space-100);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-overlay);
+  font-family: var(--font-body);
+  text-align: left;
+}
+
+.rp-lote__aviso-cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--space-75);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+}
+
+/* Punto amarillo de la marca, como el ícono de una notificación. */
+.rp-lote__aviso-marca {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-50);
+  color: var(--gh-fg);
+  font-weight: 600;
+}
+
+.rp-lote__aviso-marca::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rp-amarillo);
+}
+
+.rp-lote__aviso-hora { color: var(--gh-fg-subtle); }
+
+.rp-lote__aviso-texto {
+  color: var(--gh-fg);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 500;
+}
+
+.rp-lote[data-escena='planificar'] .rp-lote__aviso--planificar,
+.rp-lote[data-escena='preparar'] .rp-lote__aviso--preparar,
+.rp-lote[data-escena='fertilizar'] .rp-lote__aviso--fertilizar,
+.rp-lote[data-escena='acompanar'][data-clima='sequia'] .rp-lote__aviso--sequia,
+.rp-lote[data-escena='acompanar'][data-clima='calor'] .rp-lote__aviso--calor,
+.rp-lote[data-escena='acompanar'][data-clima='lluvia'] .rp-lote__aviso--lluvia,
+.rp-lote[data-escena='cerrar'] .rp-lote__aviso--cerrar {
+  animation: rp-esc-aviso var(--esc-dur) var(--ease-fluid) both;
+}
+
+@keyframes rp-esc-aviso {
+  0%, 33% { opacity: 0; transform: translateY(10px); }
+  37% { opacity: 1; transform: none; }
+  88% { opacity: 1; transform: none; }
+  95%, 100% { opacity: 0; transform: translateY(-4px); }
+}
+
+@media (max-width: 1023px) {
+  .rp-lote__avisos { left: 4%; }
+}
+
+/* ---- Planificar: los ambientes se marcan uno por uno ---- */
+.rp-esc__ambiente {
+  fill: #ffffff;
+  opacity: 0;
+}
+
+.rp-esc__borde {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.rp-esc__ambiente--1, .rp-esc__borde--1 { --k: 0; }
+.rp-esc__ambiente--2, .rp-esc__borde--2 { --k: 1; }
+.rp-esc__ambiente--3, .rp-esc__borde--3 { --k: 2; }
+
+.rp-lote[data-escena='planificar'] .rp-esc__ambiente {
+  animation: rp-esc-destello 6s ease-out both;
+  animation-delay: calc(0.3s + var(--k) * 0.6s);
+}
+
+.rp-lote[data-escena='planificar'] .rp-esc__borde {
+  animation: rp-esc-trazo 6s var(--ease-fluid) both;
+  animation-delay: calc(0.3s + var(--k) * 0.6s);
+}
+
+@keyframes rp-esc-destello {
+  0% { opacity: 0; }
+  7% { opacity: 0.4; }
+  20%, 100% { opacity: 0.14; }
+}
+
+@keyframes rp-esc-trazo {
+  0% { stroke-dashoffset: 1; }
+  14%, 100% { stroke-dashoffset: 0; }
+}
+
+/* ---- Preparar el lote: puntos de muestreo de suelo ---- */
+.rp-esc__muestra-punto {
+  fill: #ffffff;
+  stroke: var(--gh-fg);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.rp-esc__muestra-anillo {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.rp-esc__muestra-punto,
+.rp-esc__muestra-anillo {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.rp-lote[data-escena='preparar'] .rp-esc__muestra-punto {
+  animation: rp-esc-muestra 6s var(--ease-fluid) both;
+  animation-delay: calc(0.25s + var(--i) * 0.18s);
+}
+
+.rp-lote[data-escena='preparar'] .rp-esc__muestra-anillo {
+  animation: rp-esc-onda 6s ease-out both;
+  animation-delay: calc(0.25s + var(--i) * 0.18s);
+}
+
+@keyframes rp-esc-muestra {
+  0% { opacity: 0; transform: scale(0.2); }
+  6%, 100% { opacity: 1; transform: none; }
+}
+
+@keyframes rp-esc-onda {
+  0% { opacity: 0; transform: scale(0.4); }
+  4% { opacity: 0.9; }
+  14%, 100% { opacity: 0; transform: scale(1.6); }
+}
+
+/* ---- Fertilizar: mapa de prescripción, un azul por ambiente ----
+   Azules casi opacos, como un mapa de prescripción de verdad: sobre el
+   verde y el naranja, un azul translúcido ensuciaba el lote. */
+.rp-esc__dosis { opacity: 0; }
+
+/* Más oscuro, más dosis. */
+.rp-esc__dosis--1 { --k: 0; fill: #c3d6f7; }
+.rp-esc__dosis--2 { --k: 1; fill: #7ea6ec; }
+.rp-esc__dosis--3 { --k: 2; fill: #2f62cf; }
+
+.rp-esc__gota-dosis {
+  fill: #ffffff;
+  stroke: #1d4aa8;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.rp-lote[data-escena='fertilizar'] .rp-esc__dosis {
+  animation: rp-esc-dosis 6s ease-out both;
+  animation-delay: calc(0.3s + var(--k) * 0.6s);
+}
+
+.rp-lote[data-escena='fertilizar'] .rp-esc__gota-dosis {
+  animation: rp-esc-gota-dosis 6s var(--ease-fluid) both;
+  animation-delay: calc(0.3s + var(--k) * 0.6s);
+}
+
+@keyframes rp-esc-dosis {
+  0% { opacity: 0; }
+  10%, 100% { opacity: 0.88; }
+}
+
+@keyframes rp-esc-gota-dosis {
+  0% { opacity: 0; transform: translateY(-18px) scale(0.6); }
+  8%, 100% { opacity: 1; transform: none; }
+}
+
+/* ---- Acompañar, sequía: el terreno se pone anaranjado ---- */
+.rp-esc__seco { fill: #c8742a; opacity: 0; }
+
+.rp-lote[data-clima='sequia'] .rp-esc__seco--bajo {
+  animation: rp-esc-seco-bajo 6s ease-in-out both;
+}
+
+.rp-lote[data-clima='sequia'] .rp-esc__seco--todo {
+  animation: rp-esc-seco-todo 6s ease-in-out both;
+}
+
+@keyframes rp-esc-seco-bajo {
+  0% { opacity: 0; }
+  18%, 100% { opacity: 0.55; }
+}
+
+@keyframes rp-esc-seco-todo {
+  0%, 8% { opacity: 0; }
+  32%, 100% { opacity: 0.32; }
+}
+
+/* ---- Acompañar, calor: sol fuerte y el aire que reverbera ---- */
+.rp-esc__calido { fill: #f2a23c; opacity: 0; }
+.rp-esc__sol-disco { fill: var(--rp-amarillo); }
+
+/* Los rayos giran alrededor del sol (el centro de su propia caja). */
+.rp-esc__rayos {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.rp-esc__rayo {
+  stroke: var(--rp-amarillo);
+  stroke-width: 3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.rp-esc__vaho {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+}
+
+.rp-lote[data-clima='calor'] .rp-esc__calido {
+  animation: rp-esc-calido 6s ease-in-out both;
+}
+
+.rp-lote[data-clima='calor'] .rp-esc__rayos {
+  animation: rp-esc-rayos 7s linear both;
+}
+
+.rp-lote[data-clima='calor'] .rp-esc__vaho {
+  animation: rp-esc-vaho 2.2s ease-in-out 2 both;
+  animation-delay: calc(0.4s + var(--i) * 0.35s);
+}
+
+@keyframes rp-esc-calido {
+  0% { opacity: 0; }
+  25%, 100% { opacity: 0.2; }
+}
+
+@keyframes rp-esc-rayos {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(40deg); }
+}
+
+@keyframes rp-esc-vaho {
+  0% { opacity: 0; transform: translateY(12px); }
+  40% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-24px); }
+}
+
+/* ---- Acompañar, lluvia: cruza una llovizna y el verde se aviva ---- */
+.rp-esc__nublado { fill: #5d6b78; opacity: 0; }
+.rp-esc__verdor { fill: var(--rp-zone-high); opacity: 0; }
+
+.rp-esc__gota {
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+}
+
+.rp-lote[data-clima='lluvia'] .rp-esc__nublado {
+  animation: rp-esc-nublado 6s ease-in-out both;
+}
+
+.rp-lote[data-clima='lluvia'] .rp-esc__verdor {
+  animation: rp-esc-verdor 6s ease-in-out both;
+}
+
+.rp-lote[data-clima='lluvia'] .rp-esc__gota {
+  animation: rp-esc-gota 0.55s linear 4 both;
+  animation-delay: var(--d);
+}
+
+@keyframes rp-esc-nublado {
+  0% { opacity: 0; }
+  10% { opacity: 0.16; }
+  36% { opacity: 0.16; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes rp-esc-verdor {
+  0%, 26% { opacity: 0; }
+  42%, 100% { opacity: 0.28; }
+}
+
+@keyframes rp-esc-gota {
+  0% { opacity: 0; transform: translate(6px, -36px); }
+  20% { opacity: 0.85; }
+  100% { opacity: 0; transform: translate(-6px, 36px); }
+}
+
+/* ---- Cerrar: la cosechadora pasa y deja el mapa de rinde ---- */
+/* Colores de mapa de rinde: verde (alto), amarillo (medio), naranja
+   (bajo). Iguales en los dos temas: es un mapa, como los ambientes. */
+.rp-lote__rinde--high { fill: #2e7d32; }
+.rp-lote__rinde--mid { fill: #c7d455; }
+.rp-lote__rinde--low { fill: #e0782f; }
+
+/* Cada pasada descubre su franja del mapa (clip-path, así el mapa no se
+   estira) con una línea fina, como el rastro de la cosechadora. */
+.rp-esc__pasada {
+  opacity: 0.88;
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  clip-path: inset(0 100% 0 0);
+}
+
+/* Las pasadas van y vuelven, como la cosechadora. */
+.rp-esc__pasada--vuelta { clip-path: inset(0 0 0 100%); }
+
+.rp-lote[data-escena='cerrar'] .rp-esc__pasada {
+  animation: rp-esc-pasada 0.4s linear both;
+  animation-delay: calc(0.15s + var(--i) * 0.17s);
+}
+
+@keyframes rp-esc-pasada {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* ---- Viento de ambiente: ráfagas que cruzan, sin respuesta ----
+   Trazos finos y tenues: el viento se intuye, no se marca. */
+.rp-lote__rafaga {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 0.22 1.3;
+  stroke-dashoffset: 0.25;
+  opacity: 0;
+}
+
+.rp-lote[data-viento] .rp-lote__rafaga {
+  animation: rp-esc-rafaga 2.6s ease-in-out both;
+  animation-delay: calc(var(--i) * 0.35s);
+}
+
+@keyframes rp-esc-rafaga {
+  0% { opacity: 0; stroke-dashoffset: 0.25; }
+  15% { opacity: 0.45; }
+  85% { opacity: 0.45; }
+  100% { opacity: 0; stroke-dashoffset: -1.05; }
+}
+
+/* ---- Oscuro: los blancos de las escenas, más suaves ---- */
+[data-rp-theme='dark'] .rp-esc__ambiente { fill: #ece8df; }
+[data-rp-theme='dark'] .rp-esc__borde,
+[data-rp-theme='dark'] .rp-esc__muestra-anillo,
+[data-rp-theme='dark'] .rp-esc__vaho,
+[data-rp-theme='dark'] .rp-esc__gota,
+[data-rp-theme='dark'] .rp-lote__rafaga { stroke: #ece8df; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-esc,
+  .rp-esc__barrido,
+  .rp-lote__viento,
+  .rp-lote__avisos { display: none; }
+}

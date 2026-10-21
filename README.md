@@ -39,10 +39,13 @@ src/
 │   ├── Footer.jsx
 │   ├── WhatsAppWidget.jsx  # botón flotante (se abre con data-abrir-whatsapp)
 │   └── ...
-├── data/                   # links de login y redes
+├── scripts/escenasLote.js  # qué escena del lote del hero corre y cuándo
+├── data/                   # links de login y redes, fotos
 ├── hooks/                  # tema claro/oscuro, intersection observer
 ├── i18n/                   # provider, config y diccionarios
 └── index.css               # tokens y estilos base (ver DESIGN.md)
 ```
 
-Las secciones sin estado (hero, CTA, instalar, créditos, footer) se renderizan a HTML al compilar y no cargan JavaScript. Las que tienen interacción se hidratan como islas: el header al cargar, el widget de WhatsApp cuando el navegador está libre, y clientes, impacto, funcionalidades y beneficios al llegar a la pantalla.
+El lote del hero tiene escenas animadas, una por momento de la campaña, con su notificación de Rinde Plus: qué representa cada una, sus textos y cómo cambiarlas está en [`doc/ANIMACION_LOTE.md`](doc/ANIMACION_LOTE.md).
+
+Las secciones sin estado (hero, CTA, instalar, footer) se renderizan a HTML al compilar y no cargan JavaScript. Las que tienen interacción se hidratan como islas: el header al cargar, el widget de WhatsApp cuando el navegador está libre, y clientes, impacto, funcionalidades y beneficios al llegar a la pantalla.
