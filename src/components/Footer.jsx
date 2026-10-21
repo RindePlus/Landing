@@ -1,18 +1,20 @@
 import { PiEnvelopeSimple, PiInstagramLogo, PiWhatsappLogo, PiMapPin } from 'react-icons/pi';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
 import { INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../data/social';
-import { useI18n } from '../i18n/I18nContext';
+import { urlDe } from '../data/imagen';
+import { conIdioma, useI18n } from '../i18n/I18nContext';
 import './Footer.css';
 
 // Footer con la estética de VigIA, en el azul marino de Rinde Plus
 // (data-fondo-oscuro: el header se ajusta encima). A la izquierda la marca
 // (logo y redes), a la derecha los cuatro datos de contacto; abajo, el
-// copyright en un renglón fino.
+// copyright en un renglón fino. Estático (sin JS propio): los botones de
+// WhatsApp llevan data-abrir-whatsapp y los atiende WhatsAppWidget.
 const EMAIL = 'inforindeplus@gmail.com';
 const ADDRESS = 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina';
 const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
 
-const Footer = ({ onOpenWhatsApp }) => {
+const Footer = () => {
   const { dict } = useI18n();
   const t = dict.footer;
 
@@ -24,7 +26,7 @@ const Footer = ({ onOpenWhatsApp }) => {
             {/* Logo de la versión oscura: amarillo y azul claro se leen
                 sobre el marino. */}
             <a className="rp-footer__logo" href="#top" aria-label={dict.header.logoAlt}>
-              <img src={rindeplusLogoDark} alt={dict.header.logoAlt} loading="lazy" decoding="async" />
+              <img src={urlDe(rindeplusLogoDark)} alt={dict.header.logoAlt} loading="lazy" decoding="async" />
             </a>
             <p className="rp-footer__made">{t.made}</p>
 
@@ -35,7 +37,7 @@ const Footer = ({ onOpenWhatsApp }) => {
                 </a>
               </li>
               <li>
-                <button type="button" onClick={onOpenWhatsApp} aria-label={t.whatsappAria}>
+                <button type="button" data-abrir-whatsapp aria-label={t.whatsappAria}>
                   <PiWhatsappLogo aria-hidden="true" />
                 </button>
               </li>
@@ -60,7 +62,7 @@ const Footer = ({ onOpenWhatsApp }) => {
             </li>
             <li>
               <span className="rp-footer__label"><PiWhatsappLogo aria-hidden="true" />{t.whatsapp}</span>
-              <button type="button" onClick={onOpenWhatsApp} aria-label={t.whatsappAria}>
+              <button type="button" data-abrir-whatsapp aria-label={t.whatsappAria}>
                 +54 9 3564 59-3446
               </button>
             </li>
@@ -83,4 +85,4 @@ const Footer = ({ onOpenWhatsApp }) => {
   );
 };
 
-export default Footer;
+export default conIdioma(Footer);

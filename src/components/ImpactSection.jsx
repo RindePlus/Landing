@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { LuChevronDown, LuInfo, LuX } from 'react-icons/lu';
 import Reveal from './Reveal';
-import { useI18n } from '../i18n/I18nContext';
+import { conIdioma, useI18n } from '../i18n/I18nContext';
 import {
   ANALISIS_SUELO,
   CIFRAS,
@@ -401,4 +401,4 @@ const ImpactSection = () => {
   );
 };
 
-export default ImpactSection;
+export default conIdioma(ImpactSection);

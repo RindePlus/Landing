@@ -1,0 +1,24 @@
+---
+// La home, igual en los tres idiomas: cada página de src/pages la usa y el
+// idioma sale de la ruta. Las secciones estáticas se renderizan a HTML al
+// compilar, sin JS en el cliente; las que tienen estado se hidratan como
+// islas cuando llegan a la pantalla.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Hero, Trusted, Benefits, CtaFinal, InstallApp, Credits } from '../components/HomePage.jsx';
+import ImpactSection from '../components/ImpactSection.jsx';
+import Functionalities from '../components/Functionalities.jsx';
+import { idiomaDe } from '../i18n/config';
+
+const lang = idiomaDe(Astro.currentLocale);
+---
+
+<BaseLayout>
+  <Hero lang={lang} />
+  <Trusted client:visible lang={lang} />
+  <ImpactSection client:visible lang={lang} />
+  <Functionalities client:visible lang={lang} />
+  <Benefits client:visible lang={lang} />
+  <CtaFinal lang={lang} />
+  <InstallApp lang={lang} />
+  <Credits lang={lang} />
+</BaseLayout>

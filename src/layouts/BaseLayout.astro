@@ -1,0 +1,127 @@
+---
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import WhatsAppWidget from '../components/WhatsAppWidget.jsx';
+import { DICTIONARIES } from '../i18n/I18nContext.jsx';
+import { HOME_PATH, HTML_LANG, LOCALES, OG_LOCALE, idiomaDe } from '../i18n/config';
+import '../index.css';
+
+interface Props {
+  /** Fuera de los buscadores (el 404): sin canonical ni hreflang. */
+  noindex?: boolean;
+}
+
+const { noindex = false } = Astro.props;
+
+type Locale = keyof typeof HOME_PATH;
+// Idioma de la página: sale de la ruta (/en/… = inglés, /pt/… = portugués).
+const lang = idiomaDe(Astro.currentLocale) as Locale;
+const { meta } = DICTIONARIES[lang];
+const site = Astro.site ?? new URL('https://rindeplus.com');
+const pageUrl = new URL(HOME_PATH[lang], site).href;
+const hreflang = noindex
+  ? []
+  : [
+      ...(LOCALES as Locale[]).map((code) => ({ lang: HTML_LANG[code], href: new URL(HOME_PATH[code], site).href })),
+      { lang: 'x-default', href: new URL(HOME_PATH.es, site).href },
+    ];
+---
+
+<!doctype html>
+<html lang={HTML_LANG[lang]}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={pageUrl} />}
+    {hreflang.map((h) => <link rel="alternate" hreflang={h.lang} href={h.href} />)}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    <meta property="og:site_name" content="Rinde Plus" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={pageUrl} />
+    <!-- Fuente del texto, alojada en el sitio (@font-face en src/index.css):
+         se precarga para que el primer texto ya salga con ella. -->
+    <link rel="preload" href="/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Resuelve el tema antes del primer paint para evitar el flash
+         claro→oscuro. Misma clave y criterio que src/hooks/useRpTheme.js. -->
+    <script is:inline>
+      (function () {
+        var theme = null;
+        try { theme = localStorage.getItem('rp-theme'); } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-rp-theme', theme);
+        // Habilita las apariciones al hacer scroll sólo con JS y movimiento
+        // permitido; sin esta clase el contenido se ve de entrada.
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce && 'IntersectionObserver' in window) {
+          document.documentElement.classList.add('rp-reveal-on');
+        }
+      })();
+    </script>
+  </head>
+  <body class="rp-home">
+    <Header client:load lang={lang} />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <WhatsAppWidget client:idle lang={lang} />
+
+    <!-- Cambio de idioma: el selector del header guarda en qué sección y a
+         qué altura de ella estaba el usuario; acá, en la página del otro
+         idioma, se vuelve a ese punto (los textos miden distinto, así que se
+         usa la proporción dentro de la sección). Lo que ya queda a la vista
+         se muestra sin la animación de aparición. Inline: corre antes del
+         primer paint y antes del observer de abajo. -->
+    <script is:inline>
+      (function () {
+        var dato = null;
+        try {
+          dato = JSON.parse(sessionStorage.getItem('rp-idioma-scroll') || 'null');
+          sessionStorage.removeItem('rp-idioma-scroll');
+        } catch (e) {}
+        var limpiar = function (r) { return r.replace(/\/+$/, '') || '/'; };
+        if (!dato || limpiar(dato.destino) !== limpiar(location.pathname) || location.hash) return;
+        var el = dato.id && document.getElementById(dato.id);
+        if (!el) return;
+        var r = el.getBoundingClientRect();
+        window.scrollTo({ top: window.scrollY + r.top + r.height * dato.proporcion, behavior: 'instant' });
+        var alto = window.innerHeight;
+        document.querySelectorAll('.rp-reveal').forEach(function (n) {
+          if (n.closest('astro-island')) return; // las islas se animan solas
+          var b = n.getBoundingClientRect();
+          if (b.top < alto && b.bottom > -alto * 0.1) n.classList.add('rp-is-visible');
+        });
+      })();
+    </script>
+
+    <!-- Apariciones al hacer scroll de las secciones estáticas (.rp-reveal,
+         estilos en HomePage.css). Las islas lo hacen con su propio hook:
+         tocar su HTML antes de hidratar rompe la hidratación.
+         IntersectionObserver en lugar de un listener de scroll: no fuerza
+         reflows y cada bloque se anima una sola vez. -->
+    <script>
+      if (document.documentElement.classList.contains('rp-reveal-on')) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('rp-is-visible');
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.15 },
+        );
+        document.querySelectorAll('.rp-reveal:not(.rp-is-visible)').forEach((el) => {
+          if (!el.closest('astro-island')) observer.observe(el);
+        });
+      }
+    </script>
+  </body>
+</html>

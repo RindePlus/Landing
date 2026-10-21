@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useI18n } from '../i18n/I18nContext';
+import { urlDe } from '../data/imagen';
 import altinaLogo from '../assets/related companies/altina.png';
 import chiaraviglioLogo from '../assets/related companies/chiaraviglio.png';
 import promeLogo from '../assets/related companies/prome.png';
@@ -134,7 +135,7 @@ const TrustedCompanies = () => {
                 className={`company-logo ${company.mono ? 'company-logo--mono' : ''}`}
               >
                 <img
-                  src={company.logo}
+                  src={urlDe(company.logo)}
                   alt={company.name}
                   style={company.h ? { height: `${company.h}px` } : undefined}
                 />

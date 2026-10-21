@@ -8,7 +8,7 @@ import {
   LuArrowRight,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import { useI18n } from '../i18n/I18nContext';
+import { conIdioma, useI18n } from '../i18n/I18nContext';
 import './Functionalities.css';
 
 /* ── Mini chart SVGs ──
@@ -441,4 +441,4 @@ const Functionalities = () => {
   );
 };
 
-export default Functionalities;
+export default conIdioma(Functionalities);

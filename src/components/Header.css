@@ -77,6 +77,12 @@ img.logo-image:hover {
   transform: scale(1.05);
 }
 
+/* Una versión del logo por tema: se ve la del tema activo. */
+[data-rp-theme='dark'] img.logo-image--light,
+:root:not([data-rp-theme='dark']) img.logo-image--dark {
+  display: none;
+}
+
 .header-actions {
   grid-column: 3;
   display: flex;
@@ -195,6 +201,8 @@ img.logo-image:hover {
   font-size: var(--text-sm);
   line-height: var(--leading-sm);
   text-align: left;
+  /* Es un enlace (a la home en el otro idioma): sin subrayado. */
+  text-decoration: none;
   cursor: pointer;
   transition: background var(--dur-fast) var(--ease-fluid);
 }

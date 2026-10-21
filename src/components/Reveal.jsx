@@ -1,7 +1,10 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
-/* Scroll-triggered entrance used across the GitHub-skinned pages.
-   Styles live in HomePage.css (.rp-reveal / .rp-is-visible). */
+/* Aparición al hacer scroll (estilos en HomePage.css: .rp-reveal /
+   .rp-is-visible). En las islas el hook agrega .rp-is-visible al entrar en
+   pantalla. En las secciones estáticas (sin React en el cliente) el hook no
+   corre: ahí lo hace el script de BaseLayout, que no toca las islas para
+   no desarmar la hidratación. */
 const Reveal = ({ children, className = '', id, delay }) => {
   const [ref, isVisible] = useIntersectionObserver({
     threshold: 0.15,

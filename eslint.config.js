@@ -4,7 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist', 'docs', '.claude', '.impeccable'] },
+  { ignores: ['dist', 'docs', '.astro', '.claude', '.impeccable'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -23,10 +23,9 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      // Los componentes se exportan envueltos en conIdioma() para usarlos
+      // desde Astro; la regla no reconoce ese patrón.
+      'react-refresh/only-export-components': 'off',
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },

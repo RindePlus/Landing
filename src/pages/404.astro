@@ -1,0 +1,26 @@
+---
+// Rutas que no existen (las viejas de planes y de selección de plataforma, o
+// una inventada): GitHub Pages sirve este 404.html y el script manda a la
+// home del idioma, conservando query y hash, para que los links que siguen
+// circulando no caigan en una página rota.
+---
+
+<!doctype html>
+<html lang="es-419">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>Rinde Plus</title>
+    <script is:inline>
+      (function () {
+        var m = location.pathname.match(/^\/(en|pt)(\/|$)/);
+        location.replace((m ? '/' + m[1] + '/' : '/') + location.search + location.hash);
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="/">Rinde Plus</a>
+  </body>
+</html>

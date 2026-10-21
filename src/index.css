@@ -2,7 +2,7 @@
    la landing de VigIA: IBM Plex Sans para títulos y texto, Chivo Mono para
    cifras. Variables (un archivo cubre todos los pesos) y sólo con los juegos
    latin y latin-ext. El navegador baja cada archivo sólo si la página usa
-   algún carácter de su rango; IBM Plex Sans latin se precarga en index.html. */
+   algún carácter de su rango; IBM Plex Sans latin se precarga en BaseLayout.astro. */
 @font-face {
   font-family: 'IBM Plex Sans';
   font-style: normal;
@@ -144,7 +144,7 @@
   --dur-slow: 700ms;
 }
 
-/* Modo oscuro: index.html fija data-rp-theme en <html> antes del primer
+/* Modo oscuro: BaseLayout.astro fija data-rp-theme en <html> antes del primer
    paint (sin flash) y useRpTheme lo actualiza al usar el toggle. */
 [data-rp-theme="dark"] {
   --gh-canvas: #181818;

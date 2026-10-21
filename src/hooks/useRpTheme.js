@@ -1,39 +1,46 @@
 import { useState, useEffect } from 'react';
 
+const STORAGE_KEY = 'rp-theme';
+
+function readDocumentTheme() {
+  return document.documentElement.getAttribute('data-rp-theme') === 'dark'
+    ? 'dark'
+    : 'light';
+}
+
 /**
- * Theme state for the GitHub-skinned home.
+ * Tema claro/oscuro, system-first: sin elección explícita sigue al sistema
+ * operativo en vivo; el toggle persiste la elección en localStorage y desde
+ * ahí manda sobre el SO.
  *
- * System-first: with no explicit user choice the theme mirrors the OS
- * preference — live, following OS changes while browsing. Only pressing
- * the toggle persists a choice to localStorage; from then on that choice
- * wins over the OS setting.
- *
- * Sets `data-rp-theme` on <html> while the page is mounted; the attribute
- * is removed on unmount so non-skinned routes stay unthemed.
+ * El HTML se prerenderiza en claro; BaseLayout.astro fija data-rp-theme antes
+ * del primer paint y acá se lee al montar, así el render de hidratación
+ * coincide con el del servidor.
  */
 export function useRpTheme() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') return 'light';
-    const stored = localStorage.getItem('rp-theme');
-    if (stored === 'light' || stored === 'dark') return stored;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
-  });
+  const [theme, setTheme] = useState('light');
+  const [synced, setSynced] = useState(false);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute('data-rp-theme', theme);
-    return () => root.removeAttribute('data-rp-theme');
-  }, [theme]);
+    setTheme(readDocumentTheme());
+    setSynced(true);
+  }, []);
 
-  // Follow live OS theme changes until the user makes an explicit choice.
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
+    if (synced) document.documentElement.setAttribute('data-rp-theme', theme);
+  }, [theme, synced]);
+
+  useEffect(() => {
+    if (!window.matchMedia) return undefined;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (event) => {
-      const stored = localStorage.getItem('rp-theme');
-      if (stored === 'light' || stored === 'dark') return; // explicit choice wins
+      let stored = null;
+      try {
+        stored = localStorage.getItem(STORAGE_KEY);
+      } catch {
+        /* localStorage no disponible */
+      }
+      if (stored === 'light' || stored === 'dark') return; // la elección manda
       setTheme(event.matches ? 'dark' : 'light');
     };
     mq.addEventListener('change', handleChange);
@@ -44,9 +51,9 @@ export function useRpTheme() {
     setTheme((t) => {
       const next = t === 'dark' ? 'light' : 'dark';
       try {
-        localStorage.setItem('rp-theme', next);
+        localStorage.setItem(STORAGE_KEY, next);
       } catch {
-        /* localStorage unavailable — ignore */
+        /* localStorage no disponible */
       }
       return next;
     });

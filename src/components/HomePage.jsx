@@ -1,16 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaAndroid, FaApple, FaChevronLeft, FaChevronRight, FaWhatsapp } from 'react-icons/fa';
-import Header from './Header';
-import Footer from './Footer';
 import TrustedCompanies from './TrustedCompanies';
-import Functionalities from './Functionalities';
-import ImpactSection from './ImpactSection';
 import Reveal from './Reveal';
 import LoteMap from './LoteMap';
 import LotesMosaic from './LotesMosaic';
-import { useRpTheme } from '../hooks/useRpTheme';
 import { whatsappUrl } from '../data/social';
-import { useI18n } from '../i18n/I18nContext';
+import { urlDe } from '../data/imagen';
+import { conIdioma, useI18n } from '../i18n/I18nContext';
 import pampaSat from '../assets/campo/pampa-satelital.webp';
 import pampaSatSm from '../assets/campo/pampa-satelital-960.webp';
 import sojaAtardecer from '../assets/campo/soja-atardecer.webp';
@@ -32,10 +28,6 @@ const BENEFIT_PHOTOS = [
 ];
 
 /* ---------------- Subcomponents ---------------- */
-
-const scrollToCampaign = () => {
-  document.getElementById('funcionalidades')?.scrollIntoView({ behavior: 'smooth' });
-};
 
 const HeroSection = () => {
   const { dict } = useI18n();
@@ -62,13 +54,9 @@ const HeroSection = () => {
               <FaWhatsapp aria-hidden="true" />
               {t.ctaTalk}
             </a>
-            <button
-              type="button"
-              className="rp-home__hero-btn rp-home__hero-btn--ghost"
-              onClick={scrollToCampaign}
-            >
+            <a href="#funcionalidades" className="rp-home__hero-btn rp-home__hero-btn--ghost">
               {t.ctaCampaign}
-            </button>
+            </a>
           </div>
         </div>
 
@@ -143,8 +131,8 @@ const BenefitsSection = () => {
           <img
             key={photo.id}
             className={`rp-fieldbg__img${i === active ? ' is-active' : ''}`}
-            src={photo.src}
-            srcSet={`${photo.srcSm} ${photo.w}w, ${photo.src} 1920w`}
+            src={urlDe(photo.src)}
+            srcSet={`${urlDe(photo.srcSm)} ${photo.w}w, ${urlDe(photo.src)} 1920w`}
             sizes="100vw"
             style={{ objectPosition: photo.pos }}
             alt=""
@@ -309,46 +297,14 @@ const PhotoCredits = () => {
   );
 };
 
-/* ---------------- Main component ---------------- */
+/* ---------------- Exports ----------------
+   Cada sección se usa desde src/views/HomeView.astro con su `lang`. Las
+   estáticas se renderizan a HTML al compilar; las que tienen estado
+   (Beneficios, Clientes) se hidratan como islas. */
 
-const HomePage = ({ onOpenWhatsApp }) => {
-  const { theme, toggleTheme } = useRpTheme();
-  const nav = useI18n().dict.header.nav;
-
-  return (
-    <div className="rp-home">
-      <Header
-        theme={theme}
-        onToggleTheme={toggleTheme}
-        menuItems={[
-          { label: nav.home, id: 'top' },
-          { label: nav.impact, id: 'impacto' },
-          { label: nav.campaign, id: 'funcionalidades' },
-          { label: nav.why, id: 'beneficios' },
-        ]}
-      />
-
-      <main>
-        <HeroSection />
-
-        <TrustedSection />
-
-        <ImpactSection />
-
-        <Functionalities />
-
-        <BenefitsSection />
-
-        <FinalCta />
-
-        <InstallAppSection />
-
-        <PhotoCredits />
-      </main>
-
-      <Footer onOpenWhatsApp={onOpenWhatsApp} />
-    </div>
-  );
-};
-
-export default HomePage;
+export const Hero = conIdioma(HeroSection);
+export const Benefits = conIdioma(BenefitsSection);
+export const Trusted = conIdioma(TrustedSection);
+export const CtaFinal = conIdioma(FinalCta);
+export const InstallApp = conIdioma(InstallAppSection);
+export const Credits = conIdioma(PhotoCredits);

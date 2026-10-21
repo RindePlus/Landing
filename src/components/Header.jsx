@@ -1,10 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { PiSun, PiMoon, PiSignIn, PiCaretDown, PiCheck } from 'react-icons/pi';
 import rindeplusLogo from '../assets/rindeplus-logo-light.png';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
 import { LOGIN_URL } from '../data/links';
-import { useI18n } from '../i18n/I18nContext';
-import { LOCALES, LOCALE_LABELS } from '../i18n/config';
+import { urlDe } from '../data/imagen';
+import { useRpTheme } from '../hooks/useRpTheme';
+import { conIdioma, useI18n } from '../i18n/I18nContext';
+import { HOME_PATH, LOCALES, LOCALE_LABELS } from '../i18n/config';
 import './Header.css';
 
 // Header con la estética de la landing de VigIA: logo a la izquierda, menú
@@ -15,13 +17,42 @@ const HIDE_DISTANCE = 120;
 const SHOW_DISTANCE = 8;
 const TOP_ZONE = 160;
 
-const Header = ({
-  menuItems = [],
-  theme,
-  onToggleTheme,
-}) => {
-  const { locale, setLocale, dict } = useI18n();
+// Selector de idioma: cada opción es un enlace a la home en el otro idioma.
+// Antes de salir guarda la sección visible y cuánto se había leído de ella;
+// BaseLayout la recupera en la página nueva, así el cambio no lleva arriba
+// de todo.
+const guardarPosicion = (destino) => {
+  const secciones = [...document.querySelectorAll('section[id], footer[id]')];
+  let actual = null;
+  for (const el of secciones) {
+    if (el.getBoundingClientRect().top <= 0) actual = el;
+  }
+  try {
+    if (!actual) {
+      sessionStorage.removeItem('rp-idioma-scroll');
+      return;
+    }
+    const r = actual.getBoundingClientRect();
+    const proporcion = r.height ? Math.min(1, -r.top / r.height) : 0;
+    sessionStorage.setItem('rp-idioma-scroll', JSON.stringify({ destino, id: actual.id, proporcion }));
+  } catch {
+    // Sin sessionStorage (modo privado estricto): se cambia igual, arriba.
+  }
+};
+
+const Header = () => {
+  const { locale, dict } = useI18n();
   const t = dict.header;
+  const { theme, toggleTheme } = useRpTheme();
+  const menuItems = useMemo(
+    () => [
+      { label: t.nav.home, id: 'top' },
+      { label: t.nav.impact, id: 'impacto' },
+      { label: t.nav.campaign, id: 'funcionalidades' },
+      { label: t.nav.why, id: 'beneficios' },
+    ],
+    [t],
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -140,11 +171,10 @@ const Header = ({
     >
       <div className="header-content">
         <a href="#top" className="header-logo" aria-label={t.logoAlt} onClick={() => setIsMenuOpen(false)}>
-          <img
-            src={theme === 'dark' ? rindeplusLogoDark : rindeplusLogo}
-            alt={t.logoAlt}
-            className="logo-image"
-          />
+          {/* Las dos versiones del logo: el CSS muestra la del tema activo
+              (data-rp-theme), así no parpadea antes de hidratar. */}
+          <img src={urlDe(rindeplusLogo)} alt={t.logoAlt} className="logo-image logo-image--light" />
+          <img src={urlDe(rindeplusLogoDark)} alt="" aria-hidden="true" className="logo-image logo-image--dark" />
         </a>
 
         <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">
@@ -161,29 +191,27 @@ const Header = ({
           ))}
 
           {/* En celular el tema va en el drawer, como switch. */}
-          {onToggleTheme && (
-            <div className="header-nav__theme">
-              <span className="header-nav__theme-label">
-                {theme === 'dark' ? t.themeDark : t.themeLight}
+          <div className="header-nav__theme">
+            <span className="header-nav__theme-label">
+              {theme === 'dark' ? t.themeDark : t.themeLight}
+            </span>
+            <button
+              type="button"
+              className="rp-theme-switch"
+              role="switch"
+              aria-checked={theme === 'dark'}
+              aria-label={t.themeSwitchAria}
+              onClick={toggleTheme}
+            >
+              <span className="rp-theme-switch__icon rp-theme-switch__icon--sun">
+                <PiSun />
               </span>
-              <button
-                type="button"
-                className="rp-theme-switch"
-                role="switch"
-                aria-checked={theme === 'dark'}
-                aria-label={t.themeSwitchAria}
-                onClick={onToggleTheme}
-              >
-                <span className="rp-theme-switch__icon rp-theme-switch__icon--sun">
-                  <PiSun />
-                </span>
-                <span className="rp-theme-switch__icon rp-theme-switch__icon--moon">
-                  <PiMoon />
-                </span>
-                <span className="rp-theme-switch__knob" />
-              </button>
-            </div>
-          )}
+              <span className="rp-theme-switch__icon rp-theme-switch__icon--moon">
+                <PiMoon />
+              </span>
+              <span className="rp-theme-switch__knob" />
+            </button>
+          </div>
 
           <a className="header-nav__login" href={LOGIN_URL}>
             <span>{t.loginLong}</span>
@@ -192,20 +220,18 @@ const Header = ({
         </nav>
 
         <div className="header-actions">
-          {onToggleTheme && (
-            <button
-              type="button"
-              className="header-theme-toggle"
-              onClick={onToggleTheme}
-              aria-label={theme === 'dark' ? t.toLight : t.toDark}
-              title={theme === 'dark' ? t.themeLight : t.themeDark}
-            >
-              {theme === 'dark' ? <PiSun /> : <PiMoon />}
-            </button>
-          )}
+          <button
+            type="button"
+            className="header-theme-toggle"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? t.toLight : t.toDark}
+            title={theme === 'dark' ? t.themeLight : t.themeDark}
+          >
+            {theme === 'dark' ? <PiSun /> : <PiMoon />}
+          </button>
 
           {/* Selector de idioma: "ES" con una flecha chica; abre un menú
-              debajo. Cambia el idioma en la misma página. */}
+              debajo. Lleva a la home en el otro idioma. */}
           <div className="header-lang" ref={langRef}>
             <button
               type="button"
@@ -221,22 +247,27 @@ const Header = ({
             <ul className={`header-lang__menu ${isLangOpen ? 'header-lang__menu--open' : ''}`} role="menu">
               {LOCALES.map((code) => (
                 <li key={code} role="none">
-                  <button
-                    type="button"
+                  <a
+                    href={HOME_PATH[code]}
+                    hrefLang={code}
                     lang={code}
                     role="menuitemradio"
                     aria-checked={locale === code}
                     className="header-lang__option"
                     tabIndex={isLangOpen ? 0 : -1}
-                    onClick={() => {
+                    onClick={(event) => {
                       setIsLangOpen(false);
-                      setLocale(code);
+                      if (code === locale) {
+                        event.preventDefault();
+                        return;
+                      }
+                      guardarPosicion(HOME_PATH[code]);
                     }}
                   >
                     <span className="header-lang__code">{code.toUpperCase()}</span>
                     <span>{LOCALE_LABELS[code]}</span>
                     {locale === code && <PiCheck className="header-lang__check" aria-hidden="true" />}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -267,4 +298,4 @@ const Header = ({
   );
 };
 
-export default Header;
+export default conIdioma(Header);

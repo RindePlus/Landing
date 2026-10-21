@@ -108,7 +108,7 @@ La página se lee como un buen informe agronómico: papel neutro, tinta oscura, 
 ## Typography
 
 - **Títulos y texto:** IBM Plex Sans, títulos en 600. **Cifras:** Chivo Mono 500 (indicadores de Impacto), con el separador de miles en IBM Plex Sans (`.rp-impact__sep`) para que "110.000" no se lea "110 . 000".
-- **Carga:** alojadas en `public/fonts/` (`@font-face` en `index.css`), variables, sólo latin y latin-ext; IBM Plex Sans latin se precarga en `index.html`. Sin Google Fonts.
+- **Carga:** alojadas en `public/fonts/` (`@font-face` en `index.css`), variables, sólo latin y latin-ext; IBM Plex Sans latin se precarga en `src/layouts/BaseLayout.astro`. Sin Google Fonts.
 - **Escalas:** `--text-*` con su `--leading-*`, `--space-*` y `--ease-fluid` / `--dur-*`, las mismas de VigIA.
 
 ## Components
