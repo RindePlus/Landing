@@ -1,1 +1,0 @@
-import{r as e}from"./I18nContext.DNq6J9nZ.js";import{t}from"./useIntersectionObserver.B72Qw_Eh.js";var n=e(),r=({children:e,className:r=``,id:i,delay:a})=>{let[o,s]=t({threshold:.15,triggerOnce:!0}),c=a?`rp-reveal--delay-${a}`:``;return(0,n.jsx)(`div`,{id:i,ref:o,className:`rp-reveal ${c} ${s?`rp-is-visible`:``} ${r}`,children:e})};export{r as t};
