@@ -4,29 +4,50 @@
    indicador de origen; al cambiar de tabla el contenido se desliza como un
    carrusel.
    Diseño portado de la landing de VigIA, con los tokens --gh-* de la home.
+   Banda azul marino a todo el ancho con letras blancas, en claro y en
+   oscuro: los tokens se redefinen acá adentro para ese fondo.
    ============================================================ */
 
 .rp-impacto {
-  /* Grano en verde campo (el cultivo), carbono en tierra (el suelo). */
-  --imp-grano: var(--gh-detail-green);
-  --imp-carbono: var(--rp-carbono);
+  /* El mismo azul marino que el footer (más oscuro en modo oscuro). */
+  --imp-fondo: var(--rp-marino-bg);
+  --gh-fg: #ffffff;
+  --gh-fg-muted: rgb(255 255 255 / 0.74);
+  --gh-fg-subtle: rgb(255 255 255 / 0.55);
+  --gh-border: rgb(255 255 255 / 0.18);
+  --gh-border-muted: rgb(255 255 255 / 0.1);
+  --gh-surface: #16325a;
+  --gh-surface-2: #1d3d6b;
+  --gh-accent: #8fb0ef;
+  --gh-shadow-card: 0 1px 2px rgb(0 0 0 / 0.25), 0 8px 24px rgb(0 0 0 / 0.2);
+  --rp-marino: #ffffff;
+  /* Grano en verde campo (el cultivo), carbono en tierra (el suelo): los
+     tonos claros, que se leen sobre el azul. */
+  --imp-grano: #93c46b;
+  --imp-carbono: #d6a06c;
   --imp-dur: 0.45s;
   /* El despliegue del panel, más lento que el resto: al mismo ritmo que el
      título que se pliega, para que no sea brusco. */
   --imp-despliegue: 0.8s;
   --imp-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  max-width: 1000px;
+  max-width: 62.5rem;
   margin: 0 auto;
   padding: clamp(56px, 8vw, 104px) 24px clamp(48px, 7vw, 88px);
   scroll-margin-top: var(--alto-header, 72px);
-  /* el contenido que se desliza entre tablas no genera scroll lateral */
-  overflow-x: clip;
+  color: var(--gh-fg);
+  /* Fondo a todo el ancho aunque el contenido mida 62.5rem: la sombra lo
+     extiende a los costados y el recorte la deja sólo a lo ancho. El
+     recorte también evita el scroll lateral del contenido que se desliza
+     entre tablas. */
+  background: var(--imp-fondo);
+  box-shadow: 0 0 0 100vmax var(--imp-fondo);
+  clip-path: inset(0 -100vmax);
 }
 
 /* ---- Encabezado ---- */
 .rp-impact__head {
   text-align: center;
-  max-width: 640px;
+  max-width: 40rem;
   margin: 0 auto;
 }
 
@@ -52,12 +73,13 @@
 }
 
 /* ---- Tabla abierta (.is-tabla): el título se pliega ----
-   En pantallas horizontales donde entra, al abrir una tabla el título se
-   pliega (alto a 0) y los indicadores suben, con menos aire arriba: la
-   bajada, los indicadores, la tabla y el pie (+700.000 ha) quedan a la
-   vista sin bajar. Al cerrar la última tabla, vuelve el título. El script
-   alinea la sección arriba al abrir y al cerrar; sin el anclaje del
-   navegador, que corría el scroll al plegarse el título. */
+   En pantallas horizontales donde entra, la sección tiene alto fijo
+   (--alto-impacto, lo mide ImpactSection.jsx: el que ocupa con la tabla más
+   alta abierta). Cerrada, título e indicadores quedan centrados en ese
+   alto; al abrir una tabla el título y la bajada se pliegan (alto a 0), los
+   indicadores suben y la tabla entra en el lugar que dejan. La sección no
+   cambia de alto y el scroll no se mueve (sin el anclaje del navegador,
+   que lo corría al plegarse el título). Como en VigIA. */
 .rp-impact__pliegue {
   display: grid;
   grid-template-rows: 1fr;
@@ -71,7 +93,13 @@
 @media (min-width: 900px) and (min-height: 560px) and (orientation: landscape) {
   .rp-impacto {
     overflow-anchor: none;
-    transition: padding var(--dur-slow) var(--ease-fluid);
+    min-height: var(--alto-impacto, 0px);
+    /* Margen chico, como en VigIA: con la tabla abierta, indicadores, tabla
+       y pie entran en la pantalla. */
+    padding-block: var(--space-500);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .rp-impact__pliegue {
@@ -80,14 +108,8 @@
       opacity var(--dur-base) var(--ease-fluid);
   }
 
-  .rp-impacto .rp-impact__inds,
-  .rp-impacto .rp-impact__pie {
+  .rp-impacto .rp-impact__inds {
     transition: margin-top var(--dur-slow) var(--ease-fluid);
-  }
-
-  .rp-impacto.is-tabla {
-    padding-top: var(--space-300);
-    padding-bottom: var(--space-300);
   }
 
   .rp-impacto.is-tabla .rp-impact__pliegue {
@@ -95,31 +117,21 @@
     opacity: 0;
   }
 
-  .rp-impacto.is-tabla .rp-impact__inds { margin-top: var(--space-200); }
-  .rp-impacto.is-tabla .rp-impact__pie { margin-top: var(--space-300); }
-
-  /* Con la tabla abierta: los indicadores no cambian de tamaño; la tabla
-     se pega a ellos y el panel y las filas son un poco más bajos, para que
-     entre todo en pantallas de poco alto. */
-  .rp-impacto.is-tabla .rp-impact__ind { padding-bottom: var(--space-50); }
+  /* Abierta: la tabla se pega a los indicadores (la medida del alto
+     cuenta estos mismos márgenes). */
+  .rp-impacto.is-tabla .rp-impact__inds { margin-top: 0; }
   .rp-impacto.is-tabla .rp-impact__panel-inner { margin-top: 0; }
-  .rp-impacto.is-tabla .rp-impact__items { padding: var(--space-200) var(--space-300); }
-  .rp-impacto.is-tabla .rp-impact__tabla th,
-  .rp-impacto.is-tabla .rp-impact__tabla td { padding-block: 6px; }
 }
 
-/* Pantallas bajas (laptops de 768 px o menos de alto): con la tabla
-   abierta, las cifras se achican y el +700.000 ha queda a la vista. */
-@media (min-width: 900px) and (min-height: 560px) and (max-height: 800px) and (orientation: landscape) {
-  .rp-impacto.is-tabla { padding-top: var(--space-100); }
-  .rp-impacto.is-tabla .rp-impact__pie { margin-top: var(--space-100); }
-}
+/* Cierre fuera de la vista (ImpactSection.jsx): sin animación, para
+   corregir el scroll de una sola vez. */
+.rp-impacto.is-quieto,
+.rp-impacto.is-quieto * { transition: none !important; }
 
 @media (prefers-reduced-motion: reduce) {
-  .rp-impacto,
   .rp-impact__pliegue,
   .rp-impacto .rp-impact__inds,
-  .rp-impacto .rp-impact__pie { transition: none; }
+  .rp-impact__pie { transition: none; }
 }
 
 /* ---- Indicadores ---- */
@@ -403,13 +415,28 @@
 
 .rp-impact__item .rp-impact__total td:last-child { color: var(--tono); }
 
-/* ---- Pie: historia destacada pero secundaria ---- */
+/* ---- Pie: historia destacada pero secundaria ----
+   Con una tabla abierta se pliega (en todos los tamaños), como el título. */
 .rp-impact__pie {
+  display: grid;
+  grid-template-rows: 1fr;
   margin-top: clamp(40px, 6vw, 64px);
   text-align: center;
+  transition:
+    grid-template-rows var(--dur-slow) var(--ease-fluid),
+    opacity var(--dur-base) var(--ease-fluid),
+    margin-top var(--dur-slow) var(--ease-fluid);
+}
+
+.rp-impacto.is-tabla .rp-impact__pie {
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  opacity: 0;
 }
 
 .rp-impact__pie-linea {
+  min-height: 0;
+  overflow: hidden;
   margin: 0;
   color: var(--gh-fg);
   font-size: clamp(1rem, 1.4vw, 1.15rem);

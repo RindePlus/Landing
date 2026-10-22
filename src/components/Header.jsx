@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { PiSun, PiMoon, PiUser, PiCaretDown, PiCheck, PiWhatsappLogo } from 'react-icons/pi';
+import { PiSun, PiMoon, PiUser, PiCaretDown, PiCheck, PiWhatsappLogo, PiDeviceMobile } from 'react-icons/pi';
 import rindeplusLogo from '../assets/rindeplus-logo-light.png';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
 import { LOGIN_URL } from '../data/links';
@@ -45,17 +45,23 @@ const Header = () => {
   const { locale, dict } = useI18n();
   const t = dict.header;
   const { theme, toggleTheme } = useRpTheme();
+  // Sin «Inicio»: el logo del centro ya lleva arriba de todo.
   const menuItems = useMemo(
     () => [
-      { label: t.nav.home, id: 'top' },
       { label: t.nav.impact, id: 'impacto' },
       { label: t.nav.campaign, id: 'funcionalidades' },
       { label: t.nav.why, id: 'beneficios' },
+      { label: t.nav.contact, id: 'contacto' },
     ],
     [t],
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  // Scroll que hace el menú al ir a una sección: el header queda visible,
+  // vaya hacia abajo o hacia arriba (se acaba de usar el menú; el subrayado
+  // confirma dónde se llegó). Vuelve a esconderse si después se baja a mano.
+  const navegando = useRef(false);
+  const finNavegar = useRef(0);
   const [isScrolled, setIsScrolled] = useState(false);
   // Sobre las bandas oscuras ([data-fondo-oscuro], el footer) el fondo
   // translúcido pasa a casi opaco, para que se lean logo y menú.
@@ -134,14 +140,15 @@ const Header = () => {
       );
       setActiveId(seccionActiva());
 
-      // Scroll que hace la página sola (data-scroll-quieto en <html>, por
-      // ejemplo Impacto al plegar el título): el header no se muestra ni se
-      // oculta; el tramo se mide de nuevo desde donde termina.
-      if (document.documentElement.hasAttribute('data-scroll-quieto')) {
+      if (navegando.current) {
+        // El tramo se mide de nuevo desde donde termine el viaje; termina
+        // cuando el scroll se queda quieto un momento.
         direction = 0;
         anchorY = y;
         lastY = y;
         ticking = false;
+        window.clearTimeout(finNavegar.current);
+        finNavegar.current = window.setTimeout(() => { navegando.current = false; }, 200);
         return;
       }
 
@@ -168,14 +175,35 @@ const Header = () => {
       window.requestAnimationFrame(update);
     };
 
+    // Scroll que hace la página sola (rp:scroll-propio; por ejemplo Impacto
+    // al cerrar su tabla fuera de la vista): como el del menú, no muestra
+    // ni oculta el header.
+    const scrollPropio = () => {
+      navegando.current = true;
+      window.clearTimeout(finNavegar.current);
+      finNavegar.current = window.setTimeout(() => { navegando.current = false; }, 300);
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
+    window.addEventListener('rp:scroll-propio', scrollPropio);
     update(); // estado correcto si la página carga ya scrolleada
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('rp:scroll-propio', scrollPropio);
+      window.clearTimeout(finNavegar.current);
     };
   }, [menuItems]);
+
+  const irASeccion = () => {
+    setIsMenuOpen(false);
+    setIsHidden(false);
+    navegando.current = true;
+    // Si ya estaba ahí y no hay scroll, se suelta igual.
+    window.clearTimeout(finNavegar.current);
+    finNavegar.current = window.setTimeout(() => { navegando.current = false; }, 1000);
+  };
 
   return (
     <header
@@ -197,11 +225,24 @@ const Header = () => {
               href={`#${item.id}`}
               className={`menu-item ${item.id === activeId ? 'menu-item--active' : ''}`}
               aria-current={item.id === activeId ? 'location' : undefined}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={irASeccion}
             >
               {item.label}
             </a>
           ))}
+
+          {/* Sólo en el drawer (celular y tablet): instalar la plataforma
+              como app, destacado, porque es lo que más se busca desde el
+              celular. En escritorio no va: ocupa lugar junto al logo. */}
+          <a className="header-nav__install" href="#instalar" onClick={irASeccion}>
+            <span className="header-nav__install-icon" aria-hidden="true">
+              <PiDeviceMobile />
+            </span>
+            <span className="header-nav__install-text">
+              <strong>{t.nav.install}</strong>
+              <span>{t.nav.installHint}</span>
+            </span>
+          </a>
 
           {/* En celular el tema va en el drawer, como switch. */}
           <div className="header-nav__theme">

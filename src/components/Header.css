@@ -58,6 +58,10 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: var(--space-300);
+  /* Con tope (el contenido amplio más el margen): en monitores anchos el
+     menú y las acciones no se van a los bordes. */
+  max-width: calc(var(--ancho-amplio) + 80px);
+  margin-inline: auto;
   padding: 10px clamp(16px, 2.5vw, 40px);
 }
 
@@ -70,7 +74,7 @@
 
 img.logo-image {
   display: block;
-  height: 46px;
+  height: var(--header-logo);
   width: auto;
   max-width: none;
   flex-shrink: 0;
@@ -104,7 +108,7 @@ img.logo-image:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 34px;
+  height: var(--header-btn);
   border-radius: var(--gh-radius-btn);
   background: transparent;
   border: 1px solid transparent;
@@ -117,7 +121,7 @@ img.logo-image:hover {
     transform var(--dur-base) var(--ease-fluid);
 }
 
-.header-theme-toggle { width: 34px; }
+.header-theme-toggle { width: var(--header-btn); }
 
 .header-theme-toggle:hover,
 .header-icon-btn:hover,
@@ -135,8 +139,8 @@ img.logo-image:hover {
 }
 
 .header-theme-toggle svg {
-  width: 18px;
-  height: 18px;
+  width: var(--header-icono);
+  height: var(--header-icono);
 }
 
 /* ---- Selector de idioma ---- */
@@ -246,11 +250,11 @@ img.logo-image:hover {
    Como en VigIA: sólo el ícono de una persona, a la derecha de todo. En
    celular se oculta y va al pie del menú, con su palabra. */
 .header-icon-btn {
-  width: 34px;
+  width: var(--header-btn);
   margin-left: var(--space-50);
 }
 
-.header-icon-btn svg { width: 20px; height: 20px; }
+.header-icon-btn svg { width: calc(var(--header-icono) + 2px); height: calc(var(--header-icono) + 2px); }
 
 /* ---- Hamburguesa (sólo celular) ---- */
 .hamburger-button {
@@ -328,6 +332,8 @@ img.logo-image:hover {
     grid-row: 1;
     justify-self: start;
   }
+
+  .header-nav__install { display: none; }
 
   .menu-item {
     padding: var(--space-75) var(--space-100);
@@ -470,6 +476,57 @@ img.logo-image:hover {
   .menu-item--active {
     color: var(--gh-accent);
     font-weight: 600;
+  }
+
+  /* Instalar la app: tarjeta destacada con el amarillo de la marca,
+     después de las secciones. */
+  .header-nav__install {
+    display: flex;
+    align-items: center;
+    gap: var(--space-100);
+    margin: var(--space-100) var(--space-100) var(--space-50);
+    padding: 12px 14px;
+    border: 1px solid color-mix(in srgb, var(--rp-amarillo) 55%, transparent);
+    border-radius: var(--gh-radius-card, 12px);
+    background: color-mix(in srgb, var(--rp-amarillo) 16%, var(--gh-surface));
+    color: var(--gh-fg);
+    text-decoration: none;
+    transition: background var(--dur-base) var(--ease-fluid);
+  }
+
+  .header-nav__install:hover {
+    background: color-mix(in srgb, var(--rp-amarillo) 26%, var(--gh-surface));
+  }
+
+  .header-nav__install-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--rp-amarillo);
+    color: #1a1a1a;
+  }
+
+  .header-nav__install-icon svg { width: 22px; height: 22px; }
+
+  .header-nav__install-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .header-nav__install-text strong {
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  .header-nav__install-text span {
+    font-size: 0.85rem;
+    color: var(--gh-fg-muted);
   }
 
   .header-nav__theme {

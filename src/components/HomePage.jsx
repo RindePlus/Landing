@@ -196,7 +196,7 @@ const FinalCta = () => {
   const { dict } = useI18n();
   const t = dict.cta;
   return (
-    <section className="rp-home__cta">
+    <section className="rp-home__cta" id="contacto">
       {/* Panel en dos columnas: a la izquierda el título y la visión; a la
           derecha qué hacer, con el mismo botón principal del hero. */}
       <Reveal className="rp-home__cta-panel">

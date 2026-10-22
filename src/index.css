@@ -55,6 +55,9 @@
   --gh-canvas: #f3f2ee;
   --gh-surface: #fbfaf8;
   --gh-surface-2: #e9e7e1;
+  /* Tarjetas de vidrio (Qué hace, la app, Hablemos): casi blancas, con
+     desenfoque y sin borde, para que no se pierdan sobre el fondo. */
+  --rp-vidrio: color-mix(in srgb, #ffffff 78%, transparent);
   --gh-border: #d8d5cd;
   --gh-border-muted: #e4e1da;
   --gh-border-strong: #b1ada3;
@@ -139,6 +142,22 @@
   --space-900: 96px;
   --page-gutter: var(--space-300);
 
+  /* ============================================================
+     Pantallas grandes (doc/ADR-001-pantallas-grandes.md)
+     Anchos máximos de la página, compartidos por secciones, header y
+     footer. Crecen un poco en los escalones de abajo, nunca a todo el
+     ancho. Las columnas de texto internas van en rem y crecen con el
+     font-size del html, así conservan sus renglones.
+     ============================================================ */
+  --ancho-contenido: 1160px;
+  --ancho-amplio: 1320px;
+  /* Lo que va en px y acompaña al texto (logo e íconos del header). */
+  --header-logo: 46px;
+  --header-btn: 34px;
+  --header-icono: 18px;
+  /* Lugar del header fijo arriba del hero. */
+  --header-reserva: 72px;
+
   /* Movimiento: curva con masa (arranca rápido y asienta lento). */
   --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
   --dur-fast: 200ms;
@@ -152,6 +171,7 @@
   --gh-canvas: #181818;
   --gh-surface: #1f1f1f;
   --gh-surface-2: #272727;
+  --rp-vidrio: color-mix(in srgb, #2a2a2a 80%, transparent);
   --gh-border: #313131;
   --gh-border-muted: #272727;
   --gh-border-strong: #6b675f;
@@ -188,6 +208,33 @@
 
 @media (max-width: 680px) {
   :root { --page-gutter: var(--space-200); }
+}
+
+/* Escalones por ANCHO de ventana, no por resolución: con el escalado de
+   Windows (125–150 %) un monitor 2560 entrega 1700–2050 px a la página.
+   Sube el texto (todo en rem) sin inflar los espaciados (en px). */
+@media (min-width: 1800px) {
+  :root {
+    font-size: 17px;
+    --ancho-contenido: 1240px;
+    --ancho-amplio: 1400px;
+    --header-logo: 50px;
+    --header-btn: 36px;
+    --header-icono: 19px;
+    --header-reserva: 76px;
+  }
+}
+
+@media (min-width: 2300px) {
+  :root {
+    font-size: 18px;
+    --ancho-contenido: 1320px;
+    --ancho-amplio: 1480px;
+    --header-logo: 54px;
+    --header-btn: 38px;
+    --header-icono: 20px;
+    --header-reserva: 80px;
+  }
 }
 
 * {

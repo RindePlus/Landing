@@ -1,25 +1,33 @@
 import React, { useEffect, useRef } from 'react';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
 import { urlDe } from '../data/imagen';
-import altinaLogo from '../assets/related companies/altina.png';
-import chiaraviglioLogo from '../assets/related companies/chiaraviglio.png';
-import promeLogo from '../assets/related companies/prome.png';
-import muniraLogo from '../assets/related companies/munira.png';
-import chiaratechLogo from '../assets/related companies/chiaratech.png';
-import aaasLogo from '../assets/related companies/aaas.png';
-import kimzzaLogo from '../assets/related companies/kimzza.png';
-import conciLogo from '../assets/related companies/conci.png';
-import AapresidLogo from '../assets/related companies/aapresid.png';
-import adjLogo from '../assets/related companies/adj.png';
-import halconLogo from '../assets/related companies/halcon.png';
-import bioredLogo from '../assets/related companies/biored.png';
-import agroconsultorLogo from '../assets/related companies/agroconsultor.png';
-import biozelenLogo from '../assets/related companies/biozelen.png';
+import altinaLogo from '../assets/related companies/altina.webp';
+import chiaraviglioLogo from '../assets/related companies/chiaraviglio.webp';
+import promeLogo from '../assets/related companies/prome.webp';
+import muniraLogo from '../assets/related companies/munira.webp';
+import chiaratechLogo from '../assets/related companies/chiaratech.webp';
+import aaasLogo from '../assets/related companies/aaas.webp';
+import kimzzaLogo from '../assets/related companies/kimzza.webp';
+import conciLogo from '../assets/related companies/conci.webp';
+import AapresidLogo from '../assets/related companies/aapresid.webp';
+import adjLogo from '../assets/related companies/adj.webp';
+import halconLogo from '../assets/related companies/halcon.webp';
+import bioredLogo from '../assets/related companies/biored.webp';
+import agroconsultorLogo from '../assets/related companies/agroconsultor.webp';
+import biozelenLogo from '../assets/related companies/biozelen.webp';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './TrustedCompanies.css';
 
 // Tamaño general de los logos (sobre las alturas `h` de cada uno).
 const ESCALA = 1.12;
+
+// Alto con que se muestra cada logo y el ancho que le corresponde por su
+// proporción (los WebP están a 2× ese alto, para pantallas densas).
+const altoDe = (company) => Math.round(company.h * ESCALA);
+const anchoDe = (company) => {
+  const { width, height } = company.logo ?? {};
+  return width && height ? Math.round((altoDe(company) * width) / height) : undefined;
+};
 
 const TrustedCompanies = () => {
   const t = useI18n().dict.trusted;
@@ -141,7 +149,12 @@ const TrustedCompanies = () => {
                 <img
                   src={urlDe(company.logo)}
                   alt={company.name}
-                  style={company.h ? { height: `${Math.round(company.h * ESCALA)}px` } : undefined}
+                  // Ancho y alto reservan el lugar antes de que cargue.
+                  width={anchoDe(company)}
+                  height={altoDe(company)}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ height: `${altoDe(company)}px` }}
                 />
               </div>
             ))}

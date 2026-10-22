@@ -1,7 +1,8 @@
 /* ============================================================
-   Footer: banda azul marino (el lugar del verde bosque de VigIA).
-   Compacto: marca con redes a la izquierda, cuatro datos de contacto a
-   la derecha; abajo, un renglón fino con el copyright.
+   Footer: banda azul marino, monocroma (logo, íconos y letras en blanco).
+   Compacto: logo y redes a la izquierda, los cuatro datos de contacto a la
+   derecha; abajo, un renglón fino con el copyright y los créditos de las
+   fotos. Las dos filas, alineadas a los mismos bordes.
    ============================================================ */
 
 .rp-footer {
@@ -20,9 +21,19 @@
 }
 
 .rp-footer__inner {
-  max-width: 1160px;
+  max-width: var(--ancho-contenido);
   margin: 0 auto;
   padding: var(--space-300) var(--page-gutter) var(--space-100);
+}
+
+/* Desde tablet está el botón flotante de WhatsApp, fijo abajo a la derecha
+   (ocupa 88 px desde el borde): el contenido del footer termina antes, así
+   no queda tapado. El mismo margen a los dos lados, para que quede
+   centrado. En pantallas anchas el margen ya alcanza. */
+@media (min-width: 768px) {
+  .rp-footer__inner {
+    padding-inline: max(var(--page-gutter), calc(104px - max(0px, (100vw - var(--ancho-contenido)) / 2)));
+  }
 }
 
 .rp-footer a {
@@ -38,45 +49,47 @@
   border-radius: 4px;
 }
 
-/* --- Marca | contacto --- */
+/* --- Logo y redes | contacto, en una fila --- */
 .rp-footer__main {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-300) var(--space-800);
-  padding-bottom: var(--space-300);
+  justify-content: space-between;
+  gap: var(--space-200) var(--space-400);
+  padding-bottom: var(--space-200);
 }
 
 .rp-footer__marca {
-  display: grid;
-  justify-items: start;
-  align-content: start;
-  gap: var(--space-100);
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
 }
 
+/* Logo monocromo: en blanco, como las letras. */
 .rp-footer__logo img {
   display: block;
   width: auto;
-  height: 40px;
+  height: 32px;
+  filter: brightness(0) invert(1);
 }
 
+/* Redes en círculos chicos con borde, monocromos; al pasar, se rellenan. */
 .rp-footer__redes {
   display: flex;
-  gap: var(--space-75);
+  gap: var(--space-50);
   list-style: none;
 }
 
-/* Redes en círculos con borde, monocromos; al pasar, se rellenan. */
 .rp-footer__redes a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border: 1px solid var(--gh-border-strong);
   border-radius: 50%;
   color: var(--gh-fg);
-  font-size: var(--text-lg);
+  font-size: 0.95rem;
   transition:
     background-color var(--dur-base) var(--ease-fluid),
     color var(--dur-base) var(--ease-fluid),
@@ -89,41 +102,29 @@
   color: var(--gh-surface);
 }
 
-/* Contacto: cuatro datos en columnas, cada uno con su título chico en
-   mayúsculas y el dato debajo. */
+/* Contacto: cada dato con su ícono (el ícono dice qué es; el título queda
+   en el title y en el aria-label). */
 .rp-footer__contacto {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  justify-content: space-between;
-  gap: var(--space-200) var(--space-400);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-100) var(--space-300);
   list-style: none;
 }
 
-.rp-footer__contacto li {
-  display: grid;
-  align-content: start;
-  gap: var(--space-25);
-  font-size: var(--text-sm);
-  line-height: var(--leading-sm);
-}
-
-.rp-footer__label {
+.rp-footer__contacto a {
   display: inline-flex;
   align-items: center;
   gap: var(--space-75);
-  color: var(--gh-fg);
   font-size: var(--text-sm);
   line-height: var(--leading-sm);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-decoration: none;
 }
 
-/* El ícono de cada título, en el amarillo del logo. */
-.rp-footer__label svg {
-  width: 16px;
-  height: 16px;
-  color: var(--rp-amarillo);
+.rp-footer__contacto svg {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  color: var(--gh-fg);
 }
 
 /* --- Pie: copyright en un renglón fino bajo una línea --- */
@@ -134,7 +135,16 @@
   gap: var(--space-25) var(--space-300);
   padding-top: var(--space-75);
   border-top: 1px solid var(--gh-border);
-  text-align: center;
+}
+
+/* Desde tablet: copyright a la izquierda y créditos a la derecha, en los
+   mismos bordes que la fila de arriba. */
+@media (min-width: 768px) {
+  .rp-footer__bottom { justify-content: space-between; }
+}
+
+@media (max-width: 767px) {
+  .rp-footer__bottom { text-align: center; }
 }
 
 .rp-footer__copyright,
@@ -160,24 +170,20 @@
   .rp-footer__creditos-via { display: none; }
 }
 
-/* Tablet: la marca arriba y el contacto en dos columnas. Celular: una. */
-@media (max-width: 960px) {
-  .rp-footer__main { grid-template-columns: 1fr; }
-  .rp-footer__contacto { grid-template-columns: repeat(2, auto); justify-content: start; }
-}
-
-/* Celular: logo y redes en un renglón; el contacto en dos columnas. */
+/* Celular: el logo arriba y el contacto debajo, en una grilla. */
 @media (max-width: 560px) {
-  .rp-footer__main { gap: var(--space-200); padding-bottom: var(--space-200); }
-  .rp-footer__marca {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .rp-footer__main { gap: var(--space-200); }
+  .rp-footer__marca { justify-content: space-between; width: 100%; }
+  .rp-footer__contacto {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-100) var(--space-200);
     width: 100%;
   }
-  .rp-footer__contacto {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-200) var(--space-200);
-  }
-  .rp-footer__contacto a { overflow-wrap: anywhere; }
+  /* El email y la dirección, a lo ancho (no se cortan); Instagram y
+     WhatsApp, lado a lado. */
+  .rp-footer__contacto li:first-child,
+  .rp-footer__contacto li:last-child { grid-column: 1 / -1; }
+  .rp-footer__contacto a { align-items: flex-start; }
+  .rp-footer__contacto svg { margin-top: 1px; }
 }

@@ -7,9 +7,9 @@ import { LuShare } from 'react-icons/lu';
 
 const es = {
   meta: {
-    title: 'Rinde Plus · Criterio agronómico para cada lote',
+    title: 'Rinde Plus · Inteligencia agronómica para cada lote',
     description:
-      'Inteligencia agronómica: Rinde Plus integra el clima, el suelo, los ambientes y la historia de cada lote y lo convierte en decisiones.',
+      'Rinde Plus integra el clima, el suelo, los ambientes y la historia de cada lote y los convierte en decisiones: qué hacer, cuándo y si conviene.',
   },
 
   whatsapp: {
@@ -24,10 +24,12 @@ const es = {
   header: {
     openMenu: 'Abrir menú',
     nav: {
-      home: 'Inicio',
       impact: 'Impacto',
       campaign: 'Plataforma',
       why: 'Ventajas',
+      contact: 'Contacto',
+      install: 'Instalar la app',
+      installHint: 'En el celular, sin pasar por una tienda',
     },
     themeDark: 'Modo oscuro',
     themeLight: 'Modo claro',
@@ -41,19 +43,18 @@ const es = {
   },
 
   hero: {
-    titleA: 'Criterio agronómico',
+    titleA: 'Inteligencia agronómica',
     titleB: 'para cada lote.',
     subtitle: (
       <>
-        Rinde Plus es <strong>inteligencia agronómica</strong>: integra el
-        clima, el suelo, los ambientes y la historia de cada lote y lo
-        convierte en <strong>decisiones</strong> sobre qué hacer, cuándo y si
-        conviene.
+        Rinde Plus integra el clima, el suelo, los ambientes y la historia de
+        cada lote y los convierte en <strong>decisiones</strong>: qué hacer,
+        cuándo y si conviene.
       </>
     ),
     ctaTalk: 'Hablemos de tus lotes',
     ctaCampaign: 'Ver qué hace',
-    mapAria: 'Lote dibujado con tres ambientes, surcos de siembra y curvas de nivel',
+    mapAria: 'Lote dibujado con su mapa de vigor por ambientes, surcos de siembra y curvas de nivel',
     // Notificaciones de las escenas del lote del hero (doc/ANIMACION_LOTE.md):
     // una por momento de la campaña; Acompañar tiene una por clima.
     avisos: {
@@ -112,9 +113,7 @@ const es = {
     title: 'Qué hace Rinde Plus',
     subtitle:
       'Una sola herramienta que acompaña cada lote durante toda la campaña, del plan al cierre.',
-    next: 'Siguiente',
-    nextAria: 'Ver el siguiente momento',
-    goTo: (name) => `Ir a ${name}`,
+    momentos: 'Momentos de la campaña',
     charts: {
       zones: ['Alto', 'Medio', 'Bajo'],
       potentialCaption: 'Rinde base y potencial por ambiente',

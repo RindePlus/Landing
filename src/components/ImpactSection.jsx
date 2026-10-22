@@ -15,6 +15,10 @@ import {
 } from '../data/impactoDatos';
 import './ImpactSection.css';
 
+// Cuánto tiene que quedar la sección fuera de la pantalla para que se
+// cierre la tabla abierta (si se aleja más de una pantalla, se cierra ya).
+const FUERA_MS = 4000;
+
 // Formato de números por idioma: 110.000 (es, pt) / 110,000 (en).
 const NUM_LOCALE = { es: 'es-AR', en: 'en-US', pt: 'pt-BR' };
 
@@ -99,8 +103,7 @@ const ImpactSection = () => {
   const [pista, setPista] = useState(false);
   const pistaTimer = useRef(0);
   const listaRef = useRef(null);
-  // Dónde estaban los indicadores en pantalla antes de abrir o cerrar.
-  const anclaTop = useRef(null);
+  const seccionRef = useRef(null);
 
   const cancelarPista = () => {
     window.clearTimeout(pistaTimer.current);
@@ -118,7 +121,6 @@ const ImpactSection = () => {
 
   const alternar = (id) => {
     cancelarPista();
-    anclaTop.current = listaRef.current?.getBoundingClientRect().top ?? null;
     if (abierto === id) {
       setAbierto(null);
       return;
@@ -140,39 +142,31 @@ const ImpactSection = () => {
     }
   }, [abierto, instant]);
 
-  // Al abrir la primera tabla o cerrar la última, el título se pliega o
-  // vuelve. La vista no se mueve: mientras dura el pliegue se compensa el
-  // scroll para que los indicadores queden donde estaban en pantalla (sin
-  // esto, subían de golpe bajo el mouse). Si la persona scrollea, se suelta.
+  // Alto fijo de la sección (como en VigIA): el que ocupa con la tabla más
+  // alta abierta: indicadores y tabla, sin título, bajada ni pie. Cerrada,
+  // todo queda centrado en ese alto; al abrir, título, bajada y pie se
+  // pliegan, los indicadores suben y la tabla entra en el lugar que dejan: la
+  // sección no cambia de alto y nada de arriba se mueve. Las dos tablas
+  // comparten la celda, así que el alto del contenido del panel ya es el de
+  // la más alta.
   useEffect(() => {
-    const destino = anclaTop.current;
-    anclaTop.current = null;
+    const seccion = seccionRef.current;
     const lista = listaRef.current;
-    if (destino == null || !lista) return undefined;
-    const raiz = document.documentElement;
-    raiz.setAttribute('data-scroll-quieto', '');
-    const fin = performance.now() + 1100; // --imp-despliegue y un margen
-    let raf = 0;
-    const soltar = () => {
-      window.cancelAnimationFrame(raf);
-      window.removeEventListener('wheel', soltar);
-      window.removeEventListener('touchstart', soltar);
-      window.removeEventListener('keydown', soltar);
-      // Un cuadro más, para que el header vea el último scroll compensado.
-      window.requestAnimationFrame(() => raiz.removeAttribute('data-scroll-quieto'));
+    const interior = cajaRef.current?.firstElementChild;
+    if (!seccion || !lista || !interior) return undefined;
+    const medir = () => {
+      const estilo = getComputedStyle(seccion);
+      const px = (v) => parseFloat(v) || 0;
+      const alto =
+        px(estilo.paddingTop) + px(estilo.paddingBottom) +
+        lista.offsetHeight + interior.scrollHeight;
+      seccion.style.setProperty('--alto-impacto', `${Math.ceil(alto)}px`);
     };
-    const paso = () => {
-      const diferencia = lista.getBoundingClientRect().top - destino;
-      if (Math.abs(diferencia) >= 0.5) window.scrollBy({ top: diferencia, behavior: 'instant' });
-      if (performance.now() < fin) raf = window.requestAnimationFrame(paso);
-      else soltar();
-    };
-    window.addEventListener('wheel', soltar, { passive: true });
-    window.addEventListener('touchstart', soltar, { passive: true });
-    window.addEventListener('keydown', soltar);
-    paso();
-    return soltar;
-  }, [abierto]);
+    medir();
+    document.fonts?.ready.then(medir);
+    window.addEventListener('resize', medir, { passive: true });
+    return () => window.removeEventListener('resize', medir);
+  }, [locale]);
 
   useEffect(() => {
     if (!abierto) return undefined;
@@ -180,7 +174,6 @@ const ImpactSection = () => {
     // Escape cierra el panel.
     const onKey = (e) => {
       if (e.key !== 'Escape') return;
-      anclaTop.current = listaRef.current?.getBoundingClientRect().top ?? null;
       const origen = botonesRef.current[abierto];
       setAbierto(null);
       origen?.focus();
@@ -192,6 +185,72 @@ const ImpactSection = () => {
       document.removeEventListener('keydown', onKey);
     };
   }, [abierto]);
+
+  // Si la sección sale de la pantalla con una tabla abierta, la tabla se
+  // cierra: al volver, Impacto está como al principio. No por salir un
+  // instante: tiene que quedar fuera FUERA_MS, o alejarse más de una
+  // pantalla. Se cierra fuera de la vista y sin animación. Si la sección
+  // quedó arriba y cambia de alto (en celular, que no tiene alto fijo), lo
+  // que se está viendo no se tiene que mover: casi todos los navegadores lo
+  // compensan solos (scroll anchoring); si alguno no, se corrige lo que
+  // falte midiendo lo que viene después de la sección.
+  const [quieto, setQuieto] = useState(false);
+  const ancla = useRef(null); // { el, top } de lo que sigue a la sección
+
+  useEffect(() => {
+    const seccion = seccionRef.current;
+    if (!abierto || !seccion || !('IntersectionObserver' in window)) return undefined;
+    let timer = 0;
+    const cerrarFuera = () => {
+      window.clearTimeout(timer);
+      // Lo que sigue a la sección (está dentro de la isla de Astro: se sube
+      // hasta encontrar un hermano).
+      let siguiente = null;
+      for (let el = seccion; el && !siguiente; el = el.parentElement) siguiente = el.nextElementSibling;
+      ancla.current = seccion.getBoundingClientRect().bottom < 0 && siguiente
+        ? { el: siguiente, top: siguiente.getBoundingClientRect().top }
+        : null;
+      // Aviso al header: el scroll que viene (del navegador o el nuestro) no
+      // es de la persona.
+      if (ancla.current) window.dispatchEvent(new Event('rp:scroll-propio'));
+      setQuieto(true);
+      setAbierto(null);
+    };
+    const fuera = new IntersectionObserver(([e]) => {
+      window.clearTimeout(timer);
+      if (!e.isIntersecting) timer = window.setTimeout(cerrarFuera, FUERA_MS);
+    });
+    // La pantalla agrandada una pantalla para arriba y para abajo: si la
+    // sección sale de ahí, está lejos.
+    const lejos = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) cerrarFuera();
+    }, { rootMargin: '100% 0px' });
+    fuera.observe(seccion);
+    lejos.observe(seccion);
+    return () => {
+      window.clearTimeout(timer);
+      fuera.disconnect();
+      lejos.disconnect();
+    };
+  }, [abierto]);
+
+  useEffect(() => {
+    if (!quieto) return undefined;
+    // Un cuadro después del cierre, cuando el navegador ya compensó (o no).
+    const raf = window.requestAnimationFrame(() => {
+      const a = ancla.current;
+      ancla.current = null;
+      if (a) {
+        const corrida = a.el.getBoundingClientRect().top - a.top;
+        if (Math.abs(corrida) >= 1) {
+          window.dispatchEvent(new Event('rp:scroll-propio'));
+          window.scrollBy({ top: corrida, behavior: 'instant' });
+        }
+      }
+      setQuieto(false); // vuelven las transiciones
+    });
+    return () => window.cancelAnimationFrame(raf);
+  }, [quieto]);
 
   // Aviso de una sola vez: aparece cuando los indicadores entran en pantalla
   // y se va a los pocos segundos (o al tocar un indicador).
@@ -215,7 +274,6 @@ const ImpactSection = () => {
   }, []);
 
   const cerrarPanel = () => {
-    anclaTop.current = listaRef.current?.getBoundingClientRect().top ?? null;
     const origen = botonesRef.current[abierto];
     setAbierto(null);
     origen?.focus();
@@ -229,17 +287,22 @@ const ImpactSection = () => {
   };
 
   return (
-    <section className={`rp-impacto${abierto ? ' is-tabla' : ''}`} id="impacto">
-      {/* Con una tabla abierta (.is-tabla) el título se pliega y los
-          indicadores suben: indicadores, tabla y pie entran en la pantalla
-          sin bajar la vista. La bajada queda. Como en VigIA. */}
+    <section
+      ref={seccionRef}
+      className={`rp-impacto${abierto ? ' is-tabla' : ''}${quieto ? ' is-quieto' : ''}`}
+      id="impacto"
+      data-fondo-oscuro
+    >
+      {/* Con una tabla abierta (.is-tabla) el título y la bajada se pliegan
+          (la campaña ya la dice la tabla) y los indicadores suben; la tabla
+          entra en el lugar que dejan. Como en VigIA. */}
       <Reveal className="rp-impact__head">
         <div className="rp-impact__pliegue">
           <div>
             <h2 className="rp-impact__title">{t.title}</h2>
+            <p className="rp-impact__subtitle">{t.subtitle(d)}</p>
           </div>
         </div>
-        <p className="rp-impact__subtitle">{t.subtitle(d)}</p>
       </Reveal>
 
       <Reveal delay={1} className="rp-impact__box">
@@ -320,7 +383,9 @@ const ImpactSection = () => {
         </div>
       </div>
 
-      <div className="rp-impact__pie">
+      {/* Con una tabla abierta se pliega: la historia (21 campañas) al lado
+          de una tabla de una sola campaña podría confundir. */}
+      <div className="rp-impact__pie" inert={!!abierto}>
         <p className="rp-impact__pie-linea">{t.pie.linea(d)}</p>
       </div>
 

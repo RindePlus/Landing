@@ -15,15 +15,30 @@ const lang = idiomaDe(Astro.currentLocale);
 ---
 
 <BaseLayout>
-  <!-- Hero: en escritorio ocupa la pantalla entera, con el carrusel de
-       clientes al pie (confianza a primera vista). -->
+  <!-- Hero: en escritorio la primera pantalla es el título y el lote; el
+       carrusel de clientes va debajo y aparece al bajar un poco. -->
   <section class="rp-home__hero" id="top">
     <div class="rp-home__bg" aria-hidden="true"><CampoHero /></div>
     <Hero lang={lang} />
     <div class="rp-home__hero-clientes">
-      <Clientes client:load lang={lang} />
+      <Clientes client:visible lang={lang} />
     </div>
   </section>
+  <!-- El carrusel aparece con el primer scroll (o de entrada si la página
+       carga ya scrolleada). -->
+  <script is:inline>
+    (function () {
+      var clientes = document.querySelector('.rp-home__hero-clientes');
+      if (!clientes) return;
+      var mostrar = function () {
+        if (window.scrollY < 24) return;
+        clientes.classList.add('is-visible');
+        window.removeEventListener('scroll', mostrar);
+      };
+      window.addEventListener('scroll', mostrar, { passive: true });
+      mostrar();
+    })();
+  </script>
   <!-- El lote resaltado del hero es uno de los potreros del fondo: se corre
        el viewBox del fondo para que ese potrero quede justo debajo del
        dibujo, a la misma escala. Inline y pegado al hero: corre antes del

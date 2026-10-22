@@ -122,6 +122,28 @@ La página se lee como un buen informe agronómico: papel neutro, tinta oscura, 
 - **Qué es:** uno de los potreros del mosaico de fondo, resaltado con sus ambientes y alineado con el fondo (muchas hectáreas, una remarcada).
 - **Escenas:** cada tanto pasa un momento de la campaña (planificar, preparar, fertilizar, acompañar con una condición de clima, cerrar), Rinde Plus lo analiza (un barrido azul) y responde con una notificación. Una por vez, con calma entre medio; el viento cruza en la calma, sin respuesta. Todo en [`doc/ANIMACION_LOTE.md`](doc/ANIMACION_LOTE.md).
 
+## Pantallas grandes
+
+Decisión completa en [`doc/ADR-001-pantallas-grandes.md`](doc/ADR-001-pantallas-grandes.md).
+
+- **Alto:** ninguna sección mide `100vh`/`100svh`. El hero es la excepción, con tope: `min(100svh, 880px)`. Las bandas con `min-height` llevan un tope en px.
+- **Escalones por ancho de ventana** (`min-width`), no por resolución, porque el escalado de Windows cambia el ancho que recibe la página:
+  - Desde 1800 px: `html` a 17 px, `--ancho-contenido` 1240, `--ancho-amplio` 1400.
+  - Desde 2300 px: `html` a 18 px, 1320 y 1480.
+  - Por debajo de 1800: 16 px, 1160 y 1320.
+- **Unidades:** el texto va en rem y los espaciados en px, así crece el texto sin inflar el aire entre secciones.
+- **Anchos:** los contenedores de página usan los tokens `--ancho-contenido` y `--ancho-amplio`. Las columnas de texto y los bloques internos van en rem.
+- **Lo que va en px y acompaña al texto** (logo, botones e íconos del header) usa `--header-*`, que crece en los mismos escalones.
+- **Título del hero:** con tope en rem. Antes de ensanchar una columna, medir cuántos renglones ocupa el título: con menos renglones, el bloque queda más bajo.
+
+**Regla para agentes:** cada cambio de alto, ancho o espaciado se verifica en 1366×768, 1536×864, 1920×1080, 2560×1440, 2560×1080 y 390×844 antes de darlo por terminado. En cada tamaño se revisa:
+- que no haya scroll lateral;
+- el aire arriba y abajo de cada sección, marcando lo que pase de ~120 px sin motivo;
+- los anchos máximos;
+- los tamaños de título y texto.
+
+Se comparan las medidas antes y después, y se confirma que 1366 y 390 no cambiaron sin querer. Se sacan capturas del hero en 1366, 1920 y 2560, en claro y oscuro. Al final, `pnpm validate`. El modo dispositivo sirve para las proporciones; el tamaño físico del texto se juzga en un monitor real.
+
 ## Do's and Don'ts
 
 ### Do:

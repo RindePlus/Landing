@@ -6,9 +6,9 @@ import { LuShare } from 'react-icons/lu';
 
 const pt = {
   meta: {
-    title: 'Rinde Plus · Critério agronômico para cada talhão',
+    title: 'Rinde Plus · Inteligência agronômica para cada talhão',
     description:
-      'Inteligência agronômica: a Rinde Plus integra o clima, o solo, os ambientes e o histórico de cada talhão e transforma tudo em decisões.',
+      'A Rinde Plus integra o clima, o solo, os ambientes e o histórico de cada talhão e transforma tudo em decisões: o que fazer, quando e se vale a pena.',
   },
 
   whatsapp: {
@@ -23,10 +23,12 @@ const pt = {
   header: {
     openMenu: 'Abrir menu',
     nav: {
-      home: 'Início',
       impact: 'Impacto',
       campaign: 'Plataforma',
       why: 'Vantagens',
+      contact: 'Contato',
+      install: 'Instalar o app',
+      installHint: 'No celular, sem passar por uma loja',
     },
     themeDark: 'Modo escuro',
     themeLight: 'Modo claro',
@@ -40,19 +42,18 @@ const pt = {
   },
 
   hero: {
-    titleA: 'Critério agronômico',
+    titleA: 'Inteligência agronômica',
     titleB: 'para cada talhão.',
     subtitle: (
       <>
-        A Rinde Plus é <strong>inteligência agronômica</strong>: integra o
-        clima, o solo, os ambientes e o histórico de cada talhão e transforma
-        tudo em <strong>decisões</strong> sobre o que fazer, quando e se vale a
-        pena.
+        A Rinde Plus integra o clima, o solo, os ambientes e o histórico de
+        cada talhão e transforma tudo em <strong>decisões</strong>: o que fazer,
+        quando e se vale a pena.
       </>
     ),
     ctaTalk: 'Vamos falar dos seus talhões',
     ctaCampaign: 'Ver o que faz',
-    mapAria: 'Talhão desenhado com três ambientes, linhas de plantio e curvas de nível',
+    mapAria: 'Talhão desenhado com seu mapa de vigor por ambiente, linhas de plantio e curvas de nível',
     // Notificações das cenas do talhão do hero (doc/ANIMACION_LOTE.md).
     avisos: {
       marca: 'Rinde Plus',
@@ -110,9 +111,7 @@ const pt = {
     title: 'O que a Rinde Plus faz',
     subtitle:
       'Uma só ferramenta que acompanha cada talhão durante toda a safra, do planejamento ao fechamento.',
-    next: 'Próximo',
-    nextAria: 'Ver o próximo momento',
-    goTo: (name) => `Ir para ${name}`,
+    momentos: 'Momentos da safra',
     charts: {
       zones: ['Alto', 'Médio', 'Baixo'],
       potentialCaption: 'Produtividade base e potencial por ambiente',

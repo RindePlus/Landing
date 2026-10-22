@@ -6,10 +6,11 @@ import { FOTOS } from '../data/fotos';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
 import './Footer.css';
 
-// Footer con la estética de VigIA, en el azul marino de Rinde Plus
-// (data-fondo-oscuro: el header se ajusta encima). Compacto: a la izquierda
-// la marca (logo y redes), a la derecha los cuatro datos de contacto; abajo,
-// el copyright y los créditos de las fotos en un renglón fino. Estático (sin JS propio): los enlaces de
+// Footer en el azul marino de Rinde Plus, monocromo (logo, íconos y letras
+// en blanco; data-fondo-oscuro: el header se ajusta encima). Compacto: a la
+// izquierda el logo y las redes en círculos chicos, a la derecha los cuatro
+// datos de contacto con su ícono; abajo, el copyright y los créditos de las
+// fotos, alineados a los mismos bordes. Estático (sin JS propio): los enlaces de
 // WhatsApp llevan data-abrir-whatsapp y en escritorio WhatsAppWidget los
 // abre en su panel; en celular van directo a WhatsApp.
 const EMAIL = 'inforindeplus@gmail.com';
@@ -26,8 +27,7 @@ const Footer = () => {
       <div className="rp-footer__inner">
         <div className="rp-footer__main">
           <div className="rp-footer__marca">
-            {/* Logo de la versión oscura: amarillo y azul claro se leen
-                sobre el marino. */}
+            {/* Logo en blanco (el CSS lo pasa a monocromo). */}
             <a className="rp-footer__logo" href="#top" aria-label={dict.header.logoAlt}>
               <img src={urlDe(rindeplusLogoDark)} alt={dict.header.logoAlt} loading="lazy" decoding="async" />
             </a>
@@ -53,24 +53,26 @@ const Footer = () => {
 
           <ul className="rp-footer__contacto">
             <li>
-              <span className="rp-footer__label"><PiEnvelopeSimple aria-hidden="true" />{t.email}</span>
-              <a href={`mailto:${EMAIL}`} aria-label={t.emailAria}>{EMAIL}</a>
+              <a href={`mailto:${EMAIL}`} aria-label={t.emailAria} title={t.email}>
+                <PiEnvelopeSimple aria-hidden="true" />
+                {EMAIL}
+              </a>
             </li>
             <li>
-              <span className="rp-footer__label"><PiInstagramLogo aria-hidden="true" />{t.instagram}</span>
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={t.instagramAria}>
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={t.instagramAria} title={t.instagram}>
+                <PiInstagramLogo aria-hidden="true" />
                 {INSTAGRAM_HANDLE}
               </a>
             </li>
             <li>
-              <span className="rp-footer__label"><PiWhatsappLogo aria-hidden="true" />{t.whatsapp}</span>
-              <a href={waUrl} target="_blank" rel="noopener noreferrer" data-abrir-whatsapp aria-label={t.whatsappAria}>
+              <a href={waUrl} target="_blank" rel="noopener noreferrer" data-abrir-whatsapp aria-label={t.whatsappAria} title={t.whatsapp}>
+                <PiWhatsappLogo aria-hidden="true" />
                 +54 9 3564 59-3446
               </a>
             </li>
             <li>
-              <span className="rp-footer__label"><PiMapPin aria-hidden="true" />{t.office}</span>
-              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" aria-label={t.officeAria}>
+              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" aria-label={t.officeAria} title={t.office}>
+                <PiMapPin aria-hidden="true" />
                 Concejal Lorusso 762 · Alta Gracia
               </a>
             </li>

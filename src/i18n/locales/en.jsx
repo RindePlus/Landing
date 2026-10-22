@@ -6,9 +6,9 @@ import { LuShare } from 'react-icons/lu';
 
 const en = {
   meta: {
-    title: 'Rinde Plus · Agronomic judgment for every field',
+    title: 'Rinde Plus · Agronomic intelligence for every field',
     description:
-      'Agronomic intelligence: Rinde Plus brings together the weather, soil, management zones and history of every field and turns them into decisions.',
+      'Rinde Plus brings together the weather, soil, management zones and history of every field and turns them into decisions: what to do, when, and whether it pays.',
   },
 
   whatsapp: {
@@ -23,10 +23,12 @@ const en = {
   header: {
     openMenu: 'Open menu',
     nav: {
-      home: 'Home',
       impact: 'Impact',
       campaign: 'Platform',
       why: 'Benefits',
+      contact: 'Contact',
+      install: 'Install the app',
+      installHint: 'On your phone, no app store needed',
     },
     themeDark: 'Dark mode',
     themeLight: 'Light mode',
@@ -40,19 +42,18 @@ const en = {
   },
 
   hero: {
-    titleA: 'Agronomic judgment',
+    titleA: 'Agronomic intelligence',
     titleB: 'for every field.',
     subtitle: (
       <>
-        Rinde Plus is <strong>agronomic intelligence</strong>: it brings
-        together the weather, soil, management zones and history of every
-        field and turns them into <strong>decisions</strong> on what to do,
-        when, and whether it pays.
+        Rinde Plus brings together the weather, soil, management zones and
+        history of every field and turns them into <strong>decisions</strong>:
+        what to do, when, and whether it pays.
       </>
     ),
     ctaTalk: "Let's talk about your fields",
     ctaCampaign: 'See what it does',
-    mapAria: 'A field drawn with three management zones, crop rows and contour lines',
+    mapAria: 'A field drawn with its vigor map by management zone, crop rows and contour lines',
     // Hero field scene notifications (doc/ANIMACION_LOTE.md).
     avisos: {
       marca: 'Rinde Plus',
@@ -110,9 +111,7 @@ const en = {
     title: 'What Rinde Plus does',
     subtitle:
       'One tool that follows every field through the whole season, from plan to close.',
-    next: 'Next',
-    nextAria: 'See the next moment',
-    goTo: (name) => `Go to ${name}`,
+    momentos: 'Moments of the season',
     charts: {
       zones: ['High', 'Mid', 'Low'],
       potentialCaption: 'Base and potential yield by zone',

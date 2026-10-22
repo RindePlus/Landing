@@ -5,7 +5,6 @@ import {
   LuCloudSun,
   LuSprout,
   LuFlaskConical,
-  LuArrowRight,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
@@ -16,6 +15,12 @@ import './Functionalities.css';
    resolved from the panel's --fx-c1/--fx-c2 palette slots so they follow
    light/dark automatically. `var()` doesn't work in SVG presentation
    attributes, hence classes instead of stroke/fill attributes. */
+
+/* Animación al entrar a un momento (Functionalities.css, «Dibujo de los
+   gráficos»): cada pieza dice cómo aparece (fx-a-trazo, fx-a-crece-y,
+   fx-a-crece-x, fx-a-baja, fx-a-aparece, fx-a-punto) y cuándo (--d). Los
+   trazos usan pathLength="1" para dibujarse con un solo valor de guiones. */
+const d = (s) => ({ '--d': `${s}s` });
 
 /* Curva de respuesta (Fertilizar): el rinde sube con la dosis y se aplana.
    El área sobre la línea punteada es lo que la dosis agrega al rinde base;
@@ -32,14 +37,16 @@ const ChartRespuestaDosis = () => {
       </linearGradient>
     </defs>
     <path
+      className="fx-a-aparece"
+      style={d(1.1)}
       d="M20 96 C 60 52, 104 36, 150 33 C 162 32.5, 176 33.5, 186 35 L186 96 Z"
       fill="url(#fxDoseFill)"
     />
-    <line className="fx-grid" x1="20" y1="96" x2="186" y2="96" strokeWidth="1" strokeDasharray="4 3" />
-    <path className="fx-s1" d="M20 96 C 60 52, 104 36, 150 33 C 162 32.5, 176 33.5, 186 35" strokeWidth="2.5" strokeLinecap="round" />
-    <line className="fx-s2" x1="118" y1="37.5" x2="118" y2="96" strokeWidth="1.5" strokeDasharray="3 3" />
-    <circle className="fx-dot fx-s2" cx="118" cy="37.5" r="3.5" strokeWidth="2" />
-    <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.doseCaption}</text>
+    <line className="fx-grid fx-a-aparece" x1="20" y1="96" x2="186" y2="96" strokeWidth="1" strokeDasharray="4 3" />
+    <path className="fx-s1 fx-a-trazo" style={d(0.2)} pathLength="1" d="M20 96 C 60 52, 104 36, 150 33 C 162 32.5, 176 33.5, 186 35" strokeWidth="2.5" strokeLinecap="round" />
+    <line className="fx-s2 fx-a-baja" style={d(1.4)} x1="118" y1="37.5" x2="118" y2="96" strokeWidth="1.5" strokeDasharray="3 3" />
+    <circle className="fx-dot fx-s2 fx-a-punto" style={d(1.3)} cx="118" cy="37.5" r="3.5" strokeWidth="2" />
+    <text className="fx-caption fx-a-aparece" style={d(0.4)} x="100" y="125" textAnchor="middle">{t.doseCaption}</text>
   </svg>
   );
 };
@@ -60,9 +67,10 @@ const ChartCuatroRindes = () => {
     <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
       {rows.map((r, i) => (
         <g key={r.w}>
-          <text className="fx-label" x={x0 - 8} y={20 + i * 25} textAnchor="end">{r.label}</text>
+          <text className="fx-label fx-a-aparece" style={d(0.1 + i * 0.15)} x={x0 - 8} y={20 + i * 25} textAnchor="end">{r.label}</text>
           <rect
-            className={r.neutral ? 'fx-f-neutral' : 'fx-f1'}
+            className={`${r.neutral ? 'fx-f-neutral' : 'fx-f1'} fx-a-crece-x`}
+            style={d(0.2 + i * 0.15)}
             x={x0}
             y={8 + i * 25}
             width={r.w}
@@ -72,9 +80,12 @@ const ChartCuatroRindes = () => {
           />
         </g>
       ))}
-      <rect className="fx-band-risk fx-band-risk--strong" x={cosechado} y="8" width={x0 + rows[0].w - cosechado} height="16" rx="3" />
-      <line className="fx-s2" x1={cosechado} y1="4" x2={cosechado} y2="74" strokeWidth="1.5" strokeDasharray="3 3" />
-      <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.gapCaption}</text>
+      {/* La brecha: aparece después de las barras, marcada desde lo cosechado. */}
+      <g className="fx-a-aparece" style={d(1.3)}>
+        <rect className="fx-band-risk fx-band-risk--strong" x={cosechado} y="8" width={x0 + rows[0].w - cosechado} height="16" rx="3" />
+      </g>
+      <line className="fx-s2 fx-a-baja" style={d(1.1)} x1={cosechado} y1="4" x2={cosechado} y2="74" strokeWidth="1.5" strokeDasharray="3 3" />
+      <text className="fx-caption fx-a-aparece" style={d(0.4)} x="100" y="125" textAnchor="middle">{t.gapCaption}</text>
     </svg>
   );
 };
@@ -93,13 +104,15 @@ const ChartAreaForecast = () => {
         <stop className="fx-stop-2" offset="100%" stopOpacity="0" />
       </linearGradient>
     </defs>
-    <path className="fx-s1" d="M12 80 L40 60 L68 65 L96 45" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M12 80 L40 60 L68 65 L96 45 V100 H12 Z" fill="url(#fxPastFill)" />
-    <line className="fx-grid" x1="96" y1="20" x2="96" y2="100" strokeWidth="1" strokeDasharray="4 3" />
-    <path className="fx-s2" d="M96 45 L124 35 L152 50 L180 28" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 4" />
-    <path d="M96 45 L124 35 L152 50 L180 28 V100 H96 Z" fill="url(#fxFutureFill)" />
-    <text className="fx-label" x="100" y="14">{t.today}</text>
-    <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.forecastCaption}</text>
+    <path className="fx-s1 fx-a-trazo" style={d(0.2)} pathLength="1" d="M12 80 L40 60 L68 65 L96 45" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path className="fx-a-aparece" style={d(0.8)} d="M12 80 L40 60 L68 65 L96 45 V100 H12 Z" fill="url(#fxPastFill)" />
+    <line className="fx-grid fx-a-baja" style={d(0.9)} x1="96" y1="20" x2="96" y2="100" strokeWidth="1" strokeDasharray="4 3" />
+    {/* El pronóstico va punteado: aparece de a poco en vez de trazarse
+        (el trazo pisaría los guiones, y estirarlo deforma el quiebre). */}
+    <path className="fx-s2 fx-a-aparece fx-a-lento" style={d(1.1)} d="M96 45 L124 35 L152 50 L180 28" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 4" />
+    <path className="fx-a-aparece" style={d(1.6)} d="M96 45 L124 35 L152 50 L180 28 V100 H96 Z" fill="url(#fxFutureFill)" />
+    <text className="fx-label fx-a-aparece" style={d(0.9)} x="100" y="14">{t.today}</text>
+    <text className="fx-caption fx-a-aparece" style={d(0.4)} x="100" y="125" textAnchor="middle">{t.forecastCaption}</text>
   </svg>
   );
 };
@@ -113,15 +126,16 @@ const ChartResiduoHerbicida = () => {
   const t = useI18n().dict.fx.charts;
   return (
   <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
-    <rect className="fx-band-risk" x="16" y="16" width="62" height="86" />
-    <rect className="fx-band-warn" x="78" y="16" width="46" height="86" />
-    <rect className="fx-band-safe" x="124" y="16" width="62" height="86" />
-    <line className="fx-grid" x1="16" y1="58" x2="186" y2="58" strokeWidth="1" strokeDasharray="4 3" />
+    {/* Las franjas de riesgo aparecen de a una, de alto a bajo. */}
+    <g className="fx-a-aparece" style={d(0.1)}><rect className="fx-band-risk" x="16" y="16" width="62" height="86" /></g>
+    <g className="fx-a-aparece" style={d(0.3)}><rect className="fx-band-warn" x="78" y="16" width="46" height="86" /></g>
+    <g className="fx-a-aparece" style={d(0.5)}><rect className="fx-band-safe" x="124" y="16" width="62" height="86" /></g>
+    <line className="fx-grid fx-a-aparece" style={d(0.2)} x1="16" y1="58" x2="186" y2="58" strokeWidth="1" strokeDasharray="4 3" />
     <line className="fx-grid" x1="16" y1="102" x2="186" y2="102" strokeWidth="0.8" />
-    <path className="fx-s1" d="M20 24 C 44 28, 62 40, 82 58 C 102 76, 130 90, 182 96" strokeWidth="2.5" strokeLinecap="round" />
-    <line className="fx-s2" x1="138" y1="24" x2="138" y2="102" strokeWidth="1.5" strokeDasharray="3 3" />
-    <circle className="fx-dot fx-s2" cx="138" cy="90" r="3.5" strokeWidth="2" />
-    <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.residueCaption}</text>
+    <path className="fx-s1 fx-a-trazo" style={d(0.4)} pathLength="1" d="M20 24 C 44 28, 62 40, 82 58 C 102 76, 130 90, 182 96" strokeWidth="2.5" strokeLinecap="round" />
+    <line className="fx-s2 fx-a-baja" style={d(1.6)} x1="138" y1="24" x2="138" y2="102" strokeWidth="1.5" strokeDasharray="3 3" />
+    <circle className="fx-dot fx-s2 fx-a-punto" style={d(1.5)} cx="138" cy="90" r="3.5" strokeWidth="2" />
+    <text className="fx-caption fx-a-aparece" style={d(0.4)} x="100" y="125" textAnchor="middle">{t.residueCaption}</text>
   </svg>
   );
 };
@@ -144,100 +158,17 @@ const ChartPotencialAmbientes = () => {
         const x = 26 + i * 56;
         return (
           <g key={x}>
-            <rect className="fx-f-neutral" x={x} y={floor - z.base} width="18" height={z.base} rx="3" opacity="0.55" />
-            <rect className="fx-f1" x={x + 22} y={floor - z.pot} width="18" height={z.pot} rx="3" />
-            <text className="fx-label" x={x + 20} y={floor + 11} textAnchor="middle">{t.zones[i]}</text>
+            <rect className="fx-f-neutral fx-a-crece-y" style={d(0.2 + i * 0.2)} x={x} y={floor - z.base} width="18" height={z.base} rx="3" opacity="0.55" />
+            <rect className="fx-f1 fx-a-crece-y" style={d(0.35 + i * 0.2)} x={x + 22} y={floor - z.pot} width="18" height={z.pot} rx="3" />
+            <text className="fx-label fx-a-aparece" style={d(0.1 + i * 0.2)} x={x + 20} y={floor + 11} textAnchor="middle">{t.zones[i]}</text>
           </g>
         );
       })}
-      <text className="fx-caption" x="100" y="125" textAnchor="middle">{t.potentialCaption}</text>
+      <text className="fx-caption fx-a-aparece" style={d(0.4)} x="100" y="125" textAnchor="middle">{t.potentialCaption}</text>
     </svg>
   );
 };
 
-/* ── Campo continuo — paisaje de lomas que abarca el ancho COMPLETO del
-   track (los 5 paneles), anclado abajo. Como vive adentro de .rp-fx__track,
-   viaja 1:1 con el translate del scroll-jack (y con el swipe nativo del
-   fallback) sin tocar el JS: el campo "pasa" de una funcionalidad a la otra
-   sin cortes. Verde calmo vía --gh-detail-green (flipea solo en dark).
-   viewBox 2800 = 5 × 560 y preserveAspectRatio="none" para estirar de punta
-   a punta; los trazos usan non-scaling-stroke para no engrosarse. ── */
-
-const FxField = () => (
-  // --fx-count dimensiona el campo al ancho de contenido del track
-  // (COUNT × 100vw): con left/right:0 quedaría en el ancho de layout (100vw)
-  // y el paisaje se cortaría al pasar al segundo panel.
-  <div className="rp-fx__field" aria-hidden="true" style={{ '--fx-count': COUNT }}>
-    <svg viewBox="0 0 2800 300" fill="none" preserveAspectRatio="none" focusable="false">
-      {/* El color termina EXACTO en la tercera línea (cresta frontal):
-          fxFieldClip recorta los rellenos en esa cresta, así ni el degradé
-          ni ningún fondo pasan por debajo. La loma frontal queda solo como
-          línea (su relleno viviría entero bajo la cresta → se eliminó). */}
-      <defs>
-        <linearGradient id="fxFieldBack" x1="0" y1="0" x2="0" y2="1">
-          <stop className="fx-field-stop" offset="0%" stopOpacity="0.1" />
-          <stop className="fx-field-stop" offset="60%" stopOpacity="0.05" />
-          <stop className="fx-field-stop" offset="100%" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient id="fxFieldMid" x1="0" y1="0" x2="0" y2="1">
-          <stop className="fx-field-stop" offset="0%" stopOpacity="0.16" />
-          <stop className="fx-field-stop" offset="60%" stopOpacity="0.08" />
-          <stop className="fx-field-stop" offset="100%" stopOpacity="0" />
-        </linearGradient>
-        <clipPath id="fxFieldClip">
-          {/* región por encima de la cresta frontal (la cresta, recorrida al revés) */}
-          <path d="M0 0 H2800 V220 C 2660 224, 2540 218, 2400 236 C 2240 258, 2080 214, 1920 234 C 1760 256, 1600 218, 1440 238 C 1280 260, 1120 214, 960 236 C 800 258, 640 216, 480 238 C 320 262, 160 214, 0 240 Z" />
-        </clipPath>
-      </defs>
-
-      {/* rellenos, recortados en la tercera línea */}
-      <g clipPath="url(#fxFieldClip)">
-        <path
-          d="M0 96 C 140 64, 280 128, 420 100 C 560 74, 700 118, 840 92 C 980 66, 1120 122, 1260 96 C 1400 72, 1540 116, 1680 88 C 1820 62, 1960 112, 2100 92 C 2240 66, 2380 116, 2520 94 C 2610 80, 2710 78, 2800 82 V300 H0 Z"
-          fill="url(#fxFieldBack)"
-        />
-        <path
-          d="M0 172 C 150 140, 300 196, 450 168 C 600 142, 750 190, 900 164 C 1050 140, 1200 194, 1350 168 C 1500 144, 1650 188, 1800 162 C 1950 138, 2100 182, 2240 158 C 2380 134, 2520 180, 2660 156 C 2707 148, 2755 146, 2800 150 V300 H0 Z"
-          fill="url(#fxFieldMid)"
-        />
-      </g>
-
-      {/* crestas — fuera del clip para que la 3ª línea conserve su trazo completo */}
-      <path
-        className="fx-field-line"
-        d="M0 96 C 140 64, 280 128, 420 100 C 560 74, 700 118, 840 92 C 980 66, 1120 122, 1260 96 C 1400 72, 1540 116, 1680 88 C 1820 62, 1960 112, 2100 92 C 2240 66, 2380 116, 2520 94 C 2610 80, 2710 78, 2800 82"
-        strokeWidth="1.25"
-        strokeOpacity="0.25"
-        vectorEffect="non-scaling-stroke"
-      />
-      <path
-        className="fx-field-line"
-        d="M0 172 C 150 140, 300 196, 450 168 C 600 142, 750 190, 900 164 C 1050 140, 1200 194, 1350 168 C 1500 144, 1650 188, 1800 162 C 1950 138, 2100 182, 2240 158 C 2380 134, 2520 180, 2660 156 C 2707 148, 2755 146, 2800 150"
-        strokeWidth="1.5"
-        strokeOpacity="0.35"
-        vectorEffect="non-scaling-stroke"
-      />
-      <path
-        className="fx-field-line"
-        d="M0 240 C 160 214, 320 262, 480 238 C 640 216, 800 258, 960 236 C 1120 214, 1280 260, 1440 238 C 1600 218, 1760 256, 1920 234 C 2080 214, 2240 258, 2400 236 C 2540 218, 2660 224, 2800 220"
-        strokeWidth="1.75"
-        strokeOpacity="0.45"
-        vectorEffect="non-scaling-stroke"
-      />
-
-      {/* curvas de nivel salpicadas en la franja entre la 2ª y la 3ª línea
-          (debajo de la 3ª ya no hay nada que las acompañe) */}
-      <path className="fx-field-line" d="M470 214 C 510 192, 590 192, 630 214" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
-      <path className="fx-field-line" d="M495 221 C 525 205, 575 205, 605 221" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
-      <path className="fx-field-line" d="M1210 210 C 1250 188, 1330 188, 1370 210" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
-      <path className="fx-field-line" d="M1235 217 C 1265 201, 1315 201, 1345 217" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
-      <path className="fx-field-line" d="M1880 216 C 1920 194, 2000 194, 2040 216" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
-      <path className="fx-field-line" d="M1905 223 C 1935 207, 1985 207, 2015 223" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
-      <path className="fx-field-line" d="M2500 210 C 2540 188, 2620 188, 2660 210" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
-      <path className="fx-field-line" d="M2525 217 C 2555 201, 2605 201, 2635 217" strokeWidth="1.25" strokeOpacity="0.25" vectorEffect="non-scaling-stroke" />
-    </svg>
-  </div>
-);
 
 /* ── Data ── */
 
@@ -253,30 +184,42 @@ const FUNCTIONALITIES = [
 
 const COUNT = FUNCTIONALITIES.length;
 
-/* ── Panel title — número y nombre del momento sobre la pregunta ── */
+// Cuánto queda cada momento en pantalla cuando avanza solo. El avance lo
+// marca la barra del botón activo: al terminar su animación pasa al
+// siguiente (animationend), así barra y cambio nunca se desfasan.
+const AUTO_MS = 30000;
+// Si la persona eligió un momento, el avance automático se frena; vuelve
+// después de este tiempo sin que toque otro botón de la sección.
+const REANUDAR_MS = 60000;
 
-const PanelTitle = ({ item, index }) => (
-  <>
-    <p className="rp-fx__moment">
-      <span className="rp-fx__moment-num">{String(index + 1).padStart(2, '0')}</span>
-      {item.tag}
-    </p>
-    <h3 className="rp-fx__name">{item.name}</h3>
-  </>
-);
+const num = (i) => String(i + 1).padStart(2, '0');
 
-/* ── Panel ── */
+/* ── Panel: el contenido del momento elegido ── */
 
-const FunctionalityPanel = ({ item, index }) => {
+const FunctionalityPanel = ({ item, index, activo }) => {
   const { Chart, palette } = item;
   const text = useI18n().dict.fx.panels[item.id];
 
-  // Text column + chart
   return (
-    <article className={`rp-fx__panel${palette ? ` rp-fx__panel--${palette}` : ''}`}>
-      <div className="rp-fx__panel-inner">
-        <div className="rp-fx__text">
-          <PanelTitle item={text} index={index} />
+    <article
+      id={`rp-fx-panel-${item.id}`}
+      role="tabpanel"
+      aria-labelledby={`rp-fx-tab-${item.id}`}
+      className={`rp-fx__panel rp-fx__panel--${palette}${activo ? ' is-active' : ''}`}
+      inert={!activo}
+    >
+      {/* El nombre ya está en el botón; acá se ve sólo en celular, donde
+          los botones muestran nada más que el momento. */}
+      <p className="rp-fx__moment">
+        <span className="rp-fx__moment-num">{num(index)}</span>
+        {text.tag}
+      </p>
+      <h3 className="rp-fx__name">{text.name}</h3>
+      {/* Texto a la izquierda (descripción y viñetas) y el gráfico a la
+          derecha, de todo el alto: así el texto llena lo que mide el
+          gráfico y no quedan huecos en los momentos con menos texto. */}
+      <div className="rp-fx__body">
+        <div className="rp-fx__texto">
           <p className="rp-fx__desc">{text.description}</p>
           <ul className="rp-fx__bullets">
             {text.bullets.map((b) => (
@@ -284,7 +227,6 @@ const FunctionalityPanel = ({ item, index }) => {
             ))}
           </ul>
         </div>
-
         <div className="rp-fx__visual">
           <Chart />
         </div>
@@ -293,102 +235,70 @@ const FunctionalityPanel = ({ item, index }) => {
   );
 };
 
-/* ── Section (pinned horizontal scroll) ── */
+/* ── Section: botones a la izquierda (arriba en celular), contenido a la
+   derecha. Avanza solo mientras la sección está en pantalla; si la persona
+   elige un momento, se frena y vuelve tras REANUDAR_MS sin otro toque. ── */
 
 const Functionalities = () => {
   const t = useI18n().dict.fx;
   const [headRef, headVisible] = useIntersectionObserver({ threshold: 0.2, triggerOnce: true });
-  const wrapperRef = useRef(null);
-  const trackRef = useRef(null);
+  const tabsRef = useRef([]);
   const [active, setActive] = useState(0);
+  const [auto, setAuto] = useState(true);
+  const [enVista, setEnVista] = useState(false);
+  // Ya se vio una vez: recién ahí se dibuja el gráfico del primer momento.
+  const [visto, setVisto] = useState(false);
+  const cajaRef = useRef(null);
+  const reducido = useRef(false);
+  const reanudar = useRef(0);
 
-  const isJack = () =>
-    typeof window !== 'undefined' &&
-    window.matchMedia('(min-width: 768px)').matches &&
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+  // Sin avance automático con reduced-motion.
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const track = trackRef.current;
-    if (!wrapper || !track) return;
-
-    let raf = 0;
-
-    const setSize = () => {
-      if (isJack()) {
-        const extra = Math.max(0, track.scrollWidth - window.innerWidth);
-        wrapper.style.height = `${window.innerHeight + extra}px`;
-        // The pinned stage fills the viewport but its content is top-aligned,
-        // so tall screens leave dead space under the panels. Pull the next
-        // section up over that dead zone (keeping 80px of breathing room) so
-        // the hand-off out of the scroll-jack reads like a normal section gap.
-        const sticky = track.parentElement;
-        const stickyTop = sticky.getBoundingClientRect().top;
-        let contentBottom = 0;
-        track.querySelectorAll('.rp-fx__text > *, .rp-fx__visual > *').forEach((el) => {
-          contentBottom = Math.max(contentBottom, el.getBoundingClientRect().bottom - stickyTop);
-        });
-        const dead = contentBottom > 0 ? sticky.offsetHeight - contentBottom : 0;
-        wrapper.style.marginBottom = `-${Math.max(0, Math.round(dead - 80))}px`;
-      } else {
-        wrapper.style.height = '';
-        wrapper.style.marginBottom = '';
-        track.style.transform = '';
-      }
-    };
-
-    const update = () => {
-      if (!isJack()) return;
-      const total = wrapper.offsetHeight - window.innerHeight;
-      const progress = total > 0
-        ? Math.min(1, Math.max(0, -wrapper.getBoundingClientRect().top / total))
-        : 0;
-      const maxX = track.scrollWidth - window.innerWidth;
-      track.style.transform = `translate3d(${-progress * maxX}px,0,0)`;
-      setActive(Math.round(progress * (COUNT - 1)));
-    };
-
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
-    };
-    const onResize = () => {
-      setSize();
-      update();
-    };
-    const onTrackScroll = () => {
-      if (isJack()) return;
-      const w = track.children[0]?.offsetWidth || 1;
-      setActive(Math.min(COUNT - 1, Math.round(track.scrollLeft / w)));
-    };
-
-    setSize();
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize);
-    track.addEventListener('scroll', onTrackScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
-      track.removeEventListener('scroll', onTrackScroll);
-      cancelAnimationFrame(raf);
-    };
+    reducido.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducido.current) setAuto(false);
+    return () => window.clearTimeout(reanudar.current);
   }, []);
 
-  const goTo = (i) => {
-    const wrapper = wrapperRef.current;
-    const track = trackRef.current;
-    if (!wrapper || !track) return;
-    if (isJack()) {
-      const total = wrapper.offsetHeight - window.innerHeight;
-      const y = wrapper.offsetTop + (i / (COUNT - 1)) * total;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    } else {
-      const panel = track.children[i];
-      if (panel) track.scrollTo({ left: panel.offsetLeft, behavior: 'smooth' });
-    }
+  // La barra sólo corre con la sección en pantalla.
+  useEffect(() => {
+    const caja = cajaRef.current;
+    if (!caja || !('IntersectionObserver' in window)) return undefined;
+    const io = new IntersectionObserver(([e]) => {
+      setEnVista(e.isIntersecting);
+      if (e.isIntersecting) setVisto(true);
+    }, { threshold: 0.35 });
+    io.observe(caja);
+    return () => io.disconnect();
+  }, []);
+
+  const elegir = (i, foco = false) => {
+    setAuto(false);
+    window.clearTimeout(reanudar.current);
+    if (!reducido.current) reanudar.current = window.setTimeout(() => setAuto(true), REANUDAR_MS);
+    setActive(i);
+    if (foco) tabsRef.current[i]?.focus();
   };
+
+  // Flechas, Inicio y Fin entre los botones (patrón de pestañas).
+  const onKeyDown = (e) => {
+    const paso = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+    let i = null;
+    if (paso) i = (active + paso + COUNT) % COUNT;
+    else if (e.key === 'Home') i = 0;
+    else if (e.key === 'End') i = COUNT - 1;
+    if (i === null) return;
+    e.preventDefault();
+    elegir(i, true);
+  };
+
+  // En celular los botones van en una fila que se desliza: el activo
+  // siempre a la vista (sólo mueve la fila, no la página).
+  useEffect(() => {
+    const tab = tabsRef.current[active];
+    const fila = tab?.parentElement;
+    if (!tab || !fila || fila.scrollWidth <= fila.clientWidth) return;
+    fila.scrollTo({ left: tab.offsetLeft - (fila.clientWidth - tab.offsetWidth) / 2, behavior: 'smooth' });
+  }, [active]);
 
   return (
     <section id="funcionalidades" className="rp-fx-section">
@@ -397,44 +307,53 @@ const Functionalities = () => {
         <p className="rp-fx__subtitle">{t.subtitle}</p>
       </div>
 
-      <div className="rp-fx" ref={wrapperRef}>
-        <div className="rp-fx__sticky">
-          <div className="rp-fx__topbar">
-            <span className="rp-fx__count">
-              <strong>{String(active + 1).padStart(2, '0')}</strong>
-              <span className="rp-fx__count-sep">/</span>
-              {String(COUNT).padStart(2, '0')}
-            </span>
-            <div className="rp-fx__dots">
-              {FUNCTIONALITIES.map((it, i) => (
-                <button
-                  key={it.id}
-                  type="button"
-                  className={`rp-fx__dot ${i === active ? 'is-active' : ''}`}
-                  aria-label={t.goTo(t.panels[it.id].name)}
-                  aria-current={i === active}
-                  onClick={() => goTo(i)}
-                />
-              ))}
-            </div>
-            <button
-              type="button"
-              className="rp-fx__hint"
-              onClick={() => goTo((active + 1) % COUNT)}
-              aria-label={t.nextAria}
-            >
-              {t.next} <LuArrowRight />
-            </button>
-          </div>
+      <div
+        ref={cajaRef}
+        className={`rp-fx${visto ? ' is-visto' : ''}${auto ? ' is-auto' : ''}${auto && enVista ? ' is-corriendo' : ''}`}
+        style={{ '--fx-auto': `${AUTO_MS}ms` }}
+      >
+        <div className="rp-fx__tabs" role="tablist" aria-label={t.momentos} aria-orientation="vertical">
+          {FUNCTIONALITIES.map((it, i) => {
+            const text = t.panels[it.id];
+            const activo = i === active;
+            return (
+              <button
+                key={it.id}
+                ref={(el) => { tabsRef.current[i] = el; }}
+                id={`rp-fx-tab-${it.id}`}
+                type="button"
+                role="tab"
+                aria-selected={activo}
+                aria-controls={`rp-fx-panel-${it.id}`}
+                tabIndex={activo ? 0 : -1}
+                className={`rp-fx__tab rp-fx__panel--${it.palette}${activo ? ' is-active' : ''}`}
+                onClick={() => elegir(i)}
+                onKeyDown={onKeyDown}
+              >
+                <span className="rp-fx__tab-num">{num(i)}</span>
+                <span className="rp-fx__tab-text">
+                  <span className="rp-fx__tab-tag">{text.tag}</span>
+                  <span className="rp-fx__tab-name">{text.name}</span>
+                </span>
+                {activo && auto && (
+                  <span
+                    key={active}
+                    className="rp-fx__tab-barra"
+                    aria-hidden="true"
+                    onAnimationEnd={() => setActive((a) => (a + 1) % COUNT)}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
 
-          {/* FxField va al final: goTo/onTrackScroll indexan track.children,
-              así los paneles conservan los índices 0..COUNT-1 */}
-          <div className="rp-fx__track" ref={trackRef}>
-            {FUNCTIONALITIES.map((it, i) => (
-              <FunctionalityPanel key={it.id} item={it} index={i} />
-            ))}
-            <FxField />
-          </div>
+        {/* Los cinco paneles en la misma celda: la caja toma el alto del más
+            largo y al cambiar de momento no salta nada. */}
+        <div className="rp-fx__panels">
+          {FUNCTIONALITIES.map((it, i) => (
+            <FunctionalityPanel key={it.id} item={it} index={i} activo={i === active} />
+          ))}
         </div>
       </div>
     </section>
