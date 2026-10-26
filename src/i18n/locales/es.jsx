@@ -28,8 +28,8 @@ const es = {
       campaign: 'Plataforma',
       why: 'Ventajas',
       contact: 'Contacto',
-      install: 'Instalar la app',
-      installHint: 'En el celular, sin pasar por una tienda',
+      install: 'Cómo instalar la app',
+      installHint: 'En 3 pasos, sin tienda',
     },
     themeDark: 'Modo oscuro',
     themeLight: 'Modo claro',
@@ -44,7 +44,7 @@ const es = {
 
   hero: {
     titleA: 'Inteligencia agronómica',
-    titleB: 'para cada lote.',
+    titleB: 'para cada lote',
     subtitle: (
       <>
         Rinde Plus integra el clima, el suelo, los ambientes y la historia de
@@ -114,6 +114,9 @@ const es = {
     subtitle:
       'Una sola herramienta que acompaña cada lote durante toda la campaña, del plan al cierre.',
     momentos: 'Momentos de la campaña',
+    siguiente: 'Siguiente',
+    anterior: 'Anterior',
+    volverInicio: 'Volver al inicio',
     charts: {
       zones: ['Alto', 'Medio', 'Bajo'],
       potentialCaption: 'Rinde base y potencial por ambiente',
@@ -217,7 +220,7 @@ const es = {
   },
 
   cta: {
-    title: 'Hablemos de tus lotes.',
+    title: 'Hablemos de tus lotes',
     vision:
       'Nuestra visión: que cada lote se decida con criterio agronómico, no solo los de quien puede pagarse un equipo técnico.',
     copy: 'Unas líneas sobre la operación alcanzan para coordinar una llamada. Sin formularios: responde directo el equipo de Rinde Plus.',
@@ -227,7 +230,7 @@ const es = {
 
   install: {
     titleA: 'Rinde Plus en el celular,',
-    titleB: 'como una app.',
+    titleB: 'como una app',
     subtitle: 'Se instala desde el navegador en tres pasos, sin pasar por ninguna tienda.',
     ios: {
       name: 'iPhone',

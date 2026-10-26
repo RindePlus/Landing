@@ -27,8 +27,8 @@ const pt = {
       campaign: 'Plataforma',
       why: 'Vantagens',
       contact: 'Contato',
-      install: 'Instalar o app',
-      installHint: 'No celular, sem passar por uma loja',
+      install: 'Como instalar o app',
+      installHint: 'Em 3 passos, sem loja',
     },
     themeDark: 'Modo escuro',
     themeLight: 'Modo claro',
@@ -43,7 +43,7 @@ const pt = {
 
   hero: {
     titleA: 'Inteligência agronômica',
-    titleB: 'para cada talhão.',
+    titleB: 'para cada talhão',
     subtitle: (
       <>
         A Rinde Plus integra o clima, o solo, os ambientes e o histórico de
@@ -112,6 +112,9 @@ const pt = {
     subtitle:
       'Uma só ferramenta que acompanha cada talhão durante toda a safra, do planejamento ao fechamento.',
     momentos: 'Momentos da safra',
+    siguiente: 'Próximo',
+    anterior: 'Anterior',
+    volverInicio: 'Voltar ao início',
     charts: {
       zones: ['Alto', 'Médio', 'Baixo'],
       potentialCaption: 'Produtividade base e potencial por ambiente',
@@ -214,7 +217,7 @@ const pt = {
   },
 
   cta: {
-    title: 'Vamos falar dos seus talhões.',
+    title: 'Vamos falar dos seus talhões',
     vision:
       'Nossa visão: que cada talhão seja decidido com critério agronômico, não só os de quem pode pagar uma equipe técnica.',
     copy: 'Poucas linhas sobre a operação bastam para marcar uma conversa. Sem formulários: quem responde é a própria equipe da Rinde Plus.',
@@ -224,7 +227,7 @@ const pt = {
 
   install: {
     titleA: 'A Rinde Plus no celular,',
-    titleB: 'como um app.',
+    titleB: 'como um app',
     subtitle: 'Instale pelo navegador em três passos, sem passar por nenhuma loja.',
     ios: {
       name: 'iPhone',

@@ -84,7 +84,10 @@ const lang = idiomaDe(Astro.currentLocale);
       }
     })();
   </script>
-  <ImpactSection client:visible lang={lang} />
+  <!-- client:load por lo mismo que Functionalities (abajo): al hidratarse,
+       Impacto fija su alto (--alto-impacto, el de la tabla más alta) y crece.
+       Si pasa en medio de un salto del menú, Contacto queda más abajo. -->
+  <ImpactSection client:load lang={lang} />
   <!-- client:load y no client:visible: al hidratarse, el carrusel fijo
        calcula su alto (el tramo de scroll de los paneles) y empuja todo lo
        que viene después. Si se hidrata a mitad de un scroll o de un salto

@@ -109,12 +109,15 @@ const BenefitsSection = () => {
     if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1); }
   };
-  const onTouchStart = (e) => { touchX.current = e.touches[0].clientX; };
+  const onTouchStart = (e) => { touchX.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
   const onTouchEnd = (e) => {
     if (touchX.current == null) return;
-    const dx = e.changedTouches[0].clientX - touchX.current;
+    const dx = e.changedTouches[0].clientX - touchX.current.x;
+    const dy = e.changedTouches[0].clientY - touchX.current.y;
     touchX.current = null;
-    if (Math.abs(dx) > 40) go(active + (dx < 0 ? 1 : -1));
+    // Sólo si el gesto es más horizontal que vertical: bajar por la página
+    // con un poco de desvío no cambia de foto.
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) go(active + (dx < 0 ? 1 : -1));
   };
 
   return (

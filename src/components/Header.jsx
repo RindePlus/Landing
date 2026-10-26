@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { PiSun, PiMoon, PiUser, PiCaretDown, PiCheck, PiWhatsappLogo, PiDeviceMobile } from 'react-icons/pi';
+import { PiSun, PiMoon, PiUser, PiCaretDown, PiCheck, PiWhatsappLogo, PiDeviceMobile, PiCaretRight } from 'react-icons/pi';
 import rindeplusLogo from '../assets/rindeplus-logo-light.png';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
 import { LOGIN_URL } from '../data/links';
@@ -242,6 +242,7 @@ const Header = () => {
               <strong>{t.nav.install}</strong>
               <span>{t.nav.installHint}</span>
             </span>
+            <PiCaretRight className="header-nav__install-flecha" aria-hidden="true" />
           </a>
 
           {/* En celular el tema va en el drawer, como switch. */}

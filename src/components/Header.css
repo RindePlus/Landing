@@ -355,10 +355,13 @@ img.logo-image:hover {
     bottom: 2px;
     height: 2px;
     border-radius: 999px;
-    background: var(--rp-amarillo);
+    /* Azul del logo en claro; en oscuro, el amarillo de la marca. */
+    background: var(--rp-azul);
     transform: scaleX(0);
     transition: transform var(--dur-base) var(--ease-fluid);
   }
+
+  [data-rp-theme="dark"] .menu-item::after { background: var(--rp-amarillo); }
 
   .menu-item--active {
     color: var(--gh-fg);
@@ -478,24 +481,30 @@ img.logo-image:hover {
     font-weight: 600;
   }
 
-  /* Instalar la app: tarjeta destacada con el amarillo de la marca,
-     después de las secciones. */
+  /* Instalar la app: tarjeta lisa en el azul de la marca, con letras
+     blancas, después de las secciones. El mismo azul en claro y en oscuro
+     (--rp-azul en oscuro es más claro y el blanco no se leería). */
   .header-nav__install {
     display: flex;
     align-items: center;
     gap: var(--space-100);
     margin: var(--space-100) var(--space-100) var(--space-50);
     padding: 12px 14px;
-    border: 1px solid color-mix(in srgb, var(--rp-amarillo) 55%, transparent);
+    border: 0;
     border-radius: var(--gh-radius-card, 12px);
-    background: color-mix(in srgb, var(--rp-amarillo) 16%, var(--gh-surface));
-    color: var(--gh-fg);
+    background: #1a56cc;
+    color: #ffffff;
     text-decoration: none;
     transition: background var(--dur-base) var(--ease-fluid);
   }
 
   .header-nav__install:hover {
-    background: color-mix(in srgb, var(--rp-amarillo) 26%, var(--gh-surface));
+    background: #1749b0;
+  }
+
+  .header-nav__install:focus-visible {
+    outline: 2px solid var(--gh-accent);
+    outline-offset: 2px;
   }
 
   .header-nav__install-icon {
@@ -506,8 +515,8 @@ img.logo-image:hover {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: var(--rp-amarillo);
-    color: #1a1a1a;
+    background: rgb(255 255 255 / 0.16);
+    color: #ffffff;
   }
 
   .header-nav__install-icon svg { width: 22px; height: 22px; }
@@ -515,8 +524,16 @@ img.logo-image:hover {
   .header-nav__install-text {
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: 2px;
     min-width: 0;
+  }
+
+  .header-nav__install-flecha {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
   }
 
   .header-nav__install-text strong {
@@ -526,7 +543,7 @@ img.logo-image:hover {
 
   .header-nav__install-text span {
     font-size: 0.85rem;
-    color: var(--gh-fg-muted);
+    color: rgb(255 255 255 / 0.8);
   }
 
   .header-nav__theme {

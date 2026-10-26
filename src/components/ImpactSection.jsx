@@ -318,7 +318,7 @@ const ImpactSection = () => {
               </>
             );
             return (
-              <li key={ind.id} className="rp-impact__cell">
+              <li key={ind.id} className={`rp-impact__cell${ind.tabla ? ' rp-impact__cell--tabla' : ''}`}>
                 {ind.tabla ? (
                   <button
                     type="button"

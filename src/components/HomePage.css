@@ -146,7 +146,7 @@
   line-height: 1.06;
   letter-spacing: -0.03em;
   margin: 0 0 22px;
-  color: var(--gh-fg);
+  color: var(--rp-marino);
 }
 
 .rp-home__hero-title-accent {
@@ -298,12 +298,18 @@
   padding: 0 24px clamp(48px, 6vw, 72px);
 }
 
+/* Sin padding arriba: al llegar desde el menú, un poco de aire bajo el
+   header para que la tarjeta no quede pegada. [id] para ganarle a
+   section[id] de index.css. */
+.rp-home__cta[id] { scroll-margin-top: calc(var(--alto-header, 80px) + 24px); }
+
 /* Panel: la misma tarjeta que las de la app (.rp-install__card), sin
    borde, con la superficie a medias y desenfoque. */
 .rp-home__cta-panel {
   display: grid;
   gap: var(--space-400);
-  max-width: 65rem;
+  /* Mismo ancho que las tarjetas de la app (.rp-install__inner). */
+  max-width: 60rem;
   margin: 0 auto;
   padding: clamp(28px, 4vw, 48px);
   border-radius: var(--gh-radius-card);
@@ -439,6 +445,11 @@
     text-align: left;
   }
   .rp-home__hero-inner .rp-home__hero-subtitle { margin-left: 0; margin-right: 0; }
+  /* El título se mide con el ancho de su columna: «Inteligencia
+     agronómica» entra justo en una línea y no deja hueco a la derecha.
+     9cqi ≈ ancho de columna / 11, lo que mide esa línea en Inter. */
+  .rp-home__hero-text { container-type: inline-size; }
+  .rp-home__hero-title { font-size: clamp(2.4rem, 9cqi, 3.6rem); }
   /* En pantallas bajas el lote se achica con el alto de la ventana, para
      que el hero entero (con el carrusel) entre sin apretarse. */
   .rp-home__hero-inner .rp-home__hero-visual {
@@ -635,6 +646,8 @@
   isolation: isolate;
   background: #0f1612;
   color-scheme: dark;
+  /* El gesto horizontal es para pasar de foto (BenefitsSection). */
+  touch-action: pan-y;
 }
 
 /* Beneficios: el rótulo arriba y la barra de puntos abajo, a la misma
@@ -780,13 +793,13 @@
 }
 
 /* Controles: las flechas a los costados y una barra por punto, sin fondo.
-   La del punto activo es más ancha y se llena de amarillo con el tiempo;
-   las demás son cortas, y se pueden tocar para ir a ese punto. Al pie de
+   Todas del mismo ancho; la del punto activo se llena de blanco con el
+   tiempo, y cualquiera se puede tocar para ir a ese punto. Al pie de
    la sección, a la misma distancia del borde que el rótulo arriba. */
 .rp-fieldbg__nav {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   width: fit-content;
   margin: 0 auto;
   /* Sin fondo: una sombra corta las separa de las zonas claras de la foto. */
@@ -815,36 +828,32 @@
 .rp-fieldbg__dot {
   display: flex;
   align-items: center;
-  width: 22px;
+  width: 48px;
   height: 38px;
   padding: 0;
   background: none;
   border: 0;
   cursor: pointer;
-  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-.rp-fieldbg__dot.is-active { width: 56px; }
 
 .rp-fieldbg__bar {
   position: relative;
   flex: 1;
-  height: 4px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.3);
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.35);
   overflow: hidden;
   transition: background 0.2s ease;
 }
 
 .rp-fieldbg__dot:hover .rp-fieldbg__bar { background: rgba(255, 255, 255, 0.55); }
-.rp-fieldbg__dot.is-active .rp-fieldbg__bar { background: rgba(255, 255, 255, 0.25); }
 
 .rp-fieldbg__bar::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: var(--rp-amarillo);
+  background: #ffffff;
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -869,8 +878,7 @@
 }
 
 @media (max-width: 640px) {
-  .rp-fieldbg__dot { width: 18px; }
-  .rp-fieldbg__dot.is-active { width: 44px; }
+  .rp-fieldbg__dot { width: 36px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -909,7 +917,7 @@
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: var(--gh-fg);
+  color: var(--rp-marino);
   margin: 0 0 12px;
 }
 
@@ -993,7 +1001,7 @@
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--gh-fg);
+  color: var(--rp-marino);
   margin: 0;
   letter-spacing: -0.015em;
 }

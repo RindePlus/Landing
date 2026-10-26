@@ -15,8 +15,8 @@
 .trusted-companies-title {
   font-family: var(--font-heading);
   font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--secondary);
+  font-weight: 600;
+  color: var(--rp-marino);
   margin-bottom: 50px;
   text-align: center;
   max-width: 1280px;

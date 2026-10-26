@@ -27,8 +27,8 @@ const en = {
       campaign: 'Platform',
       why: 'Benefits',
       contact: 'Contact',
-      install: 'Install the app',
-      installHint: 'On your phone, no app store needed',
+      install: 'How to install the app',
+      installHint: 'In 3 steps, no app store',
     },
     themeDark: 'Dark mode',
     themeLight: 'Light mode',
@@ -43,7 +43,7 @@ const en = {
 
   hero: {
     titleA: 'Agronomic intelligence',
-    titleB: 'for every field.',
+    titleB: 'for every field',
     subtitle: (
       <>
         Rinde Plus brings together the weather, soil, management zones and
@@ -112,6 +112,9 @@ const en = {
     subtitle:
       'One tool that follows every field through the whole season, from plan to close.',
     momentos: 'Moments of the season',
+    siguiente: 'Next',
+    anterior: 'Previous',
+    volverInicio: 'Back to the start',
     charts: {
       zones: ['High', 'Mid', 'Low'],
       potentialCaption: 'Base and potential yield by zone',
@@ -214,7 +217,7 @@ const en = {
   },
 
   cta: {
-    title: "Let's talk about your fields.",
+    title: "Let's talk about your fields",
     vision:
       'Our vision: every field decided with agronomic judgment, not only those of growers who can afford a technical team.',
     copy: 'A few lines about your operation are enough to set up a call. No forms: the Rinde Plus team replies directly.',
@@ -224,7 +227,7 @@ const en = {
 
   install: {
     titleA: 'Rinde Plus on your phone,',
-    titleB: 'just like an app.',
+    titleB: 'just like an app',
     subtitle: 'Install it from the browser in three steps, no app store needed.',
     ios: {
       name: 'iPhone',

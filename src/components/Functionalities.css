@@ -95,9 +95,9 @@
   /* Los botones, angostos: lo importante es la tarjeta. */
   grid-template-columns: minmax(15rem, 18.75rem) 1fr;
   gap: clamp(20px, 2.5vw, 32px);
-  /* Botones y tarjeta centrados entre sí: cada uno con su alto, y el que
-     es más bajo queda con el mismo aire arriba y abajo. */
-  align-items: center;
+  /* La tarjeta toma el alto de la columna de botones (o al revés, si la
+     tarjeta es más alta): arriba y abajo quedan alineados. */
+  align-items: stretch;
 }
 
 @media (min-width: 768px) {
@@ -245,9 +245,13 @@
   backdrop-filter: blur(12px);
 }
 
+/* Cada panel llena el alto de la tarjeta: el cuerpo ocupa lo que sobra y
+   el enlace al siguiente queda abajo, así no hay espacio vacío. */
 .rp-fx__panel {
   grid-area: 1 / 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
   opacity: 0;
   transform: translateY(8px);
   visibility: hidden;
@@ -261,9 +265,9 @@
   transition: opacity 0.35s ease 0.08s, transform 0.35s ease 0.08s, visibility 0s;
 }
 
-/* Momento y nombre: en escritorio ya están en el botón. */
-.rp-fx__moment,
-.rp-fx__name { display: none; }
+/* El momento (número y nombre corto): en escritorio ya está en el botón.
+   El título va siempre en la tarjeta. */
+.rp-fx__moment { display: none; }
 
 .rp-fx__moment {
   align-items: baseline;
@@ -288,7 +292,7 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.15;
-  color: var(--gh-fg);
+  color: var(--rp-marino);
   margin: 0 0 14px;
 }
 
@@ -300,10 +304,106 @@
 }
 
 .rp-fx__body {
+  flex: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(20px, 2.5vw, 36px);
   align-items: center;
+}
+
+/* ---- Enlace al momento siguiente: chico, abajo a la derecha ---- */
+.rp-fx__siguiente {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 6px 4px 6px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--gh-fg-muted);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.rp-fx__siguiente svg {
+  flex-shrink: 0;
+  color: var(--fx-c1);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rp-fx__siguiente:hover { color: var(--gh-fg); }
+
+@media (hover: hover) and (pointer: fine) {
+  .rp-fx__siguiente:hover svg { transform: translateX(3px); }
+}
+
+/* Celular: puntos y flechas (en escritorio, el enlace de arriba). */
+.rp-fx__pasar { display: none; }
+
+.rp-fx__puntos {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rp-fx__punto {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--gh-border-strong);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+}
+
+.rp-fx__punto.is-active {
+  width: 20px;
+  background: var(--fx-c1);
+}
+
+.rp-fx__flechas {
+  display: flex;
+  gap: 8px;
+}
+
+.rp-fx__flecha {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--gh-border);
+  border-radius: 999px;
+  background: var(--gh-canvas);
+  color: var(--gh-fg);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.rp-fx__flecha:active { transform: scale(0.94); }
+
+/* La de seguir, rellena del color del momento: es la acción principal. */
+.rp-fx__flecha--sig {
+  border-color: var(--fx-c1);
+  background: var(--fx-c1);
+  color: #fff;
+}
+
+[data-rp-theme="dark"] .rp-fx__flecha--sig {
+  border-color: color-mix(in srgb, var(--fx-c2) 68%, #000);
+  background: color-mix(in srgb, var(--fx-c2) 68%, #000);
+}
+
+.rp-fx__flecha svg { width: 16px; height: 16px; }
+
+.rp-fx__flecha:focus-visible,
+.rp-fx__siguiente:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: 3px;
 }
 
 .rp-fx__bullets {
@@ -355,7 +455,7 @@
   .rp-fx { grid-template-columns: minmax(220px, 260px) 1fr; }
   .rp-fx__tab { gap: 12px; padding-inline: 16px; }
   .rp-fx__tab-name { display: none; }
-  .rp-fx__name { display: block; font-size: 1.35rem; }
+  .rp-fx__name { font-size: 1.35rem; }
   .rp-fx__body { grid-template-columns: 1fr minmax(150px, 0.7fr); gap: 18px; }
 }
 
@@ -367,12 +467,15 @@
     padding: 0 0 40px;
   }
 
+  /* Fila que se desliza, con el botón activo siempre en el centro (lo
+     centra Functionalities.jsx). El relleno de media fila a cada lado deja
+     centrar también el primero y el último. */
   .rp-fx__tabs {
     display: flex;
     flex-direction: row;
     gap: 8px;
     overflow-x: auto;
-    padding: 2px 24px 6px;
+    padding: 2px 50% 6px;
     scrollbar-width: none;
   }
 
@@ -393,17 +496,25 @@
   .rp-fx__tab-name { display: none; }
 
   .rp-fx__panels {
+    /* El gesto horizontal es para cambiar de momento (Functionalities.jsx). */
+    touch-action: pan-y;
     margin: 0 16px;
-    padding: 24px 20px;
+    padding: 24px 20px 18px;
     border-radius: 16px;
   }
 
   .rp-fx__moment { display: flex; }
-  .rp-fx__name { display: block; }
   .rp-fx__desc { font-size: 1rem; margin-bottom: 20px; }
-  .rp-fx__body { grid-template-columns: 1fr; gap: 24px; }
+  .rp-fx__body { grid-template-columns: 1fr; gap: 24px; align-content: start; }
   .rp-fx__bullets li { font-size: 1rem; }
   .rp-fx__chart { max-width: 340px; }
+  .rp-fx__siguiente { display: none; }
+  .rp-fx__pasar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -53,9 +53,10 @@ const hreflang = noindex
     <meta property="og:image:alt" content={meta.title} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
-    <!-- Fuente del texto, alojada en el sitio (@font-face en src/index.css):
-         se precarga para que el primer texto ya salga con ella. -->
+    <!-- Fuentes del texto y de los títulos, alojadas en el sitio (@font-face
+         en src/index.css): se precargan para que el primer texto ya salga con ellas. -->
     <link rel="preload" href="/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
     <!-- Resuelve el tema antes del primer paint para evitar el flash
          claro→oscuro. Misma clave y criterio que src/hooks/useRpTheme.js. -->
     <script is:inline>

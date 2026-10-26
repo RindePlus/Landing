@@ -5,6 +5,9 @@ import {
   LuCloudSun,
   LuSprout,
   LuFlaskConical,
+  LuArrowRight,
+  LuArrowLeft,
+  LuRotateCcw,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
@@ -196,9 +199,15 @@ const num = (i) => String(i + 1).padStart(2, '0');
 
 /* ── Panel: el contenido del momento elegido ── */
 
-const FunctionalityPanel = ({ item, index, activo }) => {
+const FunctionalityPanel = ({ item, index, activo, onSiguiente }) => {
   const { Chart, palette } = item;
-  const text = useI18n().dict.fx.panels[item.id];
+  const fx = useI18n().dict.fx;
+  const text = fx.panels[item.id];
+  // El pie lleva al momento que sigue; en el último, vuelve al primero.
+  const ultimo = index === COUNT - 1;
+  const sig = (index + 1) % COUNT;
+  const ant = (index - 1 + COUNT) % COUNT;
+  const textoSig = fx.panels[FUNCTIONALITIES[sig].id];
 
   return (
     <article
@@ -208,8 +217,8 @@ const FunctionalityPanel = ({ item, index, activo }) => {
       className={`rp-fx__panel rp-fx__panel--${palette}${activo ? ' is-active' : ''}`}
       inert={!activo}
     >
-      {/* El nombre ya está en el botón; acá se ve sólo en celular, donde
-          los botones muestran nada más que el momento. */}
+      {/* El momento ya está en el botón; acá se ve sólo en celular, donde
+          los botones muestran nada más que el número. */}
       <p className="rp-fx__moment">
         <span className="rp-fx__moment-num">{num(index)}</span>
         {text.tag}
@@ -230,6 +239,44 @@ const FunctionalityPanel = ({ item, index, activo }) => {
         <div className="rp-fx__visual">
           <Chart />
         </div>
+      </div>
+      {/* Escritorio: enlace chico al próximo momento, deja claro que van en
+          orden. */}
+      <button
+        type="button"
+        className="rp-fx__siguiente"
+        aria-label={`${ultimo ? fx.volverInicio : fx.siguiente}: ${textoSig.tag}`}
+        onClick={() => onSiguiente(sig)}
+      >
+        {textoSig.tag}
+        {ultimo ? <LuRotateCcw aria-hidden="true" /> : <LuArrowRight aria-hidden="true" />}
+      </button>
+      {/* Celular: puntos de avance y flechas, como un carrusel; así se
+          entiende que la tarjeta se pasa (también deslizando). */}
+      <div className="rp-fx__pasar">
+        <span className="rp-fx__puntos" aria-hidden="true">
+          {FUNCTIONALITIES.map((it, i) => (
+            <span key={it.id} className={`rp-fx__punto${i === index ? ' is-active' : ''}`} />
+          ))}
+        </span>
+        <span className="rp-fx__flechas">
+          <button
+            type="button"
+            className="rp-fx__flecha"
+            aria-label={`${fx.anterior}: ${fx.panels[FUNCTIONALITIES[ant].id].tag}`}
+            onClick={() => onSiguiente(ant)}
+          >
+            <LuArrowLeft aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className="rp-fx__flecha rp-fx__flecha--sig"
+            aria-label={`${ultimo ? fx.volverInicio : fx.siguiente}: ${textoSig.tag}`}
+            onClick={() => onSiguiente(sig)}
+          >
+            <LuArrowRight aria-hidden="true" />
+          </button>
+        </span>
       </div>
     </article>
   );
@@ -291,13 +338,38 @@ const Functionalities = () => {
     elegir(i, true);
   };
 
+  // Deslizar la tarjeta con el dedo pasa al momento siguiente o al
+  // anterior (en celular, donde los botones no se ven todos). Sólo si el
+  // gesto es más horizontal que vertical, para no robarle el scroll.
+  const toque = useRef(null);
+  const onTouchStart = (e) => {
+    const t0 = e.touches[0];
+    toque.current = { x: t0.clientX, y: t0.clientY };
+  };
+  const onTouchEnd = (e) => {
+    if (!toque.current) return;
+    const t1 = e.changedTouches[0];
+    const dx = t1.clientX - toque.current.x;
+    const dy = t1.clientY - toque.current.y;
+    toque.current = null;
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    elegir((active + (dx < 0 ? 1 : -1) + COUNT) % COUNT);
+  };
+
   // En celular los botones van en una fila que se desliza: el activo
-  // siempre a la vista (sólo mueve la fila, no la página).
+  // siempre en el centro, también el primero y el último (la fila tiene
+  // media fila de relleno a cada lado). Sólo mueve la fila, no la página;
+  // al cargar, sin animación.
+  const centrada = useRef(false);
   useEffect(() => {
     const tab = tabsRef.current[active];
     const fila = tab?.parentElement;
     if (!tab || !fila || fila.scrollWidth <= fila.clientWidth) return;
-    fila.scrollTo({ left: tab.offsetLeft - (fila.clientWidth - tab.offsetWidth) / 2, behavior: 'smooth' });
+    const t = tab.getBoundingClientRect();
+    const f = fila.getBoundingClientRect();
+    const left = fila.scrollLeft + (t.left + t.width / 2) - (f.left + f.width / 2);
+    fila.scrollTo({ left, behavior: centrada.current ? 'smooth' : 'instant' });
+    centrada.current = true;
   }, [active]);
 
   return (
@@ -350,9 +422,9 @@ const Functionalities = () => {
 
         {/* Los cinco paneles en la misma celda: la caja toma el alto del más
             largo y al cambiar de momento no salta nada. */}
-        <div className="rp-fx__panels">
+        <div className="rp-fx__panels" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           {FUNCTIONALITIES.map((it, i) => (
-            <FunctionalityPanel key={it.id} item={it} index={i} activo={i === active} />
+            <FunctionalityPanel key={it.id} item={it} index={i} activo={i === active} onSiguiente={elegir} />
           ))}
         </div>
       </div>
