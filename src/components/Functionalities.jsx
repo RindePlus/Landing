@@ -7,7 +7,6 @@ import {
   LuFlaskConical,
   LuArrowRight,
   LuArrowLeft,
-  LuRotateCcw,
 } from 'react-icons/lu';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
@@ -240,17 +239,6 @@ const FunctionalityPanel = ({ item, index, activo, onSiguiente }) => {
           <Chart />
         </div>
       </div>
-      {/* Escritorio: enlace chico al próximo momento, deja claro que van en
-          orden. */}
-      <button
-        type="button"
-        className="rp-fx__siguiente"
-        aria-label={`${ultimo ? fx.volverInicio : fx.siguiente}: ${textoSig.tag}`}
-        onClick={() => onSiguiente(sig)}
-      >
-        {textoSig.tag}
-        {ultimo ? <LuRotateCcw aria-hidden="true" /> : <LuArrowRight aria-hidden="true" />}
-      </button>
       {/* Celular: puntos de avance y flechas, como un carrusel; así se
           entiende que la tarjeta se pasa (también deslizando). */}
       <div className="rp-fx__pasar">
@@ -282,8 +270,8 @@ const FunctionalityPanel = ({ item, index, activo, onSiguiente }) => {
   );
 };
 
-/* ── Section: botones a la izquierda (arriba en celular), contenido a la
-   derecha. Avanza solo mientras la sección está en pantalla; si la persona
+/* ── Section: línea de tiempo de los momentos arriba, la tarjeta debajo
+   (en celular, carrusel). Avanza solo mientras la sección está en pantalla; si la persona
    elige un momento, se frena y vuelve tras REANUDAR_MS sin otro toque. ── */
 
 const Functionalities = () => {
@@ -338,38 +326,42 @@ const Functionalities = () => {
     elegir(i, true);
   };
 
-  // Deslizar la tarjeta con el dedo pasa al momento siguiente o al
-  // anterior (en celular, donde los botones no se ven todos). Sólo si el
-  // gesto es más horizontal que vertical, para no robarle el scroll.
-  const toque = useRef(null);
-  const onTouchStart = (e) => {
-    const t0 = e.touches[0];
-    toque.current = { x: t0.clientX, y: t0.clientY };
+  // Celular: los paneles son un carrusel con scroll nativo. Al quedar
+  // quieto, la tarjeta que quedó pasa a ser el momento activo (y frena el
+  // avance automático, como elegir un botón). Sin scrollend, que Safari
+  // no tiene en todas las versiones: se espera a que el scroll pare.
+  const carruselRef = useRef(null);
+  const quieto = useRef(0);
+  const paso = () => {
+    const [p0, p1] = carruselRef.current?.children ?? [];
+    return p0 && p1 ? p1.offsetLeft - p0.offsetLeft : 0;
   };
-  const onTouchEnd = (e) => {
-    if (!toque.current) return;
-    const t1 = e.changedTouches[0];
-    const dx = t1.clientX - toque.current.x;
-    const dy = t1.clientY - toque.current.y;
-    toque.current = null;
-    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
-    elegir((active + (dx < 0 ? 1 : -1) + COUNT) % COUNT);
+  // Con el dedo apoyado no se decide nada: si se queda quieto a mitad de
+  // camino, la tarjeta no se acomoda debajo del dedo.
+  const tocando = useRef(false);
+  const onScrollCarrusel = () => {
+    window.clearTimeout(quieto.current);
+    quieto.current = window.setTimeout(() => {
+      if (tocando.current) return;
+      const pasoX = paso();
+      if (!pasoX) return;
+      const i = Math.min(COUNT - 1, Math.round(carruselRef.current.scrollLeft / pasoX));
+      if (i !== active) elegir(i);
+    }, 120);
   };
+  useEffect(() => () => window.clearTimeout(quieto.current), []);
 
-  // En celular los botones van en una fila que se desliza: el activo
-  // siempre en el centro, también el primero y el último (la fila tiene
-  // media fila de relleno a cada lado). Sólo mueve la fila, no la página;
-  // al cargar, sin animación.
-  const centrada = useRef(false);
+  // Y al revés: si el momento cambia por el avance automático, un botón o
+  // las flechas, el carrusel va a esa tarjeta (al cargar, sin animación).
+  const carruselListo = useRef(false);
   useEffect(() => {
-    const tab = tabsRef.current[active];
-    const fila = tab?.parentElement;
-    if (!tab || !fila || fila.scrollWidth <= fila.clientWidth) return;
-    const t = tab.getBoundingClientRect();
-    const f = fila.getBoundingClientRect();
-    const left = fila.scrollLeft + (t.left + t.width / 2) - (f.left + f.width / 2);
-    fila.scrollTo({ left, behavior: centrada.current ? 'smooth' : 'instant' });
-    centrada.current = true;
+    const c = carruselRef.current;
+    if (!c || c.scrollWidth <= c.clientWidth) return;
+    const left = active * paso();
+    if (Math.abs(c.scrollLeft - left) > 2) {
+      c.scrollTo({ left, behavior: carruselListo.current ? 'smooth' : 'instant' });
+    }
+    carruselListo.current = true;
   }, [active]);
 
   return (
@@ -384,7 +376,7 @@ const Functionalities = () => {
         className={`rp-fx${visto ? ' is-visto' : ''}${auto ? ' is-auto' : ''}${auto && enVista ? ' is-corriendo' : ''}`}
         style={{ '--fx-auto': `${AUTO_MS}ms` }}
       >
-        <div className="rp-fx__tabs" role="tablist" aria-label={t.momentos} aria-orientation="vertical">
+        <div className="rp-fx__tabs" role="tablist" aria-label={t.momentos} aria-orientation="horizontal">
           {FUNCTIONALITIES.map((it, i) => {
             const text = t.panels[it.id];
             const activo = i === active;
@@ -418,8 +410,16 @@ const Functionalities = () => {
         </div>
 
         {/* Los cinco paneles en la misma celda: la caja toma el alto del más
-            largo y al cambiar de momento no salta nada. */}
-        <div className="rp-fx__panels" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+            largo y al cambiar de momento no salta nada. En celular, en fila
+            como carrusel. */}
+        <div
+          className="rp-fx__panels"
+          ref={carruselRef}
+          onScroll={onScrollCarrusel}
+          onTouchStart={() => { tocando.current = true; }}
+          onTouchEnd={() => { tocando.current = false; onScrollCarrusel(); }}
+          onTouchCancel={() => { tocando.current = false; onScrollCarrusel(); }}
+        >
           {FUNCTIONALITIES.map((it, i) => (
             <FunctionalityPanel key={it.id} item={it} index={i} activo={i === active} onSiguiente={elegir} />
           ))}

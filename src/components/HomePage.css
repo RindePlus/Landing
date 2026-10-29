@@ -401,6 +401,14 @@
   .rp-home__hero { padding-top: 120px; padding-bottom: 64px; }
   .rp-home__section { padding: 64px 20px; }
   .rp-home__hero-marquee { gap: 16px; font-size: 0.66rem; }
+  /* Los dos CTAs, uno sobre otro y del mismo ancho. */
+  .rp-home__hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 20rem;
+    margin-inline: auto;
+  }
 }
 
 /* ============================================================

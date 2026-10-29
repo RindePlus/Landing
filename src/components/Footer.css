@@ -1,6 +1,6 @@
 /* ============================================================
    Footer: banda azul marino, monocroma (logo, íconos y letras en blanco).
-   Compacto: logo y redes a la izquierda, los cuatro datos de contacto a la
+   Compacto: logo y redes a la izquierda, la dirección a la
    derecha; abajo, un renglón fino con el copyright y los créditos de las
    fotos. Las dos filas, alineadas a los mismos bordes.
    ============================================================ */
@@ -168,11 +168,6 @@
     gap: var(--space-100) var(--space-300);
     width: 100%;
   }
-  /* El email y la dirección, a lo ancho; Instagram y WhatsApp, lado a lado
-     si entran. Ningún dato se corta en dos renglones (el teléfono partido
-     no se lee): si no entran juntos, WhatsApp baja al renglón siguiente. */
-  .rp-footer__contacto li:first-child,
-  .rp-footer__contacto li:last-child { flex-basis: 100%; }
   .rp-footer__contacto a { white-space: nowrap; }
   .rp-footer__contacto a { align-items: flex-start; }
   .rp-footer__contacto svg { margin-top: 1px; }

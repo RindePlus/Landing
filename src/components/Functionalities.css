@@ -1,8 +1,8 @@
 /* ============================================================
-   Functionalities — los cinco momentos de la campaña como botones a la
-   izquierda (arriba en celular) y el contenido del elegido a la derecha:
-   descripción, viñetas y su gráfico. Avanza solo hasta que la persona
-   elige un momento.
+   Functionalities — los cinco momentos de la campaña como una línea de
+   tiempo arriba y, debajo, la tarjeta del elegido: descripción, viñetas y
+   su gráfico (en celular, las tarjetas en carrusel). Avanza solo hasta que
+   la persona elige un momento.
    ============================================================ */
 
 /* ---- Paleta de la sección: el acento es el azul de la marca; cada panel
@@ -46,7 +46,8 @@
   text-align: center;
   max-width: 42.5rem;
   margin: 0 auto;
-  padding: 32px 24px 10px;
+  /* Aire arriba para separarse de la banda azul de Impacto. */
+  padding: 56px 24px 10px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -90,96 +91,88 @@
 
 .rp-fx__subtitle strong { color: var(--gh-fg); font-weight: 600; }
 
-/* ---- Caja: botones a la izquierda, contenido a la derecha. En celular,
-   los botones arriba en una fila que se desliza. ---- */
+/* ---- Caja: la línea de tiempo de los cinco momentos arriba y la
+   tarjeta del elegido debajo, a todo el ancho. ---- */
 .rp-fx {
   max-width: var(--ancho-amplio);
   margin: 0 auto;
   padding: 0 24px 80px;
   display: grid;
-  /* Los botones, angostos: lo importante es la tarjeta. */
-  grid-template-columns: minmax(15rem, 18.75rem) 1fr;
-  gap: clamp(20px, 2.5vw, 32px);
-  /* La tarjeta toma el alto de la columna de botones (o al revés, si la
-     tarjeta es más alta): arriba y abajo quedan alineados. */
-  align-items: stretch;
+  gap: 20px;
 }
 
 @media (min-width: 768px) {
   .rp-fx { padding-inline: 40px; }
 }
 
-/* ---- Botones de los momentos: todos del mismo alto, repartidos en el
-   alto de la tarjeta ---- */
+/* ---- Línea de tiempo: un tramo por momento, de izquierda a derecha como
+   avanza la campaña, con el número y el nombre debajo. Sólo el activo va
+   del color del momento (los demás, en gris: así se ve cuál es) y se va
+   llenando con el avance automático. Sin cajas: la tarjeta es lo que importa. ---- */
 .rp-fx__tabs {
   display: grid;
-  grid-auto-rows: 1fr;
-  gap: 6px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .rp-fx__tab {
   position: relative;
   display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  padding: 8px 16px;
-  border: 1px solid var(--gh-border);
-  border-radius: 14px;
-  background: var(--gh-canvas);
-  color: var(--gh-fg);
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  padding: 18px 0 6px;
+  border: 0;
+  background: none;
+  color: var(--gh-fg-muted);
   font-family: var(--font-body);
   text-align: left;
   cursor: pointer;
-  overflow: hidden;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.25s ease;
+  transition: color 0.2s ease;
 }
 
-.rp-fx__tab:hover { border-color: var(--gh-border-strong); }
-
-/* Al pasar el mouse, sólo una sombra suave: el botón no se mueve. Sólo
-   con mouse: en pantallas táctiles el hover queda pegado después de
-   tocar. */
-@media (hover: hover) and (pointer: fine) {
-  .rp-fx__tab:hover { box-shadow: 0 4px 12px -6px rgb(22 27 36 / 0.2); }
-
-  [data-rp-theme="dark"] .rp-fx__tab:hover { box-shadow: 0 4px 12px -6px rgb(0 0 0 / 0.6); }
+.rp-fx__tab::before,
+.rp-fx__tab-barra {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  border-radius: 999px;
 }
 
-/* Activo: relleno del color del momento y letras claras. En oscuro,
-   --fx-c1 es claro: se usa --fx-c2 oscurecido para que el texto se lea. */
-.rp-fx__tab.is-active {
-  --fx-relleno: var(--fx-c1);
-  border-color: var(--fx-relleno);
-  background: var(--fx-relleno);
-  color: #fff;
-  box-shadow: var(--gh-shadow-sm);
+.rp-fx__tab::before {
+  background: var(--gh-border-strong);
+  transition: background 0.3s ease;
 }
 
-[data-rp-theme="dark"] .rp-fx__tab.is-active {
-  --fx-relleno: color-mix(in srgb, var(--fx-c2) 68%, #000);
+.rp-fx__tab:hover { color: var(--gh-fg); }
+
+.rp-fx__tab.is-active::before { background: var(--fx-c1); }
+
+/* Con avance automático, el activo arranca claro y se llena. */
+.rp-fx.is-auto .rp-fx__tab.is-active::before {
+  background: color-mix(in srgb, var(--fx-c1) 28%, transparent);
 }
+
+.rp-fx__tab.is-active { color: var(--gh-fg); }
 
 .rp-fx__tab:focus-visible {
   outline: 2px solid var(--gh-accent);
-  outline-offset: 3px;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .rp-fx__tab-num {
   flex-shrink: 0;
-  min-width: 1.6em;
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1;
   color: var(--gh-fg-subtle);
   transition: color 0.2s ease;
 }
 
-.rp-fx__tab.is-active .rp-fx__tab-num { color: #fff; }
+.rp-fx__tab.is-active .rp-fx__tab-num { color: var(--fx-c1); }
 
 .rp-fx__tab-tag {
   min-width: 0;
@@ -188,16 +181,11 @@
   line-height: 1.3;
 }
 
-/* Barra de avance del momento activo (sólo con avance automático), clara
-   sobre el relleno. Corre sólo con la sección en pantalla. Al terminar, el
-   componente pasa al siguiente. */
+/* Barra de avance del momento activo (sólo con avance automático). Corre
+   sólo con la sección en pantalla. Al terminar, el componente pasa al
+   siguiente. */
 .rp-fx__tab-barra {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 100%;
-  background: rgb(255 255 255 / 0.6);
+  background: var(--fx-c1);
   transform: scaleX(0);
   transform-origin: left;
   animation: rp-fx-barra var(--fx-auto, 30s) linear forwards;
@@ -214,15 +202,15 @@
 .rp-fx__panels {
   display: grid;
   min-width: 0;
-  padding: clamp(20px, 2.2vw, 28px) clamp(22px, 2.6vw, 36px);
+  padding: clamp(24px, 2.8vw, 40px) clamp(24px, 3.2vw, 48px);
   /* Tarjeta de vidrio, como la de «Hablemos de tus lotes». */
   border-radius: var(--gh-radius-card);
   background: var(--rp-vidrio);
   backdrop-filter: blur(12px);
 }
 
-/* Cada panel llena el alto de la tarjeta: el cuerpo ocupa lo que sobra y
-   el enlace al siguiente queda abajo, así no hay espacio vacío. */
+/* Cada panel llena el alto de la tarjeta: el cuerpo ocupa lo que sobra
+   (en celular, las flechas quedan abajo). */
 .rp-fx__panel {
   grid-area: 1 / 1;
   min-width: 0;
@@ -264,7 +252,7 @@
 
 .rp-fx__name {
   font-family: var(--font-heading);
-  font-size: 1.45rem;
+  font-size: clamp(1.45rem, 1.8vw, 1.75rem);
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -284,41 +272,11 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(20px, 2.5vw, 36px);
-  align-items: center;
+  /* El texto arranca pegado al título; el gráfico, centrado a su lado. */
+  align-items: start;
 }
 
-/* ---- Enlace al momento siguiente: chico, abajo a la derecha ---- */
-.rp-fx__siguiente {
-  align-self: flex-end;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 16px;
-  padding: 6px 4px 6px 10px;
-  border: 0;
-  border-radius: 999px;
-  background: none;
-  color: var(--gh-fg-muted);
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.rp-fx__siguiente svg {
-  flex-shrink: 0;
-  color: var(--fx-c1);
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.rp-fx__siguiente:hover { color: var(--gh-fg); }
-
-@media (hover: hover) and (pointer: fine) {
-  .rp-fx__siguiente:hover svg { transform: translateX(3px); }
-}
-
-/* Celular: puntos y flechas (en escritorio, el enlace de arriba). */
+/* Celular: flechas para pasar de tarjeta. */
 .rp-fx__pasar { display: none; }
 
 .rp-fx__puntos {
@@ -376,8 +334,7 @@
 
 .rp-fx__flecha svg { width: 16px; height: 16px; }
 
-.rp-fx__flecha:focus-visible,
-.rp-fx__siguiente:focus-visible {
+.rp-fx__flecha:focus-visible {
   outline: 2px solid var(--gh-accent);
   outline-offset: 3px;
 }
@@ -413,6 +370,7 @@
 }
 
 .rp-fx__visual {
+  align-self: center;
   display: flex;
   justify-content: center;
   color: var(--gh-fg-muted);
@@ -424,11 +382,8 @@
   height: auto;
 }
 
-/* Laptops angostas y tablets: columnas más angostas y el gráfico, más
-   chico, al costado. */
+/* Laptops angostas y tablets: el gráfico, más chico, al costado. */
 @media (max-width: 1099px) {
-  .rp-fx { grid-template-columns: minmax(220px, 260px) 1fr; }
-  .rp-fx__tab { gap: 12px; padding-inline: 16px; }
   .rp-fx__name { font-size: 1.35rem; }
   .rp-fx__body { grid-template-columns: 1fr minmax(150px, 0.7fr); gap: 18px; }
 }
@@ -436,44 +391,68 @@
 /* ---- Celular: botones arriba, en una fila que se desliza ---- */
 @media (max-width: 767px) {
   .rp-fx {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    /* Sin gap: el tramo ya deja aire debajo de la barra. */
+    gap: 0;
     padding: 0 0 40px;
   }
 
-  /* Fila que se desliza, con el botón activo siempre en el centro (lo
-     centra Functionalities.jsx). El relleno de media fila a cada lado deja
-     centrar también el primero y el último. */
+  /* La línea de tiempo, sólo los tramos (el número y el nombre ya están
+     en la tarjeta). Cada tramo se toca en 40px de alto. */
   .rp-fx__tabs {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 2px 50% 6px;
-    scrollbar-width: none;
+    gap: 6px;
+    margin: 0 16px;
   }
 
-  .rp-fx__tabs::-webkit-scrollbar { display: none; }
-
   .rp-fx__tab {
-    flex: 0 0 auto;
-    width: auto;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border-radius: 999px;
+    height: 40px;
+    padding: 0;
+  }
+
+  .rp-fx__tab::before,
+  .rp-fx__tab-barra { inset: auto 0 18px; }
+
+  .rp-fx__tab-num { display: none; }
+
+  .rp-fx__tab-tag {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
     white-space: nowrap;
   }
 
-  .rp-fx__tab-num { min-width: 0; font-size: 0.9rem; }
-  .rp-fx__tab-tag { font-size: 0.95rem; }
-
+  /* Carrusel: cada momento es su propia tarjeta, sigue al dedo y se
+     asoma la siguiente. Un gesto pasa una sola tarjeta (snap-stop); al
+     quedar quieta, Functionalities.jsx la marca como activa. */
   .rp-fx__panels {
-    /* El gesto horizontal es para cambiar de momento (Functionalities.jsx). */
-    touch-action: pan-y;
-    margin: 0 16px;
+    display: flex;
+    gap: 12px;
+    padding: 0 16px;
+    border-radius: 0;
+    background: none;
+    backdrop-filter: none;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+
+  .rp-fx__panels::-webkit-scrollbar { display: none; }
+
+  .rp-fx__panel,
+  .rp-fx__panel.is-active {
+    flex: 0 0 calc(100% - 44px);
     padding: 24px 20px 18px;
     border-radius: 16px;
+    background: var(--rp-vidrio);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
   }
 
   .rp-fx__moment { display: flex; }
@@ -481,13 +460,13 @@
   .rp-fx__body { grid-template-columns: 1fr; gap: 24px; align-content: start; }
   .rp-fx__bullets li { font-size: 1rem; }
   .rp-fx__chart { max-width: 340px; }
-  .rp-fx__siguiente { display: none; }
+  /* Sólo las flechas: el avance ya lo muestra la barra de arriba. */
   .rp-fx__pasar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-top: 16px;
   }
+  .rp-fx__puntos { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

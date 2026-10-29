@@ -1,6 +1,6 @@
 import { PiEnvelopeSimple, PiInstagramLogo, PiWhatsappLogo, PiMapPin } from 'react-icons/pi';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
-import { INSTAGRAM_URL, INSTAGRAM_HANDLE, whatsappUrl } from '../data/social';
+import { INSTAGRAM_URL, whatsappUrl } from '../data/social';
 import { urlDe } from '../data/imagen';
 import { FOTOS } from '../data/fotos';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
@@ -8,8 +8,8 @@ import './Footer.css';
 
 // Footer en el azul marino de Rinde Plus, monocromo (logo, íconos y letras
 // en blanco; data-fondo-oscuro: el header se ajusta encima). Compacto: a la
-// izquierda el logo y las redes en círculos chicos, a la derecha los cuatro
-// datos de contacto con su ícono; abajo, el copyright y los créditos de las
+// izquierda el logo y las redes en círculos chicos (Instagram, WhatsApp y
+// email), a la derecha la dirección de la oficina; abajo, el copyright y los créditos de las
 // fotos, alineados a los mismos bordes. Estático (sin JS propio): los enlaces de
 // WhatsApp van directo a WhatsApp.
 const EMAIL = 'inforindeplus@gmail.com';
@@ -51,24 +51,6 @@ const Footer = () => {
           </div>
 
           <ul className="rp-footer__contacto">
-            <li>
-              <a href={`mailto:${EMAIL}`} aria-label={t.emailAria} title={t.email}>
-                <PiEnvelopeSimple aria-hidden="true" />
-                {EMAIL}
-              </a>
-            </li>
-            <li>
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={t.instagramAria} title={t.instagram}>
-                <PiInstagramLogo aria-hidden="true" />
-                {INSTAGRAM_HANDLE}
-              </a>
-            </li>
-            <li>
-              <a href={waUrl} target="_blank" rel="noopener noreferrer" aria-label={t.whatsappAria} title={t.whatsapp}>
-                <PiWhatsappLogo aria-hidden="true" />
-                +54 9 3564 59-3446
-              </a>
-            </li>
             <li>
               <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" aria-label={t.officeAria} title={t.office}>
                 <PiMapPin aria-hidden="true" />
