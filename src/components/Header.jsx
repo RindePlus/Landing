@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { PiSun, PiMoon, PiUser, PiCaretDown, PiCheck, PiWhatsappLogo, PiDeviceMobile, PiCaretRight } from 'react-icons/pi';
+import { LuLogIn } from 'react-icons/lu';
+import { PiSun, PiMoon, PiCaretDown, PiCheck, PiWhatsappLogo } from 'react-icons/pi';
 import rindeplusLogo from '../assets/rindeplus-logo-light.png';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
 import { LOGIN_URL } from '../data/links';
@@ -196,6 +197,18 @@ const Header = () => {
     };
   }, [menuItems]);
 
+  // Elegir un idioma (menú de escritorio o fila del drawer): si es el
+  // actual no navega; si no, guarda dónde se estaba leyendo.
+  const elegirIdioma = (event, code) => {
+    setIsLangOpen(false);
+    setIsMenuOpen(false);
+    if (code === locale) {
+      event.preventDefault();
+      return;
+    }
+    guardarPosicion(HOME_PATH[code]);
+  };
+
   const irASeccion = () => {
     setIsMenuOpen(false);
     setIsHidden(false);
@@ -232,24 +245,16 @@ const Header = () => {
           ))}
 
           {/* Sólo en el drawer (celular y tablet): instalar la plataforma
-              como app, destacado, porque es lo que más se busca desde el
-              celular. En escritorio no va: ocupa lugar junto al logo. */}
-          <a className="header-nav__install" href="#instalar" onClick={irASeccion}>
-            <span className="header-nav__install-icon" aria-hidden="true">
-              <PiDeviceMobile />
-            </span>
-            <span className="header-nav__install-text">
-              <strong>{t.nav.install}</strong>
-              <span>{t.nav.installHint}</span>
-            </span>
-            <PiCaretRight className="header-nav__install-flecha" aria-hidden="true" />
+              como app, una fila más. En escritorio no va: ocupa lugar junto
+              al logo. */}
+          <a className="menu-item header-nav__install" href="#instalar" onClick={irASeccion}>
+            {t.nav.install}
           </a>
 
-          {/* En celular el tema va en el drawer, como switch. */}
+          {/* En el drawer, una sola fila: el tema como switch a la
+              izquierda y el idioma a la derecha (los tres a la vista, el
+              actual marcado). */}
           <div className="header-nav__theme">
-            <span className="header-nav__theme-label">
-              {theme === 'dark' ? t.themeDark : t.themeLight}
-            </span>
             <button
               type="button"
               className="rp-theme-switch"
@@ -266,14 +271,26 @@ const Header = () => {
               </span>
               <span className="rp-theme-switch__knob" />
             </button>
+            <span className="header-nav__lang-opciones" role="group" aria-label={t.language}>
+              {LOCALES.map((code) => (
+                <a
+                  key={code}
+                  href={HOME_PATH[code]}
+                  hrefLang={code}
+                  lang={code}
+                  aria-label={LOCALE_LABELS[code]}
+                  aria-current={locale === code ? 'true' : undefined}
+                  className="header-nav__lang-opcion"
+                  onClick={(event) => elegirIdioma(event, code)}
+                >
+                  {code.toUpperCase()}
+                </a>
+              ))}
+            </span>
           </div>
 
-          {/* En celular, Ingresar y WhatsApp van al pie del menú, con su
-              palabra (el botón flotante de WhatsApp se oculta en celular). */}
-          <a className="header-nav__login" href={LOGIN_URL} onClick={() => setIsMenuOpen(false)}>
-            <PiUser aria-hidden="true" />
-            <span>{t.loginLong}</span>
-          </a>
+          {/* En celular y tablet, WhatsApp va al pie del menú, con su
+              palabra. */}
           <a
             className="header-nav__whatsapp"
             href={whatsappUrl(dict.whatsapp.message)}
@@ -322,14 +339,7 @@ const Header = () => {
                     aria-checked={locale === code}
                     className="header-lang__option"
                     tabIndex={isLangOpen ? 0 : -1}
-                    onClick={(event) => {
-                      setIsLangOpen(false);
-                      if (code === locale) {
-                        event.preventDefault();
-                        return;
-                      }
-                      guardarPosicion(HOME_PATH[code]);
-                    }}
+                    onClick={(event) => elegirIdioma(event, code)}
                   >
                     <span className="header-lang__code">{code.toUpperCase()}</span>
                     <span>{LOCALE_LABELS[code]}</span>
@@ -340,9 +350,11 @@ const Header = () => {
             </ul>
           </div>
 
-          {/* Ingresar: sólo el ícono de una persona, como en VigIA. */}
-          <a className="header-icon-btn" href={LOGIN_URL} aria-label={t.loginLong} title={t.login}>
-            <PiUser aria-hidden="true" />
+          {/* Ingresar: botón azul con la palabra y la flecha de entrar; en
+              celular y tablet, sólo la flecha. */}
+          <a className="header-login" href={LOGIN_URL} aria-label={t.loginLong} title={t.loginLong}>
+            <span className="header-login__texto">{t.login}</span>
+            <LuLogIn aria-hidden="true" />
           </a>
         </div>
 

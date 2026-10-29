@@ -37,7 +37,6 @@ src/
 │   ├── Functionalities.jsx # los cinco momentos de la campaña
 │   ├── Header.jsx          # menú, tema, idioma, Ingresar
 │   ├── Footer.jsx
-│   ├── WhatsAppWidget.jsx  # botón flotante (se abre con data-abrir-whatsapp)
 │   └── ...
 ├── scripts/escenasLote.js  # qué escena del lote del hero corre y cuándo
 ├── data/                   # links de login y redes, fotos

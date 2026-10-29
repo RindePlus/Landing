@@ -1,7 +1,6 @@
 ---
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
-import WhatsAppWidget from '../components/WhatsAppWidget.jsx';
 import { DICTIONARIES } from '../i18n/I18nContext.jsx';
 import { HOME_PATH, HTML_LANG, LOCALES, OG_LOCALE, idiomaDe } from '../i18n/config';
 import '../index.css';
@@ -82,7 +81,6 @@ const hreflang = noindex
       <slot />
     </main>
     <Footer lang={lang} />
-    <WhatsAppWidget client:idle lang={lang} />
 
     <!-- Cambio de idioma: el selector del header guarda en qué sección y a
          qué altura de ella estaba el usuario; acá, en la página del otro

@@ -11,8 +11,7 @@ import './Footer.css';
 // izquierda el logo y las redes en círculos chicos, a la derecha los cuatro
 // datos de contacto con su ícono; abajo, el copyright y los créditos de las
 // fotos, alineados a los mismos bordes. Estático (sin JS propio): los enlaces de
-// WhatsApp llevan data-abrir-whatsapp y en escritorio WhatsAppWidget los
-// abre en su panel; en celular van directo a WhatsApp.
+// WhatsApp van directo a WhatsApp.
 const EMAIL = 'inforindeplus@gmail.com';
 const ADDRESS = 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina';
 const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
@@ -39,7 +38,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href={waUrl} target="_blank" rel="noopener noreferrer" data-abrir-whatsapp aria-label={t.whatsappAria}>
+                <a href={waUrl} target="_blank" rel="noopener noreferrer" aria-label={t.whatsappAria}>
                   <PiWhatsappLogo aria-hidden="true" />
                 </a>
               </li>
@@ -65,7 +64,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href={waUrl} target="_blank" rel="noopener noreferrer" data-abrir-whatsapp aria-label={t.whatsappAria} title={t.whatsapp}>
+              <a href={waUrl} target="_blank" rel="noopener noreferrer" aria-label={t.whatsappAria} title={t.whatsapp}>
                 <PiWhatsappLogo aria-hidden="true" />
                 +54 9 3564 59-3446
               </a>

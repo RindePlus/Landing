@@ -209,22 +209,20 @@
 .rp-home__hero-btn svg { transition: transform 0.2s ease; }
 .rp-home__hero-btn:hover svg { transform: translateX(3px); }
 
-/* secundario — el botón con borde de VigIA, del mismo alto que el
-   principal. Sobre el mosaico lleva un fondo apenas translúcido para no
-   perderse entre los lotes. La flecha baja un poco al pasar el mouse:
-   lleva a la sección siguiente. */
+/* secundario — sin borde: se distingue por el relleno, un azul suave de
+   la marca con letras azules, del mismo alto que el principal. La flecha
+   baja un poco al pasar el mouse: lleva a la sección siguiente. */
 .rp-home__hero-btn--ghost {
-  color: var(--gh-fg);
-  background: color-mix(in srgb, var(--gh-surface) 72%, transparent);
-  border-color: var(--gh-border-strong);
+  color: var(--gh-accent);
+  background: color-mix(in srgb, var(--rp-azul) 13%, var(--gh-canvas));
+  border-color: transparent;
   padding: 12px 20px;
   box-shadow: none;
   font-weight: 600;
 }
 
 .rp-home__hero-btn--ghost:hover {
-  background: var(--gh-surface);
-  border-color: var(--gh-fg-subtle);
+  background: color-mix(in srgb, var(--rp-azul) 20%, var(--gh-canvas));
   transform: none;
 }
 
@@ -241,6 +239,14 @@
 .rp-home__hero-btn--primary:hover { background: var(--gh-accent-emphasis-hover); }
 .rp-home__hero-btn--primary svg { width: 18px; height: 18px; }
 .rp-home__hero-btn--primary:hover svg { transform: none; }
+
+/* La del hero va al WhatsApp: con su verde. */
+.rp-home__hero-btn--whatsapp {
+  color: #ffffff;
+  background: var(--rp-whatsapp);
+}
+
+.rp-home__hero-btn--whatsapp:hover { background: var(--rp-whatsapp-hover); }
 
 /* Tiny marquee of domain labels under CTAs */
 .rp-home__hero-marquee {

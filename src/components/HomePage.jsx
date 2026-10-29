@@ -48,7 +48,7 @@ const HeroSection = () => {
             href={whatsappUrl(dict.whatsapp.message)}
             target="_blank"
             rel="noopener noreferrer"
-            className="rp-home__hero-btn rp-home__hero-btn--primary"
+            className="rp-home__hero-btn rp-home__hero-btn--primary rp-home__hero-btn--whatsapp"
           >
             <FaWhatsapp aria-hidden="true" />
             {t.ctaTalk}

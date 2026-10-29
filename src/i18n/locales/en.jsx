@@ -13,10 +13,6 @@ const en = {
 
   whatsapp: {
     message: "Hi, I'd like more information about Rinde Plus",
-    fabLabel: 'WhatsApp',
-    hello: 'Hi',
-    helloAria: 'wave',
-    question: 'How can we help?',
     cta: 'Message us on WhatsApp',
   },
 
@@ -28,7 +24,6 @@ const en = {
       why: 'Benefits',
       contact: 'Contact',
       install: 'How to install the app',
-      installHint: 'In 3 steps, no app store',
     },
     themeDark: 'Dark mode',
     themeLight: 'Light mode',
@@ -52,7 +47,7 @@ const en = {
       </>
     ),
     ctaTalk: "Let's talk about your fields",
-    ctaCampaign: 'See what it does',
+    ctaCampaign: 'See features',
     mapAria: 'A field drawn with its vigor map by management zone, crop rows and contour lines',
     // Hero field scene notifications (doc/ANIMACION_LOTE.md).
     avisos: {

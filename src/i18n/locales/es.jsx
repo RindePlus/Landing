@@ -14,10 +14,6 @@ const es = {
 
   whatsapp: {
     message: 'Hola, quiero más información sobre Rinde Plus',
-    fabLabel: 'WhatsApp',
-    hello: 'Hola',
-    helloAria: 'saludo',
-    question: '¿En qué podemos ayudarte?',
     cta: 'Escribir por WhatsApp',
   },
 
@@ -29,7 +25,6 @@ const es = {
       why: 'Ventajas',
       contact: 'Contacto',
       install: 'Cómo instalar la app',
-      installHint: 'En 3 pasos, sin tienda',
     },
     themeDark: 'Modo oscuro',
     themeLight: 'Modo claro',
@@ -53,7 +48,7 @@ const es = {
       </>
     ),
     ctaTalk: 'Hablemos de tus lotes',
-    ctaCampaign: 'Ver qué hace',
+    ctaCampaign: 'Ver funcionalidades',
     mapAria: 'Lote dibujado con su mapa de vigor por ambientes, surcos de siembra y curvas de nivel',
     // Notificaciones de las escenas del lote del hero (doc/ANIMACION_LOTE.md):
     // una por momento de la campaña; Acompañar tiene una por clima.

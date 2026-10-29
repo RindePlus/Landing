@@ -13,10 +13,6 @@ const pt = {
 
   whatsapp: {
     message: 'Olá, quero mais informações sobre a Rinde Plus',
-    fabLabel: 'WhatsApp',
-    hello: 'Olá',
-    helloAria: 'aceno',
-    question: 'Como podemos ajudar?',
     cta: 'Escrever pelo WhatsApp',
   },
 
@@ -28,7 +24,6 @@ const pt = {
       why: 'Vantagens',
       contact: 'Contato',
       install: 'Como instalar o app',
-      installHint: 'Em 3 passos, sem loja',
     },
     themeDark: 'Modo escuro',
     themeLight: 'Modo claro',
@@ -52,7 +47,7 @@ const pt = {
       </>
     ),
     ctaTalk: 'Vamos falar dos seus talhões',
-    ctaCampaign: 'Ver o que faz',
+    ctaCampaign: 'Ver funcionalidades',
     mapAria: 'Talhão desenhado com seu mapa de vigor por ambiente, linhas de plantio e curvas de nível',
     // Notificações das cenas do talhão do hero (doc/ANIMACION_LOTE.md).
     avisos: {

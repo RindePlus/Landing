@@ -26,16 +26,6 @@
   padding: var(--space-300) var(--page-gutter) var(--space-100);
 }
 
-/* Desde tablet está el botón flotante de WhatsApp, fijo abajo a la derecha
-   (ocupa 88 px desde el borde): el contenido del footer termina antes, así
-   no queda tapado. El mismo margen a los dos lados, para que quede
-   centrado. En pantallas anchas el margen ya alcanza. */
-@media (min-width: 768px) {
-  .rp-footer__inner {
-    padding-inline: max(var(--page-gutter), calc(104px - max(0px, (100vw - var(--ancho-contenido)) / 2)));
-  }
-}
-
 .rp-footer a {
   color: inherit;
   transition: color var(--dur-base) var(--ease-fluid);

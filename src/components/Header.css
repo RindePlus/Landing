@@ -103,8 +103,7 @@ img.logo-image:hover {
 
 /* ---- Botones chicos de las acciones (tema, idioma, ingresar) ---- */
 .header-theme-toggle,
-.header-lang__btn,
-.header-icon-btn {
+.header-lang__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +123,6 @@ img.logo-image:hover {
 .header-theme-toggle { width: var(--header-btn); }
 
 .header-theme-toggle:hover,
-.header-icon-btn:hover,
 .header-lang__btn:hover,
 .header-lang__btn[aria-expanded='true'] {
   background: var(--gh-surface-2);
@@ -133,8 +131,7 @@ img.logo-image:hover {
 }
 
 .header-theme-toggle:active,
-.header-lang__btn:active,
-.header-icon-btn:active {
+.header-lang__btn:active {
   transform: scale(0.98);
 }
 
@@ -249,12 +246,35 @@ img.logo-image:hover {
 /* ---- Ingresar: la única puerta a la plataforma (LOGIN_URL) ----
    Como en VigIA: sólo el ícono de una persona, a la derecha de todo. En
    celular se oculta y va al pie del menú, con su palabra. */
-.header-icon-btn {
-  width: var(--header-btn);
+.header-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-75);
+  height: var(--header-btn);
   margin-left: var(--space-50);
+  padding: 0 var(--space-200);
+  border-radius: var(--gh-radius-btn);
+  /* El azul de la marca, igual en claro y en oscuro (en oscuro
+     --gh-accent se aclara y el blanco no se leería). */
+  background: #1a56cc;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease-fluid);
 }
 
-.header-icon-btn svg { width: calc(var(--header-icono) + 2px); height: calc(var(--header-icono) + 2px); }
+.header-login:hover { background: #1749b0; }
+
+.header-login:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: 2px;
+}
+
+.header-login svg { width: 18px; height: 18px; flex-shrink: 0; }
 
 /* ---- Hamburguesa (sólo celular) ---- */
 .hamburger-button {
@@ -267,17 +287,18 @@ img.logo-image:hover {
   height: 34px;
   padding: 0;
   border-radius: var(--gh-radius);
-  border: 1px solid transparent;
+  border: 0;
   background: transparent;
   cursor: pointer;
-  transition:
-    background var(--dur-fast) var(--ease-fluid),
-    border-color var(--dur-fast) var(--ease-fluid);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.hamburger-button:hover {
-  background-color: var(--gh-surface-2);
-  border-color: var(--gh-border);
+/* Sin caja alrededor: al pasar el mouse sólo se oscurecen las líneas. */
+.hamburger-button:hover .hamburger-line { background-color: var(--gh-fg); }
+
+.hamburger-button:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: 2px;
 }
 
 .hamburger-line {
@@ -372,7 +393,6 @@ img.logo-image:hover {
   }
 
   .header-nav__theme,
-  .header-nav__login,
   .header-nav__whatsapp { display: none; }
 }
 
@@ -409,9 +429,18 @@ img.logo-image:hover {
 
   img.logo-image { height: 40px; }
 
-  /* El tema va dentro del drawer. */
+  /* El tema y el idioma van dentro del drawer; arriba queda el ícono de
+     Ingresar. */
   .header-theme-toggle,
-  .header-icon-btn { display: none; }
+  .header-lang { display: none; }
+
+  .header-login {
+    width: var(--header-btn);
+    margin-left: 0;
+    padding: 0;
+  }
+
+  .header-login__texto { display: none; }
 
   .header-nav {
     position: absolute;
@@ -481,71 +510,6 @@ img.logo-image:hover {
     font-weight: 600;
   }
 
-  /* Instalar la app: tarjeta lisa en el azul de la marca, con letras
-     blancas, después de las secciones. El mismo azul en claro y en oscuro
-     (--rp-azul en oscuro es más claro y el blanco no se leería). */
-  .header-nav__install {
-    display: flex;
-    align-items: center;
-    gap: var(--space-100);
-    margin: var(--space-100) var(--space-100) var(--space-50);
-    padding: 12px 14px;
-    border: 0;
-    border-radius: var(--gh-radius-card, 12px);
-    background: #1a56cc;
-    color: #ffffff;
-    text-decoration: none;
-    transition: background var(--dur-base) var(--ease-fluid);
-  }
-
-  .header-nav__install:hover {
-    background: #1749b0;
-  }
-
-  .header-nav__install:focus-visible {
-    outline: 2px solid var(--gh-accent);
-    outline-offset: 2px;
-  }
-
-  .header-nav__install-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgb(255 255 255 / 0.16);
-    color: #ffffff;
-  }
-
-  .header-nav__install-icon svg { width: 22px; height: 22px; }
-
-  .header-nav__install-text {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 2px;
-    min-width: 0;
-  }
-
-  .header-nav__install-flecha {
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-    opacity: 0.8;
-  }
-
-  .header-nav__install-text strong {
-    font-size: var(--text-base);
-    font-weight: 600;
-  }
-
-  .header-nav__install-text span {
-    font-size: 0.85rem;
-    color: rgb(255 255 255 / 0.8);
-  }
-
   .header-nav__theme {
     display: flex;
     align-items: center;
@@ -556,7 +520,43 @@ img.logo-image:hover {
     border-top: 1px solid var(--gh-border);
   }
 
-  .header-nav__login {
+  /* Idioma: los tres códigos como un control segmentado, del mismo alto
+     que el switch del tema. */
+  .header-nav__lang-opciones {
+    display: inline-flex;
+    padding: 3px;
+    border: 1px solid var(--gh-border);
+    border-radius: 999px;
+    background: var(--gh-surface-2);
+  }
+
+  .header-nav__lang-opcion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 24px;
+    border-radius: 999px;
+    color: var(--gh-fg-muted);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease-fluid), color var(--dur-fast) var(--ease-fluid);
+  }
+
+  .header-nav__lang-opcion[aria-current='true'] {
+    background: var(--gh-canvas);
+    color: var(--gh-accent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  }
+
+  .header-nav__lang-opcion:focus-visible {
+    outline: 2px solid var(--gh-accent);
+    outline-offset: 1px;
+  }
+
+  /* WhatsApp: verde de WhatsApp con texto blanco. */
+  .header-nav__whatsapp {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -564,27 +564,8 @@ img.logo-image:hover {
     margin: var(--space-200) var(--space-300) var(--space-50);
     height: 44px;
     border-radius: var(--gh-radius-btn);
-    background: var(--gh-accent-emphasis);
-    color: var(--gh-accent-fg);
-    font-size: var(--text-base);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .header-nav__login svg { width: 18px; height: 18px; }
-
-  /* WhatsApp: verde de WhatsApp con texto oscuro (el blanco no llega a 3:1
-     sobre ese verde). */
-  .header-nav__whatsapp {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-75);
-    margin: var(--space-75) var(--space-300) var(--space-50);
-    height: 44px;
-    border-radius: var(--gh-radius-btn);
     background: var(--rp-whatsapp);
-    color: var(--rp-whatsapp-fg);
+    color: #ffffff;
     font-size: var(--text-base);
     font-weight: 600;
     text-decoration: none;
@@ -595,17 +576,6 @@ img.logo-image:hover {
   .header-nav__whatsapp svg { width: 22px; height: 22px; }
 }
 
-/* En tablet el botón flotante de WhatsApp sigue a la vista (se oculta
-   recién por debajo de 768 px): ahí el drawer no lo repite. */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .header-nav__whatsapp { display: none; }
-}
-
-.header-nav__theme-label {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--gh-fg-muted);
 }
 
 /* Sun/moon switch (drawer) */
