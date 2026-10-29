@@ -200,26 +200,21 @@ const FinalCta = () => {
   const t = dict.cta;
   return (
     <section className="rp-home__cta" id="contacto">
-      {/* Panel en dos columnas: a la izquierda el título y la visión; a la
-          derecha qué hacer, con el mismo botón principal del hero. */}
+      {/* Banda azul marino, centrada: el título, la visión y el botón.
+          Cierra la página con el mismo peso que la banda de Impacto. */}
       <Reveal className="rp-home__cta-panel">
-        <div className="rp-home__cta-texto">
-          <h2 className="rp-home__cta-title">{t.title}</h2>
-          <p className="rp-home__cta-vision">{t.vision}</p>
-        </div>
-        <div className="rp-home__cta-accion">
-          <p className="rp-home__cta-copy">{t.copy}</p>
-          <a
-            href={whatsappUrl(dict.whatsapp.message)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rp-home__hero-btn rp-home__hero-btn--primary rp-home__cta-btn"
-          >
-            <FaWhatsapp aria-hidden="true" />
-            {t.button}
-          </a>
-          <p className="rp-home__cta-hint">{t.hint}</p>
-        </div>
+        <h2 className="rp-home__cta-title">{t.title}</h2>
+        <p className="rp-home__cta-vision">{t.vision}</p>
+        <a
+          href={whatsappUrl(dict.whatsapp.message)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rp-home__hero-btn rp-home__cta-btn"
+        >
+          <FaWhatsapp aria-hidden="true" />
+          {t.button}
+        </a>
+        <p className="rp-home__cta-hint">{t.hint}</p>
       </Reveal>
     </section>
   );

@@ -223,9 +223,8 @@ const es = {
     title: 'Hablemos de tus lotes',
     vision:
       'Nuestra visión: que cada lote se decida con criterio agronómico, no solo los de quien puede pagarse un equipo técnico.',
-    copy: 'Unas líneas sobre la operación alcanzan para coordinar una llamada. Sin formularios: responde directo el equipo de Rinde Plus.',
     button: 'Escribir por WhatsApp',
-    hint: 'Respuesta en menos de 24 h',
+    hint: 'Sin formularios · respuesta del equipo en menos de 24 h',
   },
 
   install: {

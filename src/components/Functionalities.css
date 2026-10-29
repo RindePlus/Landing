@@ -63,6 +63,11 @@
   .rp-fx__head { padding: 8px 32px 22px; }
 }
 
+/* En escritorio la bajada entra en un solo renglón. */
+@media (min-width: 1024px) {
+  .rp-fx__head { max-width: 58rem; }
+}
+
 .rp-fx__title {
   font-family: var(--font-heading);
   /* Mismo tamaño que el de «Hablemos de tus lotes»; azul marino de la marca
@@ -130,33 +135,18 @@
   transition:
     border-color 0.2s ease,
     background 0.2s ease,
-    box-shadow 0.25s ease,
-    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow 0.25s ease;
 }
 
 .rp-fx__tab:hover { border-color: var(--gh-border-strong); }
 
-/* Al pasar el mouse, el botón se levanta un poco (sombra más larga); al
-   apretarlo, baja. Sólo con mouse: en pantallas táctiles el hover queda
-   pegado después de tocar. */
+/* Al pasar el mouse, sólo una sombra suave: el botón no se mueve. Sólo
+   con mouse: en pantallas táctiles el hover queda pegado después de
+   tocar. */
 @media (hover: hover) and (pointer: fine) {
-  .rp-fx__tab:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px -6px rgb(22 27 36 / 0.22);
-  }
+  .rp-fx__tab:hover { box-shadow: 0 4px 12px -6px rgb(22 27 36 / 0.2); }
 
-  .rp-fx__tab:active {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px -2px rgb(22 27 36 / 0.2);
-    transition-duration: 0.1s;
-  }
-
-  [data-rp-theme="dark"] .rp-fx__tab:hover { box-shadow: 0 6px 16px -6px rgb(0 0 0 / 0.6); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rp-fx__tab:hover,
-  .rp-fx__tab:active { transform: none; }
+  [data-rp-theme="dark"] .rp-fx__tab:hover { box-shadow: 0 4px 12px -6px rgb(0 0 0 / 0.6); }
 }
 
 /* Activo: relleno del color del momento y letras claras. En oscuro,
@@ -172,8 +162,6 @@
 [data-rp-theme="dark"] .rp-fx__tab.is-active {
   --fx-relleno: color-mix(in srgb, var(--fx-c2) 68%, #000);
 }
-
-.rp-fx__tab.is-active .rp-fx__tab-name { color: rgb(255 255 255 / 0.82); }
 
 .rp-fx__tab:focus-visible {
   outline: 2px solid var(--gh-accent);
@@ -193,23 +181,11 @@
 
 .rp-fx__tab.is-active .rp-fx__tab-num { color: #fff; }
 
-.rp-fx__tab-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
 .rp-fx__tab-tag {
+  min-width: 0;
   font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.3;
-}
-
-.rp-fx__tab-name {
-  font-size: 0.85rem;
-  line-height: 1.3;
-  color: var(--gh-fg-muted);
 }
 
 /* Barra de avance del momento activo (sólo con avance automático), clara
@@ -423,14 +399,14 @@
   line-height: 1.45;
 }
 
-/* Barra gruesa y redondeada del color del momento, del alto del texto de
-   la viñeta (uno o dos renglones). */
+/* Barra gruesa y redondeada del color del momento, siempre del alto de un
+   renglón (alineada al primero), tenga la viñeta uno o dos. */
 .rp-fx__bullets li::before {
   content: '';
   position: absolute;
   left: 2px;
-  top: 0.2em;
-  bottom: 0.2em;
+  top: 0.25em;
+  height: 0.95em;
   width: 4px;
   border-radius: 2px;
   background: var(--fx-c1);
@@ -448,13 +424,11 @@
   height: auto;
 }
 
-/* Laptops angostas y tablets: el nombre no entra en una línea y los
-   botones crecerían. Los botones muestran sólo el momento y el nombre pasa
-   a la tarjeta (como en celular); el gráfico, más chico, al costado. */
+/* Laptops angostas y tablets: columnas más angostas y el gráfico, más
+   chico, al costado. */
 @media (max-width: 1099px) {
   .rp-fx { grid-template-columns: minmax(220px, 260px) 1fr; }
   .rp-fx__tab { gap: 12px; padding-inline: 16px; }
-  .rp-fx__tab-name { display: none; }
   .rp-fx__name { font-size: 1.35rem; }
   .rp-fx__body { grid-template-columns: 1fr minmax(150px, 0.7fr); gap: 18px; }
 }
@@ -493,7 +467,6 @@
 
   .rp-fx__tab-num { min-width: 0; font-size: 0.9rem; }
   .rp-fx__tab-tag { font-size: 0.95rem; }
-  .rp-fx__tab-name { display: none; }
 
   .rp-fx__panels {
     /* El gesto horizontal es para cambiar de momento (Functionalities.jsx). */

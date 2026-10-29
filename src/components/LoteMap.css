@@ -64,15 +64,15 @@
 /* ---- Respuesta: la notificación de Rinde Plus ---- */
 .rp-lote__avisos {
   position: absolute;
-  left: -6%;
-  bottom: 6%;
+  right: -6%;
+  top: 6%;
   pointer-events: none;
 }
 
 .rp-lote__aviso {
   position: absolute;
-  left: 0;
-  bottom: 0;
+  right: 0;
+  top: 0;
   display: grid;
   gap: var(--space-25);
   width: max-content;
@@ -130,14 +130,14 @@
 }
 
 @keyframes rp-esc-aviso {
-  0%, 33% { opacity: 0; transform: translateY(10px); }
+  0%, 33% { opacity: 0; transform: translateY(-10px); }
   37% { opacity: 1; transform: none; }
   88% { opacity: 1; transform: none; }
-  95%, 100% { opacity: 0; transform: translateY(-4px); }
+  95%, 100% { opacity: 0; transform: translateY(4px); }
 }
 
 @media (max-width: 1023px) {
-  .rp-lote__avisos { left: 4%; }
+  .rp-lote__avisos { right: 4%; }
 }
 
 /* ---- Planificar: los ambientes se marcan uno por uno ---- */

@@ -220,9 +220,8 @@ const en = {
     title: "Let's talk about your fields",
     vision:
       'Our vision: every field decided with agronomic judgment, not only those of growers who can afford a technical team.',
-    copy: 'A few lines about your operation are enough to set up a call. No forms: the Rinde Plus team replies directly.',
     button: 'Message us on WhatsApp',
-    hint: 'Reply within 24 h',
+    hint: 'No forms · the team replies within 24 h',
   },
 
   install: {

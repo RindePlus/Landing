@@ -220,9 +220,8 @@ const pt = {
     title: 'Vamos falar dos seus talhões',
     vision:
       'Nossa visão: que cada talhão seja decidido com critério agronômico, não só os de quem pode pagar uma equipe técnica.',
-    copy: 'Poucas linhas sobre a operação bastam para marcar uma conversa. Sem formulários: quem responde é a própria equipe da Rinde Plus.',
     button: 'Escrever pelo WhatsApp',
-    hint: 'Resposta em menos de 24 h',
+    hint: 'Sem formulários · resposta da equipe em menos de 24 h',
   },
 
   install: {

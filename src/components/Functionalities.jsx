@@ -403,10 +403,7 @@ const Functionalities = () => {
                 onKeyDown={onKeyDown}
               >
                 <span className="rp-fx__tab-num">{num(i)}</span>
-                <span className="rp-fx__tab-text">
-                  <span className="rp-fx__tab-tag">{text.tag}</span>
-                  <span className="rp-fx__tab-name">{text.name}</span>
-                </span>
+                <span className="rp-fx__tab-tag">{text.tag}</span>
                 {activo && auto && (
                   <span
                     key={active}
