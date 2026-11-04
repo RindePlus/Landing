@@ -49,9 +49,11 @@
     padding: var(--header-reserva) 40px 0;
   }
 
+  /* El 76 % de la pantalla y no toda: más alto, el título y el lote
+     quedaban con demasiado aire arriba y abajo. */
   .rp-home__hero > .rp-home__hero-inner {
-    min-height: calc(min(100vh, 880px) - var(--header-reserva));
-    min-height: calc(min(100svh, 880px) - var(--header-reserva));
+    min-height: calc(min(76vh, 700px) - var(--header-reserva));
+    min-height: calc(min(76svh, 700px) - var(--header-reserva));
     align-content: center;
   }
 }
@@ -315,7 +317,7 @@
   position: relative;
   display: grid;
   justify-items: center;
-  max-width: 60rem;
+  max-width: var(--ancho-tarjetas);
   margin: 0 auto;
   padding: clamp(48px, 7vw, 88px) clamp(24px, 5vw, 64px);
   border-radius: var(--gh-radius-card);
@@ -908,7 +910,7 @@
 .rp-install__inner {
   position: relative;
   z-index: 1;
-  max-width: 60rem;
+  max-width: var(--ancho-tarjetas);
   margin: 0 auto;
 }
 

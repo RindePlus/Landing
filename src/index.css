@@ -165,6 +165,10 @@
      ============================================================ */
   --ancho-contenido: 1160px;
   --ancho-amplio: 1320px;
+  /* Las tarjetas de la home (los momentos, la instalación en el celular y
+     «Hablemos de tus lotes»): todas del mismo ancho, bordes alineados. En
+     rem: crece con el font-size del html, como las columnas de texto. */
+  --ancho-tarjetas: 70rem;
   /* Lo que va en px y acompaña al texto (logo e íconos del header). */
   --header-logo: 46px;
   --header-btn: 34px;

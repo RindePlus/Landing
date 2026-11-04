@@ -94,15 +94,13 @@
 /* ---- Caja: la línea de tiempo de los cinco momentos arriba y la
    tarjeta del elegido debajo, a todo el ancho. ---- */
 .rp-fx {
-  max-width: var(--ancho-amplio);
+  /* Mismo ancho y margen lateral que las demás tarjetas de la home
+     (--ancho-tarjetas, más los 24px de cada lado). */
+  max-width: calc(var(--ancho-tarjetas) + 48px);
   margin: 0 auto;
   padding: 0 24px 80px;
   display: grid;
   gap: 20px;
-}
-
-@media (min-width: 768px) {
-  .rp-fx { padding-inline: 40px; }
 }
 
 /* ---- Línea de tiempo: un tramo por momento, de izquierda a derecha como
@@ -400,7 +398,7 @@
      en la tarjeta). Cada tramo se toca en 40px de alto. */
   .rp-fx__tabs {
     gap: 6px;
-    margin: 0 16px;
+    margin: 0 24px;
   }
 
   .rp-fx__tab {
@@ -428,14 +426,15 @@
   .rp-fx__panels {
     display: flex;
     gap: 12px;
-    padding: 0 16px;
+    /* 24px a los costados, como las demás tarjetas de la home. */
+    padding: 0 24px;
     border-radius: 0;
     background: none;
     backdrop-filter: none;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 16px;
+    scroll-padding-inline: 24px;
     scrollbar-width: none;
   }
 
@@ -443,7 +442,7 @@
 
   .rp-fx__panel,
   .rp-fx__panel.is-active {
-    flex: 0 0 calc(100% - 44px);
+    flex: 0 0 calc(100% - 28px);
     padding: 24px 20px 18px;
     border-radius: 16px;
     background: var(--rp-vidrio);
