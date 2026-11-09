@@ -125,7 +125,7 @@
 .rp-home__hero-title {
   font-family: var(--font-heading);
   font-size: clamp(1.9rem, 4.2vw, 3.4rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.06;
   letter-spacing: -0.03em;
   margin: 0 0 22px;
