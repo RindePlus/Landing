@@ -1,5 +1,5 @@
 import { PiEnvelopeSimple, PiInstagramLogo, PiWhatsappLogo, PiMapPin } from 'react-icons/pi';
-import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
+import rindeplusLogoDark from '../assets/rindeplus-logo-dark.webp';
 import { INSTAGRAM_URL, whatsappUrl } from '../data/social';
 import { urlDe } from '../data/imagen';
 import { FOTOS } from '../data/fotos';
@@ -28,7 +28,7 @@ const Footer = () => {
           <div className="rp-footer__marca">
             {/* Logo en blanco (el CSS lo pasa a monocromo). */}
             <a className="rp-footer__logo" href="#top" aria-label={dict.header.logoAlt}>
-              <img src={urlDe(rindeplusLogoDark)} alt={dict.header.logoAlt} loading="lazy" decoding="async" />
+              <img src={urlDe(rindeplusLogoDark)} alt={dict.header.logoAlt} width="344" height="121" loading="lazy" decoding="async" />
             </a>
 
             <ul className="rp-footer__redes">

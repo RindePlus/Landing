@@ -14,6 +14,7 @@ import halconLogo from '../assets/related companies/halcon.webp';
 import bioredLogo from '../assets/related companies/biored.webp';
 import agroconsultorLogo from '../assets/related companies/agroconsultor.webp';
 import biozelenLogo from '../assets/related companies/biozelen.webp';
+import speedagroLogo from '../assets/related companies/speedagro.webp';
 import './TrustedCompanies.css';
 
 // Tamaño general de los logos (sobre las alturas `h` de cada uno).
@@ -52,6 +53,7 @@ const TrustedCompanies = () => {
     { id: 11, logo: bioredLogo, name: 'BioRed', h: 66 },
     { id: 12, logo: agroconsultorLogo, name: 'Agroconsultor', h: 40 },
     { id: 13, logo: biozelenLogo, name: 'Bio Zelen', h: 74 },
+    { id: 14, logo: speedagroLogo, name: 'SpeedAgro', h: 34 },
   ];
 
   // Duplicate companies for seamless loop

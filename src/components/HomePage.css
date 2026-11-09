@@ -1145,6 +1145,16 @@
   animation: rp-fade-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Título y bajada: suben sin pasar por opacity 0. Si arrancan invisibles,
+   el navegador no los cuenta para el LCP y toma el logo (una imagen que
+   llega después), lo que empeora la métrica sin cambiar lo que se ve. */
+@keyframes rp-rise {
+  from { transform: translateY(8px); }
+  to { transform: translateY(0); }
+}
+
+.rp-rise { animation: rp-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
 .rp-d-1 { animation-delay: 60ms; }
 .rp-d-3 { animation-delay: 180ms; }
 .rp-d-4 { animation-delay: 240ms; }

@@ -22,5 +22,8 @@ export default defineConfig({
   },
   build: {
     assets: 'assets',
+    // El CSS va dentro del HTML: sin hojas aparte que bloqueen el primer
+    // render (en celular cada pedido extra suma un viaje de red).
+    inlineStylesheets: 'always',
   },
 });

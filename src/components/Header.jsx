@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { LuLogIn } from 'react-icons/lu';
 import { PiSun, PiMoon, PiCaretDown, PiCheck, PiWhatsappLogo } from 'react-icons/pi';
-import rindeplusLogo from '../assets/rindeplus-logo-light.png';
-import rindeplusLogoDark from '../assets/rindeplus-logo-dark.png';
+import rindeplusLogo from '../assets/rindeplus-logo-light.webp';
+import rindeplusLogoDark from '../assets/rindeplus-logo-dark.webp';
 import { LOGIN_URL } from '../data/links';
 import { whatsappUrl } from '../data/social';
 import { urlDe } from '../data/imagen';
@@ -227,8 +227,8 @@ const Header = () => {
         <a href="#top" className="header-logo" aria-label={t.logoAlt} onClick={() => setIsMenuOpen(false)}>
           {/* Las dos versiones del logo: el CSS muestra la del tema activo
               (data-rp-theme), así no parpadea antes de hidratar. */}
-          <img src={urlDe(rindeplusLogo)} alt={t.logoAlt} className="logo-image logo-image--light" />
-          <img src={urlDe(rindeplusLogoDark)} alt="" aria-hidden="true" className="logo-image logo-image--dark" />
+          <img src={urlDe(rindeplusLogo)} alt={t.logoAlt} width="344" height="121" fetchPriority="high" className="logo-image logo-image--light" />
+          <img src={urlDe(rindeplusLogoDark)} alt="" aria-hidden="true" width="344" height="121" fetchPriority="high" className="logo-image logo-image--dark" />
         </a>
 
         <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">

@@ -37,12 +37,12 @@ const HeroSection = () => {
   return (
     <div className="rp-home__hero-inner">
       <div className="rp-home__hero-text">
-        <h1 className="rp-home__hero-title rp-fade-in rp-d-1">
+        <h1 className="rp-home__hero-title rp-rise rp-d-1">
           {t.titleA}
           <span className="rp-home__hero-title-accent">{t.titleB}</span>
         </h1>
 
-        <p className="rp-home__hero-subtitle rp-fade-in rp-d-3">{t.subtitle}</p>
+        <p className="rp-home__hero-subtitle rp-rise rp-d-3">{t.subtitle}</p>
 
         <div className="rp-home__hero-ctas rp-fade-in rp-d-4">
           <a

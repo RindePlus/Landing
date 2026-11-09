@@ -130,9 +130,10 @@
   /* Otros colores con significado: agua y carbono en el suelo. */
   --rp-agua: #2a6f73;
   --rp-carbono: #7a4b26;
-  /* WhatsApp: su verde, con texto blanco. */
-  --rp-whatsapp: #25d366;
-  --rp-whatsapp-hover: #1da851;
+  /* WhatsApp: un verde más oscuro que el de la marca (#25d366) para que el
+     texto blanco llegue a 4.5:1 de contraste (WCAG AA). */
+  --rp-whatsapp: #15803d;
+  --rp-whatsapp-hover: #166534;
 
   /* ============================================================
      Escalas (las de VigIA, de la skill landing-page-design)

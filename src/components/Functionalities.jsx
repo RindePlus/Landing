@@ -201,7 +201,7 @@ const FunctionalityPanel = ({ item, index, activo }) => {
   const text = useI18n().dict.fx.panels[item.id];
 
   return (
-    <article
+    <div
       id={`rp-fx-panel-${item.id}`}
       role="tabpanel"
       aria-labelledby={`rp-fx-tab-${item.id}`}
@@ -229,7 +229,7 @@ const FunctionalityPanel = ({ item, index, activo }) => {
           <Chart />
         </div>
       </div>
-    </article>
+    </div>
   );
 };
 
