@@ -62,7 +62,9 @@ const ChartCuatroRindes = () => {
     { w: 76, o: 1 },
     { w: 58, o: 0.55, neutral: true },
   ].map((r, i) => ({ ...r, label: t.fourYields[i] }));
-  const x0 = 82;
+  // Inicio de las barras: con los rótulos a la izquierda, el conjunto
+  // queda centrado en los 200 de ancho (las barras llegan hasta 179).
+  const x0 = 67;
   const cosechado = x0 + rows[2].w;
   return (
     <svg viewBox="0 0 200 130" fill="none" className="rp-fx__chart">
