@@ -226,7 +226,7 @@ const pt = {
     ios: {
       name: 'iPhone',
       steps: [
-        <>Abrir <strong>app.rindeplus.com</strong> no <strong>Safari</strong>.</>,
+        <>Abrir <strong>cloud.rindeplus.com</strong> no <strong>Safari</strong>.</>,
         (
           <>
             Tocar em <strong>Compartilhar</strong>{' '}
@@ -240,7 +240,7 @@ const pt = {
     android: {
       name: 'Android',
       steps: [
-        <>Abrir <strong>app.rindeplus.com</strong> no <strong>Chrome</strong>.</>,
+        <>Abrir <strong>cloud.rindeplus.com</strong> no <strong>Chrome</strong>.</>,
         <>Tocar no menu <strong>⋮</strong> (no canto superior direito).</>,
         (
           <>

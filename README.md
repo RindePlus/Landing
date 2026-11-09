@@ -1,6 +1,6 @@
 # Rinde Plus · Landing
 
-Landing de [rindeplus.com](https://rindeplus.com): una sola página (Astro + islas de React) que cuenta qué hace la plataforma de inteligencia agronómica Rinde Plus. El ingreso a la plataforma es el botón «Ingresar» del header, que lleva a `https://app.rindeplus.com/login`.
+Landing de [rindeplus.com](https://rindeplus.com): una sola página (Astro + islas de React) que cuenta qué hace la plataforma de inteligencia agronómica Rinde Plus. El ingreso a la plataforma es el botón «Ingresar» del header, que lleva a `https://cloud.rindeplus.com/login`.
 
 ## Desarrollo
 

@@ -229,7 +229,7 @@ const es = {
     ios: {
       name: 'iPhone',
       steps: [
-        <>Abrir <strong>app.rindeplus.com</strong> en <strong>Safari</strong>.</>,
+        <>Abrir <strong>cloud.rindeplus.com</strong> en <strong>Safari</strong>.</>,
         (
           <>
             Tocar <strong>Compartir</strong>{' '}
@@ -243,7 +243,7 @@ const es = {
     android: {
       name: 'Android',
       steps: [
-        <>Abrir <strong>app.rindeplus.com</strong> en <strong>Chrome</strong>.</>,
+        <>Abrir <strong>cloud.rindeplus.com</strong> en <strong>Chrome</strong>.</>,
         <>Tocar el menú <strong>⋮</strong> (arriba a la derecha).</>,
         (
           <>
