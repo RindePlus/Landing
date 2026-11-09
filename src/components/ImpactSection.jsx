@@ -6,9 +6,6 @@ import {
   CIFRAS,
   HISTORIA,
   IMPACTO_CAMPANA,
-  AUTOS_EQUIVALENTES,
-  PORCENTAJE_BRECHAS,
-  RANGO_BRECHAS,
   filasImpacto,
   formateador,
   formateadorPct,
@@ -23,13 +20,13 @@ const FUERA_MS = 4000;
 const NUM_LOCALE = { es: 'es-AR', en: 'en-US', pt: 'pt-BR' };
 
 // Fila de indicadores. Los que tienen `tabla` abren su detalle en el panel
-// de abajo. (Los ⓘ con el cálculo de cada número se sacaron: sus textos
+// de abajo (el orden de las tablas en el carrusel es el de esta lista). (Los ⓘ con el cálculo de cada número se sacaron: sus textos
 // están en doc/IMPACTO_INFO.md.)
 const INDICADORES = [
-  { id: 'hectareas', prefijo: '+', unidad: 'ha' },
+  { id: 'hectareas', prefijo: '+', unidad: 'ha', tabla: true },
   { id: 'grano', prefijo: '+', unidad: 't', tabla: true },
   { id: 'carbono', prefijo: '~', unidad: 't', tabla: true },
-  { id: 'suelo', prefijo: '+', unidad: '' },
+  { id: 'suelo', prefijo: '+', unidad: '', tabla: true },
 ];
 const TABLAS = INDICADORES.filter((i) => i.tabla).map((i) => i.id);
 
@@ -55,9 +52,17 @@ const Tabla = ({ columnas, filas }) => (
         {filas.map((f, j) => (
           <tr key={f[0]} className={j === filas.length - 1 ? 'rp-impact__total' : undefined}>
             <th scope="row">{f[0]}</th>
-            {f.slice(1).map((v, k) => (
-              <td key={k}>{v}</td>
-            ))}
+            {f.slice(1).map((v, k) =>
+              v && typeof v === 'object' ? (
+                // Con barra: qué parte del total es la fila.
+                <td key={k} className="rp-impact__con-barra">
+                  <span className="rp-impact__barra" style={{ '--parte': v.parte }} aria-hidden="true" />
+                  <span className="rp-impact__valor">{v.v}</span>
+                </td>
+              ) : (
+                <td key={k}>{v}</td>
+              ),
+            )}
           </tr>
         ))}
       </tbody>
@@ -77,12 +82,6 @@ const ImpactSection = () => {
     return {
       d: {
         campana: IMPACTO_CAMPANA,
-        pct: pct(PORCENTAJE_BRECHAS),
-        pctBajo: pct(RANGO_BRECHAS[0]),
-        pctAlto: pct(RANGO_BRECHAS[1]),
-        granoBajo: fmt(CIFRAS.granoRango[0]),
-        granoAlto: fmt(CIFRAS.granoRango[1]),
-        autos: fmt(AUTOS_EQUIVALENTES),
         historia: fmt(CIFRAS.historia),
         campanas: HISTORIA.campanas,
         desde: HISTORIA.desde,
@@ -375,7 +374,6 @@ const ImpactSection = () => {
                     </button>
                   </div>
                   <Tabla columnas={tabla.columnas} filas={filas[id]} />
-                  <p className="rp-impact__nota">{tabla.nota(d)}</p>
                 </div>
               );
             })}

@@ -36,12 +36,13 @@ export const RANGO_BRECHAS = [0.1, 0.25];
 //   · queda estable: 16,3 % de lo que vuelve al suelo (promedio de los otros
 //     tres cultivos)
 // `hectareas`: superficie 2025/26; `rindeKgHa`: promedio de los rindes
-// cosechados registrados, ponderado por superficie.
+// cosechados registrados, ponderado por superficie; `analisis`: ambientes
+// con análisis de suelo (ver ANALISIS_SUELO).
 export const CULTIVOS_IMPACTO = [
-  { id: 'maiz', hectareas: 43524, rindeKgHa: 9052, co2: { fijado: 3.442, suelo: 2.031, estable: 0.3463 } },
-  { id: 'soja', hectareas: 32837, rindeKgHa: 3629, co2: { fijado: 4.246, suelo: 2.819, estable: 0.4348 } },
-  { id: 'trigo', hectareas: 16859, rindeKgHa: 4762, co2: { fijado: 4.19, suelo: 2.77, estable: 0.4783 } },
-  { id: 'girasol', hectareas: 7956, rindeKgHa: 2230, co2: { fijado: 5.34, suelo: 3.871, estable: 0.6311 } },
+  { id: 'maiz', hectareas: 43524, rindeKgHa: 9052, analisis: 1155, co2: { fijado: 3.442, suelo: 2.031, estable: 0.3463 } },
+  { id: 'soja', hectareas: 32837, rindeKgHa: 3629, analisis: 388, co2: { fijado: 4.246, suelo: 2.819, estable: 0.4348 } },
+  { id: 'trigo', hectareas: 16859, rindeKgHa: 4762, analisis: 515, co2: { fijado: 4.19, suelo: 2.77, estable: 0.4783 } },
+  { id: 'girasol', hectareas: 7956, rindeKgHa: 2230, analisis: 193, co2: { fijado: 5.34, suelo: 3.871, estable: 0.6311 } },
 ];
 
 export const HA_OTROS_CULTIVOS = 10143;
@@ -49,8 +50,9 @@ export const HA_OTROS_CULTIVOS = 10143;
 export const HA_SIN_CULTIVO = 38620;
 
 // Ambientes de 2025/26 con al menos un valor de análisis de suelo (fósforo,
-// materia orgánica, pH y demás) que la plataforma interpreta.
-export const ANALISIS_SUELO = 2404;
+// materia orgánica, pH y demás) que la plataforma interpreta: los de cada
+// cultivo (CULTIVOS_IMPACTO) más los de otros cultivos. Suman 2.404.
+export const ANALISIS_OTROS_CULTIVOS = 153;
 
 // Superficie con datos productivos acumulada, 2005/06 a 2025/26 (la campaña
 // en curso, 2026/27, no se cuenta). Un lote con datos en 10 campañas cuenta
@@ -78,6 +80,7 @@ const granoExtraT = (c, pct = PORCENTAJE_BRECHAS) => (c.hectareas * c.rindeKgHa 
 
 export const HA_CULTIVOS = suma((c) => c.hectareas); // 101.176
 export const HA_TOTAL = HA_CULTIVOS + HA_OTROS_CULTIVOS; // 111.319
+export const ANALISIS_SUELO = suma((c) => c.analisis) + ANALISIS_OTROS_CULTIVOS; // 2.404
 export const GRANO_T = suma((c) => granoExtraT(c)); // 91.675
 export const GRANO_RANGO_T = RANGO_BRECHAS.map((p) => suma((c) => granoExtraT(c, p))); // 61.117 y 152.792
 export const CO2_FIJADO = suma((c) => granoExtraT(c) * c.co2.fijado); // 343.977
@@ -127,33 +130,56 @@ export const formateadorPct = (locale) => {
 };
 
 /**
- * Filas de las tablas (la última es el total), ya formateadas.
+ * Filas de las tablas (la última es el total), ya formateadas. Una celda
+ * puede ser `{ v, parte }`: el texto y qué parte del total es (0 a 1), que
+ * la tabla dibuja como una barra.
  * @param {(n: number) => string} fmt
  * @param {(n: number) => string} pct
  * @param {Record<string, string>} nombres nombre de cada cultivo por id (y `otros`)
  * @param {string} total
  */
 export const filasImpacto = (fmt, pct, nombres, total) => ({
+  hectareas: [
+    ...CULTIVOS_IMPACTO.map((c) => [
+      nombres[c.id],
+      { v: fmt(c.hectareas), parte: c.hectareas / HA_TOTAL },
+      pct(c.hectareas / HA_TOTAL),
+      fmt(c.rindeKgHa),
+    ]),
+    [nombres.otros, { v: fmt(HA_OTROS_CULTIVOS), parte: HA_OTROS_CULTIVOS / HA_TOTAL }, pct(HA_OTROS_CULTIVOS / HA_TOTAL), '—'],
+    [total, fmt(HA_TOTAL), '', ''],
+  ],
   grano: [
     ...CULTIVOS_IMPACTO.map((c) => [
       nombres[c.id],
-      fmt(c.hectareas),
-      fmt(c.rindeKgHa),
       fmt(redondearPar(c.rindeKgHa * PORCENTAJE_BRECHAS)),
-      `${fmt(granoExtraT(c))} t`,
+      { v: `${fmt(granoExtraT(c))} t`, parte: granoExtraT(c) / GRANO_T },
     ]),
-    [total, fmt(HA_CULTIVOS), '', '', `${fmt(GRANO_T)} t`],
+    [total, '', `${fmt(GRANO_T)} t`],
   ],
   carbono: [
     ...CULTIVOS_IMPACTO.map((c) => {
       const t = granoExtraT(c);
-      return [nombres[c.id], fmt(t * c.co2.fijado), fmt(t * c.co2.suelo), fmt(t * c.co2.estable)];
+      return [
+        nombres[c.id],
+        fmt(t * c.co2.fijado),
+        fmt(t * c.co2.suelo),
+        { v: fmt(t * c.co2.estable), parte: (t * c.co2.estable) / CO2_ESTABLE },
+      ];
     }),
     [total, `~${fmt(CIFRAS.co2Fijado)}`, `~${fmt(CIFRAS.co2Suelo)}`, fmt(CO2_ESTABLE)],
   ],
-  hectareas: [
-    ...CULTIVOS_IMPACTO.map((c) => [nombres[c.id], fmt(c.hectareas), pct(c.hectareas / HA_TOTAL)]),
-    [nombres.otros, fmt(HA_OTROS_CULTIVOS), pct(HA_OTROS_CULTIVOS / HA_TOTAL)],
-    [total, fmt(HA_TOTAL), ''],
+  suelo: [
+    ...CULTIVOS_IMPACTO.map((c) => [
+      nombres[c.id],
+      { v: fmt(c.analisis), parte: c.analisis / ANALISIS_SUELO },
+      pct(c.analisis / ANALISIS_SUELO),
+    ]),
+    [
+      nombres.otros,
+      { v: fmt(ANALISIS_OTROS_CULTIVOS), parte: ANALISIS_OTROS_CULTIVOS / ANALISIS_SUELO },
+      pct(ANALISIS_OTROS_CULTIVOS / ANALISIS_SUELO),
+    ],
+    [total, fmt(ANALISIS_SUELO), ''],
   ],
 });

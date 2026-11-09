@@ -1,4 +1,12 @@
 import { LuShare } from 'react-icons/lu';
+import { APP_URL } from '../../data/links';
+
+// Enlace a la plataforma en los pasos de instalación: se toca y se abre.
+const APP = (
+  <a className="rp-install__link" href={APP_URL}>
+    cloud.rindeplus.com
+  </a>
+);
 
 // Português do Brasil. Mesma estrutura e mesmas afirmações de es.jsx: só o
 // que a plataforma faz hoje. 'Lote' → talhão, 'ambiente' → ambiente de
@@ -82,17 +90,21 @@ const pt = {
     cultivos: { maiz: 'Milho', soja: 'Soja', trigo: 'Trigo', girasol: 'Girassol', otros: 'Outras culturas' },
     total: 'Total',
     tablas: {
+      hectareas: {
+        titulo: (d) => `Hectares por cultura, safra ${d.campana}`,
+        columnas: ['Cultura', 'Hectares', 'Parcela', 'Produtividade média (kg/ha)'],
+      },
       grano: {
         titulo: (d) => `Grão extra por cultura, safra ${d.campana}`,
-        columnas: ['Cultura', 'Hectares', 'Produtividade média (kg/ha)', 'kg/ha extra', 'Total'],
-        nota: (d) =>
-          `${d.pct} da produtividade de cada cultura, dentro da faixa de ${d.pctBajo} a ${d.pctAlto} que a Rinde Plus estima que o manejo de lacunas aporta. Com ${d.pctBajo} seriam cerca de ${d.granoBajo} t; com ${d.pctAlto}, cerca de ${d.granoAlto} t.`,
+        columnas: ['Cultura', 'kg/ha extra', 'Grão extra'],
       },
       carbono: {
         titulo: (d) => `Carbono extra por cultura (t CO₂), safra ${d.campana}`,
         columnas: ['Cultura', 'Fixado', 'Volta ao solo', 'Fica estável'],
-        nota: (d) =>
-          `É o carbono extra do grão extra. O grão é colhido e seu carbono volta à atmosfera; o que fica é o da palhada e das raízes, e as raízes aportam a parte mais estável. Equivale a neutralizar as emissões de cerca de ${d.autos} carros por ano.`,
+      },
+      suelo: {
+        titulo: (d) => `Análises de solo por cultura, safra ${d.campana}`,
+        columnas: ['Cultura', 'Análises', 'Parcela'],
       },
     },
     pie: {
@@ -220,32 +232,23 @@ const pt = {
   install: {
     titleA: 'A Rinde Plus no celular,',
     titleB: 'como um app',
-    subtitle: 'Instale pelo navegador em três passos, sem passar por nenhuma loja.',
+    subtitle: 'Instale pelo navegador em quatro passos, sem passar por nenhuma loja.',
     ios: {
       name: 'iPhone',
       steps: [
-        <>Abrir <strong>cloud.rindeplus.com</strong> no <strong>Safari</strong>.</>,
-        (
-          <>
-            Tocar em <strong>Compartilhar</strong>{' '}
-            <LuShare className="rp-install__inline-icon" aria-hidden="true" />{' '}
-            (o quadrado com a seta).
-          </>
-        ),
-        <>Escolher <strong>Adicionar à Tela de Início</strong> e confirmar.</>,
+        <>Abrir {APP} no <strong>Safari</strong>.</>,
+        <>Tocar em <strong>Compartilhar</strong> <LuShare className="rp-install__inline-icon" aria-hidden="true" />, na barra de baixo.</>,
+        <>Escolher <strong>Adicionar à Tela de Início</strong>.</>,
+        <>Tocar em <strong>Adicionar</strong> para confirmar.</>,
       ],
     },
     android: {
       name: 'Android',
       steps: [
-        <>Abrir <strong>cloud.rindeplus.com</strong> no <strong>Chrome</strong>.</>,
-        <>Tocar no menu <strong>⋮</strong> (no canto superior direito).</>,
-        (
-          <>
-            Escolher <strong>Instalar app</strong> (ou <strong>Adicionar à tela
-            inicial</strong>) e confirmar.
-          </>
-        ),
+        <>Abrir {APP} no <strong>Chrome</strong>.</>,
+        <>Tocar no menu <strong>⋮</strong> no canto superior direito.</>,
+        <>Escolher <strong>Instalar app</strong> ou <strong>Adicionar à tela inicial</strong>.</>,
+        <>Tocar em <strong>Instalar</strong> para confirmar.</>,
       ],
     },
   },

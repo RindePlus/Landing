@@ -1,4 +1,12 @@
 import { LuShare } from 'react-icons/lu';
+import { APP_URL } from '../../data/links';
+
+// Enlace a la plataforma en los pasos de instalación: se toca y se abre.
+const APP = (
+  <a className="rp-install__link" href={APP_URL}>
+    cloud.rindeplus.com
+  </a>
+);
 
 // US English. Same structure and claims as es.jsx: only what the platform
 // does today. 'Lote' → field, 'ambiente' → management zone, 'campaña' →
@@ -82,17 +90,21 @@ const en = {
     cultivos: { maiz: 'Corn', soja: 'Soybean', trigo: 'Wheat', girasol: 'Sunflower', otros: 'Other crops' },
     total: 'Total',
     tablas: {
+      hectareas: {
+        titulo: (d) => `Hectares by crop, ${d.campana} season`,
+        columnas: ['Crop', 'Hectares', 'Share', 'Average yield (kg/ha)'],
+      },
       grano: {
         titulo: (d) => `Extra grain by crop, ${d.campana} season`,
-        columnas: ['Crop', 'Hectares', 'Average yield (kg/ha)', 'Extra kg/ha', 'Total'],
-        nota: (d) =>
-          `${d.pct} of each crop’s yield, within the ${d.pctBajo} to ${d.pctAlto} range Rinde Plus estimates comes from yield gap management. At ${d.pctBajo} it would be about ${d.granoBajo} t; at ${d.pctAlto}, about ${d.granoAlto} t.`,
+        columnas: ['Crop', 'Extra kg/ha', 'Extra grain'],
       },
       carbono: {
         titulo: (d) => `Extra carbon by crop (t CO₂), ${d.campana} season`,
         columnas: ['Crop', 'Fixed', 'Returns to soil', 'Stays stable'],
-        nota: (d) =>
-          `This is the extra carbon from the extra grain. Grain is harvested and its carbon returns to the atmosphere; what stays is the carbon in stubble and roots, and roots contribute the most stable part. It is equivalent to offsetting the emissions of about ${d.autos} cars a year.`,
+      },
+      suelo: {
+        titulo: (d) => `Soil tests by crop, ${d.campana} season`,
+        columnas: ['Crop', 'Soil tests', 'Share'],
       },
     },
     pie: {
@@ -220,32 +232,23 @@ const en = {
   install: {
     titleA: 'Rinde Plus on your phone,',
     titleB: 'just like an app',
-    subtitle: 'Install it from the browser in three steps, no app store needed.',
+    subtitle: 'Install it from the browser in four steps, no app store needed.',
     ios: {
       name: 'iPhone',
       steps: [
-        <>Open <strong>cloud.rindeplus.com</strong> in <strong>Safari</strong>.</>,
-        (
-          <>
-            Tap <strong>Share</strong>{' '}
-            <LuShare className="rp-install__inline-icon" aria-hidden="true" />{' '}
-            (the square with the arrow).
-          </>
-        ),
-        <>Choose <strong>Add to Home Screen</strong> and confirm.</>,
+        <>Open {APP} in <strong>Safari</strong>.</>,
+        <>Tap <strong>Share</strong> <LuShare className="rp-install__inline-icon" aria-hidden="true" /> in the bottom bar.</>,
+        <>Choose <strong>Add to Home Screen</strong>.</>,
+        <>Tap <strong>Add</strong> to confirm.</>,
       ],
     },
     android: {
       name: 'Android',
       steps: [
-        <>Open <strong>cloud.rindeplus.com</strong> in <strong>Chrome</strong>.</>,
-        <>Tap the <strong>⋮</strong> menu (top right).</>,
-        (
-          <>
-            Choose <strong>Install app</strong> (or <strong>Add to Home
-            screen</strong>) and confirm.
-          </>
-        ),
+        <>Open {APP} in <strong>Chrome</strong>.</>,
+        <>Tap the <strong>⋮</strong> menu at the top right.</>,
+        <>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</>,
+        <>Tap <strong>Install</strong> to confirm.</>,
       ],
     },
   },

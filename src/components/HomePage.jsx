@@ -254,7 +254,9 @@ const InstallAppSection = () => {
                 <ol className="rp-install__steps">
                   {t[id].steps.map((step, n) => (
                     <li key={n}>
-                      <span className="rp-install__num">{n + 1}</span>
+                      {/* El orden ya lo da la lista (<ol>): en pantalla, un
+                          punto al final de la rama que baja del ícono. */}
+                      <span className="rp-install__punto" aria-hidden="true" />
                       <div className="rp-install__step-text">{step}</div>
                     </li>
                   ))}

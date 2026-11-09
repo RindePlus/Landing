@@ -1,3 +1,7 @@
 // Única puerta de ingreso a la plataforma. El login es el mismo para todas
 // las organizaciones: la organización sale del usuario, no de la URL.
 export const LOGIN_URL = 'https://cloud.rindeplus.com/login';
+
+// La plataforma, para abrirla desde el celular e instalarla (pasos de
+// «Rinde Plus en el celular»).
+export const APP_URL = 'https://cloud.rindeplus.com';

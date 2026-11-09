@@ -1,6 +1,6 @@
 /* ============================================================
-   Impacto — cuatro indicadores grandes y centrados, sin caja. Grano y
-   carbono abren su tabla en un panel debajo (de a uno), con una flecha al
+   Impacto — cuatro indicadores grandes y centrados, sin caja. Cada uno
+   abre su tabla en un panel debajo (de a uno), con una flecha al
    indicador de origen; al cambiar de tabla el contenido se desliza como un
    carrusel.
    Diseño portado de la landing de VigIA, con los tokens --gh-* de la home.
@@ -26,6 +26,10 @@
      tonos claros, que se leen sobre el azul. */
   --imp-grano: #a8d08b;
   --imp-carbono: #dfb690;
+  /* Hectáreas: un celeste, el del mapa de lotes. */
+  --imp-hectareas: #9fbdf2;
+  /* Análisis de suelo: un turquesa claro, distinto del tierra del carbono. */
+  --imp-suelo: #8fd6cb;
   --imp-dur: 0.45s;
   /* El despliegue del panel, más lento que el resto: al mismo ritmo que el
      título que se pliega, para que no sea brusco. */
@@ -208,7 +212,9 @@
 
 /* Los que abren tabla: sin fondo; al pasar o activos, el número toma el
    color de su dato (grano verde, carbono turquesa). */
+.rp-impact__ind--hectareas { --tono: var(--imp-hectareas); }
 .rp-impact__ind--grano { --tono: var(--imp-grano); }
+.rp-impact__ind--suelo { --tono: var(--imp-suelo); }
 .rp-impact__ind--carbono { --tono: var(--imp-carbono); }
 
 .rp-impact__ind--boton { cursor: pointer; }
@@ -268,7 +274,9 @@
     opacity var(--imp-despliegue) var(--ease-fluid);
 }
 
+.rp-impact__panel[data-tono='hectareas'] { --tono: var(--imp-hectareas); }
 .rp-impact__panel[data-tono='carbono'] { --tono: var(--imp-carbono); }
+.rp-impact__panel[data-tono='suelo'] { --tono: var(--imp-suelo); }
 
 .rp-impact__panel.is-open {
   grid-template-rows: 1fr;
@@ -285,7 +293,9 @@
 
 .rp-impact__panel.is-open .rp-impact__panel-inner { overflow: visible; }
 
-/* Flecha: un rombo en el borde de arriba del panel, bajo el indicador. */
+/* Flecha: la punta de un globo de diálogo bajo el indicador. Un cuadrado
+   girado del fondo del panel y con su mismo borde fino; la mitad de abajo
+   tapa el borde del panel, así la punta sale de la caja sin cortes. */
 .rp-impact__flecha {
   position: absolute;
   top: 3px;
@@ -293,11 +303,12 @@
   z-index: 1;
   width: 16px;
   height: 16px;
-  border-top: 2px solid var(--tono);
-  border-left: 2px solid var(--tono);
+  border-top: 1px solid var(--gh-border);
+  border-left: 1px solid var(--gh-border);
+  border-top-left-radius: 3px;
   background: var(--gh-surface);
   transform: translateX(-50%) rotate(45deg);
-  transition: left var(--imp-dur) var(--imp-ease), border-color var(--imp-dur) var(--imp-ease);
+  transition: left var(--imp-dur) var(--imp-ease);
 }
 
 /* El recuadro queda fijo; adentro las tablas comparten la celda como un
@@ -305,13 +316,11 @@
 .rp-impact__items {
   display: grid;
   overflow: hidden;
-  padding: 28px;
+  padding: clamp(24px, 3vw, 36px) clamp(24px, 3.4vw, 40px);
   border: 1px solid var(--gh-border);
-  border-top: 2px solid var(--tono);
   border-radius: var(--gh-radius-card, 10px);
   background: var(--gh-surface);
   box-shadow: var(--gh-shadow-card);
-  transition: border-top-color var(--imp-dur) var(--imp-ease);
 }
 
 .rp-impact__item {
@@ -335,7 +344,9 @@
 .rp-impact__panel.is-instant .rp-impact__flecha { transition: none; }
 
 /* Cada tabla con su color: no cambia mientras sale. */
+.rp-impact__item--hectareas { --tono: var(--imp-hectareas); }
 .rp-impact__item--grano { --tono: var(--imp-grano); }
+.rp-impact__item--suelo { --tono: var(--imp-suelo); }
 .rp-impact__item--carbono { --tono: var(--imp-carbono); }
 
 .rp-impact__item-head {
@@ -343,14 +354,15 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .rp-impact__item-head h3 {
   margin: 0;
   color: var(--tono);
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
   line-height: 1.35;
   font-weight: 600;
 }
@@ -371,14 +383,6 @@
 .rp-impact__cerrar:hover { background: var(--gh-surface-2); color: var(--gh-fg); }
 .rp-impact__cerrar:focus-visible { outline: 2px solid var(--gh-accent); outline-offset: 1px; }
 
-.rp-impact__nota {
-  margin: 16px 0 0;
-  color: var(--gh-fg-muted);
-  font-size: 0.88rem;
-  line-height: 1.55;
-  text-wrap: pretty;
-}
-
 /* ---- Tabla por cultivo (panel) ---- */
 .rp-impact__tabla {
   min-width: 0;
@@ -395,7 +399,7 @@
 
 .rp-impact__tabla th,
 .rp-impact__tabla td {
-  padding: 9px 10px;
+  padding: 11px 12px;
   border-bottom: 1px solid var(--gh-border-muted);
   text-align: right;
   white-space: nowrap;
@@ -406,8 +410,11 @@
 .rp-impact__tabla td:last-child { padding-right: 0; }
 
 .rp-impact__tabla thead th {
+  padding-top: 0;
+  border-bottom-color: var(--gh-border);
   color: var(--gh-fg-subtle);
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .rp-impact__tabla tbody th { color: var(--gh-fg); font-weight: 600; }
@@ -415,9 +422,34 @@
 
 .rp-impact__total th,
 .rp-impact__total td {
+  border-top: 1px solid var(--gh-border);
   border-bottom: 0;
   color: var(--gh-fg);
   font-weight: 700;
+}
+
+/* Barra de la parte del total: una pista fija y, adentro, la parte de la
+   fila en el color de la tabla. Va a la izquierda del número, así las
+   barras arrancan todas en el mismo lugar y se comparan de un vistazo. */
+.rp-impact__barra {
+  display: inline-block;
+  width: clamp(56px, 10vw, 140px);
+  height: 6px;
+  margin-right: 14px;
+  vertical-align: middle;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--tono), var(--tono)) left / calc(var(--parte) * 100%) 100% no-repeat,
+    var(--gh-border-muted);
+}
+
+.rp-impact__con-barra { color: var(--gh-fg); }
+
+/* El número al lado de la barra, de ancho fijo: las barras arrancan y
+   terminan en la misma columna aunque los números tengan largos distintos. */
+.rp-impact__valor {
+  display: inline-block;
+  min-width: 7.5ch;
 }
 
 .rp-impact__item .rp-impact__total td:last-child { color: var(--tono); }
@@ -454,9 +486,6 @@
 /* ---- Responsive ---- */
 @media (max-width: 860px) {
   .rp-impact__inds { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
-  /* En 2x2, los que abren tabla van en la fila de abajo: la tabla entra
-     justo debajo de ellos y no queda separada por la otra fila. */
-  .rp-impact__cell--tabla { order: 1; }
 }
 
 @media (max-width: 480px) {
@@ -468,6 +497,7 @@
   .rp-impact__tabla table { font-size: 0.8rem; }
   .rp-impact__tabla th,
   .rp-impact__tabla td { padding: 8px 5px; }
+  .rp-impact__barra { display: none; }
   .rp-impact__tabla thead th { white-space: normal; vertical-align: bottom; line-height: 1.25; }
   .rp-impact__pista { white-space: normal; width: 100%; text-align: center; }
 }

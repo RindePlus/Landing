@@ -963,7 +963,8 @@
   background: var(--rp-vidrio);
   backdrop-filter: blur(12px);
   padding: clamp(28px, 3.2vw, 44px);
-  /* per-platform accent used by the icon box and step numbers */
+  /* Color de la plataforma: el ícono, el árbol de pasos y el subrayado del
+     enlace. */
   --install-accent: var(--gh-accent);
 }
 
@@ -978,14 +979,16 @@
   margin-bottom: 28px;
 }
 
-/* Bare icon in the platform's accent color — no chip behind it,
-   same language as the footer contact icons */
+/* Ícono de la plataforma en el tono de las ramas de abajo, un poco más
+   firme: combina con el árbol que baja de él. */
 .rp-install__icon {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--install-accent);
+  /* Ancho fijo: el árbol de pasos baja desde su centro (--tronco). */
+  width: 32px;
+  color: color-mix(in srgb, var(--install-accent) 70%, var(--gh-canvas));
   font-size: 32px;
 }
 
@@ -999,59 +1002,84 @@
 }
 
 .rp-install__steps {
+  /* Árbol de pasos: una línea baja desde el centro del ícono y, en cada
+     paso, se abre con una curva hacia la derecha hasta un punto. Todo
+     medido desde el renglón del texto (--centro: mitad del primero). */
+  --tronco: 16px; /* centro del ícono */
+  --punto: 40px; /* centro del punto */
+  --curva: 12px;
+  --gap: 22px;
+  /* Opaco: donde el tronco y la curva se pisan no se oscurece. */
+  --linea: color-mix(in srgb, var(--install-accent) 45%, var(--gh-canvas));
+  --centro: 0.75em;
+  position: relative;
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  row-gap: 24px;
-  /* Tamaño del número: el riel que los une se centra con él. */
-  --install-num: 30px;
+  row-gap: var(--gap);
+  font-size: clamp(0.95rem, 1vw, 1.05rem);
+  line-height: 1.5;
 }
 
-/* Pasos en una escala mayor: llenan la tarjeta en vez de quedar en un
-   costado. */
-.rp-install__steps li {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-/* connecting rail between the numbered dots (like the home timeline) */
-.rp-install__steps li:not(:last-child)::before {
+/* Del ícono hasta donde arranca la curva del primer paso. */
+.rp-install__steps::before {
   content: '';
   position: absolute;
-  left: calc(var(--install-num) / 2 - 1px);
-  top: var(--install-num);
+  left: calc(var(--tronco) - 1px);
+  top: -18px;
+  height: calc(18px + var(--centro) - var(--curva) + 2px);
   width: 2px;
-  /* hasta el número siguiente, pasando el espacio entre pasos */
-  height: calc(100% - var(--install-num) + 24px);
-  background: var(--gh-border);
+  background: var(--linea);
 }
 
-.rp-install__num {
+.rp-install__steps li {
   position: relative;
-  z-index: 1;
-  flex-shrink: 0;
-  width: var(--install-num);
-  height: var(--install-num);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding-left: calc(var(--punto) + 18px);
+}
+
+/* La rama: baja y dobla hacia el punto. */
+.rp-install__steps li::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--tronco) - 1px);
+  top: calc(var(--centro) - var(--curva) + 1px);
+  width: calc(var(--punto) - var(--tronco));
+  height: var(--curva);
+  border-left: 2px solid var(--linea);
+  border-bottom: 2px solid var(--linea);
+  border-bottom-left-radius: var(--curva);
+}
+
+/* El tronco sigue hasta la curva del paso siguiente (pasa el espacio
+   entre pasos y el medio renglón de arriba del siguiente). */
+.rp-install__steps li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--tronco) - 1px);
+  top: calc(var(--centro) - var(--curva));
+  /* 2px de más: se pisa con el arranque de la curva siguiente, sin
+     dejar un corte entre los dos. */
+  bottom: calc(-1 * (var(--gap) + var(--centro) - var(--curva) + 2px));
+  width: 2px;
+  background: var(--linea);
+}
+
+.rp-install__punto {
+  position: absolute;
+  /* Chico y del color de la línea: el final de la rama. */
+  left: calc(var(--punto) - 3.5px);
+  top: calc(var(--centro) - 3.5px);
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--install-accent);
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
+  background: var(--linea);
 }
 
 .rp-install__step-text {
   font-size: clamp(0.95rem, 1vw, 1.05rem);
   color: var(--gh-fg-muted);
   line-height: 1.5;
-  /* Primer renglón centrado con el número. */
-  padding-top: calc((var(--install-num) - 1.5em) / 2);
 }
 
 .rp-install__step-text strong {
@@ -1063,7 +1091,27 @@
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;
-  color: var(--gh-accent);
+  color: var(--gh-fg);
+}
+
+/* cloud.rindeplus.com: se toca y abre la plataforma. Subrayado fino en el
+   color de la plataforma, más marcado al pasar. */
+.rp-install__link {
+  color: var(--gh-fg);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--install-accent) 55%, transparent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--dur-fast) var(--ease-fluid);
+}
+
+.rp-install__link:hover { text-decoration-color: var(--install-accent); }
+
+.rp-install__link:focus-visible {
+  outline: 2px solid var(--install-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* ============================================================
