@@ -8,6 +8,7 @@ import {
   LuArrowRight,
   LuArrowLeft,
 } from 'react-icons/lu';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
 import './Functionalities.css';
@@ -190,9 +191,6 @@ const COUNT = FUNCTIONALITIES.length;
 // marca la barra del botón activo: al terminar su animación pasa al
 // siguiente (animationend), así barra y cambio nunca se desfasan.
 const AUTO_MS = 30000;
-// Si la persona eligió un momento, el avance automático se frena; vuelve
-// después de este tiempo sin que toque otro botón de la sección.
-const REANUDAR_MS = 60000;
 
 const num = (i) => String(i + 1).padStart(2, '0');
 
@@ -271,8 +269,9 @@ const FunctionalityPanel = ({ item, index, activo, onSiguiente }) => {
 };
 
 /* ── Section: línea de tiempo de los momentos arriba, la tarjeta debajo
-   (en celular, carrusel). Avanza solo mientras la sección está en pantalla; si la persona
-   elige un momento, se frena y vuelve tras REANUDAR_MS sin otro toque. ── */
+   (en celular, carrusel). Avanza solo mientras la sección está en pantalla,
+   como «Por qué Rinde Plus»: elegir un momento no lo frena, la barra
+   arranca de nuevo desde ese momento. ── */
 
 const Functionalities = () => {
   const t = useI18n().dict.fx;
@@ -284,14 +283,10 @@ const Functionalities = () => {
   // Ya se vio una vez: recién ahí se dibuja el gráfico del primer momento.
   const [visto, setVisto] = useState(false);
   const cajaRef = useRef(null);
-  const reducido = useRef(false);
-  const reanudar = useRef(0);
 
   // Sin avance automático con reduced-motion.
   useEffect(() => {
-    reducido.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducido.current) setAuto(false);
-    return () => window.clearTimeout(reanudar.current);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setAuto(false);
   }, []);
 
   // La barra sólo corre con la sección en pantalla.
@@ -307,9 +302,6 @@ const Functionalities = () => {
   }, []);
 
   const elegir = (i, foco = false) => {
-    setAuto(false);
-    window.clearTimeout(reanudar.current);
-    if (!reducido.current) reanudar.current = window.setTimeout(() => setAuto(true), REANUDAR_MS);
     setActive(i);
     if (foco) tabsRef.current[i]?.focus();
   };
@@ -327,8 +319,8 @@ const Functionalities = () => {
   };
 
   // Celular: los paneles son un carrusel con scroll nativo. Al quedar
-  // quieto, la tarjeta que quedó pasa a ser el momento activo (y frena el
-  // avance automático, como elegir un botón). Sin scrollend, que Safari
+  // quieto, la tarjeta que quedó pasa a ser el momento activo (la barra
+  // arranca de nuevo, como al elegir un botón). Sin scrollend, que Safari
   // no tiene en todas las versiones: se espera a que el scroll pare.
   const carruselRef = useRef(null);
   const quieto = useRef(0);
@@ -409,6 +401,26 @@ const Functionalities = () => {
           })}
         </div>
 
+        {/* La tarjeta y, en escritorio, un chevron a cada lado para pasar
+            de momento, como en «Por qué Rinde Plus» (en celular, las
+            flechas van dentro de cada tarjeta). */}
+        <div className="rp-fx__escenario">
+        <button
+          type="button"
+          className="rp-fx__lado rp-fx__lado--ant"
+          aria-label={`${t.anterior}: ${t.panels[FUNCTIONALITIES[(active - 1 + COUNT) % COUNT].id].tag}`}
+          onClick={() => elegir((active - 1 + COUNT) % COUNT)}
+        >
+          <FaChevronLeft aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="rp-fx__lado rp-fx__lado--sig"
+          aria-label={`${active === COUNT - 1 ? t.volverInicio : t.siguiente}: ${t.panels[FUNCTIONALITIES[(active + 1) % COUNT].id].tag}`}
+          onClick={() => elegir((active + 1) % COUNT)}
+        >
+          <FaChevronRight aria-hidden="true" />
+        </button>
         {/* Los cinco paneles en la misma celda: la caja toma el alto del más
             largo y al cambiar de momento no salta nada. En celular, en fila
             como carrusel. */}
@@ -423,6 +435,7 @@ const Functionalities = () => {
           {FUNCTIONALITIES.map((it, i) => (
             <FunctionalityPanel key={it.id} item={it} index={i} activo={i === active} onSiguiente={elegir} />
           ))}
+        </div>
         </div>
       </div>
     </section>

@@ -97,7 +97,9 @@
   --gh-detail-yellow-strong: #8a5300; /* alerta, umbral */
   --gh-danger: #b3261e;             /* pérdida */
   --gh-radius: 6px;
-  --gh-radius-btn: 8px;
+  /* Botones: el mismo radio que en la Plataforma (--v2-radius-ctl). Un
+     control anidado con padding va con este radio menos el padding. */
+  --gh-radius-btn: 10px;
   --gh-radius-card: 12px;
   --gh-shadow-sm: 0 1px 0 rgba(22, 27, 36, 0.04);
   --gh-shadow-card: 0 1px 3px rgba(22, 27, 36, 0.1), 0 1px 2px rgba(22, 27, 36, 0.05);
@@ -107,17 +109,21 @@
      Marca Rinde Plus
      ============================================================ */
   /* Azul marino: el lugar del verde bosque de VigIA (footer, bandas). */
-  --rp-marino: #0f2747;
-  --rp-marino-bg: #0f2747;
+  /* Títulos: azul marino en el tono del logo (#1f61e5, 222°), muy oscuro.
+     Bandas (Impacto, «Hablemos de tus lotes», footer): el mismo tono,
+     profundo. El azul vivo del logo queda para los acentos (botones,
+     enlaces); en superficies grandes domina la página. */
+  --rp-marino: #0c2154;
+  --rp-marino-bg: #14398f;
   /* Los dos colores del logo. El amarillo no pasa como texto sobre el
      fondo claro: va en trazos, puntos y sobre el marino. */
   --rp-azul: #1a62e2;
   --rp-amarillo: #f2cd00;
-  /* Textos y líneas sobre la banda marino, en los dos temas. Secundarios
-     teñidos de azul, no grises neutros. Todos pasan AA. */
-  --rp-on-marino-fg: #ece8df;
-  --rp-on-marino-muted: #b8c6e0;
-  --rp-on-marino-subtle: #9fb1d3;
+  /* Textos y líneas sobre las bandas, en los dos temas: blancos que pasan
+     AA (4.5:1) sobre el azul de la banda. */
+  --rp-on-marino-fg: #ffffff;
+  --rp-on-marino-muted: rgb(255 255 255 / 0.85);
+  --rp-on-marino-subtle: rgb(255 255 255 / 0.8);
   --rp-on-marino-accent: var(--rp-amarillo);
   --rp-on-marino-line: rgba(236, 232, 223, 0.18);
   --rp-on-marino-line-strong: rgba(236, 232, 223, 0.34);
@@ -169,6 +175,10 @@
      «Hablemos de tus lotes»): todas del mismo ancho, bordes alineados. En
      rem: crece con el font-size del html, como las columnas de texto. */
   --ancho-tarjetas: 70rem;
+  /* Alto de las secciones a todo el ancho (Impacto, «Por qué Rinde Plus»,
+     «Hablemos de tus lotes» y la de instalar la app): todas iguales; si el
+     contenido no entra, crecen. Con tope (ADR-001): en monitores altos no se estiran. */
+  --alto-banda: min(86svh, 680px);
   /* Lo que va en px y acompaña al texto (logo e íconos del header). */
   --header-logo: 46px;
   --header-btn: 34px;
@@ -210,10 +220,10 @@
   --gh-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.5);
   --gh-shadow-overlay: 0 8px 24px rgba(0, 0, 0, 0.7);
 
-  /* En oscuro el marino como texto pasa a blanco cálido; como fondo,
-     un azul muy oscuro. */
+  /* En oscuro el marino como texto pasa a blanco cálido; como fondo, el
+     azul del logo apagado: se separa del negro de la página sin encandilar. */
   --rp-marino: #ece8df;
-  --rp-marino-bg: #0f1a2e;
+  --rp-marino-bg: #1b3674;
   --rp-azul: #5890f0;
   --rp-agua: #6fbfbf;
   --rp-carbono: #d6a06c;

@@ -51,15 +51,13 @@ const pt = {
     mapAria: 'Talhão desenhado com seu mapa de vigor por ambiente, linhas de plantio e curvas de nível',
     // Notificações das cenas do talhão do hero (doc/ANIMACION_LOTE.md).
     avisos: {
-      marca: 'Rinde Plus',
-      ahora: 'agora',
-      planificar: 'Produtividade potencial por ambiente, pronta.',
-      preparar: 'Análise de solo interpretada.',
-      fertilizar: 'Dose de máxima eficiência econômica por ambiente.',
-      sequia: 'Irrigação necessária para atingir a produtividade-alvo.',
-      calor: 'Alerta de estresse térmico para os próximos dias.',
-      lluvia: 'Risco de doenças fúngicas depois da chuva.',
-      cerrar: 'Lacuna de produtividade por ambiente, calculada.',
+            planificar: { titulo: 'Planejamento', texto: 'Produtividade potencial por ambiente, pronta.' },
+      preparar: { titulo: 'Solo', texto: 'Análise de solo interpretada.' },
+      fertilizar: { titulo: 'Adubação', texto: 'Dose de máxima eficiência econômica por ambiente.' },
+      sequia: { titulo: 'Alerta hídrico', texto: 'Irrigação necessária para atingir a produtividade-alvo.' },
+      calor: { titulo: 'Alerta de calor', texto: 'Estresse térmico previsto para os próximos dias.' },
+      lluvia: { titulo: 'Alerta sanitário', texto: 'Risco de doenças fúngicas depois da chuva.' },
+      cerrar: { titulo: 'Fechamento da safra', texto: 'Lacuna de produtividade por ambiente, calculada.' },
     },
   },
 

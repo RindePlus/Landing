@@ -85,32 +85,13 @@
   text-align: left;
 }
 
-.rp-lote__aviso-cabecera {
-  display: flex;
-  align-items: center;
-  gap: var(--space-75);
+/* Título del aviso: de qué es (alerta hídrica, suelo…). */
+.rp-lote__aviso-titulo {
+  color: var(--gh-fg);
   font-size: var(--text-xs);
   line-height: var(--leading-xs);
-}
-
-/* Punto amarillo de la marca, como el ícono de una notificación. */
-.rp-lote__aviso-marca {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-50);
-  color: var(--gh-fg);
   font-weight: 600;
 }
-
-.rp-lote__aviso-marca::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--rp-amarillo);
-}
-
-.rp-lote__aviso-hora { color: var(--gh-fg-subtle); }
 
 .rp-lote__aviso-texto {
   color: var(--gh-fg);

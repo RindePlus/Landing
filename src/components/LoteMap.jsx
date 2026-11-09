@@ -295,17 +295,14 @@ const LoteMap = ({ aria, avisos }) => (
       <path className="rp-lote__outline" d={LOTE} pathLength="1" />
     </svg>
 
-    {/* Notificaciones de Rinde Plus: una por escena, ocultas hasta que su
-        escena las muestra. aria-hidden: son decorativas y cambian solas. */}
+    {/* Avisos: uno por escena, con un título que dice de qué es (alerta
+        hídrica, suelo…), ocultos hasta que su escena los muestra. aria-hidden: son decorativas y cambian solas. */}
     {avisos && (
       <div className="rp-lote__avisos" aria-hidden="true">
         {AVISOS.map((id) => (
           <div key={id} className={`rp-lote__aviso rp-lote__aviso--${id}`}>
-            <span className="rp-lote__aviso-cabecera">
-              <span className="rp-lote__aviso-marca">{avisos.marca}</span>
-              <span className="rp-lote__aviso-hora">{avisos.ahora}</span>
-            </span>
-            <span className="rp-lote__aviso-texto">{avisos[id]}</span>
+            <span className="rp-lote__aviso-titulo">{avisos[id].titulo}</span>
+            <span className="rp-lote__aviso-texto">{avisos[id].texto}</span>
           </div>
         ))}
       </div>

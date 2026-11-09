@@ -137,3 +137,11 @@ const Mosaico = ({ campo, idBase, className = '', preserveAspectRatio = 'xMidYMi
 export const CampoHero = () => (
   <Mosaico campo={CAMPO_HERO} idBase="rpCampoRows" className="rp-mosaic--hero" />
 );
+
+// Fondo de «Rinde Plus en el celular»: un campo más bajo y ancho, sin lote
+// resaltado (lo apaga hacia arriba el CSS de .rp-install__bg).
+const CAMPO_INSTALAR = buildLotes({ cols: 16, rows: 5, seed: 20261109 });
+
+export const CampoInstalar = () => (
+  <Mosaico campo={CAMPO_INSTALAR} idBase="rpCampoInstalar" />
+);

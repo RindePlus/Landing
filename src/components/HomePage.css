@@ -35,12 +35,10 @@
   .rp-home__hero { padding: 178px 40px 20px; min-height: 52vh; }
 }
 
-/* Escritorio: la primera pantalla es sólo el título y el lote, centrados
-   en el alto que queda bajo el header; el carrusel de clientes va debajo,
-   fuera de la vista al entrar (aparece al bajar un poco). Con tope
-   (ADR-001): en monitores altos el contenido no crece y el resto quedaría
-   vacío; ahí el carrusel caería en pantalla y por eso arranca invisible
-   (ver .rp-home__hero-clientes). Si el contenido no entra, crece. */
+/* Escritorio: el título y el lote, centrados en el alto que queda bajo
+   el header; el carrusel de clientes va debajo, a la vista desde el
+   inicio. Con tope (ADR-001): en monitores altos el contenido no crece.
+   Si el contenido no entra, crece. */
 @media (min-width: 1024px) {
   .rp-home__hero {
     /* Lugar para el header (fijo, encima). Un valor fijo y no
@@ -74,23 +72,6 @@
 
 @media (min-width: 1024px) {
   .rp-home__hero-clientes { margin-top: 0; padding-bottom: 56px; }
-}
-
-/* Al entrar, el carrusel no se ve (así la primera pantalla no se carga de
-   movimiento): aparece apenas se baja un poco. Su lugar queda reservado,
-   no mueve nada. Sólo con JS y movimiento permitido (rp-reveal-on, ver
-   BaseLayout); el script de HomeView pone .is-visible. */
-.rp-reveal-on .rp-home__hero-clientes {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.7s var(--ease-fluid),
-    transform 0.7s var(--ease-fluid);
-}
-
-.rp-reveal-on .rp-home__hero-clientes.is-visible {
-  opacity: 1;
-  transform: none;
 }
 
 .rp-home__hero-clientes .trusted-companies-section {
@@ -198,7 +179,7 @@
   justify-content: center;
   gap: 8px;
   padding: 11px 20px;
-  border-radius: var(--gh-radius-btn, 10px);
+  border-radius: var(--gh-radius-btn);
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 600;
@@ -303,30 +284,25 @@
    ============================================================ */
 .rp-home__cta {
   position: relative;
-  padding: 0 24px clamp(48px, 6vw, 72px);
+  /* Banda azul marino a todo el ancho, como la de Impacto (mismo azul):
+     cierra la página con el mismo peso. */
+  /* Del alto de las otras bandas (--alto-banda), con el llamado centrado. */
+  display: grid;
+  align-content: center;
+  min-height: var(--alto-banda);
+  padding: clamp(56px, 8vw, 104px) 24px;
+  background: var(--rp-marino-bg);
+  color: #ffffff;
 }
 
-/* Sin padding arriba: al llegar desde el menú, un poco de aire bajo el
-   header para que la tarjeta no quede pegada. [id] para ganarle a
-   section[id] de index.css. */
-.rp-home__cta[id] { scroll-margin-top: calc(var(--alto-header, 80px) + 24px); }
-
-/* Panel: banda azul marino redondeada (el azul del footer y de Impacto),
-   todo centrado y en blanco. */
+/* Contenido: todo centrado y en blanco. */
 .rp-home__cta-panel {
-  position: relative;
   display: grid;
   justify-items: center;
+  width: 100%;
   max-width: var(--ancho-tarjetas);
   margin: 0 auto;
-  padding: clamp(48px, 7vw, 88px) clamp(24px, 5vw, 64px);
-  border-radius: var(--gh-radius-card);
-  background:
-    radial-gradient(ellipse 70% 90% at 50% 0%, rgb(255 255 255 / 0.09), transparent 70%),
-    var(--rp-marino-bg);
-  color: #ffffff;
   text-align: center;
-  overflow: hidden;
 }
 
 .rp-home__cta-title {
@@ -343,7 +319,7 @@
 .rp-home__cta-vision {
   max-width: 36rem;
   margin: 0 0 var(--space-500);
-  color: rgb(255 255 255 / 0.76);
+  color: rgb(255 255 255 / 0.85);
   font-size: var(--text-lg);
   line-height: var(--leading-lg);
   text-wrap: balance;
@@ -363,7 +339,7 @@
 
 .rp-home__cta-hint {
   margin: var(--space-200) 0 0;
-  color: rgb(255 255 255 / 0.55);
+  color: rgb(255 255 255 / 0.8);
   font-size: var(--text-sm);
   line-height: var(--leading-sm);
 }
@@ -587,43 +563,35 @@
 }
 
 @media (min-width: 1024px) {
-  /* El contenido está centrado: los cortes se miden desde el centro, así
-     el texto queda sobre fondo liso en cualquier ancho y el campo se ve
-     entero alrededor del lote. */
   .rp-home__hero .rp-home__bg::after {
-    background:
-      linear-gradient(180deg, transparent 72%, var(--gh-canvas) 100%),
-      linear-gradient(
-        90deg,
-        color-mix(in srgb, var(--gh-canvas) 30%, transparent) 50%,
-        color-mix(in srgb, var(--gh-canvas) 15%, transparent) 100%
-      );
-  }
-}
-
-/* Escritorio: el campo se ve dentro de un arco grande que entra desde la
-   derecha (centro en el borde derecho, a media altura): su borde izquierdo
-   es una curva que pasa a la derecha del logo arriba, se acerca al texto a
-   media altura y vuelve a alejarse bajo los clientes. Los radios en % del
-   hero, así la curva es la misma en cualquier pantalla. */
-@media (min-width: 1024px) {
-  .rp-home__hero .rp-home__bg {
-    /* Arco grande y borde largo con varias paradas: el campo se va
-       desvaneciendo de a poco hacia el texto. El centro, algo más abajo de
-       la mitad: arriba, junto al logo, el desvanecido empieza antes y
-       llega más tenue. */
-    mask-image: radial-gradient(
-      ellipse 62% 104% at 100% 60%,
-      #000 42%,
-      rgb(0 0 0 / 0.72) 58%,
-      rgb(0 0 0 / 0.38) 74%,
-      rgb(0 0 0 / 0.1) 89%,
-      transparent 100%
+    /* Velo suave del lado del texto, para que título y bajada se lean
+       sobre el campo. */
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--gh-canvas) 45%, transparent) 0%,
+      color-mix(in srgb, var(--gh-canvas) 30%, transparent) 50%,
+      color-mix(in srgb, var(--gh-canvas) 10%, transparent) 100%
     );
   }
 }
 
-.rp-mosaic__lote { opacity: 0.55; }
+/* Escritorio: el campo a todo el ancho, como el de «Rinde Plus en el
+   celular» pero espejado: sale de arriba y se apaga hacia abajo; los
+   clientes quedan sobre el fondo liso de la página. */
+@media (min-width: 1024px) {
+  .rp-home__hero .rp-home__bg {
+    mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      rgb(0 0 0 / 0.75) 40%,
+      rgb(0 0 0 / 0.3) 65%,
+      transparent 88%
+    );
+  }
+}
+
+/* Tenue: el campo acompaña, no le compite al texto ni al lote resaltado. */
+.rp-mosaic__lote { opacity: 0.32; }
 .rp-mosaic__lote--0 { fill: #7fa446; }
 .rp-mosaic__lote--1 { fill: #a6c35a; }
 .rp-mosaic__lote--2 { fill: #c9b766; }
@@ -640,7 +608,7 @@
   stroke-linejoin: round;
 }
 
-[data-rp-theme="dark"] .rp-mosaic__lote { opacity: 0.32; }
+[data-rp-theme="dark"] .rp-mosaic__lote { opacity: 0.24; }
 [data-rp-theme="dark"] .rp-mosaic__row { stroke: #000000; stroke-opacity: 0.25; }
 
 /* "Por qué Rinde Plus" a sangre sobre fotos de campo (FieldCarousel).
@@ -649,7 +617,8 @@
 .rp-home__section--field {
   max-width: none;
   padding: clamp(80px, 10vw, 136px) 24px;
-  margin-bottom: clamp(48px, 5vw, 72px);
+  /* Sin margen abajo: sigue la banda azul de «Hablemos de tus lotes»,
+     pegada, sin franja del fondo en el medio. */
   overflow: hidden;
   isolation: isolate;
   background: #0f1612;
@@ -716,14 +685,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: min(86svh, 820px);
-}
-
-/* Escritorio: tope más bajo. En monitores altos el texto no crece y la
-   banda quedaría con mucho aire arriba y abajo. En 1366 × 768 no cambia
-   (86svh = 660 px). */
-@media (min-width: 1024px) {
-  .rp-home__section--field { min-height: min(86svh, 680px); }
+  min-height: var(--alto-banda);
 }
 
 .rp-benefit-slider {
@@ -904,12 +866,43 @@
    ============================================================ */
 .rp-install {
   position: relative;
-  padding: clamp(24px, 3vw, 32px) 24px clamp(48px, 6vw, 72px);
+  /* Del alto de las bandas (--alto-banda), con el contenido centrado. */
+  display: grid;
+  align-content: center;
+  min-height: var(--alto-banda);
+  padding: clamp(48px, 6vw, 72px) 24px;
+}
+
+/* Fondo: otro mosaico de lotes (CampoInstalar), que sale de abajo y se
+   apaga hacia el título; arriba, el fondo liso de la página. Espeja al
+   del hero, que sale de arriba. */
+.rp-install__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(
+    0deg,
+    #000 0%,
+    rgb(0 0 0 / 0.6) 30%,
+    rgb(0 0 0 / 0.2) 55%,
+    transparent 78%
+  );
+}
+
+.rp-install__bg .rp-mosaic {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .rp-install__inner {
   position: relative;
   z-index: 1;
+  /* width: dentro de la grilla de .rp-install, margin auto lo encogería
+     al contenido. */
+  width: 100%;
   max-width: var(--ancho-tarjetas);
   margin: 0 auto;
 }
@@ -943,34 +936,23 @@
   margin: 0;
 }
 
-/* Las dos tarjetas comparten filas (subgrid): encabezado y cada paso a la
-   misma altura en las dos, aunque un texto ocupe más renglones. */
+/* Las dos tarjetas lado a lado, del mismo alto; cada una separa sus
+   pasos de forma pareja (sin filas compartidas: un texto de dos renglones
+   en una no abre huecos en la otra). */
 .rp-install__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 24px;
 }
 
 @media (min-width: 768px) {
   .rp-install__grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, auto);
-    column-gap: 24px;
-    row-gap: 0;
+    /* Bien separadas: son dos guías distintas. */
+    column-gap: clamp(32px, 4vw, 56px);
   }
 
-  .rp-install__grid > .rp-reveal,
-  .rp-install__card {
-    display: grid;
-    grid-row: span 4;
-    grid-template-rows: subgrid;
-  }
-
-  .rp-install__steps {
-    display: grid;
-    grid-row: span 3;
-    grid-template-rows: subgrid;
-  }
+  .rp-install__grid > .rp-reveal { display: grid; }
 }
 
 /* Tarjeta de vidrio, como las del equipo en VigIA: la superficie a medias
@@ -980,7 +962,7 @@
   border-radius: var(--gh-radius-card);
   background: var(--rp-vidrio);
   backdrop-filter: blur(12px);
-  padding: 22px;
+  padding: clamp(28px, 3.2vw, 44px);
   /* per-platform accent used by the icon box and step numbers */
   --install-accent: var(--gh-accent);
 }
@@ -993,7 +975,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 /* Bare icon in the platform's accent color — no chip behind it,
@@ -1004,12 +986,12 @@
   align-items: center;
   justify-content: center;
   color: var(--install-accent);
-  font-size: 30px;
+  font-size: 32px;
 }
 
 .rp-install__name {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: clamp(1.3rem, 1.6vw, 1.5rem);
   font-weight: 600;
   color: var(--rp-marino);
   margin: 0;
@@ -1021,25 +1003,29 @@
   margin: 0;
   padding: 0;
   display: grid;
-  row-gap: 18px;
+  row-gap: 24px;
+  /* Tamaño del número: el riel que los une se centra con él. */
+  --install-num: 30px;
 }
 
+/* Pasos en una escala mayor: llenan la tarjeta en vez de quedar en un
+   costado. */
 .rp-install__steps li {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 16px;
 }
 
 /* connecting rail between the numbered dots (like the home timeline) */
 .rp-install__steps li:not(:last-child)::before {
   content: '';
   position: absolute;
-  left: 12px;
-  top: 26px;
+  left: calc(var(--install-num) / 2 - 1px);
+  top: var(--install-num);
   width: 2px;
   /* hasta el número siguiente, pasando el espacio entre pasos */
-  height: calc(100% - 4px + 18px);
+  height: calc(100% - var(--install-num) + 24px);
   background: var(--gh-border);
 }
 
@@ -1047,24 +1033,25 @@
   position: relative;
   z-index: 1;
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: var(--install-num);
+  height: var(--install-num);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: var(--install-accent);
   color: #ffffff;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
 .rp-install__step-text {
-  font-size: 0.92rem;
+  font-size: clamp(0.95rem, 1vw, 1.05rem);
   color: var(--gh-fg-muted);
-  line-height: 1.55;
-  padding-top: 3px;
+  line-height: 1.5;
+  /* Primer renglón centrado con el número. */
+  padding-top: calc((var(--install-num) - 1.5em) / 2);
 }
 
 .rp-install__step-text strong {
@@ -1073,9 +1060,9 @@
 }
 
 .rp-install__inline-icon {
-  width: 15px;
-  height: 15px;
-  vertical-align: -2px;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
   color: var(--gh-accent);
 }
 

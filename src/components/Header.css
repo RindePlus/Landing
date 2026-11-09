@@ -14,9 +14,12 @@
   z-index: 1000;
   font-family: var(--font-body);
   color: var(--gh-fg);
-  /* Arriba de todo: transparente y sin línea, fundido con el hero. */
-  background-color: transparent;
-  border-bottom: 1px solid transparent;
+  /* Siempre vidrio esmerilado con una línea fina, también arriba de todo:
+     el campo del hero pasa por debajo; se intuye, pero no se llega a
+     leer. */
+  background-color: color-mix(in srgb, var(--gh-surface) 66%, transparent);
+  backdrop-filter: blur(28px) saturate(160%);
+  border-bottom: 1px solid var(--gh-border);
   /* Ocultar/mostrar al hacer scroll: curva de desaceleración larga para que
      el header se deslice en lugar de desaparecer de golpe. */
   transform: translateY(0);
@@ -31,18 +34,9 @@
   transform: translateY(-100%);
 }
 
-/* Al bajar (o con el menú de celular abierto): vidrio esmerilado con una
-   línea fina. Se intuye lo que pasa por debajo, pero no se llega a leer. */
-.header--scrolled,
-.header--menu-open {
-  background-color: color-mix(in srgb, var(--gh-surface) 66%, transparent);
-  backdrop-filter: blur(28px) saturate(160%);
-  border-bottom-color: var(--gh-border);
-}
-
-/* Sobre la banda marino (footer) el translúcido dejaba pasar demasiado azul:
-   ahí el fondo es casi opaco. */
-.header--scrolled.header--sobre-oscuro {
+/* Sobre las bandas azules el translúcido dejaba pasar demasiado azul: ahí
+   el fondo es casi opaco. */
+.header--sobre-oscuro {
   background-color: color-mix(in srgb, var(--gh-surface) 94%, transparent);
 }
 
@@ -286,7 +280,7 @@ img.logo-image:hover {
   width: 34px;
   height: 34px;
   padding: 0;
-  border-radius: var(--gh-radius);
+  border-radius: var(--gh-radius-btn);
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -526,7 +520,7 @@ img.logo-image:hover {
     display: inline-flex;
     padding: 3px;
     border: 1px solid var(--gh-border);
-    border-radius: 999px;
+    border-radius: var(--gh-radius-btn);
     background: var(--gh-surface-2);
   }
 
@@ -536,7 +530,8 @@ img.logo-image:hover {
     justify-content: center;
     min-width: 40px;
     height: 24px;
-    border-radius: 999px;
+    /* Anidada en el control: su radio menos los 3px de padding. */
+    border-radius: calc(var(--gh-radius-btn) - 3px);
     color: var(--gh-fg-muted);
     font-size: var(--text-sm);
     font-weight: 600;
@@ -586,7 +581,7 @@ img.logo-image:hover {
   width: 62px;
   height: 32px;
   padding: 0 8px;
-  border-radius: 999px;
+  border-radius: var(--gh-radius-btn);
   border: 1px solid var(--gh-border);
   background: var(--gh-surface-2);
   cursor: pointer;
@@ -608,7 +603,8 @@ img.logo-image:hover {
   left: 3px;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  /* Anidado a 3px del borde: el radio del switch menos 3px. */
+  border-radius: calc(var(--gh-radius-btn) - 3px);
   background: var(--gh-canvas);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
   transition: transform var(--dur-base) var(--ease-fluid);
@@ -632,6 +628,5 @@ img.logo-image:hover {
    una sola versión y, si queda la de -webkit-, Chrome no desenfoca). Safari
    16 y 17 sólo entienden la versión con prefijo: va aparte. */
 @supports not (backdrop-filter: blur(1px)) {
-  .header--scrolled,
-  .header--menu-open { -webkit-backdrop-filter: blur(28px) saturate(160%); }
+  .header { -webkit-backdrop-filter: blur(28px) saturate(160%); }
 }

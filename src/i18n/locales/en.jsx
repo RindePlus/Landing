@@ -51,15 +51,13 @@ const en = {
     mapAria: 'A field drawn with its vigor map by management zone, crop rows and contour lines',
     // Hero field scene notifications (doc/ANIMACION_LOTE.md).
     avisos: {
-      marca: 'Rinde Plus',
-      ahora: 'now',
-      planificar: 'Potential yield by zone, ready.',
-      preparar: 'Soil test interpreted.',
-      fertilizar: 'Economic optimum rate by zone.',
-      sequia: 'Irrigation needed to reach the target yield.',
-      calor: 'Heat stress alert for the coming days.',
-      lluvia: 'Fungal disease risk after the rain.',
-      cerrar: 'Yield gap by zone, calculated.',
+            planificar: { titulo: 'Planning', texto: 'Potential yield by zone, ready.' },
+      preparar: { titulo: 'Soil', texto: 'Soil test interpreted.' },
+      fertilizar: { titulo: 'Fertilization', texto: 'Economic optimum rate by zone.' },
+      sequia: { titulo: 'Water alert', texto: 'Irrigation needed to reach the target yield.' },
+      calor: { titulo: 'Heat alert', texto: 'Heat stress expected in the coming days.' },
+      lluvia: { titulo: 'Disease alert', texto: 'Fungal disease risk after the rain.' },
+      cerrar: { titulo: 'Season close', texto: 'Yield gap by zone, calculated.' },
     },
   },
 

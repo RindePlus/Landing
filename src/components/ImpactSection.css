@@ -12,19 +12,20 @@
   /* El mismo azul marino que el footer (más oscuro en modo oscuro). */
   --imp-fondo: var(--rp-marino-bg);
   --gh-fg: #ffffff;
-  --gh-fg-muted: rgb(255 255 255 / 0.74);
-  --gh-fg-subtle: rgb(255 255 255 / 0.55);
+  /* Sobre el azul de la banda: pasan AA (4.5:1). */
+  --gh-fg-muted: rgb(255 255 255 / 0.85);
+  --gh-fg-subtle: rgb(255 255 255 / 0.8);
   --gh-border: rgb(255 255 255 / 0.18);
   --gh-border-muted: rgb(255 255 255 / 0.1);
-  --gh-surface: #16325a;
-  --gh-surface-2: #1d3d6b;
-  --gh-accent: #8fb0ef;
+  --gh-surface: #162a5a;
+  --gh-surface-2: #1e356c;
+  --gh-accent: #ffffff;
   --gh-shadow-card: 0 1px 2px rgb(0 0 0 / 0.25), 0 8px 24px rgb(0 0 0 / 0.2);
   --rp-marino: #ffffff;
   /* Grano en verde campo (el cultivo), carbono en tierra (el suelo): los
      tonos claros, que se leen sobre el azul. */
-  --imp-grano: #93c46b;
-  --imp-carbono: #d6a06c;
+  --imp-grano: #a8d08b;
+  --imp-carbono: #dfb690;
   --imp-dur: 0.45s;
   /* El despliegue del panel, más lento que el resto: al mismo ritmo que el
      título que se pliega, para que no sea brusco. */
@@ -32,6 +33,12 @@
   --imp-ease: cubic-bezier(0.22, 1, 0.36, 1);
   max-width: 62.5rem;
   margin: 0 auto;
+  /* Del alto de las otras bandas (--alto-banda), con el contenido
+     centrado. */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--alto-banda);
   padding: clamp(56px, 8vw, 104px) 24px clamp(48px, 7vw, 88px);
   scroll-margin-top: var(--alto-header, 72px);
   color: var(--gh-fg);
@@ -93,7 +100,7 @@
 @media (min-width: 900px) and (min-height: 560px) and (orientation: landscape) {
   .rp-impacto {
     overflow-anchor: none;
-    min-height: var(--alto-impacto, 0px);
+    min-height: max(var(--alto-impacto, 0px), var(--alto-banda));
     /* Margen chico, como en VigIA: con la tabla abierta, indicadores, tabla
        y pie entran en la pantalla. */
     padding-block: var(--space-500);

@@ -10,12 +10,10 @@ import aaasLogo from '../assets/related companies/aaas.webp';
 import kimzzaLogo from '../assets/related companies/kimzza.webp';
 import conciLogo from '../assets/related companies/conci.webp';
 import AapresidLogo from '../assets/related companies/aapresid.webp';
-import adjLogo from '../assets/related companies/adj.webp';
 import halconLogo from '../assets/related companies/halcon.webp';
 import bioredLogo from '../assets/related companies/biored.webp';
 import agroconsultorLogo from '../assets/related companies/agroconsultor.webp';
 import biozelenLogo from '../assets/related companies/biozelen.webp';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import './TrustedCompanies.css';
 
 // Tamaño general de los logos (sobre las alturas `h` de cada uno).
@@ -32,7 +30,6 @@ const anchoDe = (company) => {
 const TrustedCompanies = () => {
   const t = useI18n().dict.trusted;
   const carouselRef = useRef(null);
-  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
   // `mono: true` → single-color artwork with no brand-color version; on
   // hover it goes to full black (light mode) / full white (dark mode)
@@ -51,7 +48,6 @@ const TrustedCompanies = () => {
     { id: 6, logo: kimzzaLogo, name: 'Kimzza', h: 42 },
     { id: 7, logo: conciLogo, name: 'Conci Riego', mono: true, h: 45 },
     { id: 8, logo: AapresidLogo, name: 'Aapresid', h: 40 },
-    { id: 9, logo: adjLogo, name: 'ADJ', h: 50 },
     { id: 10, logo: halconLogo, name: 'Halcón', h: 50 },
     { id: 11, logo: bioredLogo, name: 'BioRed', h: 66 },
     { id: 12, logo: agroconsultorLogo, name: 'Agroconsultor', h: 40 },
@@ -135,8 +131,8 @@ const TrustedCompanies = () => {
   }, []);
 
   return (
-    <section className="trusted-companies-section" ref={ref}>
-      <div className={`trusted-companies-container fade-in-up ${isVisible ? 'visible' : ''}`}>
+    <section className="trusted-companies-section">
+      <div className="trusted-companies-container">
         <h2 className="trusted-companies-title">{t.title}</h2>
 
         <div className="carousel-wrapper">

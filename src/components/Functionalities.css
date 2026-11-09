@@ -274,6 +274,56 @@
   align-items: start;
 }
 
+/* ---- Escritorio: un chevron a cada lado de la tarjeta, centrado en su
+   alto y en el margen de afuera (como las flechas de «Por qué Rinde
+   Plus»: sin círculo ni relleno; al pasar, un fondo suave). ---- */
+.rp-fx__escenario {
+  position: relative;
+  min-width: 0;
+}
+
+.rp-fx__lado {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gh-fg-muted);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Centro del chevron: en la mitad del margen de afuera ((100vw - 100%) / 2
+   es ese margen), hasta 42px de la tarjeta. */
+.rp-fx__lado--ant { left: calc(-1 * min(42px, (100vw - 100%) / 4)); }
+.rp-fx__lado--sig { left: calc(100% + min(42px, (100vw - 100%) / 4)); }
+
+.rp-fx__lado:hover {
+  background: color-mix(in srgb, var(--gh-fg) 7%, transparent);
+  color: var(--gh-fg);
+}
+
+.rp-fx__lado:active { transform: translate(-50%, -50%) scale(0.94); }
+
+.rp-fx__lado svg { width: 16px; height: 16px; }
+
+.rp-fx__lado:focus-visible {
+  outline: 2px solid var(--gh-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 767px) {
+  .rp-fx__lado { display: none; }
+}
+
 /* Celular: flechas para pasar de tarjeta. */
 .rp-fx__pasar { display: none; }
 

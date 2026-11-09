@@ -3,6 +3,7 @@ import { FaAndroid, FaApple, FaChevronLeft, FaChevronRight, FaWhatsapp } from 'r
 import { PiArrowDown } from 'react-icons/pi';
 import Reveal from './Reveal';
 import LoteMap from './LoteMap';
+import { CampoInstalar } from './LotesMosaic';
 import { whatsappUrl } from '../data/social';
 import { urlDe } from '../data/imagen';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
@@ -199,9 +200,10 @@ const FinalCta = () => {
   const { dict } = useI18n();
   const t = dict.cta;
   return (
-    <section className="rp-home__cta" id="contacto">
-      {/* Banda azul marino, centrada: el título, la visión y el botón.
-          Cierra la página con el mismo peso que la banda de Impacto. */}
+    <section className="rp-home__cta" id="contacto" data-fondo-oscuro>
+      {/* Banda azul marino a todo el ancho, como Impacto; centrados, el
+          título, la visión y el botón. data-fondo-oscuro: el header se
+          ajusta encima. */}
       <Reveal className="rp-home__cta-panel">
         <h2 className="rp-home__cta-title">{t.title}</h2>
         <p className="rp-home__cta-vision">{t.vision}</p>
@@ -231,6 +233,7 @@ const InstallAppSection = () => {
   const t = useI18n().dict.install;
   return (
     <section className="rp-install" id="instalar">
+      <div className="rp-install__bg" aria-hidden="true"><CampoInstalar /></div>
       <div className="rp-install__inner">
         <Reveal className="rp-install__header">
           <h2 className="rp-install__title">

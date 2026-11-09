@@ -53,15 +53,13 @@ const es = {
     // Notificaciones de las escenas del lote del hero (doc/ANIMACION_LOTE.md):
     // una por momento de la campaña; Acompañar tiene una por clima.
     avisos: {
-      marca: 'Rinde Plus',
-      ahora: 'ahora',
-      planificar: 'Rinde potencial por ambiente, listo.',
-      preparar: 'Análisis de suelo interpretado.',
-      fertilizar: 'Dosis óptima económica por ambiente.',
-      sequia: 'Riego necesario para llegar al rinde objetivo.',
-      calor: 'Alerta de estrés térmico para los próximos días.',
-      lluvia: 'Riesgo de enfermedades fúngicas después de la lluvia.',
-      cerrar: 'Brecha de rinde por ambiente, calculada.',
+            planificar: { titulo: 'Planificación', texto: 'Rinde potencial por ambiente, listo.' },
+      preparar: { titulo: 'Suelo', texto: 'Análisis de suelo interpretado.' },
+      fertilizar: { titulo: 'Fertilización', texto: 'Dosis óptima económica por ambiente.' },
+      sequia: { titulo: 'Alerta hídrica', texto: 'Riego necesario para llegar al rinde objetivo.' },
+      calor: { titulo: 'Alerta de calor', texto: 'Estrés térmico previsto para los próximos días.' },
+      lluvia: { titulo: 'Alerta sanitaria', texto: 'Riesgo de enfermedades fúngicas después de la lluvia.' },
+      cerrar: { titulo: 'Cierre de campaña', texto: 'Brecha de rinde por ambiente, calculada.' },
     },
   },
 
