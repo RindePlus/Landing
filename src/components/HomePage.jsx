@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaAndroid, FaApple, FaChevronLeft, FaChevronRight, FaWhatsapp } from 'react-icons/fa';
-import { PiArrowDown } from 'react-icons/pi';
+import { PiArrowDownBold } from 'react-icons/pi';
 import Reveal from './Reveal';
 import LoteMap from './LoteMap';
 import { CampoInstalar } from './LotesMosaic';
@@ -56,7 +56,7 @@ const HeroSection = () => {
           </a>
           <a href="#funcionalidades" className="rp-home__hero-btn rp-home__hero-btn--ghost">
             {t.ctaCampaign}
-            <PiArrowDown aria-hidden="true" />
+            <PiArrowDownBold aria-hidden="true" />
           </a>
         </div>
       </div>

@@ -114,7 +114,7 @@ const en = {
       residueCaption: 'Residue and crop injury risk',
       doseCaption: 'Economic optimum rate',
       today: 'Today',
-      forecastCaption: '15 days back, 15 ahead',
+      forecastCaption: 'Field weather and forecast',
       fourYields: ['Potential', 'Fertilized', 'Harvested', 'Base'],
       gapCaption: 'Yield gap',
     },
@@ -125,9 +125,9 @@ const en = {
         description:
           'Base, potential, fertilized and harvested yield, per field and per management zone. The potential comes from the soil, the field’s own soil test and the season’s water balance.',
         bullets: [
-          'Reference soil (GeoINTA, IDECOR, SoilGrids) adjusted with the field’s own soil test',
-          'Irrigation needed to reach the target yield',
-          'Varieties from INASE, Argentina’s official cultivar registry',
+          'Reference soil and own soil analysis',
+          'Irrigation needed for the target yield',
+          'Varieties from the official INASE registry',
         ],
       },
       preparar: {
@@ -136,9 +136,9 @@ const en = {
         description:
           'Cover crop water use against a fallow, and the residue of each herbicide based on rainfall, irrigation and application date.',
         bullets: [
-          'High crop injury (phytotoxicity) risk alert for the next crop',
-          'Includes applications from the previous season',
-          'Soil tests and amendment plan',
+          'Phytotoxicity alert for the next crop',
+          'Last season’s applications included',
+          'Soil analysis and amendment plan',
         ],
       },
       fertilizar: {
@@ -147,20 +147,20 @@ const en = {
         description:
           'Simulation by product and rate with the nutrient balance, the response curve and the prices set for the field.',
         bullets: [
-          'Economic optimum rate',
-          'Fertilized yield, never above the potential',
-          'Gross margin per field and per zone',
+          'Economic optimum dose per field',
+          'Fertilized yield, capped at potential',
+          'Gross margin per field and zone',
         ],
       },
       acompanar: {
         tag: 'Follow the crop',
         name: 'Notices on what is coming for each field',
         description:
-          'Field-level weather, 15 days back and 15 ahead, and field scouting with catalogs of weeds, pests and diseases.',
+          'Field-level weather and forecast, and field scouting with catalogs of weeds, pests and diseases.',
         bullets: [
-          'Alerts for heat stress, vapor pressure deficit and fungal diseases',
-          'Product recommendations that flow into the application plan',
-          'Daily WhatsApp notices, with your consent, that can be answered',
+          'Heat stress and disease alerts',
+          'Recommendations that go to the spray plan',
+          'Daily WhatsApp notices that can be answered',
         ],
       },
       cerrar: {
@@ -169,9 +169,9 @@ const en = {
         description:
           'What each field could have yielded against what was harvested, and the plan against what was done, in yield and in margin.',
         bullets: [
-          'Yield gap per field and per zone',
-          'Analysis map across fields, zones and seasons',
-          'Company-wide view',
+          'Yield gap per field and zone',
+          'Analysis map across fields and seasons',
+          'Consolidated view per company',
         ],
       },
     },

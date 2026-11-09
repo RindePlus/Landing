@@ -116,7 +116,7 @@ const es = {
       residueCaption: 'Residuo y riesgo de fitotoxicidad',
       doseCaption: 'Dosis óptima económica',
       today: 'Hoy',
-      forecastCaption: '15 días atrás, 15 adelante',
+      forecastCaption: 'Clima y pronóstico del lote',
       fourYields: ['Potencial', 'Fertilizando', 'Cosechado', 'Base'],
       gapCaption: 'Brecha de rendimiento',
     },
@@ -127,8 +127,8 @@ const es = {
         description:
           'Rinde base, potencial, fertilizando y cosechado, por lote y por ambiente. El potencial sale del suelo, del análisis propio y del balance hídrico de la campaña.',
         bullets: [
-          'Suelo de referencia (GeoINTA, IDECOR, SoilGrids) ajustado con el análisis propio',
-          'Riego necesario para llegar al rinde objetivo',
+          'Suelo de referencia y análisis propio',
+          'Riego necesario para el rinde objetivo',
           'Variedades del padrón oficial del INASE',
         ],
       },
@@ -138,8 +138,8 @@ const es = {
         description:
           'El consumo de agua del cultivo de servicio contra un barbecho, y el residuo de cada herbicida según lluvias, riego y fecha de aplicación.',
         bullets: [
-          'Alerta de riesgo alto de fitotoxicidad para el cultivo que viene',
-          'Incluye las aplicaciones de la campaña anterior',
+          'Alerta de fitotoxicidad para el próximo cultivo',
+          'Aplicaciones de la campaña anterior incluidas',
           'Análisis de suelo y plan de enmiendas',
         ],
       },
@@ -149,7 +149,7 @@ const es = {
         description:
           'Simulación por producto y dosis con el balance de nutrientes, la curva de respuesta y los precios cargados en el lote.',
         bullets: [
-          'Dosis óptima económica',
+          'Dosis óptima económica por lote',
           'Rinde fertilizando, sin pasar el potencial',
           'Margen bruto por lote y por ambiente',
         ],
@@ -158,11 +158,11 @@ const es = {
         tag: 'Acompañar el cultivo',
         name: 'Avisos de lo que viene en cada lote',
         description:
-          'Clima por lote, 15 días atrás y 15 adelante, y monitoreo a campo con catálogos de malezas, plagas y enfermedades.',
+          'Clima y pronóstico por lote, y monitoreo a campo con catálogos de malezas, plagas y enfermedades.',
         bullets: [
-          'Alertas de estrés térmico, déficit de presión de vapor y enfermedades fúngicas',
-          'Recomendación de producto que pasa al plan de aplicaciones',
-          'Avisos diarios por WhatsApp, con tu consentimiento, que se pueden responder',
+          'Alertas de estrés térmico y enfermedades',
+          'Recomendación que pasa al plan de aplicaciones',
+          'Avisos diarios por WhatsApp, que se responden',
         ],
       },
       cerrar: {
@@ -172,8 +172,8 @@ const es = {
           'Lo que podía rendir cada lote contra lo cosechado, y el plan contra lo realizado, en rinde y en margen.',
         bullets: [
           'Brecha de rendimiento por lote y por ambiente',
-          'Mapa de análisis entre lotes, ambientes y campañas',
-          'Vista por empresa',
+          'Mapa de análisis entre lotes y campañas',
+          'Vista consolidada por empresa',
         ],
       },
     },

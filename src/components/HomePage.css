@@ -194,7 +194,7 @@
 
 /* secundario — sin borde: se distingue por el relleno, un azul suave de
    la marca con letras azules, del mismo alto que el principal. La flecha
-   baja un poco al pasar el mouse: lleva a la sección siguiente. */
+   (en trazo grueso) queda quieta al pasar el mouse. */
 .rp-home__hero-btn--ghost {
   color: var(--gh-accent);
   background: color-mix(in srgb, var(--rp-azul) 13%, var(--gh-canvas));
@@ -210,7 +210,7 @@
 }
 
 .rp-home__hero-btn--ghost svg { width: 16px; height: 16px; }
-.rp-home__hero-btn--ghost:hover svg { transform: translateY(2px); }
+.rp-home__hero-btn--ghost:hover svg { transform: none; }
 
 /* primary — la acción de la página: hablar con el equipo */
 .rp-home__hero-btn--primary {

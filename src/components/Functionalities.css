@@ -1,7 +1,7 @@
 /* ============================================================
-   Functionalities — los cinco momentos de la campaña como una línea de
-   tiempo arriba y, debajo, la tarjeta del elegido: descripción, viñetas y
-   su gráfico (en celular, las tarjetas en carrusel). Avanza solo hasta que
+   Functionalities — la tarjeta del momento elegido (título, descripción,
+   viñetas y su gráfico) y, debajo, la línea de tiempo de los cinco momentos
+   de la campaña (en celular, la línea arriba y las tarjetas en carrusel). Avanza solo hasta que
    la persona elige un momento.
    ============================================================ */
 
@@ -91,8 +91,8 @@
 
 .rp-fx__subtitle strong { color: var(--gh-fg); font-weight: 600; }
 
-/* ---- Caja: la línea de tiempo de los cinco momentos arriba y la
-   tarjeta del elegido debajo, a todo el ancho. ---- */
+/* ---- Caja: la tarjeta del elegido y la línea de tiempo de los cinco
+   momentos, a todo el ancho. ---- */
 .rp-fx {
   /* Mismo ancho y margen lateral que las demás tarjetas de la home
      (--ancho-tarjetas, más los 24px de cada lado). */
@@ -184,8 +184,9 @@
    siguiente. */
 .rp-fx__tab-barra {
   background: var(--fx-c1);
-  transform: scaleX(0);
-  transform-origin: left;
+  /* Crece recortada (no con scaleX, que aplasta el redondeado): las dos
+     puntas quedan redondas en todo el avance. */
+  clip-path: inset(0 100% 0 0 round 999px);
   animation: rp-fx-barra var(--fx-auto, 30s) linear forwards;
   animation-play-state: paused;
 }
@@ -193,7 +194,7 @@
 .rp-fx.is-corriendo .rp-fx__tab-barra { animation-play-state: running; }
 
 @keyframes rp-fx-barra {
-  to { transform: scaleX(1); }
+  to { clip-path: inset(0 0 0 0 round 999px); }
 }
 
 /* ---- Contenido: los cinco paneles apilados en la misma celda ---- */
@@ -259,19 +260,58 @@
 }
 
 .rp-fx__desc {
+  max-width: 34rem;
   font-size: clamp(1.05rem, 1.2vw, 1.15rem);
   color: var(--gh-fg);
   line-height: 1.55;
-  margin: 0 0 20px;
+  margin: 0;
 }
 
 .rp-fx__body {
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(20px, 2.5vw, 36px);
-  /* El texto arranca pegado al título; el gráfico, centrado a su lado. */
-  align-items: start;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-content: start;
+}
+
+/* Tablet y escritorio: título, descripción y viñetas a la izquierda y el
+   gráfico a la derecha, a la altura de la descripción en todos los
+   momentos (el título va arriba, a todo el ancho). Las filas (título, descripción, viñetas) son de la
+   caja y los cinco paneles las comparten con subgrid: cada fila mide lo
+   que la más alta de los cinco, así las viñetas quedan en el mismo lugar
+   en todos los momentos, cambie el texto, el idioma o el ancho. */
+@media (min-width: 768px) {
+  /* La línea de tiempo va debajo de la tarjeta: primero el contenido y,
+     abajo, en qué momento se está y cuánto falta para el siguiente. */
+  .rp-fx__tabs { order: 2; }
+
+  .rp-fx__panels { grid-template-rows: auto auto auto 1fr; }
+
+  .rp-fx__panel {
+    display: grid;
+    grid-row: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: subgrid;
+    column-gap: clamp(20px, 2.5vw, 36px);
+    align-content: start;
+  }
+
+  /* El título, a todo el ancho: en un renglón, así la fila no crece por
+     el título más largo de los cinco y no deja un hueco en los demás. */
+  .rp-fx__name { grid-column: 1 / -1; grid-row: 1; }
+  .rp-fx__body { display: contents; }
+  .rp-fx__desc { grid-column: 1; grid-row: 2; }
+  /* Con el panel adelante: le gana al margin: 0 de .rp-fx__bullets, que
+     va más abajo en el archivo. */
+  .rp-fx__panel .rp-fx__bullets { grid-column: 1; grid-row: 3; margin-top: 28px; }
+
+  .rp-fx__visual {
+    grid-column: 2;
+    /* De la descripción hasta abajo, al lado del texto. */
+    grid-row: 2 / -1;
+    align-self: start;
+  }
 }
 
 /* ---- Escritorio: un chevron a cada lado de la tarjeta, centrado en su
@@ -418,7 +458,6 @@
 }
 
 .rp-fx__visual {
-  align-self: center;
   display: flex;
   justify-content: center;
   color: var(--gh-fg-muted);
@@ -433,7 +472,7 @@
 /* Laptops angostas y tablets: el gráfico, más chico, al costado. */
 @media (max-width: 1099px) {
   .rp-fx__name { font-size: 1.35rem; }
-  .rp-fx__body { grid-template-columns: 1fr minmax(150px, 0.7fr); gap: 18px; }
+  .rp-fx__panel { grid-template-columns: 1fr minmax(150px, 0.7fr); column-gap: 18px; }
 }
 
 /* ---- Celular: botones arriba, en una fila que se desliza ---- */
@@ -505,8 +544,7 @@
   }
 
   .rp-fx__moment { display: flex; }
-  .rp-fx__desc { font-size: 1rem; margin-bottom: 20px; }
-  .rp-fx__body { grid-template-columns: 1fr; gap: 24px; align-content: start; }
+  .rp-fx__desc { font-size: 1rem; }
   .rp-fx__bullets li { font-size: 1rem; }
   .rp-fx__chart { max-width: 340px; }
   /* Sólo las flechas: el avance ya lo muestra la barra de arriba. */

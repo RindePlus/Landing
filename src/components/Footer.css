@@ -23,9 +23,7 @@
 .rp-footer__inner {
   /* Los mismos bordes que el header: el logo abajo del logo y la
      dirección bajo «Ingresar». */
-  max-width: calc(var(--ancho-amplio) + 80px);
-  margin: 0 auto;
-  padding: var(--space-300) clamp(16px, 2.5vw, 40px) var(--space-100);
+  padding: var(--space-300) clamp(12px, 1.5vw, 24px) var(--space-100);
 }
 
 .rp-footer a {

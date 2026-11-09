@@ -114,7 +114,7 @@ const pt = {
       residueCaption: 'Resíduo e risco de fitotoxicidade',
       doseCaption: 'Dose de máxima eficiência econômica',
       today: 'Hoje',
-      forecastCaption: '15 dias atrás, 15 à frente',
+      forecastCaption: 'Clima e previsão do talhão',
       fourYields: ['Potencial', 'Adubada', 'Colhida', 'Base'],
       gapCaption: 'Lacuna de produtividade',
     },
@@ -125,9 +125,9 @@ const pt = {
         description:
           'Produtividade base, potencial, adubada e colhida, por talhão e por ambiente. O potencial vem do solo, da análise de solo própria e do balanço hídrico da safra.',
         bullets: [
-          'Solo de referência (GeoINTA, IDECOR, SoilGrids) ajustado com a análise própria',
-          'Irrigação necessária para chegar à produtividade-alvo',
-          'Cultivares do registro oficial do INASE (Argentina)',
+          'Solo de referência e análise própria',
+          'Irrigação necessária para a produtividade-alvo',
+          'Variedades do registro oficial do INASE',
         ],
       },
       preparar: {
@@ -136,8 +136,8 @@ const pt = {
         description:
           'O consumo de água da planta de cobertura comparado a um pousio, e o resíduo de cada herbicida conforme chuvas, irrigação e data de aplicação.',
         bullets: [
-          'Alerta de risco alto de fitotoxicidade para a próxima cultura',
-          'Inclui as aplicações da safra anterior',
+          'Alerta de fitotoxicidade para a próxima cultura',
+          'Aplicações da safra anterior incluídas',
           'Análise de solo e plano de correção',
         ],
       },
@@ -156,11 +156,11 @@ const pt = {
         tag: 'Acompanhar a cultura',
         name: 'Avisos do que vem em cada talhão',
         description:
-          'Clima por talhão, 15 dias para trás e 15 para a frente, e monitoramento a campo com catálogos de plantas daninhas, pragas e doenças.',
+          'Clima e previsão por talhão, e monitoramento a campo com catálogos de plantas daninhas, pragas e doenças.',
         bullets: [
-          'Alertas de estresse térmico, déficit de pressão de vapor e doenças fúngicas',
-          'Recomendação de produto que passa ao plano de aplicações',
-          'Avisos diários pelo WhatsApp, com o seu consentimento, que podem ser respondidos',
+          'Alertas de estresse térmico e doenças',
+          'Recomendação que vai ao plano de aplicações',
+          'Avisos diários pelo WhatsApp, com resposta',
         ],
       },
       cerrar: {
@@ -169,9 +169,9 @@ const pt = {
         description:
           'O que cada talhão podia produzir contra o que foi colhido, e o planejado contra o realizado, em produtividade e em margem.',
         bullets: [
-          'Lacuna de produtividade por talhão e por ambiente',
-          'Mapa de análise entre talhões, ambientes e safras',
-          'Visão por empresa',
+          'Lacuna de produtividade por talhão e ambiente',
+          'Mapa de análise entre talhões e safras',
+          'Visão consolidada por empresa',
         ],
       },
     },

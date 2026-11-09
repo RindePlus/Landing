@@ -221,18 +221,16 @@ const FunctionalityPanel = ({ item, index, activo, onSiguiente }) => {
         {text.tag}
       </p>
       <h3 className="rp-fx__name">{text.name}</h3>
-      {/* Texto a la izquierda (descripción y viñetas) y el gráfico a la
-          derecha, de todo el alto: así el texto llena lo que mide el
-          gráfico y no quedan huecos en los momentos con menos texto. */}
+      {/* Escritorio: título, descripción y viñetas a la izquierda y el
+          gráfico a la derecha, arriba (a la altura del título), en el mismo lugar
+          en todos los momentos. */}
       <div className="rp-fx__body">
-        <div className="rp-fx__texto">
-          <p className="rp-fx__desc">{text.description}</p>
-          <ul className="rp-fx__bullets">
-            {text.bullets.map((b) => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
-        </div>
+        <p className="rp-fx__desc">{text.description}</p>
+        <ul className="rp-fx__bullets">
+          {text.bullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
         <div className="rp-fx__visual">
           <Chart />
         </div>
@@ -268,7 +266,7 @@ const FunctionalityPanel = ({ item, index, activo, onSiguiente }) => {
   );
 };
 
-/* ── Section: línea de tiempo de los momentos arriba, la tarjeta debajo
+/* ── Section: la tarjeta y, debajo, la línea de tiempo de los momentos
    (en celular, carrusel). Avanza solo mientras la sección está en pantalla,
    como «Por qué Rinde Plus»: elegir un momento no lo frena, la barra
    arranca de nuevo desde ese momento. ── */

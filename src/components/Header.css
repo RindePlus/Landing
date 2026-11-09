@@ -52,11 +52,9 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: var(--space-300);
-  /* Con tope (el contenido amplio más el margen): en monitores anchos el
-     menú y las acciones no se van a los bordes. */
-  max-width: calc(var(--ancho-amplio) + 80px);
-  margin-inline: auto;
-  padding: 10px clamp(16px, 2.5vw, 40px);
+  /* Sin tope de ancho: menú y acciones van cerca de los bordes de la
+     pantalla, con un margen chico. */
+  padding: 10px clamp(12px, 1.5vw, 24px);
 }
 
 .header-logo {
@@ -119,8 +117,8 @@ img.logo-image:hover {
 .header-theme-toggle:hover,
 .header-lang__btn:hover,
 .header-lang__btn[aria-expanded='true'] {
+  /* Igual que los enlaces del menú: sólo el fondo, sin borde. */
   background: var(--gh-surface-2);
-  border-color: var(--gh-border);
   color: var(--gh-fg);
 }
 
@@ -346,12 +344,19 @@ img.logo-image:hover {
     grid-column: 1;
     grid-row: 1;
     justify-self: start;
+    /* El texto del primer enlace (no su caja de hover) alineado al margen. */
+    margin-left: calc(-1 * var(--space-100));
   }
 
-  .header-nav__install { display: none; }
+  /* Con la clase doble: le gana al display de .menu-item, que va después. */
+  .menu-item.header-nav__install { display: none; }
 
+  /* Mismo alto que los botones de las acciones (tema, idioma, Ingresar). */
   .menu-item {
-    padding: var(--space-75) var(--space-100);
+    display: inline-flex;
+    align-items: center;
+    height: var(--header-btn);
+    padding: 0 var(--space-100);
     transition:
       background var(--dur-fast) var(--ease-fluid),
       color var(--dur-fast) var(--ease-fluid);
@@ -393,6 +398,7 @@ img.logo-image:hover {
 /* Escritorio angosto: el menú se apreta un poco para no tocar el logo. */
 @media (min-width: 1024px) and (max-width: 1199px) {
   .menu-item { padding-inline: var(--space-75); }
+  .header-nav { margin-left: calc(-1 * var(--space-75)); }
 }
 
 /* ---- Tablet y celular: ☰ | logo centrado | acciones, con drawer ---- */
