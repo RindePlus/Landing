@@ -201,8 +201,16 @@
 .rp-home .company-logo { height: 88px; width: auto; padding: 0 6px; }
 .rp-home .company-logo img {
   width: auto;
+  height: calc(var(--alto-logo) * var(--escala-logos, 1));
   max-width: none;
   max-height: none;
+}
+
+/* En el celular los logos acompañan al título, no compiten con él. */
+@media (max-width: 767px) {
+  .rp-home { --escala-logos: 0.72; }
+  .rp-home .carousel-track { gap: 72px; }
+  .rp-home .company-logo { height: 64px; }
 }
 
 /* Draggable: show grab cursor over the moving band */

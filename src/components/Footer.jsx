@@ -7,10 +7,10 @@ import { conIdioma, useI18n } from '../i18n/I18nContext';
 import './Footer.css';
 
 // Footer en el azul marino de Rinde Plus, monocromo (logo, íconos y letras
-// en blanco; data-fondo-oscuro: el header se ajusta encima). Compacto: a la
-// izquierda el logo y las redes en círculos chicos (Instagram, WhatsApp y
-// email), a la derecha la dirección de la oficina; abajo, el copyright y los créditos de las
-// fotos, alineados a los mismos bordes. Estático (sin JS propio): los enlaces de
+// en blanco; data-fondo-oscuro: el header se ajusta encima). Compacto: el
+// logo y los contactos en círculos chicos (Instagram, WhatsApp, email y la
+// oficina en el mapa); abajo, el copyright y los créditos de las fotos,
+// alineados a los mismos bordes. Estático (sin JS propio): los enlaces de
 // WhatsApp van directo a WhatsApp.
 const EMAIL = 'inforindeplus@gmail.com';
 const ADDRESS = 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina';
@@ -47,17 +47,19 @@ const Footer = () => {
                   <PiEnvelopeSimple aria-hidden="true" />
                 </a>
               </li>
+              <li>
+                <a
+                  href={MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${t.officeAria}: ${ADDRESS}`}
+                  title={ADDRESS}
+                >
+                  <PiMapPin aria-hidden="true" />
+                </a>
+              </li>
             </ul>
           </div>
-
-          <ul className="rp-footer__contacto">
-            <li>
-              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" aria-label={t.officeAria} title={t.office}>
-                <PiMapPin aria-hidden="true" />
-                Concejal Lorusso 762 · Alta Gracia
-              </a>
-            </li>
-          </ul>
         </div>
 
         <div className="rp-footer__bottom">

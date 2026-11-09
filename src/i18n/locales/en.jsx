@@ -21,7 +21,7 @@ const en = {
 
   whatsapp: {
     message: "Hi, I'd like more information about Rinde Plus",
-    cta: 'Message us on WhatsApp',
+    cta: "Let's talk on WhatsApp",
   },
 
   header: {
@@ -77,7 +77,7 @@ const en = {
   // ImpactSection.jsx). "Season" is the crop year; each field in a year is a
   // "production cycle".
   impacto: {
-    title: 'More grain and more carbon in the soil',
+    title: 'More grain and more CO₂ capture',
     subtitle: (d) => `Figures from the ${d.campana} season across the fields Rinde Plus follows.`,
     indicadores: {
       hectareas: (d) => `monitored in the latest season (${d.campana})`,
@@ -135,18 +135,18 @@ const en = {
         tag: 'Plan',
         name: 'The yield each field can reach',
         description:
-          'Base, potential, fertilized and harvested yield, per field and per management zone. The potential comes from the soil, the field’s own soil test and the season’s water balance.',
+          'How much each management zone can yield, based on its soil, its own soil test and the season’s water.',
         bullets: [
           'Reference soil and own soil analysis',
           'Irrigation needed for the target yield',
-          'Varieties from the official INASE registry',
+          'Base and potential yield for each zone',
         ],
       },
       preparar: {
         tag: 'Prepare the field',
         name: 'Soil water and herbicide residue',
         description:
-          'Cover crop water use against a fallow, and the residue of each herbicide based on rainfall, irrigation and application date.',
+          'Cover crop water use against a fallow, and how much herbicide remains based on rain, irrigation and date.',
         bullets: [
           'Phytotoxicity alert for the next crop',
           'Last season’s applications included',
@@ -225,7 +225,7 @@ const en = {
     title: "Let's talk about your fields",
     vision:
       'Our vision: every field decided with agronomic judgment, not only those of growers who can afford a technical team.',
-    button: 'Message us on WhatsApp',
+    button: "Let's talk on WhatsApp",
     hint: 'No forms · the team replies within 24 h',
   },
 
@@ -271,7 +271,6 @@ const en = {
     instagramAria: 'Open Rinde Plus on Instagram',
     whatsapp: 'WhatsApp',
     whatsappAria: 'Open WhatsApp chat',
-    office: 'Office',
     officeAria: 'See location on Google Maps',
     rights: 'All rights reserved.',
     made: 'Built with data and agronomic judgment',

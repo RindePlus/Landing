@@ -1,7 +1,7 @@
 /* ============================================================
    Footer: banda azul marino, monocroma (logo, íconos y letras en blanco).
-   Compacto: logo y redes a la izquierda, la dirección a la
-   derecha; abajo, un renglón fino con el copyright y los créditos de las
+   Compacto: logo a la izquierda y los contactos (redes y la oficina en
+   el mapa) a la derecha; abajo, un renglón fino con el copyright y los créditos de las
    fotos. Las dos filas, alineadas a los mismos bordes.
    ============================================================ */
 
@@ -39,7 +39,7 @@
   border-radius: 4px;
 }
 
-/* --- Logo y redes | contacto, en una fila --- */
+/* --- Logo | contactos, en una fila --- */
 .rp-footer__main {
   display: flex;
   flex-wrap: wrap;
@@ -51,7 +51,10 @@
 
 .rp-footer__marca {
   display: flex;
+  flex: 1;
   align-items: center;
+  /* El logo a la izquierda y los contactos bajo «Ingresar». */
+  justify-content: space-between;
   gap: var(--space-200);
 }
 
@@ -90,31 +93,6 @@
   border-color: var(--gh-fg);
   background: var(--gh-fg);
   color: var(--gh-surface);
-}
-
-/* Contacto: cada dato con su ícono (el ícono dice qué es; el título queda
-   en el title y en el aria-label). */
-.rp-footer__contacto {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-100) var(--space-300);
-  list-style: none;
-}
-
-.rp-footer__contacto a {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-75);
-  font-size: var(--text-sm);
-  line-height: var(--leading-sm);
-  text-decoration: none;
-}
-
-.rp-footer__contacto svg {
-  flex-shrink: 0;
-  width: 17px;
-  height: 17px;
-  color: var(--gh-fg);
 }
 
 /* --- Pie: copyright en un renglón fino bajo una línea --- */
@@ -158,17 +136,4 @@
    entra en un renglón. */
 @media (max-width: 560px) {
   .rp-footer__creditos-via { display: none; }
-}
-
-/* Celular: el logo arriba y el contacto debajo, en una grilla. */
-@media (max-width: 560px) {
-  .rp-footer__main { gap: var(--space-200); }
-  .rp-footer__marca { justify-content: space-between; width: 100%; }
-  .rp-footer__contacto {
-    gap: var(--space-100) var(--space-300);
-    width: 100%;
-  }
-  .rp-footer__contacto a { white-space: nowrap; }
-  .rp-footer__contacto a { align-items: flex-start; }
-  .rp-footer__contacto svg { margin-top: 1px; }
 }

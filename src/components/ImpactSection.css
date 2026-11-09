@@ -491,8 +491,11 @@
 @media (max-width: 480px) {
   .rp-impacto { padding-left: 16px; padding-right: 16px; }
   .rp-impact__inds { gap: 12px; }
-  .rp-impact__ind strong { font-size: 1.85rem; }
+  /* en 320px "+90.000 t" no entra en media columna a 1.85rem */
+  .rp-impact__ind strong { font-size: clamp(1.5rem, 8vw, 1.85rem); }
   .rp-impact__items { padding: 22px 14px; }
+  /* área táctil de 40px, con el margen negativo la cruz no se mueve */
+  .rp-impact__cerrar { padding: 11px; margin: -5px -5px -5px 0; }
   /* cinco columnas en 360px: encabezados en dos líneas y letra más chica */
   .rp-impact__tabla table { font-size: 0.8rem; }
   .rp-impact__tabla th,

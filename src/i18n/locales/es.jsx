@@ -22,7 +22,7 @@ const es = {
 
   whatsapp: {
     message: 'Hola, quiero más información sobre Rinde Plus',
-    cta: 'Escribir por WhatsApp',
+    cta: 'Hablemos por WhatsApp',
   },
 
   header: {
@@ -79,7 +79,7 @@ const es = {
   // ImpactSection.jsx); acá solo va el texto. "Campaña" es el año agrícola;
   // cada lote en un año es un "ciclo productivo".
   impacto: {
-    title: 'Más grano y más carbono en el suelo',
+    title: 'Más grano y más captura de CO₂',
     subtitle: (d) => `Números de la campaña ${d.campana} en los lotes que sigue Rinde Plus.`,
     indicadores: {
       hectareas: (d) => `monitoreadas en la última campaña (${d.campana})`,
@@ -137,18 +137,18 @@ const es = {
         tag: 'Planificar',
         name: 'El rinde que puede dar cada lote',
         description:
-          'Rinde base, potencial, fertilizando y cosechado, por lote y por ambiente. El potencial sale del suelo, del análisis propio y del balance hídrico de la campaña.',
+          'Cuánto puede rendir cada ambiente del lote, según su suelo, el análisis propio y el agua de la campaña.',
         bullets: [
           'Suelo de referencia y análisis propio',
           'Riego necesario para el rinde objetivo',
-          'Variedades del padrón oficial del INASE',
+          'Rinde base y potencial de cada ambiente',
         ],
       },
       preparar: {
         tag: 'Preparar el lote',
         name: 'El agua del perfil y el residuo de herbicidas',
         description:
-          'El consumo de agua del cultivo de servicio contra un barbecho, y el residuo de cada herbicida según lluvias, riego y fecha de aplicación.',
+          'El agua que usa el cultivo de servicio frente a un barbecho, y cuánto herbicida queda según lluvia, riego y fecha.',
         bullets: [
           'Alerta de fitotoxicidad para el próximo cultivo',
           'Aplicaciones de la campaña anterior incluidas',
@@ -228,7 +228,7 @@ const es = {
     title: 'Hablemos de tus lotes',
     vision:
       'Nuestra visión: que cada lote se decida con criterio agronómico, no solo los de quien puede pagarse un equipo técnico.',
-    button: 'Escribir por WhatsApp',
+    button: 'Hablemos por WhatsApp',
     hint: 'Sin formularios · respuesta del equipo en menos de 24 h',
   },
 
@@ -274,7 +274,6 @@ const es = {
     instagramAria: 'Abrir Instagram de Rinde Plus',
     whatsapp: 'WhatsApp',
     whatsappAria: 'Abrir chat de WhatsApp',
-    office: 'Oficina',
     officeAria: 'Ver ubicación en Google Maps',
     rights: 'Todos los derechos reservados.',
     made: 'Hecho con datos y criterio agronómico',

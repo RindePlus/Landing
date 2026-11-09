@@ -150,7 +150,8 @@ const TrustedCompanies = () => {
                   height={altoDe(company)}
                   loading="lazy"
                   decoding="async"
-                  style={{ height: `${altoDe(company)}px` }}
+                  // El alto va en una variable: el CSS lo escala en el celular.
+                  style={{ '--alto-logo': `${altoDe(company)}px` }}
                 />
               </div>
             ))}

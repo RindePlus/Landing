@@ -21,7 +21,7 @@ const pt = {
 
   whatsapp: {
     message: 'Olá, quero mais informações sobre a Rinde Plus',
-    cta: 'Escrever pelo WhatsApp',
+    cta: 'Vamos conversar pelo WhatsApp',
   },
 
   header: {
@@ -77,7 +77,7 @@ const pt = {
   // ImpactSection.jsx). "Safra" é o ano agrícola; cada talhão num ano é um
   // "ciclo produtivo".
   impacto: {
-    title: 'Mais grão e mais carbono no solo',
+    title: 'Mais grão e mais captura de CO₂',
     subtitle: (d) => `Números da safra ${d.campana} nos talhões que a Rinde Plus acompanha.`,
     indicadores: {
       hectareas: (d) => `monitorados na última safra (${d.campana})`,
@@ -135,18 +135,18 @@ const pt = {
         tag: 'Planejar',
         name: 'A produtividade que cada talhão pode alcançar',
         description:
-          'Produtividade base, potencial, adubada e colhida, por talhão e por ambiente. O potencial vem do solo, da análise de solo própria e do balanço hídrico da safra.',
+          'Quanto cada ambiente do talhão pode produzir, segundo o solo, a análise própria e a água da safra.',
         bullets: [
           'Solo de referência e análise própria',
           'Irrigação necessária para a produtividade-alvo',
-          'Variedades do registro oficial do INASE',
+          'Produtividade base e potencial de cada ambiente',
         ],
       },
       preparar: {
         tag: 'Preparar o talhão',
         name: 'A água do perfil e o resíduo de herbicidas',
         description:
-          'O consumo de água da planta de cobertura comparado a um pousio, e o resíduo de cada herbicida conforme chuvas, irrigação e data de aplicação.',
+          'A água que a planta de cobertura usa frente a um pousio, e quanto herbicida resta conforme chuva, irrigação e data.',
         bullets: [
           'Alerta de fitotoxicidade para a próxima cultura',
           'Aplicações da safra anterior incluídas',
@@ -225,7 +225,7 @@ const pt = {
     title: 'Vamos falar dos seus talhões',
     vision:
       'Nossa visão: que cada talhão seja decidido com critério agronômico, não só os de quem pode pagar uma equipe técnica.',
-    button: 'Escrever pelo WhatsApp',
+    button: 'Vamos conversar pelo WhatsApp',
     hint: 'Sem formulários · resposta da equipe em menos de 24 h',
   },
 
@@ -271,7 +271,6 @@ const pt = {
     instagramAria: 'Abrir o Instagram da Rinde Plus',
     whatsapp: 'WhatsApp',
     whatsappAria: 'Abrir conversa no WhatsApp',
-    office: 'Escritório',
     officeAria: 'Ver localização no Google Maps',
     rights: 'Todos os direitos reservados.',
     made: 'Feito com dados e critério agronômico',

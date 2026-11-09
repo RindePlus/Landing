@@ -295,6 +295,12 @@
   color: #ffffff;
 }
 
+/* En el celular el llamado ocupa poco: sin el alto de banda queda
+   un bloque azul vacío arriba y abajo. */
+@media (max-width: 640px) {
+  .rp-home__cta { min-height: 0; padding-top: 72px; padding-bottom: 72px; }
+}
+
 /* Contenido: todo centrado y en blanco. */
 .rp-home__cta-panel {
   display: grid;
@@ -418,6 +424,13 @@
 .rp-home__hero-visual {
   max-width: 460px;
   margin: 56px auto 0;
+}
+
+/* Celular: el título manda y el lote acompaña. A 1.9rem el título pesaba
+   menos que los botones a todo el ancho y que el lote. */
+@media (max-width: 767px) {
+  .rp-home__hero-title { font-size: clamp(2.25rem, 10.5vw, 2.75rem); text-wrap: balance; }
+  .rp-home__hero-visual { max-width: 280px; margin-top: 48px; }
 }
 
 @media (min-width: 1024px) {
@@ -627,10 +640,8 @@
   touch-action: pan-y;
 }
 
-/* Beneficios: el rótulo arriba y la barra de puntos abajo, a la misma
-   distancia de los bordes (el mismo padding arriba y abajo, más chico que
-   el general); el título y los textos, centrados en el alto que queda
-   entre los dos (ver .rp-benefit-slider). */
+/* Beneficios: título de la sección, punto y barra de puntos en un solo
+   bloque, centrado en el alto de la banda (ver .rp-benefit-slider). */
 #beneficios.rp-home__section--field { padding-block: clamp(56px, 7vw, 96px); }
 
 .rp-home__section--field > :not(.rp-fieldbg) { position: relative; z-index: 1; }
@@ -666,8 +677,17 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 50% 42% at 50% 47%, rgba(8, 12, 10, 0.36) 0%, rgba(8, 12, 10, 0.2) 60%, rgba(8, 12, 10, 0) 100%),
+    radial-gradient(ellipse 58% 46% at 50% 50%, rgba(8, 12, 10, 0.52) 0%, rgba(8, 12, 10, 0.32) 60%, rgba(8, 12, 10, 0) 100%),
     linear-gradient(180deg, rgba(8, 12, 10, 0.1) 0%, rgba(8, 12, 10, 0) 45%, rgba(8, 12, 10, 0.24) 100%);
+}
+
+/* Celular: el texto ocupa casi todo el ancho; el velo, también. */
+@media (max-width: 767px) {
+  .rp-fieldbg::after {
+    background:
+      radial-gradient(ellipse 95% 40% at 50% 50%, rgba(8, 12, 10, 0.58) 0%, rgba(8, 12, 10, 0.38) 60%, rgba(8, 12, 10, 0) 100%),
+      linear-gradient(180deg, rgba(8, 12, 10, 0.1) 0%, rgba(8, 12, 10, 0) 45%, rgba(8, 12, 10, 0.24) 100%);
+  }
 }
 
 /* Velo más liviano: oscuro sólo detrás del texto, para que la foto se vea
@@ -689,7 +709,6 @@
 }
 
 .rp-benefit-slider {
-  flex: 1;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -698,24 +717,23 @@
 }
 
 .rp-benefit-slider__rotulo {
-  /* Título de la sección, como el de las otras secciones pero más chico
-     que el de cada punto, que es el protagonista. Arriba, separado de él. */
+  /* Título de la sección, del tamaño del de las otras secciones y más
+     grande que el de cada punto: manda él. */
   margin: 0;
   color: #ffffff;
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 .rp-benefit-slider__stage {
-  flex: 1;
   list-style: none;
   margin: 0;
-  padding: clamp(32px, 4vw, 48px) 0;
+  padding: clamp(28px, 3.5vw, 40px) 0;
   display: grid;
   align-content: center;
 }
@@ -737,12 +755,12 @@
 
 .rp-benefit-slider__title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: #ffffff;
-  margin: 0 0 20px;
+  margin: 0 0 14px;
   text-wrap: balance;
 }
 
@@ -758,7 +776,7 @@
 .rp-benefit-slider__detail {
   font-size: clamp(0.95rem, 1.15vw, 1.05rem);
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.86);
   max-width: 36rem;
   margin: 0 auto;
   text-wrap: pretty;

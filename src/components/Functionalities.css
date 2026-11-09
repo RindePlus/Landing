@@ -47,7 +47,7 @@
   max-width: 42.5rem;
   margin: 0 auto;
   /* Aire arriba para separarse de la banda azul de Impacto. */
-  padding: 56px 24px 10px;
+  padding: 56px 24px 28px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -364,69 +364,6 @@
   .rp-fx__lado { display: none; }
 }
 
-/* Celular: flechas para pasar de tarjeta. */
-.rp-fx__pasar { display: none; }
-
-.rp-fx__puntos {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.rp-fx__punto {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--gh-border-strong);
-  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
-}
-
-.rp-fx__punto.is-active {
-  width: 20px;
-  background: var(--fx-c1);
-}
-
-.rp-fx__flechas {
-  display: flex;
-  gap: 8px;
-}
-
-.rp-fx__flecha {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border: 1px solid var(--gh-border);
-  border-radius: 999px;
-  background: var(--gh-canvas);
-  color: var(--gh-fg);
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.rp-fx__flecha:active { transform: scale(0.94); }
-
-/* La de seguir, rellena del color del momento: es la acción principal. */
-.rp-fx__flecha--sig {
-  border-color: var(--fx-c1);
-  background: var(--fx-c1);
-  color: #fff;
-}
-
-[data-rp-theme="dark"] .rp-fx__flecha--sig {
-  border-color: color-mix(in srgb, var(--fx-c2) 68%, #000);
-  background: color-mix(in srgb, var(--fx-c2) 68%, #000);
-}
-
-.rp-fx__flecha svg { width: 16px; height: 16px; }
-
-.rp-fx__flecha:focus-visible {
-  outline: 2px solid var(--gh-accent);
-  outline-offset: 3px;
-}
-
 .rp-fx__bullets {
   list-style: none;
   margin: 0;
@@ -509,12 +446,22 @@
     white-space: nowrap;
   }
 
+  /* La línea de tiempo va debajo de las tarjetas: primero lo que se lee,
+     después dónde se está. */
+  .rp-fx__escenario { order: 1; }
+  .rp-fx__tabs { order: 2; margin-top: 16px; }
+
   /* Carrusel: cada momento es su propia tarjeta, sigue al dedo y se
      asoma la siguiente. Un gesto pasa una sola tarjeta (snap-stop); al
-     quedar quieta, Functionalities.jsx la marca como activa. */
+     quedar quieta, Functionalities.jsx la marca como activa.
+     En grilla y no en flex: las tarjetas comparten las filas (subgrid),
+     así las viñetas y el gráfico arrancan a la misma altura en todas. */
   .rp-fx__panels {
-    display: flex;
-    gap: 12px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(100% - 28px);
+    grid-template-rows: auto auto auto auto 1fr;
+    gap: 0 12px;
     /* 24px a los costados, como las demás tarjetas de la home. */
     padding: 0 24px;
     border-radius: 0;
@@ -531,8 +478,13 @@
 
   .rp-fx__panel,
   .rp-fx__panel.is-active {
-    flex: 0 0 calc(100% - 28px);
-    padding: 24px 20px 18px;
+    display: grid;
+    grid-area: auto;
+    grid-row: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: subgrid;
+    align-content: start;
+    padding: 16px 20px 24px;
     border-radius: 16px;
     background: var(--rp-vidrio);
     scroll-snap-align: start;
@@ -543,17 +495,14 @@
     transition: none;
   }
 
-  .rp-fx__moment { display: flex; }
+  .rp-fx__body { display: contents; }
+  /* El momento, arriba y aparte: rotula la tarjeta, no es parte del título. */
+  .rp-fx__moment { display: flex; margin-bottom: 20px; }
   .rp-fx__desc { font-size: 1rem; }
+  .rp-fx__panel .rp-fx__bullets { margin-top: 24px; }
   .rp-fx__bullets li { font-size: 1rem; }
+  .rp-fx__visual { align-self: end; padding-top: 24px; }
   .rp-fx__chart { max-width: 340px; }
-  /* Sólo las flechas: el avance ya lo muestra la barra de arriba. */
-  .rp-fx__pasar {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 16px;
-  }
-  .rp-fx__puntos { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

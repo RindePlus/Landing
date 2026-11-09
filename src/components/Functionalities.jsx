@@ -5,8 +5,6 @@ import {
   LuCloudSun,
   LuSprout,
   LuFlaskConical,
-  LuArrowRight,
-  LuArrowLeft,
 } from 'react-icons/lu';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
@@ -196,15 +194,9 @@ const num = (i) => String(i + 1).padStart(2, '0');
 
 /* ── Panel: el contenido del momento elegido ── */
 
-const FunctionalityPanel = ({ item, index, activo, onSiguiente }) => {
+const FunctionalityPanel = ({ item, index, activo }) => {
   const { Chart, palette } = item;
-  const fx = useI18n().dict.fx;
-  const text = fx.panels[item.id];
-  // El pie lleva al momento que sigue; en el último, vuelve al primero.
-  const ultimo = index === COUNT - 1;
-  const sig = (index + 1) % COUNT;
-  const ant = (index - 1 + COUNT) % COUNT;
-  const textoSig = fx.panels[FUNCTIONALITIES[sig].id];
+  const text = useI18n().dict.fx.panels[item.id];
 
   return (
     <article
@@ -234,33 +226,6 @@ const FunctionalityPanel = ({ item, index, activo, onSiguiente }) => {
         <div className="rp-fx__visual">
           <Chart />
         </div>
-      </div>
-      {/* Celular: puntos de avance y flechas, como un carrusel; así se
-          entiende que la tarjeta se pasa (también deslizando). */}
-      <div className="rp-fx__pasar">
-        <span className="rp-fx__puntos" aria-hidden="true">
-          {FUNCTIONALITIES.map((it, i) => (
-            <span key={it.id} className={`rp-fx__punto${i === index ? ' is-active' : ''}`} />
-          ))}
-        </span>
-        <span className="rp-fx__flechas">
-          <button
-            type="button"
-            className="rp-fx__flecha"
-            aria-label={`${fx.anterior}: ${fx.panels[FUNCTIONALITIES[ant].id].tag}`}
-            onClick={() => onSiguiente(ant)}
-          >
-            <LuArrowLeft aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className="rp-fx__flecha rp-fx__flecha--sig"
-            aria-label={`${ultimo ? fx.volverInicio : fx.siguiente}: ${textoSig.tag}`}
-            onClick={() => onSiguiente(sig)}
-          >
-            <LuArrowRight aria-hidden="true" />
-          </button>
-        </span>
       </div>
     </article>
   );
@@ -400,8 +365,8 @@ const Functionalities = () => {
         </div>
 
         {/* La tarjeta y, en escritorio, un chevron a cada lado para pasar
-            de momento, como en «Por qué Rinde Plus» (en celular, las
-            flechas van dentro de cada tarjeta). */}
+            de momento, como en «Por qué Rinde Plus» (en celular se pasa
+            deslizando o con la línea de tiempo, que va debajo). */}
         <div className="rp-fx__escenario">
         <button
           type="button"
@@ -431,7 +396,7 @@ const Functionalities = () => {
           onTouchCancel={() => { tocando.current = false; onScrollCarrusel(); }}
         >
           {FUNCTIONALITIES.map((it, i) => (
-            <FunctionalityPanel key={it.id} item={it} index={i} activo={i === active} onSiguiente={elegir} />
+            <FunctionalityPanel key={it.id} item={it} index={i} activo={i === active} />
           ))}
         </div>
         </div>
