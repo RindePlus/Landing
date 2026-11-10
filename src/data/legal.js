@@ -76,7 +76,7 @@ export const PRIVACIDAD = {
       {
         titulo: '5. Con quién compartimos tus datos',
         parrafos: [
-          'No vendemos ni cedemos tus datos personales. Sólo los comparten con nosotros los proveedores que nos prestan servicios y que los tratan por nuestra cuenta y según nuestras instrucciones:',
+          'No vendemos ni cedemos tus datos personales. Sólo los compartimos con los proveedores que nos prestan servicios y que los tratan por nuestra cuenta y según nuestras instrucciones:',
         ],
         lista: [
           'Cloudflare, Inc. (red, seguridad y medición de visitas) y GitHub, Inc. (alojamiento del sitio).',
