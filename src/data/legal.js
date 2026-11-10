@@ -91,8 +91,7 @@ export const PRIVACIDAD = {
       {
         titulo: '6. Transferencias internacionales',
         parrafos: [
-          'Varios de esos proveedores procesan datos fuera de la Argentina, en especial en los Estados Unidos. Cuando el país de destino no tiene un nivel de protección adecuado, exigimos garantías de protección equivalentes, en los términos del artículo 12 de la Ley 25.326 y de las normas de la Agencia de Acceso a la Información Pública.',
-          'Al comunicarte con nosotros prestás tu consentimiento expreso para que tus datos se transfieran a esos proveedores con las finalidades de esta política.',
+          'Varios de esos proveedores procesan datos fuera de la Argentina, en especial en los Estados Unidos. Cuando el país de destino no tiene un nivel de protección adecuado, nos apoyamos en las condiciones de protección de datos que esos proveedores ofrecen a sus clientes, en los términos del artículo 12 de la Ley 25.326 y de las normas de la Agencia de Acceso a la Información Pública.',
         ],
       },
       {
@@ -203,8 +202,7 @@ export const PRIVACIDAD = {
       {
         titulo: '6. International transfers',
         parrafos: [
-          'Several of these providers process data outside Argentina, particularly in the United States. When the destination country does not offer an adequate level of protection, we require equivalent safeguards, as provided by section 12 of Argentine Law 25,326 and the rules of the Agency for Access to Public Information.',
-          'By contacting us, you give your express consent for your data to be transferred to these providers for the purposes of this policy.',
+          'Several of these providers process data outside Argentina, particularly in the United States. When the destination country does not offer an adequate level of protection, we rely on the data protection terms these providers offer their customers, as provided by section 12 of Argentine Law 25,326 and the rules of the Agency for Access to Public Information.',
         ],
       },
       {
@@ -313,8 +311,7 @@ export const PRIVACIDAD = {
       {
         titulo: '6. Transferências internacionais',
         parrafos: [
-          'Vários desses provedores tratam dados fora da Argentina, especialmente nos Estados Unidos. Quando o país de destino não oferece um nível de proteção adequado, exigimos garantias de proteção equivalentes, nos termos do artigo 12 da Lei argentina 25.326 e das normas da Agência de Acesso à Informação Pública.',
-          'Ao entrar em contato conosco, você dá seu consentimento expresso para que seus dados sejam transferidos a esses provedores para as finalidades desta política.',
+          'Vários desses provedores tratam dados fora da Argentina, especialmente nos Estados Unidos. Quando o país de destino não oferece um nível de proteção adequado, nos apoiamos nas condições de proteção de dados que esses provedores oferecem aos seus clientes, nos termos do artigo 12 da Lei argentina 25.326 e das normas da Agência de Acesso à Informação Pública.',
         ],
       },
       {
