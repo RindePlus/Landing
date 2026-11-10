@@ -3,10 +3,8 @@
 //
 // Cubre el sitio y los canales de contacto. Los datos que se cargan en la
 // plataforma (cloud.rindeplus.com) se rigen por sus Términos y condiciones
-// y su Política de privacidad, que viven en la app: acá sólo se enlazan.
-// PENDIENTE: enlazar también PLATFORM_PRIVACY_URL (src/data/links.js) en la
-// sección 2 de los tres idiomas cuando esa página esté en producción; hoy
-// da 404.
+// y su Política de privacidad, que viven en la app y se ven desde el login:
+// acá sólo se nombran, sin enlace, para no depender de sus rutas.
 //
 // Describe lo que el sitio hace hoy; si cambia algo de esto, se actualiza el
 // texto y la fecha (ACTUALIZADO) en los tres idiomas:
@@ -25,8 +23,6 @@
 //
 // Los párrafos y los ítems son HTML propio (se renderizan con set:html): sólo
 // texto fijo de este archivo, nunca datos de afuera.
-import { TERMS_URL } from './links';
-
 const RESPONSABLE = 'Conextion S.A.S.';
 const CUIT = '30-71722681-6';
 const MARCA = 'Rinde Plus';
@@ -34,7 +30,6 @@ const DOMICILIO = 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina';
 const EMAIL = 'inforindeplus@gmail.com';
 const MAIL = `<a href="mailto:${EMAIL}">${EMAIL}</a>`;
 const AAIP_URL = 'https://www.argentina.gob.ar/aaip/datospersonales';
-const terminos = (texto) => `<a href="${TERMS_URL}" target="_blank" rel="noopener noreferrer">${texto}</a>`;
 const aaip = (texto) => `<a href="${AAIP_URL}" target="_blank" rel="noopener noreferrer">${texto}</a>`;
 
 export const PRIVACIDAD = {
@@ -55,7 +50,7 @@ export const PRIVACIDAD = {
         titulo: '2. A qué se aplica esta política',
         parrafos: [
           'Esta política se aplica al sitio rindeplus.com, en todos sus idiomas, y a las comunicaciones que mantengas con nosotros por WhatsApp, email o redes sociales.',
-          `La plataforma ${MARCA} (cloud.rindeplus.com) tiene sus propios ${terminos('Términos y condiciones')}, que regulan los datos que se cargan en ella y que cada usuario acepta al ingresar.`,
+          `La plataforma ${MARCA} (cloud.rindeplus.com) tiene sus propios Términos y condiciones y su propia Política de privacidad, disponibles en la plataforma, que regulan los datos que se cargan en ella y que cada usuario acepta al ingresar.`,
         ],
       },
       {
@@ -167,7 +162,7 @@ export const PRIVACIDAD = {
         titulo: '2. What this policy covers',
         parrafos: [
           'This policy applies to the rindeplus.com website, in all its languages, and to the communications you have with us through WhatsApp, email or social media.',
-          `The ${MARCA} platform (cloud.rindeplus.com) has its own ${terminos('Terms and conditions')} (in Spanish), which govern the data entered into it and which every user accepts when signing in.`,
+          `The ${MARCA} platform (cloud.rindeplus.com) has its own Terms and conditions and Privacy policy (in Spanish), available on the platform, which govern the data entered into it and which every user accepts when signing in.`,
         ],
       },
       {
@@ -277,7 +272,7 @@ export const PRIVACIDAD = {
         titulo: '2. A que se aplica esta política',
         parrafos: [
           'Esta política se aplica ao site rindeplus.com, em todos os seus idiomas, e às comunicações que você mantiver conosco por WhatsApp, e-mail ou redes sociais.',
-          `A plataforma ${MARCA} (cloud.rindeplus.com) tem seus próprios ${terminos('Termos e condições')} (em espanhol), que regulam os dados inseridos nela e que cada usuário aceita ao entrar.`,
+          `A plataforma ${MARCA} (cloud.rindeplus.com) tem seus próprios Termos e condições e sua própria Política de privacidade (em espanhol), disponíveis na plataforma, que regulam os dados inseridos nela e que cada usuário aceita ao entrar.`,
         ],
       },
       {

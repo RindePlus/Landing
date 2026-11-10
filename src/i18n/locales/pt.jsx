@@ -276,8 +276,6 @@ const pt = {
     made: 'Feito com dados e critério agronômico',
     legalNav: 'Informações legais',
     privacy: 'Política de privacidade',
-    terms: 'Termos e condições',
-    termsTitle: 'Termos e condições da plataforma (em espanhol)',
   },
 };
 

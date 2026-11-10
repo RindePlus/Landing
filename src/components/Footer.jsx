@@ -1,7 +1,6 @@
 import { PiEnvelopeSimple, PiInstagramLogo, PiWhatsappLogo, PiMapPin } from 'react-icons/pi';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.webp';
 import { INSTAGRAM_URL, whatsappUrl } from '../data/social';
-import { TERMS_URL } from '../data/links';
 import { PRIVACY_PATH } from '../i18n/config';
 import { urlDe } from '../data/imagen';
 import { FOTOS } from '../data/fotos';
@@ -10,7 +9,8 @@ import './Footer.css';
 
 // Footer en el azul marino de Rinde Plus, monocromo (logo, íconos y letras
 // en blanco; data-fondo-oscuro: el header se ajusta encima). Compacto: el
-// logo, los legales (privacidad y los términos de la plataforma) y los
+// logo, la política de privacidad del sitio (los términos y la política
+// de la plataforma se ven desde la app) y los
 // contactos en círculos chicos (Instagram, WhatsApp, email y la oficina en
 // el mapa); abajo, el copyright y los créditos de las fotos,
 // alineados a los mismos bordes. Estático (sin JS propio): los enlaces de
@@ -37,9 +37,6 @@ const Footer = () => {
             <div className="rp-footer__derecha">
               <nav className="rp-footer__legales" aria-label={t.legalNav}>
                 <a href={PRIVACY_PATH[locale]}>{t.privacy}</a>
-                <a href={TERMS_URL} target="_blank" rel="noopener noreferrer" title={t.termsTitle} hrefLang="es">
-                  {t.terms}
-                </a>
               </nav>
 
               <ul className="rp-footer__redes">

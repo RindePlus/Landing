@@ -276,8 +276,6 @@ const en = {
     made: 'Built with data and agronomic judgment',
     legalNav: 'Legal information',
     privacy: 'Privacy policy',
-    terms: 'Terms and conditions',
-    termsTitle: 'Platform terms and conditions (in Spanish)',
   },
 };
 
