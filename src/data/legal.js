@@ -18,8 +18,12 @@
 //   email e Instagram.
 //
 // Normas: Ley 25.326 y Decreto 1558/2001 (deber de información del art. 6,
-// plazos de los arts. 14 y 16, transferencias del art. 12) y la leyenda de la
-// Resolución AAIP 14/2018. La versión en español es la que rige.
+// plazos de los arts. 14 y 16) y la leyenda de la Resolución AAIP 14/2018.
+// La versión en español es la que rige.
+//
+// Transferencias al exterior (sección 6): no se afirma cumplir el art. 12 ni
+// la Disposición 60-E/2016 porque con los proveedores no hay firmadas
+// cláusulas modelo de la AAIP. Si se firman, se puede decir.
 //
 // Los párrafos y los ítems son HTML propio (se renderizan con set:html): sólo
 // texto fijo de este archivo, nunca datos de afuera.
@@ -91,7 +95,7 @@ export const PRIVACIDAD = {
       {
         titulo: '6. Transferencias internacionales',
         parrafos: [
-          'Varios de esos proveedores procesan datos fuera de la Argentina, en especial en los Estados Unidos. Cuando el país de destino no tiene un nivel de protección adecuado, nos apoyamos en las condiciones de protección de datos que esos proveedores ofrecen a sus clientes, en los términos del artículo 12 de la Ley 25.326 y de las normas de la Agencia de Acceso a la Información Pública.',
+          'Varios de esos proveedores procesan datos fuera de la Argentina, en especial en los Estados Unidos, que no figura entre los países que la Agencia de Acceso a la Información Pública considera con un nivel de protección adecuado. Trabajamos con proveedores que se comprometen por contrato a proteger los datos y a usarlos sólo para prestarnos el servicio.',
         ],
       },
       {
@@ -202,7 +206,7 @@ export const PRIVACIDAD = {
       {
         titulo: '6. International transfers',
         parrafos: [
-          'Several of these providers process data outside Argentina, particularly in the United States. When the destination country does not offer an adequate level of protection, we rely on the data protection terms these providers offer their customers, as provided by section 12 of Argentine Law 25,326 and the rules of the Agency for Access to Public Information.',
+          'Several of these providers process data outside Argentina, particularly in the United States, which is not among the countries that the Argentine Agency for Access to Public Information considers to offer an adequate level of protection. We work with providers that are contractually committed to protecting the data and to using it only to provide their services to us.',
         ],
       },
       {
@@ -311,7 +315,7 @@ export const PRIVACIDAD = {
       {
         titulo: '6. Transferências internacionais',
         parrafos: [
-          'Vários desses provedores tratam dados fora da Argentina, especialmente nos Estados Unidos. Quando o país de destino não oferece um nível de proteção adequado, nos apoiamos nas condições de proteção de dados que esses provedores oferecem aos seus clientes, nos termos do artigo 12 da Lei argentina 25.326 e das normas da Agência de Acesso à Informação Pública.',
+          'Vários desses provedores tratam dados fora da Argentina, especialmente nos Estados Unidos, que não está entre os países que a Agência de Acesso à Informação Pública da Argentina considera com um nível de proteção adequado. Trabalhamos com provedores que se comprometem por contrato a proteger os dados e a usá-los apenas para nos prestar o serviço.',
         ],
       },
       {
