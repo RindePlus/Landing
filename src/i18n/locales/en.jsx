@@ -274,6 +274,10 @@ const en = {
     officeAria: 'See location on Google Maps',
     rights: 'All rights reserved.',
     made: 'Built with data and agronomic judgment',
+    legalNav: 'Legal information',
+    privacy: 'Privacy policy',
+    terms: 'Terms and conditions',
+    termsTitle: 'Platform terms and conditions (in Spanish)',
   },
 };
 

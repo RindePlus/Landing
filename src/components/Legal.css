@@ -1,0 +1,80 @@
+/* ============================================================
+   Páginas legales (src/views/LegalView.astro): una columna de lectura
+   angosta, debajo del header fijo, con los colores del tema.
+   ============================================================ */
+
+.rp-legal {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(var(--alto-header, 80px) + var(--space-700)) var(--space-300) var(--space-800);
+  color: var(--gh-fg-muted);
+}
+
+.rp-legal__titulo {
+  color: var(--gh-fg);
+  font-size: var(--text-4xl);
+  line-height: var(--leading-4xl);
+  letter-spacing: -0.02em;
+}
+
+.rp-legal__fecha {
+  margin: var(--space-100) 0 var(--space-600);
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-legal__seccion + .rp-legal__seccion {
+  margin-top: var(--space-500);
+}
+
+.rp-legal__seccion h2 {
+  margin-bottom: var(--space-100);
+  color: var(--gh-fg);
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+}
+
+.rp-legal__seccion p,
+.rp-legal__seccion li {
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+}
+
+.rp-legal__seccion p + p,
+.rp-legal__seccion ul + p,
+.rp-legal__seccion p + ul {
+  margin-top: var(--space-100);
+}
+
+.rp-legal__seccion ul {
+  padding-left: var(--space-300);
+  list-style: disc;
+}
+
+.rp-legal__seccion li + li {
+  margin-top: var(--space-75);
+}
+
+.rp-legal strong {
+  color: var(--gh-fg);
+  font-weight: 600;
+}
+
+.rp-legal a {
+  color: var(--gh-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 767px) {
+  .rp-legal {
+    padding: calc(var(--alto-header, 64px) + var(--space-500)) var(--space-200) var(--space-700);
+  }
+
+  .rp-legal__titulo {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-3xl);
+  }
+}

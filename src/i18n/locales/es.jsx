@@ -277,6 +277,10 @@ const es = {
     officeAria: 'Ver ubicación en Google Maps',
     rights: 'Todos los derechos reservados.',
     made: 'Hecho con datos y criterio agronómico',
+    legalNav: 'Información legal',
+    privacy: 'Política de privacidad',
+    terms: 'Términos y condiciones',
+    termsTitle: 'Términos y condiciones de uso de la plataforma',
   },
 };
 

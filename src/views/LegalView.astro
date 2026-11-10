@@ -1,0 +1,51 @@
+---
+// Página legal (por ahora sólo la política de privacidad), igual en los
+// tres idiomas: título, fecha de actualización y secciones de texto. El
+// contenido viene de src/data/legal.js; cada página de src/pages elige el
+// texto del idioma de su ruta.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../components/Legal.css';
+
+type Locale = 'es' | 'en' | 'pt';
+
+interface Seccion {
+  titulo: string;
+  parrafos: string[];
+  lista?: string[];
+  cierre?: string[];
+}
+
+interface Props {
+  texto: {
+    titulo: string;
+    descripcion: string;
+    actualizado: string;
+    fechaLabel: string;
+    secciones: Seccion[];
+  };
+  paths: Record<Locale, string>;
+}
+
+const { texto, paths } = Astro.props;
+---
+
+<BaseLayout title={`${texto.titulo} · Rinde Plus`} description={texto.descripcion} paths={paths}>
+  <article class="rp-legal" id="top">
+    <h1 class="rp-legal__titulo">{texto.titulo}</h1>
+    <p class="rp-legal__fecha">{texto.fechaLabel}: {texto.actualizado}</p>
+    {
+      texto.secciones.map((s) => (
+        <section class="rp-legal__seccion">
+          <h2>{s.titulo}</h2>
+          {s.parrafos.map((p) => <p set:html={p} />)}
+          {s.lista && (
+            <ul>
+              {s.lista.map((item) => <li set:html={item} />)}
+            </ul>
+          )}
+          {s.cierre?.map((p) => <p set:html={p} />)}
+        </section>
+      ))
+    }
+  </article>
+</BaseLayout>

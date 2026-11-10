@@ -1,6 +1,8 @@
 import { PiEnvelopeSimple, PiInstagramLogo, PiWhatsappLogo, PiMapPin } from 'react-icons/pi';
 import rindeplusLogoDark from '../assets/rindeplus-logo-dark.webp';
 import { INSTAGRAM_URL, whatsappUrl } from '../data/social';
+import { TERMS_URL } from '../data/links';
+import { PRIVACY_PATH } from '../i18n/config';
 import { urlDe } from '../data/imagen';
 import { FOTOS } from '../data/fotos';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
@@ -8,8 +10,9 @@ import './Footer.css';
 
 // Footer en el azul marino de Rinde Plus, monocromo (logo, íconos y letras
 // en blanco; data-fondo-oscuro: el header se ajusta encima). Compacto: el
-// logo y los contactos en círculos chicos (Instagram, WhatsApp, email y la
-// oficina en el mapa); abajo, el copyright y los créditos de las fotos,
+// logo, los legales (privacidad y los términos de la plataforma) y los
+// contactos en círculos chicos (Instagram, WhatsApp, email y la oficina en
+// el mapa); abajo, el copyright y los créditos de las fotos,
 // alineados a los mismos bordes. Estático (sin JS propio): los enlaces de
 // WhatsApp van directo a WhatsApp.
 const EMAIL = 'inforindeplus@gmail.com';
@@ -17,7 +20,7 @@ const ADDRESS = 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina';
 const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
 
 const Footer = () => {
-  const { dict } = useI18n();
+  const { locale, dict } = useI18n();
   const t = dict.footer;
   const waUrl = whatsappUrl(dict.whatsapp.message);
 
@@ -31,34 +34,43 @@ const Footer = () => {
               <img src={urlDe(rindeplusLogoDark)} alt={dict.header.logoAlt} width="344" height="121" loading="lazy" decoding="async" />
             </a>
 
-            <ul className="rp-footer__redes">
-              <li>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={t.instagramAria}>
-                  <PiInstagramLogo aria-hidden="true" />
+            <div className="rp-footer__derecha">
+              <nav className="rp-footer__legales" aria-label={t.legalNav}>
+                <a href={PRIVACY_PATH[locale]}>{t.privacy}</a>
+                <a href={TERMS_URL} target="_blank" rel="noopener noreferrer" title={t.termsTitle} hrefLang="es">
+                  {t.terms}
                 </a>
-              </li>
-              <li>
-                <a href={waUrl} target="_blank" rel="noopener noreferrer" aria-label={t.whatsappAria}>
-                  <PiWhatsappLogo aria-hidden="true" />
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${EMAIL}`} aria-label={t.emailAria}>
-                  <PiEnvelopeSimple aria-hidden="true" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={MAPS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${t.officeAria}: ${ADDRESS}`}
-                  title={ADDRESS}
-                >
-                  <PiMapPin aria-hidden="true" />
-                </a>
-              </li>
-            </ul>
+              </nav>
+
+              <ul className="rp-footer__redes">
+                <li>
+                  <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={t.instagramAria}>
+                    <PiInstagramLogo aria-hidden="true" />
+                  </a>
+                </li>
+                <li>
+                  <a href={waUrl} target="_blank" rel="noopener noreferrer" aria-label={t.whatsappAria}>
+                    <PiWhatsappLogo aria-hidden="true" />
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:${EMAIL}`} aria-label={t.emailAria}>
+                    <PiEnvelopeSimple aria-hidden="true" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${t.officeAria}: ${ADDRESS}`}
+                    title={ADDRESS}
+                  >
+                    <PiMapPin aria-hidden="true" />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 

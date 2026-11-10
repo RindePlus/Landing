@@ -66,6 +66,43 @@
   filter: brightness(0) invert(1);
 }
 
+/* A la derecha: los legales y, después, los contactos. En celular los
+   legales bajan a su propio renglón, debajo del logo. */
+.rp-footer__derecha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-200) var(--space-300);
+}
+
+.rp-footer__legales {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-50) var(--space-300);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-footer__legales a {
+  text-decoration: none;
+}
+
+.rp-footer__legales a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .rp-footer__marca { flex-wrap: wrap; }
+  .rp-footer__derecha { display: contents; }
+  .rp-footer__legales {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: center;
+  }
+}
+
 /* Redes en círculos con borde, monocromos; al pasar, se rellenan. */
 .rp-footer__redes {
   display: flex;

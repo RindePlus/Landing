@@ -5,25 +5,36 @@ import { DICTIONARIES } from '../i18n/I18nContext.jsx';
 import { HOME_PATH, HTML_LANG, LOCALES, OG_LOCALE, idiomaDe } from '../i18n/config';
 import '../index.css';
 
+type Locale = keyof typeof HOME_PATH;
+
 interface Props {
   /** Fuera de los buscadores (el 404): sin canonical ni hreflang. */
   noindex?: boolean;
+  /** Título y descripción propios (páginas que no son la home). */
+  title?: string;
+  description?: string;
+  /** Ruta de esta página en cada idioma (canonical, hreflang y el selector
+      de idioma del header). Por defecto, la home. */
+  paths?: Record<Locale, string>;
 }
 
-const { noindex = false } = Astro.props;
+const { noindex = false, title, description, paths = HOME_PATH } = Astro.props;
 
-type Locale = keyof typeof HOME_PATH;
 // Idioma de la página: sale de la ruta (/en/… = inglés, /pt/… = portugués).
 const lang = idiomaDe(Astro.currentLocale) as Locale;
-const { meta } = DICTIONARIES[lang];
+const { meta: metaHome } = DICTIONARIES[lang];
+const meta = { title: title ?? metaHome.title, description: description ?? metaHome.description };
+// En la home los enlaces del header van a sus secciones (#id); en las demás
+// páginas, a la home del idioma.
+const esHome = paths === HOME_PATH;
 const site = Astro.site ?? new URL('https://rindeplus.com');
-const pageUrl = new URL(HOME_PATH[lang], site).href;
+const pageUrl = new URL(paths[lang], site).href;
 const ogImage = new URL(`/og/rindeplus-${lang}.png`, site).href;
 const hreflang = noindex
   ? []
   : [
-      ...(LOCALES as Locale[]).map((code) => ({ lang: HTML_LANG[code], href: new URL(HOME_PATH[code], site).href })),
-      { lang: 'x-default', href: new URL(HOME_PATH.es, site).href },
+      ...(LOCALES as Locale[]).map((code) => ({ lang: HTML_LANG[code], href: new URL(paths[code], site).href })),
+      { lang: 'x-default', href: new URL(paths.es, site).href },
     ];
 ---
 
@@ -76,7 +87,7 @@ const hreflang = noindex
     </script>
   </head>
   <body class="rp-home">
-    <Header client:load lang={lang} />
+    <Header client:load lang={lang} rutas={paths} inicio={esHome ? '' : HOME_PATH[lang]} />
     <main id="contenido">
       <slot />
     </main>

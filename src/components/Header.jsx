@@ -19,7 +19,8 @@ const HIDE_DISTANCE = 120;
 const SHOW_DISTANCE = 120;
 const TOP_ZONE = 160;
 
-// Selector de idioma: cada opción es un enlace a la home en el otro idioma.
+// Selector de idioma: cada opción es un enlace a esta misma página en el
+// otro idioma (la home o la política de privacidad).
 // Antes de salir guarda la sección visible y cuánto se había leído de ella;
 // BaseLayout la recupera en la página nueva, así el cambio no lleva arriba
 // de todo.
@@ -42,7 +43,10 @@ const guardarPosicion = (destino) => {
   }
 };
 
-const Header = () => {
+// `rutas`: la página actual en cada idioma (el selector lleva ahí).
+// `inicio`: prefijo de los enlaces a secciones; vacío en la home, la home
+// del idioma en las demás páginas (la política de privacidad).
+const Header = ({ rutas = HOME_PATH, inicio = '' }) => {
   const { locale, dict } = useI18n();
   const t = dict.header;
   const { theme, toggleTheme } = useRpTheme();
@@ -206,7 +210,7 @@ const Header = () => {
       event.preventDefault();
       return;
     }
-    guardarPosicion(HOME_PATH[code]);
+    guardarPosicion(rutas[code]);
   };
 
   const irASeccion = () => {
@@ -224,7 +228,7 @@ const Header = () => {
       className={`header ${isMenuOpen ? 'header--menu-open' : ''} ${isHidden && !isMenuOpen ? 'header--hidden' : ''} ${isScrolled ? 'header--scrolled' : ''} ${sobreOscuro ? 'header--sobre-oscuro' : ''}`}
     >
       <div className="header-content">
-        <a href="#top" className="header-logo" aria-label={t.logoAlt} onClick={() => setIsMenuOpen(false)}>
+        <a href={`${inicio}#top`} className="header-logo" aria-label={t.logoAlt} onClick={() => setIsMenuOpen(false)}>
           {/* Las dos versiones del logo: el CSS muestra la del tema activo
               (data-rp-theme), así no parpadea antes de hidratar. */}
           <img src={urlDe(rindeplusLogo)} alt={t.logoAlt} width="344" height="121" fetchPriority="high" className="logo-image logo-image--light" />
@@ -235,7 +239,7 @@ const Header = () => {
           {menuItems.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
+              href={`${inicio}#${item.id}`}
               className={`menu-item ${item.id === activeId ? 'menu-item--active' : ''}`}
               aria-current={item.id === activeId ? 'location' : undefined}
               onClick={irASeccion}
@@ -247,7 +251,7 @@ const Header = () => {
           {/* Sólo en el drawer (celular y tablet): instalar la plataforma
               como app, una fila más. En escritorio no va: ocupa lugar junto
               al logo. */}
-          <a className="menu-item header-nav__install" href="#instalar" onClick={irASeccion}>
+          <a className="menu-item header-nav__install" href={`${inicio}#instalar`} onClick={irASeccion}>
             {t.nav.install}
           </a>
 
@@ -275,7 +279,7 @@ const Header = () => {
               {LOCALES.map((code) => (
                 <a
                   key={code}
-                  href={HOME_PATH[code]}
+                  href={rutas[code]}
                   hrefLang={code}
                   lang={code}
                   aria-label={LOCALE_LABELS[code]}
@@ -332,7 +336,7 @@ const Header = () => {
               {LOCALES.map((code) => (
                 <li key={code} role="none">
                   <a
-                    href={HOME_PATH[code]}
+                    href={rutas[code]}
                     hrefLang={code}
                     lang={code}
                     role="menuitemradio"

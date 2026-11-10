@@ -31,5 +31,12 @@ export const HOME_PATH = {
   pt: '/pt/',
 };
 
+// Ruta de la política de privacidad en cada idioma (src/pages).
+export const PRIVACY_PATH = {
+  es: '/privacidad/',
+  en: '/en/privacy/',
+  pt: '/pt/privacidade/',
+};
+
 // Idioma de la página a partir de Astro.currentLocale.
 export const idiomaDe = (locale) => (LOCALES.includes(locale) ? locale : DEFAULT_LOCALE);
