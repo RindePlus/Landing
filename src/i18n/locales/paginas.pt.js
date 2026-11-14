@@ -8,20 +8,14 @@ const paginas = {
       description:
         'A Rinde Plus é uma empresa de Alta Gracia, Córdoba, Argentina, que junta agronomia e sistemas de informação para que cada talhão seja decidido com critério agronômico. Quem somos e como trabalhamos.',
     },
-    kicker: 'Sobre nós',
     title: 'Somos a Rinde Plus',
     lead:
-      'Uma empresa de Alta Gracia, Córdoba, Argentina, que junta dois ofícios: a agronomia e os sistemas de informação. Engenheiros agrônomos e de sistemas, na mesma mesa, para que o critério de um bom agrônomo chegue a cada talhão, todos os dias da safra.',
-    ficha: {
-      titulo: 'A empresa',
-      datos: [
-        { dato: 'Marca', valor: 'Rinde Plus®' },
-        { dato: 'Razão social', valor: 'Conextion S.A.S.' },
-        { dato: 'Sede', valor: 'Alta Gracia, Córdoba, Argentina' },
-        { dato: 'Equipe', valor: 'Agronomia e sistemas de informação' },
-        { dato: 'Trabalhamos com', valor: 'Produtores, consultores e empresas do setor' },
-      ],
-    },
+      'Fazemos tecnologia para o campo: pensada por agrônomos, construída por engenheiros de sistemas e testada talhão por talhão.',
+    bloques: [
+      { titulo: 'Quem somos', texto: 'Uma equipe de engenheiros agrônomos e engenheiros de Sistemas de Informação de Alta Gracia, Córdoba, Argentina. Uns conhecem o talhão; os outros constroem o software. Trabalhamos na mesma mesa, e isso aparece em cada número da plataforma.' },
+      { titulo: 'O que fazemos', texto: 'A Rinde Plus acompanha cada talhão durante toda a safra: quanto pode produzir, quanta água o solo tem, que dose se paga, que riscos vêm e, no fechamento, onde se perdeu produtividade. Para produtores, consultores e empresas do setor.' },
+      { titulo: 'Como fazemos', texto: 'Juntamos o solo, o clima, as imagens de satélite e o histórico de cada talhão, e os lemos com critério agronômico. O resultado chega claro: na plataforma, em relatórios e num aviso pelo WhatsApp que pode ser respondido.' },
+    ],
     idea: {
       kicker: 'A ideia',
       titulo: 'Dois talhões vizinhos podem pedir decisões diferentes.',

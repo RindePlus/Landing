@@ -1,4 +1,4 @@
-import { PiArrowRight, PiMapPin } from 'react-icons/pi';
+import { PiArrowRight, PiMapPin, PiPath, PiPlant, PiUsersThree } from 'react-icons/pi';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
 import { CampoPagina } from './LotesMosaic';
 import './InnerPages.css';
@@ -59,6 +59,9 @@ const DosLotes = ({ t }) => (
   </figure>
 );
 
+// Íconos de quiénes somos, qué hacemos y cómo lo hacemos.
+const ICONOS_SOMOS = [PiUsersThree, PiPlant, PiPath];
+
 const About = () => {
   const t = useI18n().dict.paginas.nosotros;
   const a = t.anatomia;
@@ -66,25 +69,26 @@ const About = () => {
 
   return (
     <>
-      {/* Apertura: quiénes somos, con la ficha de la empresa al lado. */}
+      {/* Apertura: el título y, debajo, tres textos que cuentan quiénes
+          somos, qué hacemos y cómo lo hacemos. */}
       <section className="rp-ab-empresa" id="top">
         <div className="rp-intro-bg" aria-hidden="true"><CampoPagina idBase="rpCampoIntro" /></div>
         <div className="rp-ab-empresa__texto">
-          <p className="rp-kicker rp-fade-in rp-d-1">{t.kicker}</p>
           <h1 className="rp-ab-empresa__titulo rp-fade-in rp-d-1">{t.title}</h1>
-          <p className="rp-ab-intro__lead rp-fade-in rp-d-3">{t.lead}</p>
+          <p className="rp-ab-empresa__lead rp-fade-in rp-d-3">{t.lead}</p>
         </div>
-        <aside className="rp-ficha-empresa rp-fade-in rp-d-3" aria-label={t.ficha.titulo}>
-          <p className="rp-ficha-empresa__titulo">{t.ficha.titulo}</p>
-          <dl>
-            {t.ficha.datos.map((f) => (
-              <div key={f.dato}>
-                <dt>{f.dato}</dt>
-                <dd>{f.valor}</dd>
-              </div>
-            ))}
-          </dl>
-        </aside>
+        <ul className="rp-somos">
+          {t.bloques.map((b, i) => {
+            const Icono = ICONOS_SOMOS[i];
+            return (
+              <li key={b.titulo} className={`rp-somos__bloque rp-fade-in rp-d-${i + 3}`}>
+                <span className="rp-somos__icono" aria-hidden="true"><Icono /></span>
+                <h2 className="rp-somos__titulo">{b.titulo}</h2>
+                <p className="rp-somos__texto">{b.texto}</p>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
       {/* La idea: los dos lotes vecinos, cada uno con su aviso. */}

@@ -7,20 +7,14 @@ const paginas = {
       description:
         'Rinde Plus is a company from Alta Gracia, Córdoba, Argentina, bringing agronomy and information systems together so every field is decided with agronomic judgment. Who we are and how we work.',
     },
-    kicker: 'About',
     title: 'We are Rinde Plus',
     lead:
-      'A company from Alta Gracia, Córdoba, Argentina, that brings two crafts together: agronomy and information systems. Agronomists and systems engineers at the same table, so a good agronomist’s judgment reaches every field, every day of the season.',
-    ficha: {
-      titulo: 'The company',
-      datos: [
-        { dato: 'Brand', valor: 'Rinde Plus®' },
-        { dato: 'Legal name', valor: 'Conextion S.A.S.' },
-        { dato: 'Based in', valor: 'Alta Gracia, Córdoba, Argentina' },
-        { dato: 'Team', valor: 'Agronomy and information systems' },
-        { dato: 'We work with', valor: 'Growers, advisors and farm businesses' },
-      ],
-    },
+      'We build technology for the field: designed by agronomists, built by systems engineers and tested field by field.',
+    bloques: [
+      { titulo: 'Who we are', texto: 'A team of agronomists and Information Systems engineers from Alta Gracia, Córdoba, Argentina. Some know the field; the others build the software. We work at the same table, and it shows in every number in the platform.' },
+      { titulo: 'What we do', texto: 'Rinde Plus follows every field through the whole season: how much it can yield, how much water the soil holds, which rate pays off, what risks are coming and, at the close, where yield was lost. For growers, advisors and farm businesses.' },
+      { titulo: 'How we do it', texto: 'We bring together the soil, the weather, satellite imagery and the history of every field, and read them with agronomic judgment. The result arrives clearly: in the platform, in reports and in a WhatsApp alert you can reply to.' },
+    ],
     idea: {
       kicker: 'The idea',
       titulo: 'Two neighboring fields can call for different decisions.',

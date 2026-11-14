@@ -9,27 +9,16 @@
 
 /* ---- Comunes ---- */
 
-/* Rótulo chico arriba de cada bloque: un punto amarillo y el texto en
-   tinta suave (sin mayúsculas de color). */
+/* Rótulo arriba de cada bloque: en el azul de los acentos, a un tamaño
+   que se lee (sin punto ni mayúsculas). */
 .rp-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-75);
-  margin: 0 0 var(--space-200);
-  color: var(--gh-fg-muted);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  line-height: var(--leading-sm);
+  margin: 0 0 var(--space-100);
+  color: var(--gh-accent);
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
   font-weight: 600;
-  letter-spacing: 0;
-}
-
-.rp-kicker::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--rp-amarillo);
+  letter-spacing: -0.01em;
 }
 
 .rp-ab-h2 {
@@ -103,24 +92,18 @@
    Nosotros
    ============================================================ */
 
-/* Apertura: quiénes somos a la izquierda y la ficha de la empresa a la
-   derecha, sobre el campo suave. */
+/* Apertura: el título y la bajada arriba; debajo, quiénes somos, qué
+   hacemos y cómo lo hacemos, en tres tarjetas sobre el campo suave. */
 .rp-ab-empresa {
-  display: grid;
-  gap: var(--space-500);
-  align-items: center;
-  padding-top: calc(var(--header-reserva) + var(--space-600));
+  padding-top: calc(var(--header-reserva) + var(--space-700));
   padding-bottom: var(--space-700);
 }
 
 @media (min-width: 1024px) {
-  .rp-ab-empresa {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    gap: var(--space-800);
-    min-height: min(72svh, 640px);
-    padding-top: calc(var(--header-reserva) + var(--space-400));
-  }
+  .rp-ab-empresa { padding-top: calc(var(--header-reserva) + var(--space-800)); }
 }
+
+.rp-ab-empresa__texto { max-width: 44rem; }
 
 .rp-ab-empresa__titulo {
   margin: 0 0 var(--space-300);
@@ -133,49 +116,64 @@
   .rp-ab-empresa__titulo { font-size: var(--text-6xl); }
 }
 
-/* Ficha de la empresa: datos en renglones, el dato en la tipografía de
-   cifras y el valor en tinta. */
-.rp-ficha-empresa {
+.rp-ab-empresa__lead {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+}
+
+.rp-somos {
+  display: grid;
+  gap: var(--space-200);
+  margin: var(--space-600) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .rp-somos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-300); }
+}
+
+.rp-somos__bloque {
+  display: grid;
+  align-content: start;
+  gap: var(--space-100);
   padding: var(--space-400);
   border-radius: var(--space-200);
   background: var(--gh-surface);
   box-shadow: var(--gh-shadow-card);
 }
 
-.rp-ficha-empresa__titulo {
-  margin: 0 0 var(--space-200);
-  color: var(--rp-marino);
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  line-height: var(--leading-xl);
-  font-weight: 600;
+.rp-somos__icono {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--space-100);
+  border-radius: var(--gh-radius-btn);
+  background: color-mix(in srgb, var(--rp-azul) 12%, var(--gh-surface));
+  color: var(--gh-accent);
 }
 
-.rp-ficha-empresa dl { margin: 0; }
+.rp-somos__icono svg { width: 24px; height: 24px; }
 
-.rp-ficha-empresa dl > div {
-  display: grid;
-  grid-template-columns: 8.5rem minmax(0, 1fr);
-  gap: var(--space-200);
-  padding: var(--space-100) 0;
-  border-top: 1px solid var(--gh-border-muted);
-}
-
-.rp-ficha-empresa dt {
-  color: var(--gh-fg-subtle);
-  font-family: var(--font-data);
-  font-size: var(--text-xs);
-  line-height: var(--leading-sm);
+.rp-somos__titulo {
+  margin: 0;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-2xl);
   letter-spacing: -0.02em;
 }
 
-.rp-ficha-empresa dd {
+.rp-somos__texto {
   margin: 0;
-  color: var(--gh-fg);
-  font-size: var(--text-sm);
-  line-height: var(--leading-sm);
-  font-weight: 500;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-base);
+  line-height: 1.65;
 }
+
+.rp-d-5 { animation-delay: 300ms; }
 
 /* La idea: el título a la izquierda y los dos lotes a la derecha. */
 .rp-ab-intro {
@@ -686,32 +684,22 @@
   line-height: var(--leading-lg);
 }
 
-/* Mapa de la campaña: los cinco momentos sobre una línea, con un punto
-   cada uno; las lecciones cuelgan debajo. En celular, en vertical. */
-.rp-campana {
-  margin-top: var(--space-600);
-  padding: var(--space-400) var(--space-300);
-  border-radius: var(--space-200);
-  background: var(--gh-surface);
-  box-shadow: var(--gh-shadow-card);
-}
-
-@media (min-width: 900px) {
-  .rp-campana { padding: var(--space-400) var(--space-500) var(--space-500); }
-}
+/* Mapa de la campaña: los cinco momentos son tramos de una misma barra,
+   cada uno con su tono (del suelo a la cosecha), y debajo de cada tramo
+   sus lecciones como botones. En celular, un tramo por renglón. */
+.rp-campana { margin-top: var(--space-600); }
 
 .rp-campana__titulo {
-  margin: 0 0 var(--space-300);
-  color: var(--gh-fg-subtle);
-  font-size: var(--text-xs);
-  line-height: var(--leading-xs);
+  margin: 0 0 var(--space-200);
+  color: var(--rp-marino);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: -0.015em;
 }
 
 .rp-campana__momentos {
-  position: relative;
   display: grid;
   gap: var(--space-300);
   margin: 0;
@@ -719,94 +707,106 @@
   list-style: none;
 }
 
-.rp-campana__momento {
-  position: relative;
-  padding-left: var(--space-400);
+@media (min-width: 900px) {
+  .rp-campana__momentos {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-50);
+  }
 }
 
-/* La línea de la campaña: vertical en celular. */
-.rp-campana__momento::before {
-  content: '';
-  position: absolute;
-  top: 14px;
-  bottom: calc(var(--space-300) * -1 - 2px);
-  left: 6px;
-  border-left: 2px solid var(--gh-border);
-}
+/* El tono de cada momento: suelo, agua, fertilizante, cultivo, cosecha. */
+.rp-campana__momento--planificar { --tramo: var(--rp-carbono); }
+.rp-campana__momento--preparar { --tramo: var(--rp-agua); }
+.rp-campana__momento--fertilizar { --tramo: var(--rp-azul); }
+.rp-campana__momento--acompanar { --tramo: var(--gh-detail-green); }
+.rp-campana__momento--cerrar { --tramo: var(--gh-detail-yellow-strong); }
 
-.rp-campana__momento:last-child::before { display: none; }
-
-.rp-campana__punto {
-  position: absolute;
-  top: 4px;
-  left: 0;
-  width: 14px;
-  height: 14px;
-  border: 3px solid var(--gh-surface);
-  border-radius: 50%;
-  background: var(--rp-amarillo);
-  box-shadow: 0 0 0 1px var(--gh-border-strong);
-}
-
-.rp-campana__nombre {
+.rp-campana__tramo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
   margin: 0 0 var(--space-100);
-  color: var(--rp-marino);
+  padding: var(--space-200);
+  border-radius: var(--gh-radius-card);
+  background: color-mix(in srgb, var(--tramo) 16%, var(--gh-surface));
+  box-shadow: inset 0 -3px 0 var(--tramo);
+  color: var(--gh-fg);
   font-family: var(--font-heading);
-  font-size: var(--text-base);
-  line-height: var(--leading-base);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
   font-weight: 600;
+  letter-spacing: -0.015em;
 }
+
+/* En escritorio los tramos se tocan: sólo las puntas de la barra van
+   redondeadas. */
+@media (min-width: 900px) {
+  /* Todos del mismo alto aunque el nombre ocupe dos renglones. */
+  .rp-campana__tramo { border-radius: var(--space-50); min-height: 88px; }
+  .rp-campana__momento:first-child .rp-campana__tramo { border-radius: var(--gh-radius-card) var(--space-50) var(--space-50) var(--gh-radius-card); }
+  .rp-campana__momento:last-child .rp-campana__tramo { border-radius: var(--space-50) var(--gh-radius-card) var(--gh-radius-card) var(--space-50); }
+}
+
+.rp-campana__tramo-num {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--tramo);
+  color: #ffffff;
+  font-family: var(--font-data);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+[data-rp-theme='dark'] .rp-campana__tramo-num { color: #131209; }
 
 .rp-campana__momento ul {
   display: grid;
-  gap: var(--space-25);
+  gap: var(--space-75);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.rp-campana__momento a {
-  display: flex;
-  gap: var(--space-75);
-  align-items: baseline;
-  padding: var(--space-50) var(--space-75);
-  margin-left: calc(var(--space-75) * -1);
-  border-radius: var(--gh-radius);
-  color: var(--gh-fg-muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-sm);
-  transition: background-color var(--dur-fast) var(--ease-fluid), color var(--dur-fast) var(--ease-fluid);
+@media (min-width: 900px) {
+  .rp-campana__momento ul { padding-right: var(--space-75); }
 }
 
-.rp-campana__momento a:hover { background: var(--gh-canvas); color: var(--gh-accent); }
-.rp-campana__momento a:active { transform: translateY(1px); }
+.rp-campana__momento a {
+  display: flex;
+  gap: var(--space-100);
+  align-items: baseline;
+  padding: var(--space-100) var(--space-200);
+  border-radius: var(--gh-radius-btn);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+  color: var(--gh-fg);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  font-weight: 500;
+  transition:
+    transform var(--dur-fast) var(--ease-fluid),
+    box-shadow var(--dur-fast) var(--ease-fluid),
+    color var(--dur-fast) var(--ease-fluid);
+}
+
+.rp-campana__momento a:hover {
+  color: var(--gh-accent);
+  transform: translateY(-2px);
+  box-shadow: var(--gh-shadow-overlay);
+}
+
+.rp-campana__momento a:active { transform: translateY(0); }
 
 .rp-campana__num {
   flex: none;
-  color: var(--gh-fg-subtle);
+  color: var(--tramo);
   font-family: var(--font-data);
-  font-size: var(--text-xs);
-}
-
-@media (min-width: 900px) {
-  .rp-campana__momentos {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: var(--space-300);
-  }
-
-  .rp-campana__momento { padding-left: 0; padding-top: var(--space-400); }
-
-  /* En escritorio la línea es horizontal y une los puntos. */
-  .rp-campana__momento::before {
-    top: 6px;
-    bottom: auto;
-    left: 0;
-    right: calc(var(--space-300) * -1);
-    border-left: 0;
-    border-top: 2px solid var(--gh-border);
-  }
-
-  .rp-campana__momento:last-child::before { display: block; right: 0; }
+  font-size: var(--text-sm);
+  font-weight: 500;
 }
 
 /* ---- Fichas: abiertas, separadas por una línea fina; el dibujo cambia

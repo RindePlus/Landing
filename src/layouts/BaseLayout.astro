@@ -143,5 +143,36 @@ const hreflang = noindex
         });
       }
     </script>
+
+    <!-- Llegada con ancla (por ejemplo /#contacto desde otra página): el
+         navegador salta a la sección apenas carga, pero después las islas
+         (Impacto, Plataforma) se hidratan y cambian de alto, y la sección
+         queda corrida. Mientras la página se acomoda, cada cambio de alto
+         vuelve a dejar la sección justo debajo del header; ese scroll avisa
+         rp:scroll-propio, así el header no lo toma como «bajar» y no se
+         esconde. Se suelta al primer gesto de la persona o a los 3 s. -->
+    <script>
+      const id = decodeURIComponent(location.hash.slice(1));
+      const destino = id ? document.getElementById(id) : null;
+      if (destino && 'ResizeObserver' in window) {
+        const gestos = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
+        let alto = 0;
+        const alinear = () => {
+          const nuevo = document.documentElement.scrollHeight;
+          if (nuevo === alto) return;
+          alto = nuevo;
+          window.dispatchEvent(new Event('rp:scroll-propio'));
+          destino.scrollIntoView({ block: 'start', behavior: 'instant' });
+        };
+        const observer = new ResizeObserver(alinear);
+        const soltar = () => {
+          observer.disconnect();
+          gestos.forEach((g) => window.removeEventListener(g, soltar));
+        };
+        observer.observe(document.body);
+        gestos.forEach((g) => window.addEventListener(g, soltar, { passive: true }));
+        window.setTimeout(soltar, 3000);
+      }
+    </script>
   </body>
 </html>

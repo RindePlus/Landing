@@ -12,20 +12,14 @@ const paginas = {
       description:
         'Rinde Plus es una empresa de Alta Gracia, Córdoba, que junta agronomía y sistemas de información para que cada lote se decida con criterio agronómico. Quiénes somos y cómo trabajamos.',
     },
-    kicker: 'Nosotros',
     title: 'Somos Rinde Plus',
     lead:
-      'Una empresa de Alta Gracia, Córdoba, que junta dos oficios: la agronomía y los sistemas de información. Ingenieros agrónomos y en sistemas, en la misma mesa, para que el criterio de un buen agrónomo llegue a cada lote, todos los días de la campaña.',
-    ficha: {
-      titulo: 'La empresa',
-      datos: [
-        { dato: 'Marca', valor: 'Rinde Plus®' },
-        { dato: 'Razón social', valor: 'Conextion S.A.S.' },
-        { dato: 'Sede', valor: 'Alta Gracia, Córdoba, Argentina' },
-        { dato: 'Equipo', valor: 'Agronomía y sistemas de información' },
-        { dato: 'Trabajamos con', valor: 'Productores, asesores y empresas del sector' },
-      ],
-    },
+      'Hacemos tecnología para el campo: pensada por agrónomos, construida por ingenieros en sistemas y probada lote por lote.',
+    bloques: [
+      { titulo: 'Quiénes somos', texto: 'Un equipo de ingenieros agrónomos e ingenieros en Sistemas de Información de Alta Gracia, Córdoba. Unos conocen el lote; los otros construyen el software. Trabajamos en la misma mesa, y eso se nota en cada número de la plataforma.' },
+      { titulo: 'Qué hacemos', texto: 'Rinde Plus acompaña cada lote durante toda la campaña: cuánto puede rendir, cuánta agua tiene el suelo, qué dosis se paga, qué riesgos vienen y, al cierre, dónde se perdió rinde. Para productores, asesores y empresas del sector.' },
+      { titulo: 'Cómo lo hacemos', texto: 'Juntamos el suelo, el clima, las imágenes satelitales y la historia de cada lote, y los leemos con criterio agronómico. El resultado llega claro: en la plataforma, en informes y en un aviso por WhatsApp que se puede responder.' },
+    ],
     idea: {
       kicker: 'La idea',
       titulo: 'Dos lotes vecinos pueden pedir decisiones distintas.',

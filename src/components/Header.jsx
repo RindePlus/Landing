@@ -218,13 +218,22 @@ const Header = ({ rutas = HOME_PATH, inicio = '' }) => {
     guardarPosicion(rutas[code]);
   };
 
-  const irASeccion = () => {
+  const irASeccion = (event, item) => {
     setIsMenuOpen(false);
     setIsHidden(false);
     navegando.current = true;
     // Si ya estaba ahí y no hay scroll, se suelta igual.
     window.clearTimeout(finNavegar.current);
     finNavegar.current = window.setTimeout(() => { navegando.current = false; }, 1000);
+    // Fuera de la home, si la sección está en esta misma página (Contacto:
+    // Nosotros y Educación terminan en «Hablemos de tus lotes») se baja
+    // ahí en lugar de ir a la home.
+    const destino = inicio && item?.id ? document.getElementById(item.id) : null;
+    if (destino) {
+      event.preventDefault();
+      destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.replaceState(null, '', `#${item.id}`);
+    }
   };
 
   // Una sola marca a la vez: la página (Educación, Nosotros) se marca
@@ -260,7 +269,7 @@ const Header = ({ rutas = HOME_PATH, inicio = '' }) => {
               href={item.href ?? `${inicio}#${item.id}`}
               className={`menu-item ${item.page ? 'menu-item--pagina' : ''} ${estaActivo(item) ? 'menu-item--active' : ''}`}
               aria-current={ariaActual(item)}
-              onClick={irASeccion}
+              onClick={(event) => irASeccion(event, item)}
             >
               {item.label}
             </a>

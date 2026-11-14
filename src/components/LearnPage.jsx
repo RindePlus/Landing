@@ -30,15 +30,15 @@ const DIAGRAMAS = {
 
 const num = (i) => String(i + 1).padStart(2, '0');
 
-// Apertura y mapa de la campaña: los cinco momentos en una línea de tiempo
-// y, debajo de cada uno, sus lecciones. Es el índice de la página.
+// Apertura y mapa de la campaña: los cinco momentos como tramos de una
+// misma barra (la campaña, del suelo a la cosecha) y, debajo de cada uno,
+// sus lecciones como botones. Es el índice de la página.
 const Intro = () => {
   const t = useI18n().dict.paginas.educacion;
   return (
     <section className="rp-ed-intro" id="top">
       <div className="rp-intro-bg" aria-hidden="true"><CampoPagina idBase="rpCampoIntro" /></div>
       <div className="rp-ed-intro__texto">
-        <p className="rp-kicker rp-fade-in rp-d-1">{t.kicker}</p>
         <h1 className="rp-ed-intro__titulo rp-fade-in rp-d-1">{t.title}</h1>
         <p className="rp-ed-intro__lead rp-fade-in rp-d-3">{t.lead}</p>
       </div>
@@ -46,10 +46,12 @@ const Intro = () => {
       <nav className="rp-campana rp-fade-in rp-d-4" aria-label={t.mapa}>
         <p className="rp-campana__titulo">{t.mapa}</p>
         <ol className="rp-campana__momentos">
-          {t.momentos.map((m) => (
-            <li key={m.id} className="rp-campana__momento">
-              <span className="rp-campana__punto" aria-hidden="true" />
-              <p className="rp-campana__nombre">{m.nombre}</p>
+          {t.momentos.map((m, i) => (
+            <li key={m.id} className={`rp-campana__momento rp-campana__momento--${m.id}`}>
+              <p className="rp-campana__tramo">
+                <span className="rp-campana__tramo-num" aria-hidden="true">{i + 1}</span>
+                {m.nombre}
+              </p>
               <ul>
                 {t.lecciones.map((l, i) =>
                   l.momento === m.id ? (
