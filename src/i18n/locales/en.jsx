@@ -1,4 +1,5 @@
 import { LuShare } from 'react-icons/lu';
+import paginas from './paginas.en';
 import { APP_URL } from '../../data/links';
 
 // Enlace a la plataforma en los pasos de instalación: se toca y se abre.
@@ -13,6 +14,9 @@ const APP = (
 // season. No questions in headings.
 
 const en = {
+  // Nosotros y Educación (./paginas.en.js).
+  paginas,
+
   meta: {
     title: 'Rinde Plus · Agronomic intelligence for every field',
     description:
@@ -30,6 +34,8 @@ const en = {
       impact: 'Impact',
       campaign: 'Platform',
       why: 'Benefits',
+      learn: 'Learn',
+      about: 'About',
       contact: 'Contact',
       install: 'How to install the app',
     },

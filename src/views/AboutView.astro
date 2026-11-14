@@ -1,0 +1,19 @@
+---
+// Nosotros, igual en los tres idiomas (el idioma sale de la ruta). Toda
+// estática: sin JS propio en el cliente.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AboutContent, AboutEquipo, AboutLugar } from '../components/AboutPage.jsx';
+import { CtaFinal } from '../components/HomePage.jsx';
+import { DICTIONARIES } from '../i18n/I18nContext.jsx';
+import { NOSOTROS_PATH, idiomaDe } from '../i18n/config';
+
+const lang = idiomaDe(Astro.currentLocale) as keyof typeof DICTIONARIES;
+const { meta } = DICTIONARIES[lang].paginas.nosotros;
+---
+
+<BaseLayout title={meta.title} description={meta.description} paths={NOSOTROS_PATH}>
+  <AboutContent lang={lang} />
+  <AboutEquipo lang={lang} />
+  <AboutLugar lang={lang} />
+  <CtaFinal lang={lang} />
+</BaseLayout>

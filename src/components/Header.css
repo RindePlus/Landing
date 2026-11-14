@@ -395,6 +395,25 @@ img.logo-image:hover {
 
   .header-nav__theme,
   .header-nav__whatsapp { display: none; }
+
+  /* Las páginas van a la derecha (.header-paginas), no en el menú. */
+  .header-nav .menu-item--pagina { display: none; }
+
+  /* Educación y Nosotros, antes de las acciones, separadas de ellas por una
+     línea fina. */
+  .header-paginas {
+    display: flex;
+    align-items: center;
+    gap: var(--space-50);
+    margin-right: var(--space-75);
+    padding-right: var(--space-100);
+    border-right: 1px solid var(--gh-border-muted);
+  }
+}
+
+/* En el drawer las páginas van con el resto del menú. */
+@media (max-width: 1023px) {
+  .header-paginas { display: none; }
 }
 
 /* Escritorio angosto: el menú se apreta un poco para no tocar el logo. */
@@ -505,6 +524,8 @@ img.logo-image:hover {
   .header-nav--open .menu-item:nth-child(4) { transition-delay: 0.14s; }
   .header-nav--open .menu-item:nth-child(5) { transition-delay: 0.17s; }
   .header-nav--open .menu-item:nth-child(6) { transition-delay: 0.20s; }
+  .header-nav--open .menu-item:nth-child(7) { transition-delay: 0.23s; }
+  .header-nav--open .menu-item:nth-child(8) { transition-delay: 0.26s; }
 
   .menu-item:hover {
     background-color: var(--gh-surface-2);

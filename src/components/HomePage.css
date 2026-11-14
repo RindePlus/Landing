@@ -340,7 +340,9 @@
 }
 
 .rp-home__cta-btn:hover { background: #e9edf3; }
-.rp-home__cta-btn svg { width: 20px; height: 20px; color: #25d366; }
+/* Ícono en el verde oscuro del sitio (--rp-whatsapp, 5:1 sobre el blanco
+   del botón): el verde de WhatsApp (#25d366) no llega a 2:1 y se pierde. */
+.rp-home__cta-btn svg { width: 20px; height: 20px; color: var(--rp-whatsapp); }
 .rp-home__cta-btn:hover svg { transform: none; }
 
 .rp-home__cta-hint {

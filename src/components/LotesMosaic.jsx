@@ -133,6 +133,15 @@ const Mosaico = ({ campo, idBase, className = '', preserveAspectRatio = 'xMidYMi
   </svg>
 );
 
+// Campo de las páginas Nosotros y Educación (fondo de la apertura y el
+// recorte de «Dónde estamos»), sin lote resaltado. `idBase` distinto por
+// uso: los patrones de surcos llevan id y no pueden repetirse en la página.
+const CAMPO_PAGINA = buildLotes({ cols: 12, rows: 6, seed: 20261113 });
+
+export const CampoPagina = ({ idBase = 'rpCampoPagina' }) => (
+  <Mosaico campo={CAMPO_PAGINA} idBase={idBase} className="rp-mosaic--pagina" />
+);
+
 // Fondo del hero. Sin JS se ve recortado al centro.
 export const CampoHero = () => (
   <Mosaico campo={CAMPO_HERO} idBase="rpCampoRows" className="rp-mosaic--hero" />
