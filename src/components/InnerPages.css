@@ -579,18 +579,28 @@
    ============================================================ */
 
 .rp-ed-intro {
-  padding-top: calc(var(--header-reserva) + var(--space-600));
-  padding-bottom: var(--space-700);
+  padding-top: calc(var(--header-reserva) + var(--space-500));
+  padding-bottom: var(--space-600);
 }
 
-@media (min-width: 1024px) {
-  .rp-ed-intro { padding-top: calc(var(--header-reserva) + var(--space-800)); }
+/* En escritorio el título, la bajada y las nueve tarjetas entran en la
+   primera pantalla, con el contenido al medio. */
+@media (min-width: 900px) {
+  .rp-ed-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding-top: calc(var(--header-reserva) + var(--space-300));
+    padding-bottom: var(--space-300);
+  }
 }
 
-.rp-ed-intro__texto { max-width: 46rem; }
+.rp-ed-intro__texto { max-width: 52rem; }
 
 .rp-ed-intro__titulo {
-  margin: 0 0 var(--space-300);
+  margin: 0 0 var(--space-200);
+  color: var(--rp-azul);
   font-style: italic; /* la itálica de la marca */
   font-size: var(--text-4xl);
   line-height: 1.08;
@@ -603,137 +613,106 @@
 }
 
 .rp-ed-intro__lead {
-  max-width: 36rem;
+  max-width: 42rem;
   margin: 0;
   color: var(--gh-fg-muted);
   font-size: var(--text-lg);
   line-height: var(--leading-lg);
 }
 
-/* Mapa de la campaña: los cinco momentos son tramos de una misma barra,
-   cada uno con su tono (del suelo a la cosecha), y debajo de cada tramo
-   sus lecciones como botones. En celular, un tramo por renglón. */
-.rp-campana { margin-top: var(--space-600); }
+/* Índice: los nueve conceptos en tarjetas, en orden de campaña. Cada una
+   lleva el momento (con el punto de su color) y, al pie, la sección de
+   Rinde Plus donde aparece. */
+.rp-indice { margin-top: var(--space-400); }
 
-.rp-campana__titulo {
-  margin: 0 0 var(--space-200);
-  color: var(--rp-marino);
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  line-height: var(--leading-xl);
-  font-weight: 600;
-  letter-spacing: -0.015em;
-}
-
-.rp-campana__momentos {
+.rp-indice__lista {
   display: grid;
-  gap: var(--space-300);
+  gap: var(--space-100) var(--space-200);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-@media (min-width: 900px) {
-  .rp-campana__momentos {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: var(--space-50);
-  }
+@media (min-width: 640px) {
+  .rp-indice__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .rp-indice__lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* El tono de cada momento: suelo, agua, fertilizante, cultivo, cosecha. */
-.rp-campana__momento--planificar { --tramo: var(--rp-carbono); }
-.rp-campana__momento--preparar { --tramo: var(--rp-agua); }
-.rp-campana__momento--fertilizar { --tramo: var(--rp-azul); }
-.rp-campana__momento--acompanar { --tramo: var(--gh-detail-green); }
-.rp-campana__momento--cerrar { --tramo: var(--gh-detail-yellow-strong); }
+.rp-momento--planificar { --momento: var(--rp-carbono); }
+.rp-momento--preparar { --momento: var(--rp-agua); }
+.rp-momento--fertilizar { --momento: var(--rp-azul); }
+.rp-momento--acompanar { --momento: var(--gh-detail-green); }
+.rp-momento--cerrar { --momento: var(--gh-detail-yellow-strong); }
 
-.rp-campana__tramo {
+.rp-indice__item a {
+  display: grid;
+  gap: var(--space-50);
+  height: 100%;
+  padding: var(--space-100) var(--space-200);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+  color: var(--gh-fg);
+  transition:
+    transform var(--dur-fast) var(--ease-fluid),
+    box-shadow var(--dur-fast) var(--ease-fluid);
+}
+
+.rp-indice__item a:hover { transform: translateY(-2px); box-shadow: var(--gh-shadow-overlay); }
+.rp-indice__item a:active { transform: translateY(0); }
+.rp-indice__item a:focus-visible { outline: 2px solid var(--gh-accent); outline-offset: 2px; }
+
+.rp-indice__cabeza {
   display: flex;
   align-items: center;
   gap: var(--space-100);
-  margin: 0 0 var(--space-100);
-  padding: var(--space-200);
-  border-radius: var(--gh-radius-card);
-  background: color-mix(in srgb, var(--tramo) 16%, var(--gh-surface));
-  box-shadow: inset 0 -3px 0 var(--tramo);
-  color: var(--gh-fg);
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: 600;
+}
+
+.rp-indice__num {
+  color: var(--gh-fg-subtle);
+  font-family: var(--font-data);
+  font-weight: 500;
+}
+
+.rp-indice__momento { display: inline-flex; align-items: center; gap: var(--space-50); }
+
+.rp-indice__momento::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--momento);
+}
+
+.rp-indice__termino {
   font-family: var(--font-heading);
   font-size: var(--text-lg);
   line-height: var(--leading-lg);
   font-weight: 600;
-  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
-/* En escritorio los tramos se tocan: sólo las puntas de la barra van
-   redondeadas. */
-@media (min-width: 900px) {
-  /* Todos del mismo alto aunque el nombre ocupe dos renglones. */
-  .rp-campana__tramo { border-radius: var(--space-50); min-height: 88px; }
-  .rp-campana__momento:first-child .rp-campana__tramo { border-radius: var(--gh-radius-card) var(--space-50) var(--space-50) var(--gh-radius-card); }
-  .rp-campana__momento:last-child .rp-campana__tramo { border-radius: var(--space-50) var(--gh-radius-card) var(--gh-radius-card) var(--space-50); }
-}
+.rp-indice__item a:hover .rp-indice__termino { color: var(--gh-accent); }
 
-.rp-campana__tramo-num {
-  display: inline-grid;
-  place-items: center;
-  flex: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--tramo);
-  color: #ffffff;
-  font-family: var(--font-data);
-  font-size: var(--text-sm);
-  font-weight: 500;
-}
-
-[data-rp-theme='dark'] .rp-campana__tramo-num { color: #131209; }
-
-.rp-campana__momento ul {
-  display: grid;
-  gap: var(--space-75);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-@media (min-width: 900px) {
-  .rp-campana__momento ul { padding-right: var(--space-75); }
-}
-
-.rp-campana__momento a {
+.rp-indice__donde {
   display: flex;
-  gap: var(--space-100);
-  align-items: baseline;
-  padding: var(--space-100) var(--space-200);
-  border-radius: var(--gh-radius-btn);
-  background: var(--gh-surface);
-  box-shadow: var(--gh-shadow-card);
-  color: var(--gh-fg);
-  font-size: var(--text-base);
-  line-height: var(--leading-base);
-  font-weight: 500;
-  transition:
-    transform var(--dur-fast) var(--ease-fluid),
-    box-shadow var(--dur-fast) var(--ease-fluid),
-    color var(--dur-fast) var(--ease-fluid);
-}
-
-.rp-campana__momento a:hover {
-  color: var(--gh-accent);
-  transform: translateY(-2px);
-  box-shadow: var(--gh-shadow-overlay);
-}
-
-.rp-campana__momento a:active { transform: translateY(0); }
-
-.rp-campana__num {
-  flex: none;
-  color: var(--tramo);
-  font-family: var(--font-data);
+  align-items: center;
+  gap: var(--space-75);
+  color: var(--gh-fg-muted);
   font-size: var(--text-sm);
-  font-weight: 500;
+  line-height: var(--leading-sm);
 }
+
+/* La R del logo, chica: marca lo que aparece en la plataforma. */
+.rp-logo-r { flex: none; display: block; width: auto; height: 16px; }
 
 /* ---- Fichas: abiertas, separadas por una línea fina; el dibujo cambia
    de lado de una a la otra. ---- */
@@ -742,7 +721,7 @@
 .rp-ficha {
   display: grid;
   gap: var(--space-400);
-  align-items: center;
+  align-items: stretch;
   padding: var(--space-700) 0;
   border-top: 1px solid var(--gh-border);
   scroll-margin-top: var(--alto-header, 80px);
@@ -758,7 +737,7 @@
   .rp-ficha--invertida .rp-ficha__texto { order: 2; }
 }
 
-.rp-ficha__texto { display: grid; gap: var(--space-200); align-content: start; }
+.rp-ficha__texto { display: grid; gap: var(--space-200); align-content: center; }
 
 .rp-ficha__meta {
   display: flex;
@@ -796,11 +775,13 @@
   line-height: 1.6;
 }
 
-/* «Cómo se lee»: la regla práctica, en una nota con el punto amarillo. */
+/* «Cómo se lee» y «En Rinde Plus»: dos notas iguales, en el color de las
+   tarjetas. */
 .rp-ficha__lectura {
   padding: var(--space-200);
+  border: 1px solid var(--gh-border);
   border-radius: var(--gh-radius-card);
-  background: var(--gh-surface-2);
+  background: var(--gh-surface);
 }
 
 .rp-ficha__lectura p {
@@ -819,12 +800,42 @@
   font-weight: 600;
 }
 
-.rp-ficha__lectura-titulo::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--rp-amarillo);
+
+/* «En Rinde Plus»: cómo se ve el concepto en la plataforma, en un recuadro
+   como una ventana de la app, con la sección en una píldora. */
+.rp-ficha__plataforma {
+  padding: var(--space-200);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+}
+
+.rp-ficha__plataforma p {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-ficha__plataforma .rp-ficha__plataforma-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-75);
+  margin-bottom: var(--space-75);
+  color: var(--gh-fg);
+  font-weight: 600;
+}
+
+
+.rp-ficha__seccion {
+  padding: 0 var(--space-75);
+  border-radius: 999px;
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  font-weight: 600;
 }
 
 .rp-ficha__visual {
@@ -852,24 +863,94 @@
   outline-offset: -2px;
 }
 
+/* De dónde sale la información: dos tarjetas a todo el ancho, una debajo
+   de la otra (cómo lo ajustamos y la bibliografía); los datos al pie. En
+   escritorio, el contenido de cada tarjeta va en columnas. */
 .rp-ed-fuentes {
-  padding: var(--space-400) 0 0;
+  padding-top: var(--space-700);
   border-top: 1px solid var(--gh-border);
-  color: var(--gh-fg-muted);
+  scroll-margin-top: var(--alto-header, 80px);
 }
 
-.rp-ed-fuentes h2 {
-  margin: 0 0 var(--space-75);
+.rp-ed-fuentes__head { max-width: 44rem; margin-bottom: var(--space-400); }
+
+.rp-ed-fuentes__grid { display: grid; gap: var(--space-300); }
+
+
+.rp-ed-fuentes__bloque {
+  padding: var(--space-300);
+  border-radius: var(--space-200);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+}
+
+.rp-ed-fuentes__bloque h3 {
+  margin: 0 0 var(--space-200);
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+}
+
+.rp-ed-propio,
+.rp-ed-biblio { display: grid; gap: var(--space-200); margin: 0; padding: 0; list-style: none; }
+
+.rp-ed-propio li + li,
+.rp-ed-biblio li + li { padding-top: var(--space-200); border-top: 1px solid var(--gh-border-muted); }
+
+@media (min-width: 900px) {
+  .rp-ed-propio { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-400); }
+  .rp-ed-biblio { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-300) var(--space-400); }
+  .rp-ed-propio li + li,
+  .rp-ed-biblio li + li { padding-top: 0; border-top: 0; }
+}
+
+.rp-ed-propio h4 {
+  margin: 0 0 var(--space-50);
   font-size: var(--text-base);
   line-height: var(--leading-base);
 }
 
-.rp-ed-fuentes p {
-  max-width: 48rem;
+.rp-ed-propio p,
+.rp-ed-biblio__cita {
   margin: 0;
+  color: var(--gh-fg-muted);
   font-size: var(--text-sm);
   line-height: var(--leading-sm);
+  text-wrap: pretty;
 }
+
+.rp-ed-biblio__cita strong { color: var(--gh-fg); font-weight: 600; }
+.rp-ed-biblio__cita cite { font-style: normal; color: var(--gh-fg); }
+.rp-ed-biblio__cita a { color: var(--gh-accent); font-weight: 600; }
+.rp-ed-biblio__cita a:hover { text-decoration: underline; }
+
+.rp-ed-biblio__conceptos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-50);
+  margin: var(--space-75) 0 0;
+}
+
+.rp-ed-biblio__conceptos a {
+  padding: 0 var(--space-75);
+  border-radius: 999px;
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  font-weight: 600;
+}
+
+.rp-ed-biblio__conceptos a:hover { background: color-mix(in srgb, var(--gh-accent) 18%, var(--gh-surface)); }
+
+.rp-ed-fuentes__datos {
+  max-width: 52rem;
+  margin: var(--space-300) 0 0;
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+}
+
+.rp-ed-fuentes__datos strong { color: var(--gh-fg-muted); }
 
 /* ---- Dibujos (LearnDiagramas.jsx) ---- */
 .dg { display: block; width: 100%; max-width: 420px; height: auto; overflow: visible; }
