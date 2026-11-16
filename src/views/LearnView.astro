@@ -1,0 +1,37 @@
+---
+// Educación, igual en los tres idiomas. Estática salvo la demo de la ley
+// del mínimo (isla). Arriba, el mapa de la campaña hace de índice; cada
+// lección es una ficha abierta con el texto y su dibujo, que cambia de lado
+// de una a la otra. La de la ley del mínimo va destacada, a todo el ancho.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { LearnIntro, LeccionTexto, LeccionDiagrama, LearnFuentes } from '../components/LearnPage.jsx';
+import LiebigDemo from '../components/LiebigDemo.jsx';
+import { CtaFinal } from '../components/HomePage.jsx';
+import { DICTIONARIES } from '../i18n/I18nContext.jsx';
+import { EDUCACION_PATH, idiomaDe } from '../i18n/config';
+
+const lang = idiomaDe(Astro.currentLocale) as keyof typeof DICTIONARIES;
+const { lecciones, meta } = DICTIONARIES[lang].paginas.educacion;
+---
+
+<BaseLayout title={meta.title} description={meta.description} paths={EDUCACION_PATH}>
+  <LearnIntro lang={lang} />
+
+  <div class="rp-fichas">
+    {lecciones.map((l, i) => (
+      <article
+        id={l.id}
+        class:list={['rp-ficha', 'rp-reveal', { 'rp-ficha--demo': l.demo, 'rp-ficha--invertida': !l.demo && i % 2 === 1 }]}
+        aria-labelledby={`${l.id}-titulo`}
+      >
+        <LeccionTexto lang={lang} i={i} />
+        <div class="rp-ficha__visual">
+          {l.demo ? <LiebigDemo client:visible lang={lang} /> : <LeccionDiagrama lang={lang} i={i} />}
+        </div>
+      </article>
+    ))}
+    <LearnFuentes lang={lang} />
+  </div>
+
+  <CtaFinal lang={lang} />
+</BaseLayout>

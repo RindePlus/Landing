@@ -38,5 +38,18 @@ export const PRIVACY_PATH = {
   pt: '/pt/privacidade/',
 };
 
+// Rutas de Nosotros y Educación en cada idioma, con el slug traducido.
+export const NOSOTROS_PATH = {
+  es: '/nosotros/',
+  en: '/en/about/',
+  pt: '/pt/sobre/',
+};
+
+export const EDUCACION_PATH = {
+  es: '/educacion/',
+  en: '/en/learn/',
+  pt: '/pt/educacao/',
+};
+
 // Idioma de la página a partir de Astro.currentLocale.
 export const idiomaDe = (locale) => (LOCALES.includes(locale) ? locale : DEFAULT_LOCALE);

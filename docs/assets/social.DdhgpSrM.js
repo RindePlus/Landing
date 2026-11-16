@@ -1,0 +1,1 @@
+var e=e=>`https://wa.me/5493564593446?text=${encodeURIComponent(e)}`;export{e as t};

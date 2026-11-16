@@ -20,6 +20,16 @@
   font-family: var(--font-body);
 }
 
+/* Cuando la página termina en la banda «Hablemos de tus lotes» (Nosotros,
+   Educación), las dos quedan pegadas y con el mismo azul se leen como una
+   sola sección. Ahí el footer baja un tono y lleva una línea arriba. En la
+   home no pasa: entre las dos va la sección de la app. */
+main:has(> .rp-home__cta:last-child) + .rp-footer {
+  --gh-surface: color-mix(in srgb, var(--rp-marino-bg) 78%, #000);
+  background: var(--gh-surface);
+  border-top: 1px solid var(--rp-on-marino-line-strong);
+}
+
 .rp-footer__inner {
   /* Los mismos bordes que el header: el logo abajo del logo y la
      dirección bajo «Ingresar». */

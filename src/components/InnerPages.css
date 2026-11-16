@@ -1,0 +1,1216 @@
+/* ============================================================
+   Páginas internas: Nosotros y Educación.
+   La identidad de la home (papel piedra, tinta y marino, Inter en los
+   títulos, Chivo Mono en las cifras, el amarillo sólo en puntos y trazos,
+   los colores del mapa de ambientes) con formas propias: no copian el hero
+   ni los bloques de la home. Las apariciones usan .rp-reveal y .rp-fade-in
+   de HomePage.css (la vista lo importa con el panel «Hablemos»).
+   ============================================================ */
+
+/* ---- Comunes ---- */
+
+/* Rótulo arriba de cada bloque: en el azul de los acentos, a un tamaño
+   que se lee (sin punto ni mayúsculas). */
+.rp-kicker {
+  margin: 0 0 var(--space-100);
+  color: var(--gh-accent);
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.rp-ab-h2 {
+  margin: 0 0 var(--space-200);
+  font-size: var(--text-4xl);
+  line-height: var(--leading-4xl);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.rp-ab-bajada {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.rp-page__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-75);
+  color: var(--gh-accent);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 600;
+  transition: color var(--dur-fast) var(--ease-fluid);
+}
+
+.rp-page__link svg { transition: transform var(--dur-fast) var(--ease-fluid); }
+.rp-page__link:hover { color: var(--gh-accent-hover); }
+.rp-page__link:hover svg { transform: translateX(3px); }
+
+/* Ancho de los bloques: el de las tarjetas de la home (--ancho-tarjetas),
+   con sus márgenes, así los bordes quedan alineados entre páginas. */
+.rp-ab-empresa,
+.rp-ab-intro,
+.rp-anatomia,
+.rp-equipo,
+.rp-nohacemos,
+.rp-lugar,
+.rp-ed-intro,
+.rp-fichas {
+  max-width: calc(var(--ancho-tarjetas) + 2 * var(--page-gutter));
+  margin: 0 auto;
+  padding-inline: var(--page-gutter);
+}
+
+/* Fondo de la apertura: el campo de la home (mosaico de lotes), suave,
+   desde arriba y apagándose hacia abajo. A todo el ancho de la ventana
+   aunque el contenido tenga tope. */
+.rp-ed-intro { position: relative; isolation: isolate; }
+
+.rp-intro-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: -1;
+  width: 100vw;
+  translate: -50% 0;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.7) 0%, rgb(0 0 0 / 0.3) 45%, transparent 90%);
+}
+
+.rp-intro-bg .rp-mosaic { display: block; width: 100%; height: 100%; }
+
+/* ============================================================
+   Nosotros
+   ============================================================ */
+
+/* Apertura: el título y la bajada arriba; debajo, quiénes somos, qué
+   hacemos y cómo lo hacemos, en tres tarjetas. Compacta, para que las
+   tarjetas entren enteras en la primera pantalla. */
+.rp-ab-empresa {
+  padding-top: calc(var(--header-reserva) + var(--space-500));
+  padding-bottom: var(--space-600);
+}
+
+/* En escritorio ocupa la primera pantalla con el contenido al medio, así no
+   queda un hueco abajo; si no entra, crece normalmente. */
+@media (min-width: 900px) {
+  .rp-ab-empresa {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding-top: calc(var(--header-reserva) + var(--space-400));
+    padding-bottom: var(--space-400);
+  }
+}
+
+.rp-ab-empresa__texto { max-width: 44rem; }
+
+.rp-ab-empresa__titulo {
+  margin: 0 0 var(--space-200);
+  color: var(--rp-azul);
+  /* La itálica de la marca, como el «Rinde Plus» del logo. */
+  font-style: italic;
+  font-size: var(--text-5xl);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.rp-ab-empresa__lead {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+}
+
+.rp-somos {
+  display: grid;
+  gap: var(--space-200);
+  margin: var(--space-400) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .rp-somos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-300); }
+}
+
+.rp-somos__bloque {
+  display: grid;
+  align-content: start;
+  gap: var(--space-100);
+  padding: var(--space-300);
+  border-radius: var(--space-200);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+}
+
+/* El ícono va al principio del título, sin fondo. */
+.rp-somos__titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  margin: 0;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-2xl);
+  letter-spacing: -0.02em;
+}
+
+.rp-somos__titulo svg { flex: none; width: 26px; height: 26px; color: var(--gh-accent); }
+
+.rp-somos__texto {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-base);
+  line-height: 1.65;
+}
+
+.rp-d-5 { animation-delay: 300ms; }
+
+/* La idea: el título a la izquierda y los dos lotes a la derecha. */
+.rp-ab-intro {
+  display: grid;
+  gap: var(--space-500);
+  align-items: center;
+  padding-top: var(--space-800);
+  padding-bottom: var(--space-800);
+}
+
+@media (min-width: 1024px) {
+  .rp-ab-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--space-700);
+    padding-top: var(--space-900);
+  }
+}
+
+.rp-ab-intro__titulo {
+  margin: 0 0 var(--space-300);
+  font-size: var(--text-4xl);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+@media (min-width: 1024px) {
+  .rp-ab-intro__titulo { font-size: 2.75rem; }
+}
+
+.rp-ab-intro__lead {
+  max-width: 32rem;
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+/* Los dos lotes y sus avisos (las tarjetas sobresalen del dibujo). */
+.rp-doslotes {
+  position: relative;
+  margin: 0;
+  padding: var(--space-500) var(--space-200);
+}
+
+.rp-doslotes__mapa { display: block; width: 100%; height: auto; overflow: visible; }
+
+.rp-aviso {
+  position: absolute;
+  display: flex;
+  gap: var(--space-100);
+  align-items: flex-start;
+  max-width: 15.5rem;
+  margin: 0;
+  padding: var(--space-100) var(--space-200) var(--space-100) var(--space-100);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-overlay);
+  color: var(--gh-fg-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-aviso strong { display: block; color: var(--gh-fg); font-weight: 600; }
+.rp-aviso--a { left: 0; bottom: var(--space-100); }
+.rp-aviso--b { right: 0; top: var(--space-100); }
+
+/* La marca del aviso: un cuadrado marino con el punto amarillo. */
+.rp-aviso__marca {
+  position: relative;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--space-75);
+  background: var(--rp-marino-bg);
+}
+
+.rp-aviso__marca::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 8px;
+  height: 8px;
+  margin: auto;
+  border-radius: 50%;
+  background: var(--rp-amarillo);
+}
+
+/* Anatomía de un aviso: explicación a la izquierda, el mensaje marcado a
+   la derecha sobre un panel marino. */
+.rp-anatomia {
+  display: grid;
+  gap: var(--space-600);
+  align-items: center;
+  padding-top: var(--space-800);
+  padding-bottom: var(--space-800);
+}
+
+@media (min-width: 960px) {
+  .rp-anatomia {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-800);
+    padding-top: var(--space-900);
+  }
+}
+
+.rp-anatomia__partes {
+  display: grid;
+  gap: var(--space-300);
+  margin: var(--space-500) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rp-anatomia__partes li { display: flex; gap: var(--space-200); align-items: flex-start; }
+
+.rp-anatomia__partes h3 {
+  margin: 0 0 var(--space-50);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.rp-anatomia__partes p {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+}
+
+/* Las tres marcas: azul (lo medido), amarillo (el criterio), verde (la
+   decisión). El mismo número en el mensaje y en la explicación. */
+.rp-marca {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-family: var(--font-data);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.rp-marca--1 { background: var(--rp-azul); color: #ffffff; }
+.rp-marca--2 { background: var(--rp-amarillo); color: #161b24; }
+.rp-marca--3 { background: var(--gh-detail-green); color: #ffffff; }
+[data-rp-theme='dark'] .rp-marca--3 { color: #131209; }
+
+.rp-anatomia__pantalla {
+  display: grid;
+  place-items: center;
+  padding: var(--space-600) var(--space-300);
+  border-radius: var(--space-200);
+  background: var(--rp-marino-bg);
+}
+
+@media (min-width: 960px) {
+  .rp-anatomia__pantalla { padding: var(--space-800) var(--space-500); }
+}
+
+.rp-mensaje {
+  width: 100%;
+  max-width: 24rem;
+  padding: var(--space-200);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.28);
+  color: var(--gh-fg);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-mensaje p { margin: 0; }
+
+.rp-mensaje__cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  margin-bottom: var(--space-200) !important;
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+}
+
+.rp-mensaje__cabecera strong { color: var(--gh-fg); font-size: var(--text-sm); }
+.rp-mensaje__cabecera span:last-child { margin-left: auto; font-family: var(--font-data); }
+
+.rp-mensaje__titulo { font-weight: 600; font-size: var(--text-base); line-height: var(--leading-base); }
+.rp-mensaje__lote { margin-bottom: var(--space-200) !important; color: var(--gh-fg-subtle); }
+
+.rp-mensaje__linea {
+  display: flex;
+  gap: var(--space-100);
+  align-items: flex-start;
+  padding: var(--space-75) 0;
+  border-top: 1px solid var(--gh-border-muted);
+}
+
+.rp-mensaje__linea .rp-marca { width: 20px; height: 20px; margin-top: 0; }
+
+.rp-mensaje__resalte {
+  padding: 0 var(--space-50);
+  border-radius: var(--space-50);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.rp-mensaje__resalte--1 { background: color-mix(in srgb, var(--rp-azul) 16%, transparent); }
+.rp-mensaje__resalte--2 { background: color-mix(in srgb, var(--rp-amarillo) 30%, transparent); }
+.rp-mensaje__resalte--3 { background: color-mix(in srgb, var(--gh-detail-green) 18%, transparent); }
+
+/* Nuestros compromisos: una tabla compacta dentro de una tarjeta, el
+   compromiso a la izquierda y la explicación pegada a la derecha. */
+.rp-nohacemos { padding-top: var(--space-600); padding-bottom: var(--space-800); }
+
+.rp-nohacemos ul {
+  margin: 0;
+  padding: var(--space-75) var(--space-400);
+  list-style: none;
+  border-radius: var(--space-200);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+}
+
+.rp-nohacemos li {
+  display: grid;
+  gap: var(--space-50);
+  padding: var(--space-300) 0;
+}
+
+.rp-nohacemos li + li { border-top: 1px solid var(--gh-border-muted); }
+
+@media (min-width: 900px) {
+  .rp-nohacemos li {
+    grid-template-columns: 20rem minmax(0, 1fr);
+    gap: var(--space-400);
+    align-items: baseline;
+  }
+}
+
+.rp-nohacemos h3 {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+  letter-spacing: -0.015em;
+}
+
+.rp-nohacemos p {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  text-wrap: pretty;
+}
+
+/* Nuestro equipo: una sección angosta y centrada, compacta para que entre
+   entera en una pantalla con el header. El CEO solo en la primera fila y el
+   resto debajo, todas las tarjetas del mismo ancho. */
+.rp-equipo { padding-top: var(--space-700); padding-bottom: var(--space-700); }
+
+.rp-equipo__head {
+  max-width: 48rem;
+  margin: 0 auto var(--space-400);
+  text-align: center;
+}
+
+.rp-equipo__head .rp-ab-bajada { max-width: 40rem; margin-inline: auto; }
+
+.rp-equipo__grupo {
+  --col: minmax(0, 1fr);
+  display: grid;
+  grid-template-columns: repeat(2, var(--col));
+  gap: var(--space-200);
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .rp-equipo__grupo { --col: 12.5rem; grid-template-columns: repeat(4, var(--col)); justify-content: center; }
+}
+
+/* La fila del CEO: una sola tarjeta, del ancho de una columna, al medio. */
+.rp-equipo__grupo--principal { grid-template-columns: var(--col); justify-content: center; margin-bottom: var(--space-200); }
+
+@media (max-width: 899px) {
+  .rp-equipo__grupo--principal { grid-template-columns: calc((100% - var(--space-200)) / 2); }
+}
+
+/* Sin foto la tarjeta no se achica: alto mínimo. El texto arranca arriba
+   y, si la persona no tiene cargo, se reserva su lugar: así los nombres y
+   los oficios quedan a la misma altura en toda la fila. */
+.rp-persona {
+  --persona: var(--rp-azul);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-200);
+  min-height: 128px;
+  padding: var(--space-300) var(--space-200);
+  border-radius: var(--space-200);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+  text-align: center;
+}
+
+.rp-persona--agro { --persona: var(--gh-detail-green); }
+
+.rp-persona__foto {
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--persona) 35%, var(--gh-surface));
+}
+
+.rp-persona__texto { display: grid; justify-items: center; gap: var(--space-50); min-width: 0; }
+
+.rp-persona__nombre {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  letter-spacing: -0.015em;
+}
+
+.rp-persona__cargo {
+  height: 20px;
+  margin: 0;
+  padding: 0 var(--space-75);
+  border-radius: 999px;
+  background: var(--rp-marino-bg);
+  color: #ffffff;
+  font-family: var(--font-data);
+  font-size: var(--text-xs);
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.rp-persona:not(:has(.rp-persona__cargo)) .rp-persona__texto { padding-top: 24px; }
+
+.rp-persona__profesion {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  text-wrap: balance;
+}
+
+/* Dónde estamos: ficha con el texto y un recorte de campo con el punto. */
+.rp-lugar { padding-bottom: var(--space-800); }
+
+.rp-lugar__ficha {
+  display: grid;
+  overflow: hidden;
+  border-radius: var(--space-200);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+}
+
+@media (min-width: 900px) {
+  .rp-lugar__ficha { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+}
+
+.rp-lugar__texto {
+  display: grid;
+  justify-items: start;
+  align-content: center;
+  padding: var(--space-500) var(--space-400);
+}
+
+@media (min-width: 900px) {
+  .rp-lugar__texto { padding: var(--space-700) var(--space-600); }
+}
+
+.rp-lugar__direccion {
+  margin: var(--space-200) 0 var(--space-300);
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-lugar__mapa {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  background: var(--gh-canvas);
+}
+
+.rp-lugar__mapa iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* En modo oscuro el mapa se oscurece para no encandilar. */
+[data-rp-theme='dark'] .rp-lugar__mapa iframe { filter: invert(0.9) hue-rotate(180deg) saturate(0.7); }
+
+/* ============================================================
+   Educación
+   ============================================================ */
+
+.rp-ed-intro {
+  padding-top: calc(var(--header-reserva) + var(--space-500));
+  padding-bottom: var(--space-600);
+}
+
+/* En escritorio el título, la bajada y las nueve tarjetas entran en la
+   primera pantalla, con el contenido al medio. */
+@media (min-width: 900px) {
+  .rp-ed-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding-top: calc(var(--header-reserva) + var(--space-300));
+    padding-bottom: var(--space-300);
+  }
+}
+
+.rp-ed-intro__texto { max-width: 52rem; }
+
+.rp-ed-intro__titulo {
+  margin: 0 0 var(--space-200);
+  color: var(--rp-azul);
+  font-style: italic; /* la itálica de la marca */
+  font-size: var(--text-4xl);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .rp-ed-intro__titulo { font-size: var(--text-5xl); }
+}
+
+.rp-ed-intro__lead {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+/* Índice: los nueve conceptos en tarjetas, en orden de campaña. Cada una
+   lleva el momento (con el punto de su color) y, al pie, la sección de
+   Rinde Plus donde aparece. */
+.rp-indice { margin-top: var(--space-400); }
+
+.rp-indice__lista {
+  display: grid;
+  gap: var(--space-100) var(--space-200);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .rp-indice__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .rp-indice__lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* El tono de cada momento: suelo, agua, fertilizante, cultivo, cosecha. */
+.rp-momento--planificar { --momento: var(--rp-carbono); }
+.rp-momento--preparar { --momento: var(--rp-agua); }
+.rp-momento--fertilizar { --momento: var(--rp-azul); }
+.rp-momento--acompanar { --momento: var(--gh-detail-green); }
+.rp-momento--cerrar { --momento: var(--gh-detail-yellow-strong); }
+
+.rp-indice__item a {
+  display: grid;
+  gap: var(--space-50);
+  height: 100%;
+  padding: var(--space-100) var(--space-200);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+  color: var(--gh-fg);
+  transition:
+    transform var(--dur-fast) var(--ease-fluid),
+    box-shadow var(--dur-fast) var(--ease-fluid);
+}
+
+.rp-indice__item a:hover { transform: translateY(-2px); box-shadow: var(--gh-shadow-overlay); }
+.rp-indice__item a:active { transform: translateY(0); }
+.rp-indice__item a:focus-visible { outline: 2px solid var(--gh-accent); outline-offset: 2px; }
+
+.rp-indice__cabeza {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: 600;
+}
+
+.rp-indice__num {
+  color: var(--gh-fg-subtle);
+  font-family: var(--font-data);
+  font-weight: 500;
+}
+
+.rp-indice__momento { display: inline-flex; align-items: center; gap: var(--space-50); }
+
+.rp-indice__momento::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--momento);
+}
+
+.rp-indice__termino {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.rp-indice__item a:hover .rp-indice__termino { color: var(--gh-accent); }
+
+.rp-indice__donde {
+  display: flex;
+  align-items: center;
+  gap: var(--space-75);
+  color: var(--gh-fg-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+/* La R del logo, chica: marca lo que aparece en la plataforma. */
+.rp-logo-r { flex: none; display: block; width: auto; height: 16px; }
+
+/* ---- Fichas: abiertas, separadas por una línea fina; el dibujo cambia
+   de lado de una a la otra. ---- */
+.rp-fichas { padding-bottom: var(--space-800); }
+
+.rp-ficha {
+  display: grid;
+  gap: var(--space-400);
+  align-items: stretch;
+  padding: var(--space-700) 0;
+  border-top: 1px solid var(--gh-border);
+  scroll-margin-top: var(--alto-header, 80px);
+}
+
+@media (min-width: 900px) {
+  .rp-ficha {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: var(--space-700);
+    padding: var(--space-800) 0;
+  }
+
+  .rp-ficha--invertida .rp-ficha__texto { order: 2; }
+}
+
+.rp-ficha__texto { display: grid; gap: var(--space-200); align-content: center; }
+
+.rp-ficha__meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-100);
+  margin: 0;
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 600;
+}
+
+.rp-ficha__num {
+  color: var(--gh-accent);
+  font-family: var(--font-data);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.rp-ficha__titulo {
+  margin: 0;
+  font-size: var(--text-3xl);
+  line-height: var(--leading-3xl);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.rp-ficha__titulo a { color: inherit; }
+.rp-ficha__titulo a:hover { color: var(--gh-accent); }
+
+.rp-ficha__definicion {
+  margin: 0;
+  color: var(--gh-fg);
+  font-size: var(--text-lg);
+  line-height: 1.6;
+}
+
+/* «Cómo se lee» y «En Rinde Plus»: dos notas iguales, en el color de las
+   tarjetas. */
+.rp-ficha__lectura {
+  padding: var(--space-200);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+}
+
+.rp-ficha__lectura p {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-ficha__lectura .rp-ficha__lectura-titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-75);
+  margin-bottom: var(--space-50);
+  color: var(--gh-fg);
+  font-weight: 600;
+}
+
+
+/* «En Rinde Plus»: cómo se ve el concepto en la plataforma, en un recuadro
+   como una ventana de la app, con la sección en una píldora. */
+.rp-ficha__plataforma {
+  padding: var(--space-200);
+  border: 1px solid var(--gh-border);
+  border-radius: var(--gh-radius-card);
+  background: var(--gh-surface);
+}
+
+.rp-ficha__plataforma p {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-ficha__plataforma .rp-ficha__plataforma-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-75);
+  margin-bottom: var(--space-75);
+  color: var(--gh-fg);
+  font-weight: 600;
+}
+
+
+.rp-ficha__seccion {
+  padding: 0 var(--space-75);
+  border-radius: 999px;
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  font-weight: 600;
+}
+
+.rp-ficha__visual {
+  display: grid;
+  place-items: center;
+  min-height: 240px;
+  padding: var(--space-400) var(--space-300);
+  border-radius: var(--space-200);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+}
+
+/* La ley del mínimo, para tocar: destacada, el texto arriba y la demo a
+   todo el ancho debajo, sobre el marino. */
+.rp-ficha--demo { align-items: start; }
+
+@media (min-width: 900px) {
+  .rp-ficha--demo { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+}
+
+.rp-ficha--demo .rp-ficha__visual {
+  place-items: stretch;
+  padding: var(--space-400);
+  outline: 2px solid var(--gh-accent);
+  outline-offset: -2px;
+}
+
+/* De dónde sale la información: dos tarjetas a todo el ancho, una debajo
+   de la otra (cómo lo ajustamos y la bibliografía); los datos al pie. En
+   escritorio, el contenido de cada tarjeta va en columnas. */
+.rp-ed-fuentes {
+  padding-top: var(--space-700);
+  border-top: 1px solid var(--gh-border);
+  scroll-margin-top: var(--alto-header, 80px);
+}
+
+.rp-ed-fuentes__head { max-width: 44rem; margin-bottom: var(--space-400); }
+
+.rp-ed-fuentes__grid { display: grid; gap: var(--space-300); }
+
+
+.rp-ed-fuentes__bloque {
+  padding: var(--space-300);
+  border-radius: var(--space-200);
+  background: var(--gh-surface);
+  box-shadow: var(--gh-shadow-card);
+}
+
+.rp-ed-fuentes__bloque h3 {
+  margin: 0 0 var(--space-200);
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+}
+
+.rp-ed-propio,
+.rp-ed-biblio { display: grid; gap: var(--space-200); margin: 0; padding: 0; list-style: none; }
+
+.rp-ed-propio li + li,
+.rp-ed-biblio li + li { padding-top: var(--space-200); border-top: 1px solid var(--gh-border-muted); }
+
+@media (min-width: 900px) {
+  .rp-ed-propio { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-400); }
+  .rp-ed-biblio { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-300) var(--space-400); }
+  .rp-ed-propio li + li,
+  .rp-ed-biblio li + li { padding-top: 0; border-top: 0; }
+}
+
+.rp-ed-propio h4 {
+  margin: 0 0 var(--space-50);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+}
+
+.rp-ed-propio p,
+.rp-ed-biblio__cita {
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  text-wrap: pretty;
+}
+
+.rp-ed-biblio__cita strong { color: var(--gh-fg); font-weight: 600; }
+.rp-ed-biblio__cita cite { font-style: normal; color: var(--gh-fg); }
+.rp-ed-biblio__cita a { color: var(--gh-accent); font-weight: 600; }
+.rp-ed-biblio__cita a:hover { text-decoration: underline; }
+
+.rp-ed-biblio__conceptos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-50);
+  margin: var(--space-75) 0 0;
+}
+
+.rp-ed-biblio__conceptos a {
+  padding: 0 var(--space-75);
+  border-radius: 999px;
+  background: var(--gh-accent-soft);
+  color: var(--gh-accent);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  font-weight: 600;
+}
+
+.rp-ed-biblio__conceptos a:hover { background: color-mix(in srgb, var(--gh-accent) 18%, var(--gh-surface)); }
+
+/* Próximamente: la biblioteca abierta, en una nota en el azul suave. */
+.rp-ed-proximo {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-75);
+  margin-top: var(--space-300);
+  padding: var(--space-300);
+  border-radius: var(--space-200);
+  background: var(--gh-accent-soft);
+}
+
+.rp-ed-proximo__etiqueta {
+  padding: 0 var(--space-75);
+  border-radius: 999px;
+  background: var(--gh-accent);
+  color: var(--gh-accent-fg);
+  font-size: var(--text-xs);
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.rp-ed-proximo h3 {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+}
+
+.rp-ed-proximo p {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+}
+
+.rp-ed-fuentes__datos {
+  max-width: 52rem;
+  margin: var(--space-300) 0 0;
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+}
+
+.rp-ed-fuentes__datos strong { color: var(--gh-fg-muted); }
+
+/* ---- Dibujos (LearnDiagramas.jsx) ---- */
+.dg { display: block; width: 100%; max-width: 420px; height: auto; overflow: visible; }
+
+.dg text { font-family: var(--font-body); }
+.dg-label { fill: var(--gh-fg-muted); font-size: 11px; }
+.dg-label--fuerte { fill: var(--gh-fg); font-weight: 600; }
+.dg-label--peligro { fill: var(--gh-danger); font-weight: 600; }
+.dg-dato { fill: var(--gh-fg-subtle); font-family: var(--font-data) !important; font-size: 10px; }
+
+.dg-eje { stroke: var(--gh-border-strong); stroke-width: 1; }
+.dg-tick { stroke: var(--gh-border-strong); stroke-width: 1; }
+.dg-guia { stroke: var(--gh-accent); stroke-width: 1.25; stroke-dasharray: 3 3; }
+.dg-guia--tenue { stroke: var(--gh-border-strong); }
+.dg-curva { fill: none; stroke: var(--gh-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.dg-curva--fina { stroke-width: 1.5; opacity: 0.6; }
+.dg-curva--pronostico { stroke-dasharray: 6 4; opacity: 0.7; }
+.dg-area { fill: var(--gh-accent); opacity: 0.1; }
+.dg-punto { fill: var(--gh-surface); stroke: var(--gh-accent); stroke-width: 2; }
+.dg-punto--neutro { stroke: var(--gh-fg-subtle); }
+.dg-punto--peligro { stroke: var(--gh-danger); }
+.dg-punto--alerta { stroke: var(--gh-detail-yellow-strong); }
+.dg-llave { fill: none; stroke: var(--gh-fg-muted); stroke-width: 1.25; }
+.dg-umbral { stroke: var(--rp-amarillo); stroke-width: 2; stroke-dasharray: 5 4; }
+.dg-limite { stroke: var(--gh-danger); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.dg-limite--techo { stroke: var(--gh-accent); opacity: 0.6; }
+.dg-franja { fill: var(--gh-accent); opacity: 0.08; }
+
+/* Ambientes: los colores del mapa del lote del hero. */
+.dg-amb--alto { fill: var(--rp-mapa-high2); }
+.dg-amb--medio { fill: var(--rp-mapa-mid); }
+.dg-amb--bajo { fill: var(--rp-mapa-low); }
+.dg-amb--alto-claro { fill: var(--rp-mapa-high); }
+.dg-amb--bajo-fuerte { fill: var(--rp-mapa-low2); }
+.dg-surco { stroke: #ffffff; stroke-opacity: 0.2; stroke-width: 1; }
+.dg-contorno { fill: none; stroke: var(--gh-fg); stroke-width: 2; stroke-linejoin: round; }
+.dg-pildora rect { fill: var(--gh-surface); opacity: 0.92; }
+.dg-pildora text { fill: var(--gh-fg); font-size: 11px; font-weight: 600; }
+
+/* Agua útil. */
+.dg-pista { fill: var(--gh-surface-2); }
+.dg-agua { fill: var(--rp-agua); }
+
+/* DPV: tres zonas. */
+.dg-zona--alto { fill: var(--gh-danger); opacity: 0.1; }
+.dg-zona--sano { fill: var(--gh-detail-green); opacity: 0.1; }
+.dg-zona--bajo { fill: var(--gh-detail-yellow-strong); opacity: 0.12; }
+
+/* NDVI: de menos a más vigor, en la escala del mapa. */
+.dg-px--0 { fill: var(--rp-mapa-low2); }
+.dg-px--1 { fill: var(--rp-mapa-low); }
+.dg-px--2 { fill: var(--rp-mapa-mid); }
+.dg-px--3 { fill: var(--rp-mapa-high); }
+.dg-px--4 { fill: var(--rp-mapa-high2); }
+
+/* Brecha: las barras en azul; el potencial, sólo el contorno (el techo). */
+.dg-barra { fill: var(--gh-accent); opacity: 0.35; }
+.dg-barra--fuerte { opacity: 1; }
+.dg-barra--techo { fill: none; opacity: 1; stroke: var(--gh-accent); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.dg-hueco { fill: var(--gh-danger); opacity: 0.16; }
+
+/* ---- Demo de la ley del mínimo (LiebigDemo.jsx) ---- */
+.rp-liebig { display: grid; gap: var(--space-200); width: 100%; }
+
+.rp-liebig__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-75) var(--space-200);
+}
+
+.rp-liebig__ejemplo {
+  margin: 0;
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rp-liebig__resultado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-75) var(--space-200);
+  margin: 0;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.rp-liebig__resultado strong { color: var(--gh-fg); font-family: var(--font-data); font-weight: 500; }
+
+.rp-liebig__sep { font-family: var(--font-body); }
+
+.rp-liebig__limita { color: var(--gh-danger); font-weight: 600; }
+.rp-liebig__limita--agua { color: var(--rp-agua); }
+
+.rp-liebig__grafico {
+  position: relative;
+  height: 180px;
+  margin-top: var(--space-200);
+}
+
+.rp-liebig__barras {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-100);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rp-liebig__barras li { display: flex; min-height: 0; }
+
+.rp-liebig__barra {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  border-radius: var(--gh-radius);
+  background: var(--gh-surface-2);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-fluid);
+}
+
+.rp-liebig__barra:hover:not(:disabled) .rp-liebig__relleno { opacity: 0.85; }
+.rp-liebig__barra:active:not(:disabled) { transform: scale(0.97); }
+.rp-liebig__barra:disabled { cursor: default; }
+
+.rp-liebig__relleno {
+  display: block;
+  width: 100%;
+  border-radius: var(--gh-radius) var(--gh-radius) 0 0;
+  background: var(--gh-accent);
+  opacity: 0.55;
+  transition: height var(--dur-base) var(--ease-fluid), opacity var(--dur-fast) var(--ease-fluid), background-color var(--dur-fast) var(--ease-fluid);
+}
+
+.rp-liebig__barra.is-limitante .rp-liebig__relleno { background: var(--gh-danger); opacity: 1; }
+
+.rp-liebig__simbolos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-100);
+  margin: calc(var(--space-200) * -1 + var(--space-75)) 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gh-fg-muted);
+  font-family: var(--font-data);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  text-align: center;
+}
+
+/* Techo del agua y rinde: líneas sobre las barras, a su altura en %. */
+.rp-liebig__techo,
+.rp-liebig__rinde {
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.rp-liebig__techo { border-top: 2px dashed var(--rp-agua); }
+
+.rp-liebig__techo span {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  padding: 0 var(--space-50);
+  border-radius: var(--space-50);
+  background: var(--gh-surface);
+  color: var(--rp-agua);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: 600;
+}
+
+.rp-liebig__techo.is-limita { border-top-style: solid; }
+
+.rp-liebig__rinde {
+  border-top: 1px solid var(--gh-fg);
+  opacity: 0.5;
+  transition: bottom var(--dur-base) var(--ease-fluid);
+}
+
+.rp-liebig__pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-100);
+}
+
+.rp-liebig__pista {
+  margin: 0;
+  color: var(--gh-fg-subtle);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+}
+
+.rp-liebig__reiniciar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-50);
+  padding: var(--space-50) var(--space-100);
+  border-radius: 999px;
+  color: var(--gh-fg-muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: 600;
+  transition: background-color var(--dur-fast) var(--ease-fluid), color var(--dur-fast) var(--ease-fluid), opacity var(--dur-fast) var(--ease-fluid);
+}
+
+.rp-liebig__reiniciar:hover:not(:disabled) { background: var(--gh-surface-2); color: var(--gh-fg); }
+.rp-liebig__reiniciar:active:not(:disabled) { transform: translateY(1px); }
+.rp-liebig__reiniciar:disabled { opacity: 0.4; cursor: default; }
+

@@ -1,4 +1,5 @@
 import { LuShare } from 'react-icons/lu';
+import paginas from './paginas.pt';
 import { APP_URL } from '../../data/links';
 
 // Enlace a la plataforma en los pasos de instalación: se toca y se abre.
@@ -13,6 +14,9 @@ const APP = (
 // manejo, 'campaña' → safra. Tom neutro, sem perguntas nos títulos.
 
 const pt = {
+  // Nosotros y Educación (./paginas.pt.js).
+  paginas,
+
   meta: {
     title: 'Rinde Plus · Inteligência agronômica para cada talhão',
     description:
@@ -30,6 +34,8 @@ const pt = {
       impact: 'Impacto',
       campaign: 'Plataforma',
       why: 'Vantagens',
+      learn: 'Educação',
+      about: 'Sobre nós',
       contact: 'Contato',
       install: 'Como instalar o app',
     },

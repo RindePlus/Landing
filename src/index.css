@@ -4,6 +4,41 @@
    latin y latin-ext. El navegador baja cada archivo sólo si la página usa
    algún carácter de su rango; IBM Plex Sans e Inter latin se precargan en
    BaseLayout.astro. */
+/* Aileron, la fuente del manual de marca (licencia CC0, en public/fonts).
+   Derecha en títulos y botones; la itálica del manual (la del logo) sólo en
+   los títulos grandes que la piden con font-style: italic. */
+@font-face {
+  font-family: 'Aileron';
+  font-style: normal;
+  font-weight: 100 600;
+  font-display: swap;
+  src: url('/fonts/aileron-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Aileron';
+  font-style: normal;
+  font-weight: 700 900;
+  font-display: swap;
+  src: url('/fonts/aileron-latin-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Aileron';
+  font-style: italic;
+  font-weight: 100 600;
+  font-display: swap;
+  src: url('/fonts/Aileron-SemiBoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Aileron';
+  font-style: italic;
+  font-weight: 700 900;
+  font-display: swap;
+  src: url('/fonts/Aileron-BoldItalic.woff2') format('woff2');
+}
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -60,7 +95,7 @@
   --bg-main: var(--gh-canvas);
   --radius-md: var(--gh-radius-card);
 
-  --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Aileron', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
   --font-data: 'Chivo Mono', ui-monospace, 'SFMono-Regular', monospace;
 
@@ -118,7 +153,7 @@
   /* Los dos colores del logo. El amarillo no pasa como texto sobre el
      fondo claro: va en trazos, puntos y sobre el marino. */
   --rp-azul: #1a62e2;
-  --rp-amarillo: #f2cd00;
+  --rp-amarillo: #e5bd13;
   /* Textos y líneas sobre las bandas, en los dos temas: blancos que pasan
      AA (4.5:1) sobre el azul de la banda. */
   --rp-on-marino-fg: #ffffff;
@@ -394,4 +429,12 @@ img {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Prueba de Aileron: el espaciado negativo de los títulos estaba pensado
+   para Inter; con Aileron junta las palabras. Si se vuelve a Inter, borrar
+   este bloque junto con los @font-face de Aileron. */
+h1, h2, h3, h4 {
+  letter-spacing: -0.01em !important;
+  word-spacing: 0.08em;
 }

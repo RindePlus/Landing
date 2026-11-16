@@ -8,7 +8,7 @@ import { whatsappUrl } from '../data/social';
 import { urlDe } from '../data/imagen';
 import { useRpTheme } from '../hooks/useRpTheme';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
-import { HOME_PATH, LOCALES, LOCALE_LABELS } from '../i18n/config';
+import { EDUCACION_PATH, HOME_PATH, LOCALES, LOCALE_LABELS, NOSOTROS_PATH } from '../i18n/config';
 import './Header.css';
 
 // Header con la estética de la landing de VigIA: menú a la izquierda, logo
@@ -51,14 +51,18 @@ const Header = ({ rutas = HOME_PATH, inicio = '' }) => {
   const t = dict.header;
   const { theme, toggleTheme } = useRpTheme();
   // Sin «Inicio»: el logo del centro ya lleva arriba de todo.
+  // Educación y Nosotros son páginas (`href` propio): se marcan cuando se
+  // está en ellas. Las demás son secciones de la home.
   const menuItems = useMemo(
     () => [
       { label: t.nav.impact, id: 'impacto' },
       { label: t.nav.campaign, id: 'funcionalidades' },
       { label: t.nav.why, id: 'beneficios' },
+      { label: t.nav.learn, page: 'educacion', href: EDUCACION_PATH[locale], actual: rutas[locale] === EDUCACION_PATH[locale] },
+      { label: t.nav.about, page: 'nosotros', href: NOSOTROS_PATH[locale], actual: rutas[locale] === NOSOTROS_PATH[locale] },
       { label: t.nav.contact, id: 'contacto' },
     ],
-    [t],
+    [t, locale, rutas],
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -117,6 +121,7 @@ const Header = ({ rutas = HOME_PATH, inicio = '' }) => {
     let ticking = false;
 
     const secciones = menuItems
+      .filter((item) => item.id)
       .map((item) => ({ id: item.id, el: document.getElementById(item.id) }))
       .filter((s) => s.el);
 
@@ -213,13 +218,31 @@ const Header = ({ rutas = HOME_PATH, inicio = '' }) => {
     guardarPosicion(rutas[code]);
   };
 
-  const irASeccion = () => {
+  const irASeccion = (event, item) => {
     setIsMenuOpen(false);
     setIsHidden(false);
     navegando.current = true;
     // Si ya estaba ahí y no hay scroll, se suelta igual.
     window.clearTimeout(finNavegar.current);
     finNavegar.current = window.setTimeout(() => { navegando.current = false; }, 1000);
+    // Fuera de la home, si la sección está en esta misma página (Contacto:
+    // Nosotros y Educación terminan en «Hablemos de tus lotes») se baja
+    // ahí en lugar de ir a la home.
+    const destino = inicio && item?.id ? document.getElementById(item.id) : null;
+    if (destino) {
+      event.preventDefault();
+      destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.replaceState(null, '', `#${item.id}`);
+    }
+  };
+
+  // Una sola marca a la vez: la página (Educación, Nosotros) se marca
+  // mientras no haya una sección del menú a la vista; al llegar a una
+  // (Contacto, al pie de la página) se marca sólo esa.
+  const estaActivo = (item) => (item.page ? item.actual && !activeId : item.id === activeId);
+  const ariaActual = (item) => {
+    if (item.page) return item.actual ? 'page' : undefined;
+    return item.id === activeId ? 'location' : undefined;
   };
 
   return (
@@ -236,13 +259,17 @@ const Header = ({ rutas = HOME_PATH, inicio = '' }) => {
         </a>
 
         <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`} id="header-menu">
+          {/* En escritorio las páginas (Educación, Nosotros) no van acá
+              sino a la derecha, junto a las acciones (.header-paginas): así
+              los dos lados pesan parecido y el logo queda centrado. En el
+              drawer van todas juntas, en este orden. */}
           {menuItems.map((item) => (
             <a
-              key={item.id}
-              href={`${inicio}#${item.id}`}
-              className={`menu-item ${item.id === activeId ? 'menu-item--active' : ''}`}
-              aria-current={item.id === activeId ? 'location' : undefined}
-              onClick={irASeccion}
+              key={item.id ?? item.page}
+              href={item.href ?? `${inicio}#${item.id}`}
+              className={`menu-item ${item.page ? 'menu-item--pagina' : ''} ${estaActivo(item) ? 'menu-item--active' : ''}`}
+              aria-current={ariaActual(item)}
+              onClick={(event) => irASeccion(event, item)}
             >
               {item.label}
             </a>
@@ -308,6 +335,20 @@ const Header = ({ rutas = HOME_PATH, inicio = '' }) => {
         </nav>
 
         <div className="header-actions">
+          <div className="header-paginas">
+            {menuItems
+              .filter((item) => item.page)
+              .map((item) => (
+                <a
+                  key={item.page}
+                  href={item.href}
+                  className={`menu-item ${estaActivo(item) ? 'menu-item--active' : ''}`}
+                  aria-current={ariaActual(item)}
+                >
+                  {item.label}
+                </a>
+              ))}
+          </div>
           <button
             type="button"
             className="header-theme-toggle"
