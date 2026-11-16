@@ -207,6 +207,7 @@ const paginas = {
       ver: 'Ver',
       datos: 'Datos',
       datosTexto: 'Suelo de referencia propio, con GeoINTA, IDECOR y SoilGrids, ajustado con el análisis de cada lote. Clima de varios proveedores meteorológicos seleccionados. Imágenes Sentinel-2: contiene datos modificados de Copernicus Sentinel.',
+      proximamente: { etiqueta: 'Próximamente', titulo: 'Todas nuestras fuentes, en un solo lugar', texto: 'Vamos a reunir en un solo lugar nuestros trabajos técnicos y todas las fuentes en las que se apoya Rinde Plus, para que cualquiera pueda consultarlas y revisarlas.' },
     },
   },
 };

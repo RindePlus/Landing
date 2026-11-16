@@ -203,6 +203,7 @@ const paginas = {
       ver: 'Ver',
       datos: 'Dados',
       datosTexto: 'Solo de referência próprio, com GeoINTA, IDECOR e SoilGrids, ajustado com a análise de cada talhão. Clima de vários provedores meteorológicos selecionados. Imagens Sentinel-2: contém dados modificados do Copernicus Sentinel.',
+      proximamente: { etiqueta: 'Em breve', titulo: 'Todas as nossas fontes, num só lugar', texto: 'Vamos reunir num só lugar nossos trabalhos técnicos e todas as fontes em que a Rinde Plus se apoia, para que qualquer pessoa possa consultá-las e revisá-las.' },
     },
   },
 };

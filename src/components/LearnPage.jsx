@@ -157,6 +157,13 @@ const Fuentes = () => {
         </div>
       </div>
 
+      {/* Lo que viene: un lugar con los trabajos y las fuentes. */}
+      <div className="rp-ed-proximo rp-reveal">
+        <span className="rp-ed-proximo__etiqueta">{t.proximamente.etiqueta}</span>
+        <h3>{t.proximamente.titulo}</h3>
+        <p>{t.proximamente.texto}</p>
+      </div>
+
       <p className="rp-ed-fuentes__datos rp-reveal">
         <strong>{t.datos}.</strong> {t.datosTexto}
       </p>

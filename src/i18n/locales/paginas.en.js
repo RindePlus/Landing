@@ -202,6 +202,7 @@ const paginas = {
       ver: 'View',
       datos: 'Data',
       datosTexto: 'Our own reference soil data, with GeoINTA, IDECOR and SoilGrids, adjusted with each field’s soil test. Weather from several selected providers. Sentinel-2 imagery: contains modified Copernicus Sentinel data.',
+      proximamente: { etiqueta: 'Coming soon', titulo: 'All our sources, in one place', texto: 'We will bring together in one place our technical work and every source Rinde Plus is built on, so anyone can look them up and review them.' },
     },
   },
 };

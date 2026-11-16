@@ -180,8 +180,8 @@ const Persona = ({ m, i }) => {
         <img className="rp-persona__foto" src={urlDe(foto)} alt="" width="80" height="80" loading="lazy" decoding="async" />
       )}
       <div className="rp-persona__texto">
-        <h3 className="rp-persona__nombre">{m.nombre}</h3>
         {m.cargo && <p className="rp-persona__cargo">{m.cargo}</p>}
+        <h3 className="rp-persona__nombre">{m.nombre}</h3>
         <p className="rp-persona__profesion">{m.profesion}</p>
       </div>
     </li>
