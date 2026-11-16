@@ -14,7 +14,7 @@ const lang = idiomaDe(Astro.currentLocale) as keyof typeof DICTIONARIES;
 const { lecciones, meta } = DICTIONARIES[lang].paginas.educacion;
 ---
 
-<BaseLayout title={meta.title} description={meta.description} paths={EDUCACION_PATH}>
+<BaseLayout title={meta.title} description={meta.description} paths={EDUCACION_PATH} og="educacion">
   <LearnIntro lang={lang} />
 
   <div class="rp-fichas">

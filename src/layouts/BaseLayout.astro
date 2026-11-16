@@ -16,9 +16,13 @@ interface Props {
   /** Ruta de esta página en cada idioma (canonical, hreflang y el selector
       de idioma del header). Por defecto, la home. */
   paths?: Record<Locale, string>;
+  /** Imagen al compartir el link: la de la home o la de una página
+      (public/og/rindeplus-{og}-{idioma}.png). Se generan con
+      scripts/og/generar.py. */
+  og?: 'nosotros' | 'educacion';
 }
 
-const { noindex = false, title, description, paths = HOME_PATH } = Astro.props;
+const { noindex = false, title, description, paths = HOME_PATH, og } = Astro.props;
 
 // Idioma de la página: sale de la ruta (/en/… = inglés, /pt/… = portugués).
 const lang = idiomaDe(Astro.currentLocale) as Locale;
@@ -29,7 +33,7 @@ const meta = { title: title ?? metaHome.title, description: description ?? metaH
 const esHome = paths === HOME_PATH;
 const site = Astro.site ?? new URL('https://rindeplus.com');
 const pageUrl = new URL(paths[lang], site).href;
-const ogImage = new URL(`/og/rindeplus-${lang}.png`, site).href;
+const ogImage = new URL(og ? `/og/rindeplus-${og}-${lang}.png` : `/og/rindeplus-${lang}.png`, site).href;
 const hreflang = noindex
   ? []
   : [
@@ -55,7 +59,7 @@ const hreflang = noindex
     <meta property="og:description" content={meta.description} />
     <meta property="og:url" content={pageUrl} />
     <!-- Imagen al compartir el link (WhatsApp, LinkedIn, mail): una por
-         idioma, 1200×630, en public/og/. -->
+         página e idioma, 1200×630, en public/og/. -->
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />

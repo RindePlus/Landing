@@ -11,7 +11,7 @@ const lang = idiomaDe(Astro.currentLocale) as keyof typeof DICTIONARIES;
 const { meta } = DICTIONARIES[lang].paginas.nosotros;
 ---
 
-<BaseLayout title={meta.title} description={meta.description} paths={NOSOTROS_PATH}>
+<BaseLayout title={meta.title} description={meta.description} paths={NOSOTROS_PATH} og="nosotros">
   <AboutContent lang={lang} />
   <AboutEquipo lang={lang} />
   <AboutLugar lang={lang} />
