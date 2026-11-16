@@ -14,9 +14,9 @@ const paginas = {
     },
     title: 'Somos Rinde Plus',
     lead:
-      'Hacemos tecnología para el campo: pensada por agrónomos, construida por ingenieros en sistemas y probada lote por lote.',
+      'Mezclamos conocimiento agronómico y tecnología para que cada lote se decida con datos y con criterio.',
     bloques: [
-      { titulo: 'Quiénes somos', texto: 'Un equipo de ingenieros agrónomos e ingenieros en Sistemas de Información de Alta Gracia, Córdoba. Unos conocen el lote; los otros construyen el software. Trabajamos en la misma mesa, y eso se nota en cada número de la plataforma.' },
+      { titulo: 'Quiénes somos', texto: 'Un equipo de Alta Gracia, Córdoba, que junta dos mundos: el saber agronómico de quien camina el lote y la tecnología que lo lleva a cada decisión. Trabajamos en la misma mesa, y eso se nota en cada número de la plataforma.' },
       { titulo: 'Qué hacemos', texto: 'Rinde Plus acompaña cada lote durante toda la campaña: cuánto puede rendir, cuánta agua tiene el suelo, qué dosis se paga, qué riesgos vienen y, al cierre, dónde se perdió rinde. Para productores, asesores y empresas del sector.' },
       { titulo: 'Cómo lo hacemos', texto: 'Juntamos el suelo, el clima, las imágenes satelitales y la historia de cada lote, y los leemos con criterio agronómico. El resultado llega claro: en la plataforma, en informes y en un aviso por WhatsApp que se puede responder.' },
     ],
@@ -29,13 +29,12 @@ const paginas = {
       kicker: 'Nuestro equipo',
       titulo: 'Agronomía y software, en la misma mesa',
       bajada: 'Cada número de la plataforma lo piensan juntos quienes conocen el campo y quienes construyen el software.',
-      leyenda: { agro: 'Agronomía', sis: 'Sistemas de información' },
       miembros: [
         { nombre: 'Marcos Flesia', cargo: 'CEO', profesion: 'Ingeniero agrónomo', area: 'agro' },
-        { nombre: 'Santiago Quesada', cargo: 'CTO', profesion: 'Ingeniero en Sistemas de Información', area: 'sis' },
-        { nombre: 'Manuel Frias', profesion: 'Ingeniero en Sistemas de Información', area: 'sis' },
-        { nombre: 'Angeles Sanz', profesion: 'Ingeniera agrónoma', area: 'agro' },
-        { nombre: 'Tomás Abrate', profesion: 'Ingeniero en Sistemas de Información', area: 'sis' },
+        { nombre: 'Santiago Quesada', cargo: 'CTO', profesion: 'Ingeniero en sistemas de información', area: 'sis' },
+        { nombre: 'Manuel Frías', profesion: 'Ingeniero en sistemas de información', area: 'sis' },
+        { nombre: 'Ángeles Sanz', profesion: 'Ingeniera agrónoma', area: 'agro' },
+        { nombre: 'Tomás Abrate', profesion: 'Ingeniero en sistemas de información', area: 'sis' },
       ],
     },
     dosLotes: {
@@ -63,12 +62,12 @@ const paginas = {
       ],
     },
     compromisos: {
-      titulo: 'Lo que no hacemos',
+      titulo: 'Nuestros compromisos',
       items: [
-        { titulo: 'No vendemos insumos.', texto: 'Ni cobramos por recomendar productos. Si la simulación muestra que una dosis no se paga, la plataforma lo dice.' },
         { titulo: 'No inventamos datos.', texto: 'Un día sin clima queda como hueco y un análisis que falta se avisa. Mejor un número menos que uno falso.' },
         { titulo: 'No usamos cajas negras.', texto: 'Cada cálculo sigue una regla que se puede leer y discutir con el asesor.' },
         { titulo: 'No reemplazamos al agrónomo.', texto: 'Le sacamos de encima el trabajo de juntar datos para que tenga más tiempo en el campo.' },
+        { titulo: 'Recomendamos con independencia.', texto: 'La recomendación sale del lote, no de un producto. Si la simulación muestra que una dosis no se paga, la plataforma lo dice.' },
       ],
     },
     lugar: {
@@ -76,7 +75,6 @@ const paginas = {
       titulo: 'Alta Gracia, Córdoba',
       texto: 'En el centro del país agrícola, cerca de los lotes que seguimos. Rinde Plus® es una marca de Conextion S.A.S.',
       direccion: 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina',
-      coordenadas: '31°39′ S · 64°26′ O',
       mapa: 'Ver en el mapa',
     },
   },

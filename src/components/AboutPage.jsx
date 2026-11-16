@@ -1,6 +1,7 @@
-import { PiArrowRight, PiMapPin, PiPath, PiPlant, PiUsersThree } from 'react-icons/pi';
+import { PiArrowRight, PiPath, PiPlant, PiUsersThree } from 'react-icons/pi';
 import { conIdioma, useI18n } from '../i18n/I18nContext';
-import { CampoPagina } from './LotesMosaic';
+import { urlDe } from '../data/imagen';
+import fotoMarcos from '../assets/equipo/marcos-flesia.webp';
 import './InnerPages.css';
 
 // Página Nosotros, editorial: no repite la home (ni su hero, ni cifras,
@@ -10,6 +11,8 @@ import './InnerPages.css';
 
 const ADDRESS = 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina';
 const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
+// Mapa embebido de Google Maps (no necesita clave), con el pin en la oficina.
+const MAPS_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=15&output=embed`;
 
 // Los dos lotes del título: comparten un alambrado, pero sus ambientes son
 // otros (el 14 casi todo alto, el 15 casi todo bajo) y Rinde Plus le dice
@@ -72,7 +75,6 @@ const About = () => {
       {/* Apertura: el título y, debajo, tres textos que cuentan quiénes
           somos, qué hacemos y cómo lo hacemos. */}
       <section className="rp-ab-empresa" id="top">
-        <div className="rp-intro-bg" aria-hidden="true"><CampoPagina idBase="rpCampoIntro" /></div>
         <div className="rp-ab-empresa__texto">
           <h1 className="rp-ab-empresa__titulo rp-fade-in rp-d-1">{t.title}</h1>
           <p className="rp-ab-empresa__lead rp-fade-in rp-d-3">{t.lead}</p>
@@ -82,8 +84,7 @@ const About = () => {
             const Icono = ICONOS_SOMOS[i];
             return (
               <li key={b.titulo} className={`rp-somos__bloque rp-fade-in rp-d-${i + 3}`}>
-                <span className="rp-somos__icono" aria-hidden="true"><Icono /></span>
-                <h2 className="rp-somos__titulo">{b.titulo}</h2>
+                <h2 className="rp-somos__titulo"><Icono aria-hidden="true" />{b.titulo}</h2>
                 <p className="rp-somos__texto">{b.texto}</p>
               </li>
             );
@@ -149,7 +150,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Lo que no hacemos: una lista tipográfica, renglón por renglón. */}
+      {/* Nuestros compromisos: una tabla compacta, renglón por renglón. */}
       <section className="rp-nohacemos" id="lo-que-no-hacemos">
         <h2 className="rp-kicker rp-reveal">{t.compromisos.titulo}</h2>
         <ul>
@@ -165,50 +166,51 @@ const About = () => {
   );
 };
 
-// Las iniciales del nombre, para el círculo de cada persona (sin fotos).
-const iniciales = (nombre) => {
-  const partes = nombre.split(' ');
-  return `${partes[0][0]}${partes[partes.length - 1][0]}`;
+// Fotos del equipo (la de Marcos es la de la landing de VigIA). Quien no
+// tiene foto todavía va sin círculo: sólo el nombre y el oficio.
+const FOTOS = { 'Marcos Flesia': fotoMarcos };
+
+// Una tarjeta por persona: foto si la hay, nombre, cargo si lo tiene y
+// oficio. Verde agronomía, azul sistemas.
+const Persona = ({ m, i }) => {
+  const foto = FOTOS[m.nombre];
+  return (
+    <li className={`rp-persona rp-persona--${m.area} rp-reveal rp-reveal--delay-${Math.min(i + 1, 4)}`}>
+      {foto && (
+        <img className="rp-persona__foto" src={urlDe(foto)} alt="" width="80" height="80" loading="lazy" decoding="async" />
+      )}
+      <div className="rp-persona__texto">
+        <h3 className="rp-persona__nombre">{m.nombre}</h3>
+        {m.cargo && <p className="rp-persona__cargo">{m.cargo}</p>}
+        <p className="rp-persona__profesion">{m.profesion}</p>
+      </div>
+    </li>
+  );
 };
 
-// Nuestro equipo: el CEO destacado (ocupa dos filas) y el resto al lado.
-// El color de las iniciales dice el oficio: verde agronomía, azul sistemas.
+// Nuestro equipo: el CEO solo en la primera fila y el resto debajo, todas
+// las tarjetas del mismo tamaño.
 const Equipo = () => {
   const t = useI18n().dict.paginas.nosotros.equipo;
+  const [principal, ...resto] = t.miembros;
   return (
     <section className="rp-equipo" id="equipo">
       <header className="rp-equipo__head rp-reveal">
-        <div>
-          <p className="rp-kicker">{t.kicker}</p>
-          <h2 className="rp-ab-h2">{t.titulo}</h2>
-          <p className="rp-ab-bajada">{t.bajada}</p>
-        </div>
-        <ul className="rp-equipo__leyenda">
-          <li><span className="rp-equipo__punto rp-equipo__punto--agro" aria-hidden="true" />{t.leyenda.agro}</li>
-          <li><span className="rp-equipo__punto rp-equipo__punto--sis" aria-hidden="true" />{t.leyenda.sis}</li>
-        </ul>
+        <p className="rp-kicker">{t.kicker}</p>
+        <h2 className="rp-ab-h2">{t.titulo}</h2>
+        <p className="rp-ab-bajada">{t.bajada}</p>
       </header>
-      <ul className="rp-equipo__lista">
-        {t.miembros.map((m, i) => (
-          <li
-            key={m.nombre}
-            className={`rp-persona rp-persona--${m.area}${i === 0 ? ' rp-persona--principal' : ''} rp-reveal rp-reveal--delay-${Math.min(i + 1, 4)}`}
-          >
-            <span className="rp-persona__avatar" aria-hidden="true">{iniciales(m.nombre)}</span>
-            <div className="rp-persona__texto">
-              <h3 className="rp-persona__nombre">{m.nombre}</h3>
-              {m.cargo && <p className="rp-persona__cargo">{m.cargo}</p>}
-              <p className="rp-persona__profesion">{m.profesion}</p>
-            </div>
-          </li>
-        ))}
+      <ul className="rp-equipo__grupo rp-equipo__grupo--principal">
+        <Persona m={principal} i={0} />
+      </ul>
+      <ul className="rp-equipo__grupo">
+        {resto.map((m, i) => <Persona key={m.nombre} m={m} i={i + 1} />)}
       </ul>
     </section>
   );
 };
 
-// Dónde estamos: una ficha con la empresa y un recorte de campo con el
-// punto y las coordenadas de Alta Gracia.
+// Dónde estamos: una ficha con la empresa y el mapa de la oficina.
 const Lugar = () => {
   const t = useI18n().dict.paginas.nosotros.lugar;
   return (
@@ -224,10 +226,13 @@ const Lugar = () => {
             <PiArrowRight aria-hidden="true" />
           </a>
         </div>
-        <div className="rp-lugar__mapa" aria-hidden="true">
-          <CampoPagina idBase="rpCampoLugar" />
-          <span className="rp-lugar__pin"><PiMapPin /></span>
-          <span className="rp-lugar__coordenadas">{t.coordenadas}</span>
+        <div className="rp-lugar__mapa">
+          <iframe
+            src={MAPS_EMBED}
+            title={t.direccion}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </div>
     </section>

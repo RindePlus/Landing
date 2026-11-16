@@ -10,9 +10,9 @@ const paginas = {
     },
     title: 'Somos a Rinde Plus',
     lead:
-      'Fazemos tecnologia para o campo: pensada por agrônomos, construída por engenheiros de sistemas e testada talhão por talhão.',
+      'Unimos conhecimento agronômico e tecnologia para que cada talhão seja decidido com dados e com critério.',
     bloques: [
-      { titulo: 'Quem somos', texto: 'Uma equipe de engenheiros agrônomos e engenheiros de Sistemas de Informação de Alta Gracia, Córdoba, Argentina. Uns conhecem o talhão; os outros constroem o software. Trabalhamos na mesma mesa, e isso aparece em cada número da plataforma.' },
+      { titulo: 'Quem somos', texto: 'Uma equipe de Alta Gracia, Córdoba, Argentina, que junta dois mundos: o saber agronômico de quem percorre o talhão e a tecnologia que o leva a cada decisão. Trabalhamos na mesma mesa, e isso aparece em cada número da plataforma.' },
       { titulo: 'O que fazemos', texto: 'A Rinde Plus acompanha cada talhão durante toda a safra: quanto pode produzir, quanta água o solo tem, que dose se paga, que riscos vêm e, no fechamento, onde se perdeu produtividade. Para produtores, consultores e empresas do setor.' },
       { titulo: 'Como fazemos', texto: 'Juntamos o solo, o clima, as imagens de satélite e o histórico de cada talhão, e os lemos com critério agronômico. O resultado chega claro: na plataforma, em relatórios e num aviso pelo WhatsApp que pode ser respondido.' },
     ],
@@ -25,13 +25,12 @@ const paginas = {
       kicker: 'Nossa equipe',
       titulo: 'Agronomia e software, na mesma mesa',
       bajada: 'Cada número da plataforma é pensado em conjunto por quem conhece o campo e por quem constrói o software.',
-      leyenda: { agro: 'Agronomia', sis: 'Sistemas de informação' },
       miembros: [
         { nombre: 'Marcos Flesia', cargo: 'CEO', profesion: 'Engenheiro agrônomo', area: 'agro' },
-        { nombre: 'Santiago Quesada', cargo: 'CTO', profesion: 'Engenheiro de Sistemas de Informação', area: 'sis' },
-        { nombre: 'Manuel Frias', profesion: 'Engenheiro de Sistemas de Informação', area: 'sis' },
-        { nombre: 'Angeles Sanz', profesion: 'Engenheira agrônoma', area: 'agro' },
-        { nombre: 'Tomás Abrate', profesion: 'Engenheiro de Sistemas de Informação', area: 'sis' },
+        { nombre: 'Santiago Quesada', cargo: 'CTO', profesion: 'Engenheiro de sistemas de informação', area: 'sis' },
+        { nombre: 'Manuel Frías', profesion: 'Engenheiro de sistemas de informação', area: 'sis' },
+        { nombre: 'Ángeles Sanz', profesion: 'Engenheira agrônoma', area: 'agro' },
+        { nombre: 'Tomás Abrate', profesion: 'Engenheiro de sistemas de informação', area: 'sis' },
       ],
     },
     dosLotes: {
@@ -59,12 +58,12 @@ const paginas = {
       ],
     },
     compromisos: {
-      titulo: 'O que não fazemos',
+      titulo: 'Nossos compromissos',
       items: [
-        { titulo: 'Não vendemos insumos.', texto: 'Nem cobramos para recomendar produtos. Se a simulação mostra que uma dose não se paga, a plataforma diz.' },
         { titulo: 'Não inventamos dados.', texto: 'Um dia sem clima fica como lacuna e uma análise que falta é avisada. Melhor um número a menos que um falso.' },
         { titulo: 'Não usamos caixas-pretas.', texto: 'Cada cálculo segue uma regra que pode ser lida e discutida com o consultor.' },
         { titulo: 'Não substituímos o agrônomo.', texto: 'Tiramos dele o trabalho de juntar dados para que tenha mais tempo no campo.' },
+        { titulo: 'Recomendamos com independência.', texto: 'A recomendação sai do talhão, não de um produto. Se a simulação mostra que uma dose não se paga, a plataforma diz.' },
       ],
     },
     lugar: {
@@ -72,7 +71,6 @@ const paginas = {
       titulo: 'Alta Gracia, Córdoba',
       texto: 'No centro da região agrícola argentina, perto dos talhões que acompanhamos. Rinde Plus® é uma marca da Conextion S.A.S.',
       direccion: 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina',
-      coordenadas: '31°39′ S · 64°26′ O',
       mapa: 'Ver no mapa',
     },
   },

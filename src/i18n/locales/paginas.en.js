@@ -9,9 +9,9 @@ const paginas = {
     },
     title: 'We are Rinde Plus',
     lead:
-      'We build technology for the field: designed by agronomists, built by systems engineers and tested field by field.',
+      'We combine agronomic knowledge and technology so every field is decided with data and with judgment.',
     bloques: [
-      { titulo: 'Who we are', texto: 'A team of agronomists and Information Systems engineers from Alta Gracia, Córdoba, Argentina. Some know the field; the others build the software. We work at the same table, and it shows in every number in the platform.' },
+      { titulo: 'Who we are', texto: 'A team from Alta Gracia, Córdoba, Argentina, that brings two worlds together: the agronomic knowledge of people who walk the field and the technology that carries it into every decision. We work at the same table, and it shows in every number in the platform.' },
       { titulo: 'What we do', texto: 'Rinde Plus follows every field through the whole season: how much it can yield, how much water the soil holds, which rate pays off, what risks are coming and, at the close, where yield was lost. For growers, advisors and farm businesses.' },
       { titulo: 'How we do it', texto: 'We bring together the soil, the weather, satellite imagery and the history of every field, and read them with agronomic judgment. The result arrives clearly: in the platform, in reports and in a WhatsApp alert you can reply to.' },
     ],
@@ -24,13 +24,12 @@ const paginas = {
       kicker: 'Our team',
       titulo: 'Agronomy and software, at the same table',
       bajada: 'Every number in the platform is worked out together by people who know the field and people who build the software.',
-      leyenda: { agro: 'Agronomy', sis: 'Information systems' },
       miembros: [
         { nombre: 'Marcos Flesia', cargo: 'CEO', profesion: 'Agronomist', area: 'agro' },
-        { nombre: 'Santiago Quesada', cargo: 'CTO', profesion: 'Information Systems Engineer', area: 'sis' },
-        { nombre: 'Manuel Frias', profesion: 'Information Systems Engineer', area: 'sis' },
-        { nombre: 'Angeles Sanz', profesion: 'Agronomist', area: 'agro' },
-        { nombre: 'Tomás Abrate', profesion: 'Information Systems Engineer', area: 'sis' },
+        { nombre: 'Santiago Quesada', cargo: 'CTO', profesion: 'Information systems engineer', area: 'sis' },
+        { nombre: 'Manuel Frías', profesion: 'Information systems engineer', area: 'sis' },
+        { nombre: 'Ángeles Sanz', profesion: 'Agronomist', area: 'agro' },
+        { nombre: 'Tomás Abrate', profesion: 'Information systems engineer', area: 'sis' },
       ],
     },
     dosLotes: {
@@ -58,12 +57,12 @@ const paginas = {
       ],
     },
     compromisos: {
-      titulo: 'What we don’t do',
+      titulo: 'Our commitments',
       items: [
-        { titulo: 'We don’t sell inputs.', texto: 'Nor do we get paid to recommend products. If the simulation shows a rate doesn’t pay, the platform says so.' },
         { titulo: 'We don’t make up data.', texto: 'A day without weather stays a gap, and a missing soil test is flagged. Better one number less than a false one.' },
         { titulo: 'We don’t use black boxes.', texto: 'Every calculation follows a rule you can read and discuss with your advisor.' },
         { titulo: 'We don’t replace the agronomist.', texto: 'We take the data gathering off their plate so they have more time in the field.' },
+        { titulo: 'We recommend independently.', texto: 'The recommendation comes from the field, not from a product. If the simulation shows a rate doesn’t pay, the platform says so.' },
       ],
     },
     lugar: {
@@ -71,7 +70,6 @@ const paginas = {
       titulo: 'Alta Gracia, Córdoba',
       texto: 'In the heart of Argentina’s farm country, close to the fields we follow. Rinde Plus® is a brand of Conextion S.A.S.',
       direccion: 'Concejal Lorusso 762, Alta Gracia, Córdoba, Argentina',
-      coordenadas: '31°39′ S · 64°26′ W',
       mapa: 'View on map',
     },
   },
