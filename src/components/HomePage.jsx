@@ -38,7 +38,7 @@ const HeroSection = () => {
     <div className="rp-home__hero-inner">
       <div className="rp-home__hero-text">
         <h1 className="rp-home__hero-title rp-rise rp-d-1">
-          {t.titleA}
+          <span className="rp-home__hero-title-a">{t.titleA}</span>
           <span className="rp-home__hero-title-accent">{t.titleB}</span>
         </h1>
 

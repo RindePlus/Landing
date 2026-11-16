@@ -313,6 +313,7 @@
 
 .rp-home__cta-title {
   font-family: var(--font-heading);
+  font-style: italic; /* la itálica de la marca */
   font-size: clamp(2rem, 4.4vw, 3.25rem);
   font-weight: 600;
   line-height: 1.08;
@@ -448,7 +449,10 @@
      agronómica» entra justo en una línea y no deja hueco a la derecha.
      9cqi ≈ ancho de columna / 11, lo que mide esa línea en Inter. */
   .rp-home__hero-text { container-type: inline-size; }
+  /* Dos renglones: «Inteligencia agronómica» entero y «para cada lote»
+     debajo. El tamaño se ajusta al ancho de la columna para que entre. */
   .rp-home__hero-title { font-size: clamp(2.4rem, 9cqi, 3.6rem); }
+  .rp-home__hero-title-a { white-space: nowrap; }
   /* En pantallas bajas el lote se achica con el alto de la ventana, para
      que el hero entero (con el carrusel) entre sin apretarse. */
   .rp-home__hero-inner .rp-home__hero-visual {

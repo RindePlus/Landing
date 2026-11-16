@@ -116,6 +116,9 @@
 
 .rp-ab-empresa__titulo {
   margin: 0 0 var(--space-200);
+  color: var(--rp-azul);
+  /* La itálica de la marca, como el «Rinde Plus» del logo. */
+  font-style: italic;
   font-size: var(--text-5xl);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -588,6 +591,7 @@
 
 .rp-ed-intro__titulo {
   margin: 0 0 var(--space-300);
+  font-style: italic; /* la itálica de la marca */
   font-size: var(--text-4xl);
   line-height: 1.08;
   letter-spacing: -0.035em;

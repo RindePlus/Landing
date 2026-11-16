@@ -409,6 +409,9 @@ img.logo-image:hover {
     padding-right: var(--space-100);
     border-right: 1px solid var(--gh-border-muted);
   }
+
+  /* «Sobre nós» no se parte en dos renglones. */
+  .header-paginas a { white-space: nowrap; }
 }
 
 /* En el drawer las páginas van con el resto del menú. */
